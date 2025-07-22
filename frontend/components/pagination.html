@@ -1,0 +1,956 @@
+<!-- ============================================ -->
+<!-- PAGINATION COMPONENT - TecnoTaller -->
+<!-- ============================================ -->
+
+<!-- Paginación básica -->
+<div class="pagination-container flex items-center justify-between bg-white p-4 border-t border-gray-200">
+    <!-- Información de registros -->
+    <div class="pagination-info text-sm text-gray-700">
+        Mostrando <span class="font-medium">1</span> a <span class="font-medium">10</span> de <span
+            class="font-medium">245</span> resultados
+    </div>
+
+    <!-- Controles de paginación -->
+    <div class="pagination-controls flex items-center space-x-1">
+        <!-- Botón anterior -->
+        <button
+            class="pagination-btn prev-btn px-3 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-l-lg hover:bg-gray-50 hover:text-gray-700 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+            title="Página anterior">
+            <i class="fas fa-chevron-left"></i>
+        </button>
+
+        <!-- Números de página -->
+        <div class="pagination-numbers flex items-center">
+            <button
+                class="pagination-btn page-number active px-3 py-2 text-sm font-medium text-white bg-amber-600 border border-amber-600 hover:bg-amber-700 transition-all">1</button>
+            <button
+                class="pagination-btn page-number px-3 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 hover:bg-gray-50 hover:text-gray-700 transition-all">2</button>
+            <button
+                class="pagination-btn page-number px-3 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 hover:bg-gray-50 hover:text-gray-700 transition-all">3</button>
+            <span class="pagination-ellipsis px-2 text-gray-500">...</span>
+            <button
+                class="pagination-btn page-number px-3 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 hover:bg-gray-50 hover:text-gray-700 transition-all">25</button>
+        </div>
+
+        <!-- Botón siguiente -->
+        <button
+            class="pagination-btn next-btn px-3 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-r-lg hover:bg-gray-50 hover:text-gray-700 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+            title="Página siguiente">
+            <i class="fas fa-chevron-right"></i>
+        </button>
+    </div>
+</div>
+
+<!-- Paginación compacta (para móviles) -->
+<div class="pagination-compact md:hidden flex items-center justify-between bg-white p-4 border-t border-gray-200">
+    <button
+        class="pagination-btn-compact flex items-center space-x-2 px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition-all disabled:opacity-50 disabled:cursor-not-allowed">
+        <i class="fas fa-chevron-left"></i>
+        <span>Anterior</span>
+    </button>
+
+    <div class="pagination-compact-info text-sm text-gray-700">
+        Página <span class="font-medium">1</span> de <span class="font-medium">25</span>
+    </div>
+
+    <button
+        class="pagination-btn-compact flex items-center space-x-2 px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition-all disabled:opacity-50 disabled:cursor-not-allowed">
+        <span>Siguiente</span>
+        <i class="fas fa-chevron-right"></i>
+    </button>
+</div>
+
+<!-- Paginación con selector de tamaño de página -->
+<div class="pagination-with-size bg-white border-t border-gray-200 p-4">
+    <div class="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0">
+        <!-- Información y tamaño de página -->
+        <div class="flex items-center space-x-4">
+            <div class="pagination-info text-sm text-gray-700">
+                Mostrando <span class="font-medium">1-10</span> de <span class="font-medium">245</span> registros
+            </div>
+            <div class="flex items-center space-x-2">
+                <label for="pageSize" class="text-sm text-gray-700">Mostrar:</label>
+                <select id="pageSize"
+                    class="page-size-select text-sm border border-gray-300 rounded px-3 py-1 focus:ring-2 focus:ring-amber-500 focus:border-transparent">
+                    <option value="10">10</option>
+                    <option value="25">25</option>
+                    <option value="50">50</option>
+                    <option value="100">100</option>
+                </select>
+                <span class="text-sm text-gray-700">por página</span>
+            </div>
+        </div>
+
+        <!-- Controles de paginación -->
+        <div class="pagination-controls flex items-center space-x-1">
+            <button
+                class="pagination-btn first-btn px-3 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-l-lg hover:bg-gray-50 hover:text-gray-700 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                title="Primera página">
+                <i class="fas fa-angle-double-left"></i>
+            </button>
+            <button
+                class="pagination-btn prev-btn px-3 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 hover:bg-gray-50 hover:text-gray-700 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                title="Página anterior">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+
+            <div class="pagination-numbers flex items-center">
+                <!-- Los números se generan dinámicamente -->
+            </div>
+
+            <button
+                class="pagination-btn next-btn px-3 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 hover:bg-gray-50 hover:text-gray-700 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                title="Página siguiente">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+            <button
+                class="pagination-btn last-btn px-3 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-r-lg hover:bg-gray-50 hover:text-gray-700 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                title="Última página">
+                <i class="fas fa-angle-double-right"></i>
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Paginación simple (solo anterior/siguiente) -->
+<div class="pagination-simple flex items-center justify-between bg-white p-4 border-t border-gray-200">
+    <button
+        class="pagination-btn-simple flex items-center space-x-2 px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition-all disabled:opacity-50 disabled:cursor-not-allowed">
+        <i class="fas fa-arrow-left"></i>
+        <span>Anterior</span>
+    </button>
+
+    <div class="pagination-simple-info text-sm font-medium text-gray-700">
+        Página 1 de 25
+    </div>
+
+    <button
+        class="pagination-btn-simple flex items-center space-x-2 px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition-all disabled:opacity-50 disabled:cursor-not-allowed">
+        <span>Siguiente</span>
+        <i class="fas fa-arrow-right"></i>
+    </button>
+</div>
+
+<!-- Paginación con input directo -->
+<div class="pagination-with-input bg-white border-t border-gray-200 p-4">
+    <div class="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0">
+        <div class="pagination-info text-sm text-gray-700">
+            <span class="font-medium">245</span> resultados encontrados
+        </div>
+
+        <div class="flex items-center space-x-4">
+            <!-- Ir a página específica -->
+            <div class="flex items-center space-x-2">
+                <span class="text-sm text-gray-700">Ir a página:</span>
+                <input type="number" id="gotoPage" min="1" max="25"
+                    class="goto-page-input w-16 px-2 py-1 text-sm border border-gray-300 rounded focus:ring-2 focus:ring-amber-500 focus:border-transparent"
+                    placeholder="1">
+                <button
+                    class="goto-btn px-3 py-1 text-sm font-medium text-white bg-amber-600 rounded hover:bg-amber-700 transition-all">
+                    Ir
+                </button>
+            </div>
+
+            <!-- Controles normales -->
+            <div class="pagination-controls flex items-center space-x-1">
+                <button
+                    class="pagination-btn prev-btn px-3 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-l-lg hover:bg-gray-50 hover:text-gray-700 transition-all disabled:opacity-50 disabled:cursor-not-allowed">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+
+                <div
+                    class="pagination-current px-3 py-2 text-sm font-medium text-white bg-amber-600 border border-amber-600">
+                    1
+                </div>
+
+                <button
+                    class="pagination-btn next-btn px-3 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-r-lg hover:bg-gray-50 hover:text-gray-700 transition-all disabled:opacity-50 disabled:cursor-not-allowed">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Paginación tipo "Load More" -->
+<div class="pagination-load-more text-center bg-white p-6 border-t border-gray-200">
+    <div class="space-y-4">
+        <div class="text-sm text-gray-600">
+            Mostrando <span class="font-medium">10</span> de <span class="font-medium">245</span> resultados
+        </div>
+
+        <button
+            class="load-more-btn inline-flex items-center space-x-2 px-6 py-3 text-sm font-medium text-white bg-amber-600 rounded-lg hover:bg-amber-700 transition-all disabled:opacity-50 disabled:cursor-not-allowed">
+            <span>Cargar más resultados</span>
+            <i class="fas fa-chevron-down"></i>
+        </button>
+
+        <!-- Loading state -->
+        <div class="load-more-loading hidden flex items-center justify-center space-x-2 text-amber-600">
+            <div class="w-4 h-4 border-2 border-amber-600 border-t-transparent rounded-full animate-spin"></div>
+            <span class="text-sm">Cargando más resultados...</span>
+        </div>
+    </div>
+</div>
+
+<!-- Paginación con scroll infinito -->
+<div class="pagination-infinite">
+    <div class="infinite-loading hidden flex items-center justify-center p-6 text-amber-600">
+        <div class="flex items-center space-x-3">
+            <div class="w-6 h-6 border-2 border-amber-600 border-t-transparent rounded-full animate-spin"></div>
+            <span class="text-sm font-medium">Cargando más contenido...</span>
+        </div>
+    </div>
+
+    <div class="infinite-end hidden text-center p-6 text-gray-500">
+        <i class="fas fa-check-circle text-2xl mb-2"></i>
+        <div class="text-sm">Has visto todos los resultados</div>
+    </div>
+</div>
+
+<style>
+    /* Pagination Container */
+    .pagination-container {
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+    }
+
+    /* Pagination Buttons */
+    .pagination-btn {
+        border-color: rgb(209, 213, 219);
+        transition: all 0.2s ease;
+    }
+
+    .pagination-btn:hover:not(:disabled) {
+        background-color: rgb(249, 250, 251);
+        border-color: rgb(156, 163, 175);
+        transform: translateY(-1px);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .pagination-btn:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+        transform: none;
+    }
+
+    .pagination-btn.active {
+        background-color: rgb(245, 158, 11);
+        border-color: rgb(245, 158, 11);
+        color: white;
+        box-shadow: 0 4px 12px rgba(245, 158, 11, 0.4);
+    }
+
+    .pagination-btn.active:hover {
+        background-color: rgb(217, 119, 6);
+        border-color: rgb(217, 119, 6);
+        box-shadow: 0 6px 16px rgba(245, 158, 11, 0.5);
+    }
+
+    /* Page Numbers */
+    .pagination-numbers {
+        gap: 0;
+    }
+
+    .pagination-numbers .pagination-btn {
+        border-left: 0;
+        border-radius: 0;
+    }
+
+    .pagination-numbers .pagination-btn:first-child {
+        border-left: 1px solid rgb(209, 213, 219);
+    }
+
+    /* Ellipsis */
+    .pagination-ellipsis {
+        display: flex;
+        align-items: center;
+        padding: 0.5rem 0.75rem;
+        font-size: 0.875rem;
+        color: rgb(107, 114, 128);
+        user-select: none;
+        -webkit-user-select: none;
+    }
+
+    /* Compact Pagination */
+    .pagination-btn-compact {
+        min-width: 100px;
+    }
+
+    /* Page Size Select */
+    .page-size-select {
+        min-width: 80px;
+    }
+
+    .page-size-select:focus {
+        outline: 2px solid rgb(245, 158, 11);
+        outline-offset: 2px;
+        border-color: transparent;
+    }
+
+    /* Goto Page Input */
+    .goto-page-input {
+        text-align: center;
+    }
+
+    .goto-page-input:focus {
+        outline: 2px solid rgb(245, 158, 11);
+        outline-offset: 2px;
+        border-color: transparent;
+    }
+
+    .goto-btn {
+        background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+        box-shadow: 0 2px 8px rgba(245, 158, 11, 0.3);
+    }
+
+    .goto-btn:hover {
+        background: linear-gradient(135deg, #d97706 0%, #b45309 100%);
+        box-shadow: 0 4px 12px rgba(245, 158, 11, 0.4);
+        transform: translateY(-1px);
+    }
+
+    /* Load More Button */
+    .load-more-btn {
+        background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+        box-shadow: 0 4px 15px rgba(245, 158, 11, 0.4);
+    }
+
+    .load-more-btn:hover:not(:disabled) {
+        background: linear-gradient(135deg, #d97706 0%, #b45309 100%);
+        box-shadow: 0 6px 20px rgba(245, 158, 11, 0.5);
+        transform: translateY(-2px);
+    }
+
+    .load-more-btn:disabled {
+        background: linear-gradient(135deg, #9ca3af 0%, #6b7280 100%);
+        box-shadow: none;
+        transform: none;
+    }
+
+    /* Infinite Loading */
+    @keyframes spin {
+        from {
+            transform: rotate(0deg);
+        }
+
+        to {
+            transform: rotate(360deg);
+        }
+    }
+
+    .animate-spin {
+        animation: spin 1s linear infinite;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+        .pagination-numbers {
+            display: none;
+        }
+
+        .pagination-container {
+            flex-direction: column;
+            space-y: 3;
+        }
+
+        .pagination-info {
+            order: 2;
+            margin-top: 0.75rem;
+        }
+
+        .pagination-controls {
+            order: 1;
+        }
+    }
+
+    /* Focus States */
+    .pagination-btn:focus {
+        outline: 2px solid rgb(245, 158, 11);
+        outline-offset: 2px;
+    }
+
+    /* Animation for Page Changes */
+    .pagination-fade-in {
+        animation: fadeIn 0.3s ease-out;
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+
+        to {
+            opacity: 1;
+        }
+    }
+
+    /* Loading State */
+    .pagination-loading {
+        opacity: 0.6;
+        pointer-events: none;
+    }
+
+    .pagination-loading .pagination-btn {
+        cursor: wait;
+    }
+
+    /* Dark Mode Support */
+    @media (prefers-color-scheme: dark) {
+        .pagination-container {
+            background-color: rgb(31, 41, 55);
+            border-color: rgb(75, 85, 99);
+            color: rgb(243, 244, 246);
+        }
+
+        .pagination-btn {
+            background-color: rgb(31, 41, 55);
+            border-color: rgb(75, 85, 99);
+            color: rgb(156, 163, 175);
+        }
+
+        .pagination-btn:hover:not(:disabled) {
+            background-color: rgb(55, 65, 81);
+            color: rgb(243, 244, 246);
+        }
+    }
+
+    /* Custom Scrollbar for Infinite Scroll */
+    .pagination-infinite {
+        scrollbar-width: thin;
+        scrollbar-color: rgb(209, 213, 219) rgb(243, 244, 246);
+    }
+
+    .pagination-infinite::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    .pagination-infinite::-webkit-scrollbar-track {
+        background: rgb(243, 244, 246);
+    }
+
+    .pagination-infinite::-webkit-scrollbar-thumb {
+        background: rgb(209, 213, 219);
+        border-radius: 3px;
+    }
+
+    .pagination-infinite::-webkit-scrollbar-thumb:hover {
+        background: rgb(156, 163, 175);
+    }
+</style>
+
+<script>
+    // ============================================
+    // PAGINATION API
+    // ============================================
+    class PaginationAPI {
+        constructor(container, config = {}) {
+            this.container = typeof container === 'string' ? document.querySelector(container) : container;
+            this.config = {
+                currentPage: 1,
+                totalPages: 1,
+                totalItems: 0,
+                itemsPerPage: 10,
+                maxVisiblePages: 5,
+                showFirstLast: true,
+                showPrevNext: true,
+                showPageSize: true,
+                showInfo: true,
+                pageSizeOptions: [10, 25, 50, 100],
+                type: 'full', // 'full', 'simple', 'compact', 'loadmore', 'infinite'
+                ...config
+            };
+
+            this.callbacks = {
+                onPageChange: null,
+                onPageSizeChange: null,
+                onLoadMore: null
+            };
+
+            this.isLoading = false;
+            this.infiniteScrollEnabled = false;
+
+            this.init();
+        }
+
+        // Inicializar paginación
+        init() {
+            if (!this.container) {
+                console.error('PaginationAPI: Container not found');
+                return;
+            }
+
+            this.render();
+            this.bindEvents();
+
+            if (this.config.type === 'infinite') {
+                this.setupInfiniteScroll();
+            }
+        }
+
+        // Renderizar paginación
+        render() {
+            switch (this.config.type) {
+                case 'simple':
+                    this.renderSimple();
+                    break;
+                case 'compact':
+                    this.renderCompact();
+                    break;
+                case 'loadmore':
+                    this.renderLoadMore();
+                    break;
+                case 'infinite':
+                    this.renderInfinite();
+                    break;
+                default:
+                    this.renderFull();
+            }
+        }
+
+        // Renderizar paginación completa
+        renderFull() {
+            const html = `
+            <div class="pagination-container flex items-center justify-between bg-white p-4 border-t border-gray-200">
+                ${this.config.showInfo ? this.renderInfo() : ''}
+                
+                <div class="pagination-controls flex items-center space-x-1">
+                    ${this.config.showFirstLast ? `
+                        <button class="pagination-btn first-btn px-3 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-l-lg hover:bg-gray-50 hover:text-gray-700 transition-all" title="Primera página" ${this.config.currentPage === 1 ? 'disabled' : ''}>
+                            <i class="fas fa-angle-double-left"></i>
+                        </button>
+                    ` : ''}
+                    
+                    ${this.config.showPrevNext ? `
+                        <button class="pagination-btn prev-btn px-3 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 hover:bg-gray-50 hover:text-gray-700 transition-all" title="Página anterior" ${this.config.currentPage === 1 ? 'disabled' : ''}>
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                    ` : ''}
+                    
+                    <div class="pagination-numbers flex items-center">
+                        ${this.renderPageNumbers()}
+                    </div>
+                    
+                    ${this.config.showPrevNext ? `
+                        <button class="pagination-btn next-btn px-3 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 hover:bg-gray-50 hover:text-gray-700 transition-all" title="Página siguiente" ${this.config.currentPage === this.config.totalPages ? 'disabled' : ''}>
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    ` : ''}
+                    
+                    ${this.config.showFirstLast ? `
+                        <button class="pagination-btn last-btn px-3 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-r-lg hover:bg-gray-50 hover:text-gray-700 transition-all" title="Última página" ${this.config.currentPage === this.config.totalPages ? 'disabled' : ''}>
+                            <i class="fas fa-angle-double-right"></i>
+                        </button>
+                    ` : ''}
+                </div>
+            </div>
+            
+            ${this.config.showPageSize ? this.renderPageSizeSelector() : ''}
+        `;
+
+            this.container.innerHTML = html;
+        }
+
+        // Renderizar información
+        renderInfo() {
+            const start = (this.config.currentPage - 1) * this.config.itemsPerPage + 1;
+            const end = Math.min(this.config.currentPage * this.config.itemsPerPage, this.config.totalItems);
+
+            return `
+            <div class="pagination-info text-sm text-gray-700">
+                Mostrando <span class="font-medium">${start}</span> a <span class="font-medium">${end}</span> de <span class="font-medium">${this.config.totalItems}</span> resultados
+            </div>
+        `;
+        }
+
+        // Renderizar números de página
+        renderPageNumbers() {
+            const pages = this.generatePageRange();
+            let html = '';
+
+            pages.forEach(page => {
+                if (page === '...') {
+                    html += '<span class="pagination-ellipsis px-2 text-gray-500">...</span>';
+                } else {
+                    const isActive = page === this.config.currentPage;
+                    html += `
+                    <button class="pagination-btn page-number ${isActive ? 'active' : ''} px-3 py-2 text-sm font-medium ${isActive ? 'text-white bg-amber-600 border-amber-600' : 'text-gray-500 bg-white border-gray-300'} hover:bg-gray-50 hover:text-gray-700 transition-all" data-page="${page}">
+                        ${page}
+                    </button>
+                `;
+                }
+            });
+
+            return html;
+        }
+
+        // Generar rango de páginas
+        generatePageRange() {
+            const delta = Math.floor(this.config.maxVisiblePages / 2);
+            const range = [];
+            const rangeWithDots = [];
+
+            for (let i = Math.max(2, this.config.currentPage - delta);
+                i <= Math.min(this.config.totalPages - 1, this.config.currentPage + delta);
+                i++) {
+                range.push(i);
+            }
+
+            if (this.config.currentPage - delta > 2) {
+                rangeWithDots.push(1, '...');
+            } else {
+                rangeWithDots.push(1);
+            }
+
+            rangeWithDots.push(...range);
+
+            if (this.config.currentPage + delta < this.config.totalPages - 1) {
+                rangeWithDots.push('...', this.config.totalPages);
+            } else {
+                rangeWithDots.push(this.config.totalPages);
+            }
+
+            return this.config.totalPages > 1 ? rangeWithDots : [1];
+        }
+
+        // Renderizar selector de tamaño de página
+        renderPageSizeSelector() {
+            return `
+            <div class="page-size-container flex items-center justify-between bg-gray-50 p-3 border-t border-gray-200">
+                <div class="flex items-center space-x-2">
+                    <label class="text-sm text-gray-700">Mostrar:</label>
+                    <select class="page-size-select text-sm border border-gray-300 rounded px-3 py-1 focus:ring-2 focus:ring-amber-500">
+                        ${this.config.pageSizeOptions.map(size =>
+                `<option value="${size}" ${size === this.config.itemsPerPage ? 'selected' : ''}>${size}</option>`
+            ).join('')}
+                    </select>
+                    <span class="text-sm text-gray-700">por página</span>
+                </div>
+            </div>
+        `;
+        }
+
+        // Renderizar paginación simple
+        renderSimple() {
+            const html = `
+            <div class="pagination-simple flex items-center justify-between bg-white p-4 border-t border-gray-200">
+                <button class="pagination-btn prev-btn flex items-center space-x-2 px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition-all" ${this.config.currentPage === 1 ? 'disabled' : ''}>
+                    <i class="fas fa-arrow-left"></i>
+                    <span>Anterior</span>
+                </button>
+
+                <div class="text-sm font-medium text-gray-700">
+                    Página ${this.config.currentPage} de ${this.config.totalPages}
+                </div>
+
+                <button class="pagination-btn next-btn flex items-center space-x-2 px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition-all" ${this.config.currentPage === this.config.totalPages ? 'disabled' : ''}>
+                    <span>Siguiente</span>
+                    <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+        `;
+
+            this.container.innerHTML = html;
+        }
+
+        // Renderizar paginación compacta
+        renderCompact() {
+            const html = `
+            <div class="pagination-compact flex items-center justify-between bg-white p-4 border-t border-gray-200">
+                <button class="prev-btn flex items-center space-x-2 px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition-all" ${this.config.currentPage === 1 ? 'disabled' : ''}>
+                    <i class="fas fa-chevron-left"></i>
+                    <span>Anterior</span>
+                </button>
+
+                <div class="text-sm text-gray-700">
+                    Página <span class="font-medium">${this.config.currentPage}</span> de <span class="font-medium">${this.config.totalPages}</span>
+                </div>
+
+                <button class="next-btn flex items-center space-x-2 px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition-all" ${this.config.currentPage === this.config.totalPages ? 'disabled' : ''}>
+                    <span>Siguiente</span>
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+        `;
+
+            this.container.innerHTML = html;
+        }
+
+        // Renderizar "Load More"
+        renderLoadMore() {
+            const hasMore = this.config.currentPage < this.config.totalPages;
+            const shown = this.config.currentPage * this.config.itemsPerPage;
+
+            const html = `
+            <div class="pagination-load-more text-center bg-white p-6 border-t border-gray-200">
+                <div class="space-y-4">
+                    <div class="text-sm text-gray-600">
+                        Mostrando <span class="font-medium">${shown}</span> de <span class="font-medium">${this.config.totalItems}</span> resultados
+                    </div>
+                    
+                    ${hasMore ? `
+                        <button class="load-more-btn inline-flex items-center space-x-2 px-6 py-3 text-sm font-medium text-white bg-amber-600 rounded-lg hover:bg-amber-700 transition-all">
+                            <span>Cargar más resultados</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                    ` : `
+                        <div class="text-sm text-gray-500">
+                            <i class="fas fa-check-circle mr-2"></i>
+                            Has visto todos los resultados
+                        </div>
+                    `}
+
+                    <div class="load-more-loading hidden flex items-center justify-center space-x-2 text-amber-600">
+                        <div class="w-4 h-4 border-2 border-amber-600 border-t-transparent rounded-full animate-spin"></div>
+                        <span class="text-sm">Cargando más resultados...</span>
+                    </div>
+                </div>
+            </div>
+        `;
+
+            this.container.innerHTML = html;
+        }
+
+        // Renderizar scroll infinito
+        renderInfinite() {
+            const html = `
+            <div class="pagination-infinite">
+                <div class="infinite-loading hidden flex items-center justify-center p-6 text-amber-600">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-6 h-6 border-2 border-amber-600 border-t-transparent rounded-full animate-spin"></div>
+                        <span class="text-sm font-medium">Cargando más contenido...</span>
+                    </div>
+                </div>
+                
+                <div class="infinite-end hidden text-center p-6 text-gray-500">
+                    <i class="fas fa-check-circle text-2xl mb-2"></i>
+                    <div class="text-sm">Has visto todos los resultados</div>
+                </div>
+            </div>
+        `;
+
+            this.container.innerHTML = html;
+        }
+
+        // Bindear eventos
+        bindEvents() {
+            // Eventos de botones de navegación
+            this.container.addEventListener('click', (e) => {
+                const target = e.target.closest('button');
+                if (!target || target.disabled) return;
+
+                if (target.classList.contains('first-btn')) {
+                    this.goToPage(1);
+                } else if (target.classList.contains('prev-btn')) {
+                    this.goToPage(this.config.currentPage - 1);
+                } else if (target.classList.contains('next-btn')) {
+                    this.goToPage(this.config.currentPage + 1);
+                } else if (target.classList.contains('last-btn')) {
+                    this.goToPage(this.config.totalPages);
+                } else if (target.classList.contains('page-number')) {
+                    const page = parseInt(target.dataset.page);
+                    this.goToPage(page);
+                } else if (target.classList.contains('load-more-btn')) {
+                    this.loadMore();
+                }
+            });
+
+            // Evento de cambio de tamaño de página
+            const pageSizeSelect = this.container.querySelector('.page-size-select');
+            if (pageSizeSelect) {
+                pageSizeSelect.addEventListener('change', (e) => {
+                    this.changePageSize(parseInt(e.target.value));
+                });
+            }
+        }
+
+        // Configurar scroll infinito
+        setupInfiniteScroll() {
+            this.infiniteScrollEnabled = true;
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting && !this.isLoading && this.config.currentPage < this.config.totalPages) {
+                        this.loadMore();
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            const loadingElement = this.container.querySelector('.infinite-loading');
+            if (loadingElement) {
+                observer.observe(loadingElement);
+            }
+        }
+
+        // Ir a página específica
+        goToPage(page) {
+            if (page < 1 || page > this.config.totalPages || page === this.config.currentPage) {
+                return;
+            }
+
+            this.config.currentPage = page;
+            this.render();
+
+            if (this.callbacks.onPageChange) {
+                this.callbacks.onPageChange(page);
+            }
+        }
+
+        // Cambiar tamaño de página
+        changePageSize(newSize) {
+            this.config.itemsPerPage = newSize;
+            this.config.totalPages = Math.ceil(this.config.totalItems / newSize);
+            this.config.currentPage = 1;
+
+            this.render();
+
+            if (this.callbacks.onPageSizeChange) {
+                this.callbacks.onPageSizeChange(newSize);
+            }
+        }
+
+        // Cargar más elementos
+        async loadMore() {
+            if (this.isLoading || this.config.currentPage >= this.config.totalPages) {
+                return;
+            }
+
+            this.isLoading = true;
+            this.showLoading();
+
+            try {
+                if (this.callbacks.onLoadMore) {
+                    await this.callbacks.onLoadMore(this.config.currentPage + 1);
+                }
+
+                this.config.currentPage++;
+
+                if (this.config.type === 'loadmore') {
+                    this.render();
+                }
+            } catch (error) {
+                console.error('Error loading more items:', error);
+            } finally {
+                this.isLoading = false;
+                this.hideLoading();
+            }
+        }
+
+        // Mostrar estado de carga
+        showLoading() {
+            const loadingElement = this.container.querySelector('.load-more-loading, .infinite-loading');
+            const button = this.container.querySelector('.load-more-btn');
+
+            if (loadingElement) {
+                loadingElement.classList.remove('hidden');
+            }
+
+            if (button) {
+                button.classList.add('hidden');
+            }
+        }
+
+        // Ocultar estado de carga
+        hideLoading() {
+            const loadingElement = this.container.querySelector('.load-more-loading, .infinite-loading');
+            const button = this.container.querySelector('.load-more-btn');
+
+            if (loadingElement) {
+                loadingElement.classList.add('hidden');
+            }
+
+            if (button && this.config.currentPage < this.config.totalPages) {
+                button.classList.remove('hidden');
+            }
+        }
+
+        // Actualizar configuración
+        update(newConfig) {
+            this.config = { ...this.config, ...newConfig };
+            this.render();
+        }
+
+        // Establecer callbacks
+        onPageChange(callback) {
+            this.callbacks.onPageChange = callback;
+        }
+
+        onPageSizeChange(callback) {
+            this.callbacks.onPageSizeChange = callback;
+        }
+
+        onLoadMore(callback) {
+            this.callbacks.onLoadMore = callback;
+        }
+
+        // Métodos de utilidad
+        getCurrentPage() {
+            return this.config.currentPage;
+        }
+
+        getTotalPages() {
+            return this.config.totalPages;
+        }
+
+        getPageSize() {
+            return this.config.itemsPerPage;
+        }
+
+        getTotalItems() {
+            return this.config.totalItems;
+        }
+
+        // Resetear paginación
+        reset() {
+            this.config.currentPage = 1;
+            this.render();
+        }
+    }
+
+    // Inicializar cuando se carga el DOM
+    document.addEventListener('DOMContentLoaded', () => {
+        // Ejemplo de uso (comentado)
+        /*
+        // Paginación completa
+        const pagination = new PaginationAPI('#pagination-container', {
+            currentPage: 1,
+            totalPages: 25,
+            totalItems: 245,
+            itemsPerPage: 10,
+            type: 'full'
+        });
+    
+        // Eventos
+        pagination.onPageChange((page) => {
+            console.log('Página cambiada a:', page);
+            // 🔧 CARGAR DATOS DE LA NUEVA PÁGINA
+        });
+    
+        pagination.onPageSizeChange((size) => {
+            console.log('Tamaño de página cambiado a:', size);
+            // 🔧 ACTUALIZAR DATOS CON NUEVO TAMAÑO
+        });
+    
+        // Paginación tipo "Load More"
+        const loadMorePagination = new PaginationAPI('#load-more-container', {
+            currentPage: 1,
+            totalPages: 10,
+            totalItems: 100,
+            itemsPerPage: 10,
+            type: 'loadmore'
+        });
+    
+        loadMorePagination.onLoadMore(async (page) => {
+            // 🔧 CARGAR MÁS DATOS
+            console.log('Cargando página:', page);
+            
+            // Simular llamada API
+            await new Promise(resolve => setTimeout(resolve, 1000));
+            
+            // Actualizar total si es necesario
+            loadMorePagination.update({ totalItems: 120 });
+        });
+        */
+    });
+</script>

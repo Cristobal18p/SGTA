@@ -1,0 +1,318 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Perfil - TecnoTaller</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        // Configurar Tailwind para modo dark
+        tailwind.config = {
+            darkMode: 'class', // Habilitar modo dark por clase
+            theme: {
+                extend: {}
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/dark-mode.css">
+    <script src="../js/componentes/theme-manager.js"></script>
+    <script src="../js/componentes/toast-manager.js"></script>
+    <script src="../js/componentes/components-loader.js"></script>
+    <script src="../js/componentes/navbar-manager.js"></script>
+    <script src="../js/componentes/modals-manager.js"></script>
+    <script src="../js/componentes/app-initializer.js"></script>
+    <style>
+        /* CorrecciÃ³n de campos en modo oscuro para el formulario de perfil */
+        body.dark input,
+        body.dark textarea,
+        body.dark select {
+            background-color: #1f2937 !important;
+            /* gray-800 */
+            color: #f3f4f6 !important;
+            /* gray-100 */
+            border-color: #374151 !important;
+            /* gray-700 */
+        }
+
+        body.dark input[readonly],
+        body.dark input[disabled] {
+            background-color: #374151 !important;
+            /* gray-700 */
+            color: #9ca3af !important;
+            /* gray-400 */
+        }
+
+        body.dark label {
+            color: #f3f4f6 !important;
+            /* gray-100 */
+        }
+
+        body.dark .bg-white {
+            background-color: #1f2937 !important;
+        }
+
+        body.dark .text-gray-900 {
+            color: #f3f4f6 !important;
+        }
+
+        body.dark .text-gray-700 {
+            color: #d1d5db !important;
+        }
+
+        body.dark .border-gray-200 {
+            border-color: #374151 !important;
+        }
+
+        body.dark .bg-gray-50 {
+            background-color: #111827 !important;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50 font-inter">
+    <!-- Contenedor de notificaciÃ³n -->
+    <div id="notification"
+        class="fixed top-6 left-1/2 transform -translate-x-1/2 z-50 hidden flex items-center gap-4 px-6 py-4 rounded-lg shadow-lg text-white text-center font-semibold transition-all duration-300"
+        style="min-width:300px;max-width:90vw;">
+        <span id="notificationIcon"
+            class="flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center mr-3 bg-green-500">
+            <i id="notificationIconClass" class="fas fa-check text-white"></i>
+        </span>
+        <div class="flex flex-col items-start">
+            <span id="notificationTitle" class="text-lg font-bold">Título</span>
+            <span id="notificationMessage" class="text-sm">Mensaje de notificación</span>
+        </div>
+    </div>
+
+    <!-- Navbar Component -->
+    <div id="navbar-container"></div>
+
+    <!-- Sidebar Overlay -->
+    <div id="sidebarOverlay" class="hidden fixed inset-0 bg-black bg-opacity-50 z-40"></div>
+
+    <!-- Sidebar Component -->
+    <div id="sidebar-container"></div>
+
+    <!-- Modals Component -->
+    <div id="modals-container"></div>
+
+    <!-- Main Content -->
+    <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Breadcrumbs -->
+        <nav class="flex mb-8" aria-label="Breadcrumb">
+            <ol class="inline-flex items-center space-x-1 md:space-x-3">
+                <li class="inline-flex items-center">
+                    <a href="dashboard.html"
+                        class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-blue-600">
+                        <i class="fas fa-home mr-2"></i>
+                        Dashboard
+                    </a>
+                </li>
+                <li>
+                    <div class="flex items-center">
+                        <i class="fas fa-chevron-right text-gray-400 mx-2"></i>
+                        <span class="text-sm font-medium text-blue-600">Editar Perfil</span>
+                    </div>
+                </li>
+            </ol>
+        </nav>
+
+        <!-- Header del perfil -->
+        <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 mb-8">
+            <div class="flex items-center space-x-6">
+                <div
+                    class="w-20 h-20 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-full flex items-center justify-center">
+                    <i class="fas fa-user text-white text-2xl"></i>
+                </div>
+                <div>
+                    <h2 class="text-2xl font-bold text-gray-900">Mi Perfil</h2>
+                    <p class="text-gray-600">Actualiza tu información personal y de usuario</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Formulario de perfil -->
+        <form id="perfilForm" class="space-y-8">
+            <!-- InformaciÃ³n de Usuario -->
+            <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+                <div class="flex items-center mb-6">
+                    <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center mr-3">
+                        <i class="fas fa-user-cog text-blue-600"></i>
+                    </div>
+                    <h3 class="text-lg font-semibold text-gray-900">Información de Usuario</h3>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Nombre de usuario -->
+                    <div>
+                        <label for="nombre_usuario" class="block text-sm font-medium text-gray-700 mb-2">
+                            Nombre de Usuario
+                        </label>
+                        <input type="text" id="nombre_usuario" name="nombre_usuario"
+                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                            placeholder="Ingresa tu nombre de usuario">
+                    </div>
+
+                    <!-- Email de usuario (solo lectura) -->
+                    <div>
+                        <label for="email_usuario" class="block text-sm font-medium text-gray-700 mb-2">
+                            Email de Usuario
+                            <span class="text-xs text-gray-500">(No editable)</span>
+                        </label>
+                        <input type="email" id="email_usuario" name="email_usuario" readonly
+                            class="w-full px-4 py-3 border border-gray-300 rounded-lg bg-gray-50 text-gray-500 cursor-not-allowed"
+                            placeholder="email@tecnotaller.com">
+                    </div>
+
+                    <!-- Nueva contraseÃ±a -->
+                    <div class="md:col-span-2">
+                        <label for="clave_hash" class="block text-sm font-medium text-gray-700 mb-2">
+                            Nueva Contraseña
+                            <span class="text-xs text-gray-500">(Dejar vacío si no deseas cambiarla)</span>
+                        </label>
+                        <div class="relative">
+                            <input type="password" id="clave_hash" name="clave_hash"
+                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors pr-12"
+                                placeholder="Ingresa nueva contraseña (opcional)">
+                            <button type="button" id="togglePassword"
+                                class="absolute inset-y-0 right-0 pr-3 flex items-center">
+                                <i class="fas fa-eye text-gray-400 hover:text-gray-600" id="eyeIcon"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- InformaciÃ³n Personal -->
+            <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+                <div class="flex items-center mb-6">
+                    <div class="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center mr-3">
+                        <i class="fas fa-id-card text-green-600"></i>
+                    </div>
+                    <h3 class="text-lg font-semibold text-gray-900">Información Personal</h3>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Primer nombre -->
+                    <div>
+                        <label for="primer_nombre" class="block text-sm font-medium text-gray-700 mb-2">
+                            Primer Nombre <span class="text-red-500">*</span>
+                        </label>
+                        <input type="text" id="primer_nombre" name="primer_nombre" required
+                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                            placeholder="Ingresa tu primer nombre">
+                    </div>
+
+                    <!-- Segundo nombre -->
+                    <div>
+                        <label for="segundo_nombre" class="block text-sm font-medium text-gray-700 mb-2">
+                            Segundo Nombre
+                        </label>
+                        <input type="text" id="segundo_nombre" name="segundo_nombre"
+                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                            placeholder="Ingresa tu segundo nombre (opcional)">
+                    </div>
+
+                    <!-- Primer apellido -->
+                    <div>
+                        <label for="primer_apellido" class="block text-sm font-medium text-gray-700 mb-2">
+                            Primer Apellido <span class="text-red-500">*</span>
+                        </label>
+                        <input type="text" id="primer_apellido" name="primer_apellido" required
+                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                            placeholder="Ingresa tu primer apellido">
+                    </div>
+
+                    <!-- Segundo apellido -->
+                    <div>
+                        <label for="segundo_apellido" class="block text-sm font-medium text-gray-700 mb-2">
+                            Segundo Apellido
+                        </label>
+                        <input type="text" id="segundo_apellido" name="segundo_apellido"
+                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                            placeholder="Ingresa tu segundo apellido (opcional)">
+                    </div>
+
+                    <!-- NÃºmero de cÃ©dula (solo lectura) -->
+                    <div>
+                        <label for="numero_cedula" class="block text-sm font-medium text-gray-700 mb-2">
+                            Número de Cédula
+                            <span class="text-xs text-gray-500">(No editable)</span>
+                        </label>
+                        <input type="text" id="numero_cedula" name="numero_cedula" readonly
+                            class="w-full px-4 py-3 border border-gray-300 rounded-lg bg-gray-50 text-gray-500 cursor-not-allowed"
+                            placeholder="X-XXXX-XXXX">
+                    </div>
+
+                    <!-- TelÃ©fono -->
+                    <div>
+                        <label for="telefono" class="block text-sm font-medium text-gray-700 mb-2">
+                            Teléfono
+                        </label>
+                        <input type="tel" id="telefono" name="telefono"
+                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                            placeholder="Ingresa tu nÃºmero de telÃ©fono">
+                    </div>
+
+                    <!-- Email personal -->
+                    <div>
+                        <label for="email_personal" class="block text-sm font-medium text-gray-700 mb-2">
+                            Email Personal
+                        </label>
+                        <input type="email" id="email_personal" name="email_personal"
+                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                            placeholder="tu.email@personal.com">
+                    </div>
+
+                    <!-- Nacionalidad (solo lectura) -->
+                    <div>
+                        <label for="nacionalidad" class="block text-sm font-medium text-gray-700 mb-2">
+                            Nacionalidad
+                            <span class="text-xs text-gray-500">(No editable)</span>
+                        </label>
+                        <input type="text" id="nacionalidad" name="nacionalidad" readonly
+                            class="w-full px-4 py-3 border border-gray-300 rounded-lg bg-gray-50 text-gray-500 cursor-not-allowed"
+                            placeholder="Nacionalidad">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Botones de acciÃ³n -->
+            <button type="button" id="cancelarBtn"
+                class="w-full sm:w-auto px-6 py-3 border border-gray-300 rounded-lg text-gray-700 font-medium hover:bg-gray-50 transition-colors">
+                <i class="fas fa-times mr-2"></i>
+                Cancelar
+            </button>
+            <button type="submit" id="guardarBtn"
+                class="w-full sm:w-auto px-6 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-lg font-medium hover:from-blue-700 hover:to-indigo-700 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed">
+                <i class="fas fa-save mr-2"></i>
+                <span id="guardarText">Guardar Cambios</span>
+            </button>
+        </form>
+    </main>
+
+    <script>
+        // Inicialización de la página editar perfil
+        document.addEventListener('DOMContentLoaded', async function () {
+            // Inicializar managers base
+            if (typeof ThemeManager !== 'undefined') {
+                const themeManager = new ThemeManager();
+            }
+
+            if (typeof ToastManager !== 'undefined') {
+                window.toastManager = new ToastManager();
+            }
+
+            // Cargar componentes compartidos (esto inicializa automáticamente los managers específicos)
+            await loadCommonComponents();
+
+            console.log('Editar Perfil TecnoTaller cargado correctamente con componentes compartidos');
+        });
+    </script>
+
+    <script src="../js/modulos/editar-perfil.js"></script>
+</body>
+
+</html>

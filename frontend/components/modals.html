@@ -1,0 +1,1039 @@
+<!-- ============================================ -->
+<!-- MODALS COMPONENT - TecnoTaller -->
+<!-- ============================================ -->
+
+<!-- Modal de Confirmación -->
+<div id="confirmModal"
+    class="modal hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+    <div class="modal-content bg-white rounded-xl shadow-xl max-w-md w-full">
+        <!-- Header -->
+        <div class="modal-header p-6 border-b border-gray-200">
+            <div class="flex items-center">
+                <div class="w-12 h-12 rounded-full bg-amber-100 flex items-center justify-center mr-4">
+                    <i id="confirmIcon" class="fas fa-question-circle text-2xl text-amber-600"></i>
+                </div>
+                <div>
+                    <h3 id="confirmTitle" class="text-lg font-semibold text-gray-900">Confirmar Acción</h3>
+                    <p class="text-sm text-gray-500">Esta acción requiere confirmación</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Body -->
+        <div class="modal-body p-6">
+            <p id="confirmMessage" class="text-gray-700 leading-relaxed">
+                ¿Está seguro de que desea continuar con esta acción?
+            </p>
+        </div>
+
+        <!-- Footer -->
+        <div class="modal-footer flex justify-end space-x-3 p-6 border-t border-gray-200 bg-gray-50 rounded-b-xl">
+            <button id="confirmCancel" class="btn-secondary px-4 py-2 rounded-lg font-medium transition-all">
+                Cancelar
+            </button>
+            <button id="confirmAccept" class="btn-danger px-4 py-2 rounded-lg text-white font-medium transition-all">
+                Confirmar
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Modal de Información -->
+<div id="infoModal" class="modal hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+    <div class="modal-content bg-white rounded-xl shadow-xl max-w-lg w-full">
+        <!-- Header -->
+        <div class="modal-header flex items-center justify-between p-6 border-b border-gray-200">
+            <div class="flex items-center">
+                <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center mr-3">
+                    <i class="fas fa-info-circle text-xl text-blue-600"></i>
+                </div>
+                <h3 id="infoTitle" class="text-lg font-semibold text-gray-900">Información</h3>
+            </div>
+            <button id="infoClose" class="text-gray-400 hover:text-gray-600 transition-colors" title="Cerrar">
+                <i class="fas fa-times text-xl"></i>
+            </button>
+        </div>
+
+        <!-- Body -->
+        <div class="modal-body p-6">
+            <div id="infoContent" class="text-gray-700">
+                <!-- Contenido dinámico -->
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="modal-footer flex justify-end p-6 border-t border-gray-200 bg-gray-50 rounded-b-xl">
+            <button id="infoOk" class="btn-primary px-6 py-2 rounded-lg text-white font-medium transition-all">
+                Entendido
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Modal de Éxito -->
+<div id="successModal"
+    class="modal hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+    <div class="modal-content bg-white rounded-xl shadow-xl max-w-md w-full">
+        <!-- Body -->
+        <div class="modal-body p-8 text-center">
+            <div class="w-16 h-16 rounded-full bg-green-100 flex items-center justify-center mx-auto mb-4">
+                <i class="fas fa-check-circle text-3xl text-green-600"></i>
+            </div>
+            <h3 id="successTitle" class="text-xl font-semibold text-gray-900 mb-2">¡Operación Exitosa!</h3>
+            <p id="successMessage" class="text-gray-600 mb-6">
+                La operación se completó correctamente.
+            </p>
+            <button id="successOk" class="btn-primary px-6 py-2 rounded-lg text-white font-medium transition-all">
+                Continuar
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Modal de Error -->
+<div id="errorModal"
+    class="modal hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+    <div class="modal-content bg-white rounded-xl shadow-xl max-w-md w-full">
+        <!-- Body -->
+        <div class="modal-body p-8 text-center">
+            <div class="w-16 h-16 rounded-full bg-red-100 flex items-center justify-center mx-auto mb-4">
+                <i class="fas fa-exclamation-triangle text-3xl text-red-600"></i>
+            </div>
+            <h3 id="errorTitle" class="text-xl font-semibold text-gray-900 mb-2">Error</h3>
+            <p id="errorMessage" class="text-gray-600 mb-6">
+                Ha ocurrido un error inesperado.
+            </p>
+            <div class="flex justify-center space-x-3">
+                <button id="errorRetry" class="btn-secondary px-4 py-2 rounded-lg font-medium transition-all hidden">
+                    Reintentar
+                </button>
+                <button id="errorOk" class="btn-primary px-6 py-2 rounded-lg text-white font-medium transition-all">
+                    Cerrar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal de Carga -->
+<div id="loadingModal"
+    class="modal hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+    <div class="modal-content bg-white rounded-xl shadow-xl max-w-sm w-full">
+        <div class="modal-body p-8 text-center">
+            <div class="w-16 h-16 rounded-full bg-amber-100 flex items-center justify-center mx-auto mb-4">
+                <i class="fas fa-spinner fa-spin text-3xl text-amber-600"></i>
+            </div>
+            <h3 id="loadingTitle" class="text-lg font-semibold text-gray-900 mb-2">Procesando...</h3>
+            <p id="loadingMessage" class="text-gray-600">
+                Por favor espere mientras se procesa su solicitud.
+            </p>
+            <div class="mt-4">
+                <div class="w-full bg-gray-200 rounded-full h-2">
+                    <div id="loadingProgress" class="bg-amber-600 h-2 rounded-full transition-all duration-300"
+                        style="width: 0%"></div>
+                </div>
+                <p class="text-xs text-gray-500 mt-2">
+                    <span id="loadingPercent">0</span>% completado
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal de Detalles (Grande) -->
+<div id="detailModal"
+    class="modal hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+    <div class="modal-content bg-white rounded-xl shadow-xl max-w-4xl w-full max-h-[90vh] overflow-hidden">
+        <!-- Header -->
+        <div class="modal-header flex items-center justify-between p-6 border-b border-gray-200">
+            <div class="flex items-center">
+                <div class="w-10 h-10 rounded-full bg-amber-100 flex items-center justify-center mr-3">
+                    <i id="detailIcon" class="fas fa-file-alt text-xl text-amber-600"></i>
+                </div>
+                <div>
+                    <h3 id="detailTitle" class="text-lg font-semibold text-gray-900">Detalles</h3>
+                    <p id="detailSubtitle" class="text-sm text-gray-500">Información detallada</p>
+                </div>
+            </div>
+            <div class="flex items-center space-x-2">
+                <button id="detailPrint" class="btn-secondary p-2 rounded-lg transition-all" title="Imprimir">
+                    <i class="fas fa-print"></i>
+                </button>
+                <button id="detailExport" class="btn-secondary p-2 rounded-lg transition-all" title="Exportar">
+                    <i class="fas fa-download"></i>
+                </button>
+                <button id="detailClose" class="text-gray-400 hover:text-gray-600 transition-colors" title="Cerrar">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Body -->
+        <div class="modal-body overflow-y-auto" style="max-height: calc(90vh - 200px);">
+            <div id="detailContent" class="p-6">
+                <!-- Contenido dinámico -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="detail-section">
+                        <h4 class="text-md font-semibold text-gray-900 mb-3 flex items-center">
+                            <i class="fas fa-user text-amber-500 mr-2"></i>
+                            Información Personal
+                        </h4>
+                        <div class="space-y-2">
+                            <div class="detail-item">
+                                <span class="detail-label">Nombre:</span>
+                                <span class="detail-value" id="detail_nombre">-</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Cédula:</span>
+                                <span class="detail-value" id="detail_cedula">-</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Email:</span>
+                                <span class="detail-value" id="detail_email">-</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="detail-section">
+                        <h4 class="text-md font-semibold text-gray-900 mb-3 flex items-center">
+                            <i class="fas fa-car text-amber-500 mr-2"></i>
+                            Vehículo
+                        </h4>
+                        <div class="space-y-2">
+                            <div class="detail-item">
+                                <span class="detail-label">Marca/Modelo:</span>
+                                <span class="detail-value" id="detail_vehiculo">-</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Placa:</span>
+                                <span class="detail-value" id="detail_placa">-</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Año:</span>
+                                <span class="detail-value" id="detail_año">-</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="modal-footer flex justify-between p-6 border-t border-gray-200 bg-gray-50 rounded-b-xl">
+            <div class="flex space-x-2">
+                <button id="detailEdit" class="btn-secondary px-4 py-2 rounded-lg font-medium transition-all">
+                    <i class="fas fa-edit mr-2"></i>Editar
+                </button>
+                <button id="detailDelete" class="btn-danger px-4 py-2 rounded-lg text-white font-medium transition-all">
+                    <i class="fas fa-trash mr-2"></i>Eliminar
+                </button>
+            </div>
+            <button id="detailCloseBtn" class="btn-primary px-6 py-2 rounded-lg text-white font-medium transition-all">
+                Cerrar
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Modal de Imagen -->
+<div id="imageModal"
+    class="modal hidden fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center p-4 z-50">
+    <div class="modal-content relative max-w-5xl w-full">
+        <!-- Close button -->
+        <button id="imageClose"
+            class="absolute top-4 right-4 z-10 w-10 h-10 bg-black bg-opacity-50 text-white rounded-full flex items-center justify-center hover:bg-opacity-75 transition-all"
+            title="Cerrar">
+            <i class="fas fa-times"></i>
+        </button>
+
+        <!-- Image container -->
+        <div class="bg-white rounded-xl overflow-hidden shadow-xl">
+            <div class="p-4 border-b border-gray-200 bg-white">
+                <h3 id="imageTitle" class="text-lg font-semibold text-gray-900">Vista de Imagen</h3>
+            </div>
+            <div class="p-4 bg-gray-100 text-center">
+                <img id="modalImage" src="" alt="Imagen"
+                    class="max-w-full max-h-[70vh] object-contain mx-auto rounded-lg shadow-lg">
+            </div>
+            <div class="p-4 bg-white border-t border-gray-200 flex justify-between items-center">
+                <div class="text-sm text-gray-500">
+                    <span id="imageInfo">Información de la imagen</span>
+                </div>
+                <div class="flex space-x-2">
+                    <button id="imageDownload" class="btn-secondary px-3 py-2 rounded-lg text-sm transition-all">
+                        <i class="fas fa-download mr-1"></i>Descargar
+                    </button>
+                    <button id="imageFullscreen" class="btn-secondary px-3 py-2 rounded-lg text-sm transition-all">
+                        <i class="fas fa-expand mr-1"></i>Pantalla Completa
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<style>
+    /* Modal Base Styles */
+    .modal {
+        backdrop-filter: blur(4px);
+        -webkit-backdrop-filter: blur(4px);
+        animation: modalFadeIn 0.3s ease-out;
+    }
+
+    .modal-content {
+        animation: modalSlideIn 0.3s ease-out;
+        max-height: 90vh;
+    }
+
+    /* Animations */
+    @keyframes modalFadeIn {
+        from {
+            opacity: 0;
+        }
+
+        to {
+            opacity: 1;
+        }
+    }
+
+    @keyframes modalSlideIn {
+        from {
+            opacity: 0;
+            transform: scale(0.9) translateY(-20px);
+        }
+
+        to {
+            opacity: 1;
+            transform: scale(1) translateY(0);
+        }
+    }
+
+    @keyframes modalSlideOut {
+        from {
+            opacity: 1;
+            transform: scale(1) translateY(0);
+        }
+
+        to {
+            opacity: 0;
+            transform: scale(0.9) translateY(-20px);
+        }
+    }
+
+    .modal.closing .modal-content {
+        animation: modalSlideOut 0.2s ease-in;
+    }
+
+    /* Button Styles */
+    .btn-primary {
+        background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+        box-shadow: 0 4px 15px rgba(245, 158, 11, 0.4);
+    }
+
+    .btn-primary:hover {
+        background: linear-gradient(135deg, #d97706 0%, #b45309 100%);
+        box-shadow: 0 6px 20px rgba(245, 158, 11, 0.5);
+        transform: translateY(-1px);
+    }
+
+    .btn-secondary {
+        background-color: white;
+        border: 1px solid rgb(209, 213, 219);
+        color: rgb(55, 65, 81);
+    }
+
+    .btn-secondary:hover {
+        background-color: rgb(249, 250, 251);
+        border-color: rgb(156, 163, 175);
+        transform: translateY(-1px);
+    }
+
+    .btn-danger {
+        background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+        box-shadow: 0 4px 15px rgba(239, 68, 68, 0.4);
+    }
+
+    .btn-danger:hover {
+        background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+        box-shadow: 0 6px 20px rgba(239, 68, 68, 0.5);
+        transform: translateY(-1px);
+    }
+
+    /* Detail Styles */
+    .detail-section {
+        background: rgba(249, 250, 251, 0.5);
+        border: 1px solid rgba(229, 231, 235, 0.5);
+        border-radius: 0.5rem;
+        padding: 1rem;
+    }
+
+    .detail-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0.5rem 0;
+        border-bottom: 1px solid rgba(229, 231, 235, 0.3);
+    }
+
+    .detail-item:last-child {
+        border-bottom: none;
+    }
+
+    .detail-label {
+        font-weight: 500;
+        color: rgb(107, 114, 128);
+        font-size: 0.875rem;
+    }
+
+    .detail-value {
+        font-weight: 600;
+        color: rgb(31, 41, 55);
+        font-size: 0.875rem;
+    }
+
+    /* Loading Progress */
+    .loading-progress-bar {
+        transition: width 0.3s ease;
+    }
+
+    /* Image Modal Styles */
+    #imageModal .modal-content {
+        background: transparent;
+    }
+
+    #imageModal img {
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+        .modal-content {
+            margin: 1rem;
+            max-height: calc(100vh - 2rem);
+        }
+
+        .modal-header {
+            padding: 1rem;
+        }
+
+        .modal-body {
+            padding: 1rem;
+        }
+
+        .modal-footer {
+            padding: 1rem;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .modal-footer .flex {
+            width: 100%;
+            justify-content: center;
+        }
+
+        #detailModal .grid {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    /* Focus States */
+    .modal button:focus {
+        outline: 2px solid rgb(245, 158, 11);
+        outline-offset: 2px;
+    }
+
+    /* Scrollbar Styles */
+    .modal-body::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    .modal-body::-webkit-scrollbar-track {
+        background: rgb(243, 244, 246);
+        border-radius: 3px;
+    }
+
+    .modal-body::-webkit-scrollbar-thumb {
+        background: rgb(209, 213, 219);
+        border-radius: 3px;
+    }
+
+    .modal-body::-webkit-scrollbar-thumb:hover {
+        background: rgb(156, 163, 175);
+    }
+
+    /* Success/Error Icons Animation */
+    .modal-body .fas.fa-check-circle,
+    .modal-body .fas.fa-exclamation-triangle {
+        animation: iconBounce 0.6s ease-out;
+    }
+
+    @keyframes iconBounce {
+
+        0%,
+        20%,
+        53%,
+        80%,
+        100% {
+            transform: translate3d(0, 0, 0);
+        }
+
+        40%,
+        43% {
+            transform: translate3d(0, -8px, 0);
+        }
+
+        70% {
+            transform: translate3d(0, -4px, 0);
+        }
+
+        90% {
+            transform: translate3d(0, -2px, 0);
+        }
+    }
+
+    /* Spinner Animation */
+    @keyframes spin {
+        from {
+            transform: rotate(0deg);
+        }
+
+        to {
+            transform: rotate(360deg);
+        }
+    }
+
+    .fa-spin {
+        animation: spin 1s linear infinite;
+    }
+</style>
+
+<script>
+    // ============================================
+    // MODALS API
+    // ============================================
+    class ModalAPI {
+        constructor() {
+            this.activeModal = null;
+            this.queue = [];
+            this.callbacks = {};
+
+            this.initializeModals();
+        }
+
+        // Inicializar todos los modales
+        initializeModals() {
+            // Modales disponibles
+            this.modals = {
+                confirm: document.getElementById('confirmModal'),
+                info: document.getElementById('infoModal'),
+                success: document.getElementById('successModal'),
+                error: document.getElementById('errorModal'),
+                loading: document.getElementById('loadingModal'),
+                detail: document.getElementById('detailModal'),
+                image: document.getElementById('imageModal')
+            };
+
+            // Inicializar eventos para cada modal
+            Object.keys(this.modals).forEach(key => {
+                this.initializeModalEvents(key);
+            });
+
+            // Eventos globales
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && this.activeModal) {
+                    this.close();
+                }
+            });
+        }
+
+        // Inicializar eventos de un modal específico
+        initializeModalEvents(modalType) {
+            const modal = this.modals[modalType];
+            if (!modal) return;
+
+            // Eventos específicos por tipo de modal
+            switch (modalType) {
+                case 'confirm':
+                    this.setupConfirmModal();
+                    break;
+                case 'info':
+                    this.setupInfoModal();
+                    break;
+                case 'success':
+                    this.setupSuccessModal();
+                    break;
+                case 'error':
+                    this.setupErrorModal();
+                    break;
+                case 'loading':
+                    this.setupLoadingModal();
+                    break;
+                case 'detail':
+                    this.setupDetailModal();
+                    break;
+                case 'image':
+                    this.setupImageModal();
+                    break;
+            }
+
+            // Cerrar al hacer clic fuera (excepto loading)
+            if (modalType !== 'loading') {
+                modal.addEventListener('click', (e) => {
+                    if (e.target === modal) {
+                        this.close();
+                    }
+                });
+            }
+        }
+
+        // Modal de Confirmación
+        setupConfirmModal() {
+            const cancelBtn = document.getElementById('confirmCancel');
+            const acceptBtn = document.getElementById('confirmAccept');
+
+            cancelBtn?.addEventListener('click', () => {
+                this.resolveCallback(false);
+                this.close();
+            });
+
+            acceptBtn?.addEventListener('click', () => {
+                this.resolveCallback(true);
+                this.close();
+            });
+        }
+
+        // Modal de Información
+        setupInfoModal() {
+            const closeBtn = document.getElementById('infoClose');
+            const okBtn = document.getElementById('infoOk');
+
+            closeBtn?.addEventListener('click', () => this.close());
+            okBtn?.addEventListener('click', () => this.close());
+        }
+
+        // Modal de Éxito
+        setupSuccessModal() {
+            const okBtn = document.getElementById('successOk');
+            okBtn?.addEventListener('click', () => {
+                this.resolveCallback(true);
+                this.close();
+            });
+        }
+
+        // Modal de Error
+        setupErrorModal() {
+            const okBtn = document.getElementById('errorOk');
+            const retryBtn = document.getElementById('errorRetry');
+
+            okBtn?.addEventListener('click', () => {
+                this.resolveCallback(false);
+                this.close();
+            });
+
+            retryBtn?.addEventListener('click', () => {
+                this.resolveCallback(true);
+                this.close();
+            });
+        }
+
+        // Modal de Carga
+        setupLoadingModal() {
+            // No hay botones de cierre en el modal de carga
+        }
+
+        // Modal de Detalles
+        setupDetailModal() {
+            const closeBtn = document.getElementById('detailClose');
+            const closeBtnFooter = document.getElementById('detailCloseBtn');
+            const editBtn = document.getElementById('detailEdit');
+            const deleteBtn = document.getElementById('detailDelete');
+            const printBtn = document.getElementById('detailPrint');
+            const exportBtn = document.getElementById('detailExport');
+
+            closeBtn?.addEventListener('click', () => this.close());
+            closeBtnFooter?.addEventListener('click', () => this.close());
+
+            editBtn?.addEventListener('click', () => {
+                this.resolveCallback({ action: 'edit' });
+                this.close();
+            });
+
+            deleteBtn?.addEventListener('click', () => {
+                this.resolveCallback({ action: 'delete' });
+                this.close();
+            });
+
+            printBtn?.addEventListener('click', () => {
+                this.printDetails();
+            });
+
+            exportBtn?.addEventListener('click', () => {
+                this.exportDetails();
+            });
+        }
+
+        // Modal de Imagen
+        setupImageModal() {
+            const closeBtn = document.getElementById('imageClose');
+            const downloadBtn = document.getElementById('imageDownload');
+            const fullscreenBtn = document.getElementById('imageFullscreen');
+
+            closeBtn?.addEventListener('click', () => this.close());
+
+            downloadBtn?.addEventListener('click', () => {
+                this.downloadImage();
+            });
+
+            fullscreenBtn?.addEventListener('click', () => {
+                this.toggleFullscreen();
+            });
+        }
+
+        // Mostrar modal de confirmación
+        confirm(options = {}) {
+            const config = {
+                title: 'Confirmar Acción',
+                message: '¿Está seguro de que desea continuar?',
+                icon: 'fas fa-question-circle',
+                iconColor: 'text-amber-600',
+                acceptText: 'Confirmar',
+                cancelText: 'Cancelar',
+                type: 'warning',
+                ...options
+            };
+
+            return new Promise((resolve) => {
+                this.callbacks.resolve = resolve;
+
+                // Configurar contenido
+                document.getElementById('confirmTitle').textContent = config.title;
+                document.getElementById('confirmMessage').textContent = config.message;
+                document.getElementById('confirmIcon').className = `${config.icon} text-2xl ${config.iconColor}`;
+                document.getElementById('confirmAccept').textContent = config.acceptText;
+                document.getElementById('confirmCancel').textContent = config.cancelText;
+
+                // Cambiar estilo según tipo
+                const acceptBtn = document.getElementById('confirmAccept');
+                acceptBtn.className = `btn-${config.type === 'danger' ? 'danger' : 'primary'} px-4 py-2 rounded-lg text-white font-medium transition-all`;
+
+                this.show('confirm');
+            });
+        }
+
+        // Mostrar modal de información
+        info(options = {}) {
+            const config = {
+                title: 'Información',
+                content: 'Información del sistema',
+                ...options
+            };
+
+            document.getElementById('infoTitle').textContent = config.title;
+            document.getElementById('infoContent').innerHTML = config.content;
+
+            this.show('info');
+        }
+
+        // Mostrar modal de éxito
+        success(options = {}) {
+            const config = {
+                title: '¡Operación Exitosa!',
+                message: 'La operación se completó correctamente.',
+                autoClose: false,
+                duration: 3000,
+                ...options
+            };
+
+            return new Promise((resolve) => {
+                this.callbacks.resolve = resolve;
+
+                document.getElementById('successTitle').textContent = config.title;
+                document.getElementById('successMessage').textContent = config.message;
+
+                this.show('success');
+
+                // Auto-cerrar si está configurado
+                if (config.autoClose) {
+                    setTimeout(() => {
+                        this.resolveCallback(true);
+                        this.close();
+                    }, config.duration);
+                }
+            });
+        }
+
+        // Mostrar modal de error
+        error(options = {}) {
+            const config = {
+                title: 'Error',
+                message: 'Ha ocurrido un error inesperado.',
+                showRetry: false,
+                ...options
+            };
+
+            return new Promise((resolve) => {
+                this.callbacks.resolve = resolve;
+
+                document.getElementById('errorTitle').textContent = config.title;
+                document.getElementById('errorMessage').textContent = config.message;
+
+                const retryBtn = document.getElementById('errorRetry');
+                if (config.showRetry) {
+                    retryBtn.classList.remove('hidden');
+                } else {
+                    retryBtn.classList.add('hidden');
+                }
+
+                this.show('error');
+            });
+        }
+
+        // Mostrar modal de carga
+        loading(options = {}) {
+            const config = {
+                title: 'Procesando...',
+                message: 'Por favor espere mientras se procesa su solicitud.',
+                showProgress: false,
+                progress: 0,
+                ...options
+            };
+
+            document.getElementById('loadingTitle').textContent = config.title;
+            document.getElementById('loadingMessage').textContent = config.message;
+
+            if (config.showProgress) {
+                this.updateProgress(config.progress);
+            }
+
+            this.show('loading');
+        }
+
+        // Actualizar progreso del modal de carga
+        updateProgress(percent) {
+            const progressBar = document.getElementById('loadingProgress');
+            const progressText = document.getElementById('loadingPercent');
+
+            if (progressBar) progressBar.style.width = `${percent}%`;
+            if (progressText) progressText.textContent = Math.round(percent);
+        }
+
+        // Mostrar modal de detalles
+        detail(options = {}) {
+            const config = {
+                title: 'Detalles',
+                subtitle: 'Información detallada',
+                icon: 'fas fa-file-alt',
+                data: {},
+                showActions: true,
+                ...options
+            };
+
+            return new Promise((resolve) => {
+                this.callbacks.resolve = resolve;
+
+                // Configurar header
+                document.getElementById('detailTitle').textContent = config.title;
+                document.getElementById('detailSubtitle').textContent = config.subtitle;
+                document.getElementById('detailIcon').className = `${config.icon} text-xl text-amber-600`;
+
+                // Llenar datos
+                this.populateDetailData(config.data);
+
+                // Mostrar/ocultar acciones
+                const editBtn = document.getElementById('detailEdit');
+                const deleteBtn = document.getElementById('detailDelete');
+                if (config.showActions) {
+                    editBtn?.classList.remove('hidden');
+                    deleteBtn?.classList.remove('hidden');
+                } else {
+                    editBtn?.classList.add('hidden');
+                    deleteBtn?.classList.add('hidden');
+                }
+
+                this.show('detail');
+            });
+        }
+
+        // Llenar datos del modal de detalles
+        populateDetailData(data) {
+            Object.keys(data).forEach(key => {
+                const element = document.getElementById(`detail_${key}`);
+                if (element) {
+                    element.textContent = data[key] || '-';
+                }
+            });
+        }
+
+        // Mostrar modal de imagen
+        image(options = {}) {
+            const config = {
+                src: '',
+                title: 'Vista de Imagen',
+                info: 'Información de la imagen',
+                ...options
+            };
+
+            document.getElementById('imageTitle').textContent = config.title;
+            document.getElementById('imageInfo').textContent = config.info;
+            document.getElementById('modalImage').src = config.src;
+
+            this.show('image');
+        }
+
+        // Mostrar modal
+        show(modalType) {
+            if (this.activeModal) {
+                this.queue.push({ type: modalType, args: arguments });
+                return;
+            }
+
+            const modal = this.modals[modalType];
+            if (!modal) return;
+
+            this.activeModal = modalType;
+            modal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+
+            // Focus management
+            const firstFocusable = modal.querySelector('button, input, select, textarea');
+            firstFocusable?.focus();
+        }
+
+        // Cerrar modal activo
+        close() {
+            if (!this.activeModal) return;
+
+            const modal = this.modals[this.activeModal];
+            if (!modal) return;
+
+            // Añadir clase de cierre para animación
+            modal.classList.add('closing');
+
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                modal.classList.remove('closing');
+                document.body.style.overflow = 'auto';
+                this.activeModal = null;
+
+                // Procesar cola
+                if (this.queue.length > 0) {
+                    const next = this.queue.shift();
+                    this.show(next.type, ...next.args);
+                }
+            }, 200);
+        }
+
+        // Resolver callback
+        resolveCallback(result) {
+            if (this.callbacks.resolve) {
+                this.callbacks.resolve(result);
+                this.callbacks.resolve = null;
+            }
+        }
+
+        // Imprimir detalles
+        printDetails() {
+            window.print();
+        }
+
+        // Exportar detalles
+        exportDetails() {
+            console.log('Exportando detalles...');
+            // 🔧 IMPLEMENTAR LÓGICA DE EXPORTACIÓN
+        }
+
+        // Descargar imagen
+        downloadImage() {
+            const img = document.getElementById('modalImage');
+            const link = document.createElement('a');
+            link.href = img.src;
+            link.download = 'imagen.jpg';
+            link.click();
+        }
+
+        // Pantalla completa para imagen
+        toggleFullscreen() {
+            const img = document.getElementById('modalImage');
+            if (img.requestFullscreen) {
+                img.requestFullscreen();
+            } else if (img.webkitRequestFullscreen) {
+                img.webkitRequestFullscreen();
+            } else if (img.msRequestFullscreen) {
+                img.msRequestFullscreen();
+            }
+        }
+
+        // Métodos de conveniencia
+        ask(message, title = 'Confirmar') {
+            return this.confirm({ title, message });
+        }
+
+        alert(message, title = 'Información') {
+            return this.info({ title, content: `<p>${message}</p>` });
+        }
+
+        notify(message, type = 'info') {
+            if (type === 'success') {
+                return this.success({ message });
+            } else if (type === 'error') {
+                return this.error({ message });
+            } else {
+                return this.info({ content: `<p>${message}</p>` });
+            }
+        }
+    }
+
+    // Inicializar API de modales
+    document.addEventListener('DOMContentLoaded', () => {
+        window.modalAPI = new ModalAPI();
+
+        // Ejemplos de uso (comentados)
+        /*
+        // Confirmación
+        modalAPI.confirm({
+            title: '¿Eliminar cliente?',
+            message: 'Esta acción no se puede deshacer.',
+            type: 'danger'
+        }).then(result => {
+            if (result) {
+                console.log('Cliente eliminado');
+            }
+        });
+    
+        // Éxito
+        modalAPI.success({
+            title: '¡Cliente guardado!',
+            message: 'El cliente se guardó correctamente.',
+            autoClose: true
+        });
+    
+        // Error
+        modalAPI.error({
+            title: 'Error de conexión',
+            message: 'No se pudo conectar con el servidor.',
+            showRetry: true
+        }).then(retry => {
+            if (retry) {
+                console.log('Reintentando...');
+            }
+        });
+    
+        // Detalles
+        modalAPI.detail({
+            title: 'Cliente #001',
+            subtitle: 'Juan Díaz',
+            data: {
+                nombre: 'Juan Díaz',
+                cedula: '8-123-456',
+                email: 'juan@email.com',
+                vehiculo: 'Toyota Corolla',
+                placa: 'ABC-123',
+                año: '2020'
+            }
+        });
+        */
+    });
+</script>

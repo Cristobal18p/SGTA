@@ -1,0 +1,423 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Usuarios del Sistema - TecnoTaller</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {}
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/dark-mode.css">
+
+    <!-- Sistema centralizado de temas -->
+    <script src="../js/componentes/theme-manager.js"></script>
+    <script src="../js/componentes/toast-manager.js"></script>
+    <script src="../js/componentes/components-loader.js"></script>
+    <script src="../js/componentes/navbar-manager.js"></script>
+    <script src="../js/componentes/modals-manager.js"></script>
+    <script src="../js/componentes/app-initializer.js"></script>
+</head>
+
+<body class="bg-gray-50 font-inter">
+    <!-- Navbar Component -->
+    <div id="navbar-container"></div>
+
+    <!-- Sidebar Overlay -->
+    <div id="sidebarOverlay" class="hidden fixed inset-0 bg-black bg-opacity-50 z-40"></div>
+
+    <!-- Sidebar Component -->
+    <div id="sidebar-container"></div>
+
+    <!-- Modals Component -->
+    <div id="modals-container"></div>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Breadcrumbs -->
+        <nav class="flex mb-8" aria-label="Breadcrumb">
+            <ol class="inline-flex items-center space-x-1 md:space-x-3">
+                <li class="inline-flex items-center">
+                    <a href="dashboard.html" class="text-sm font-medium text-gray-500 hover:text-blue-600">
+                        <i class="fas fa-home mr-2"></i>Dashboard
+                    </a>
+                </li>
+                <li>
+                    <div class="flex items-center">
+                        <i class="fas fa-chevron-right text-gray-400 mx-2"></i>
+                        <span class="text-sm font-medium text-blue-600">Usuarios</span>
+                    </div>
+                </li>
+            </ol>
+        </nav>
+
+        <!-- Header -->
+        <div class="flex justify-between items-center mb-8">
+            <div>
+                <h1 class="text-3xl font-bold text-gray-900">Usuarios del Sistema</h1>
+                <p class="text-gray-600 mt-2">Gestiona las cuentas de acceso al sistema</p>
+            </div>
+            <div class="flex space-x-4">
+                <button id="btnPermisosRoles"
+                    class="bg-purple-100 hover:bg-purple-200 text-purple-700 px-4 py-2 rounded-lg font-medium transition-colors flex items-center">
+                    <i class="fas fa-shield-alt mr-2"></i>
+                    Roles y Permisos
+                </button>
+                <button id="btnNuevoUsuario"
+                    class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-medium transition-colors flex items-center">
+                    <i class="fas fa-plus mr-2"></i>
+                    Nuevo Usuario
+                </button>
+            </div>
+        </div>
+
+        <!-- EstadÃ­sticas de Usuarios -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+            <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+                <div class="flex items-center">
+                    <div class="p-3 bg-blue-100 rounded-lg">
+                        <i class="fas fa-users text-blue-600 text-xl"></i>
+                    </div>
+                    <div class="ml-4">
+                        <p class="text-sm text-gray-600">Total Usuarios</p>
+                        <p id="totalUsuarios" class="text-2xl font-bold text-gray-900">0</p>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+                <div class="flex items-center">
+                    <div class="p-3 bg-green-100 rounded-lg">
+                        <i class="fas fa-user-check text-green-600 text-xl"></i>
+                    </div>
+                    <div class="ml-4">
+                        <p class="text-sm text-gray-600">Usuarios Activos</p>
+                        <p id="usuariosActivos" class="text-2xl font-bold text-gray-900">0</p>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+                <div class="flex items-center">
+                    <div class="p-3 bg-yellow-100 rounded-lg">
+                        <i class="fas fa-clock text-yellow-600 text-xl"></i>
+                    </div>
+                    <div class="ml-4">
+                        <p class="text-sm text-gray-600">Conectados Hoy</p>
+                        <p id="conectadosHoy" class="text-2xl font-bold text-gray-900">0</p>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+                <div class="flex items-center">
+                    <div class="p-3 bg-red-100 rounded-lg">
+                        <i class="fas fa-user-lock text-red-600 text-xl"></i>
+                    </div>
+                    <div class="ml-4">
+                        <p class="text-sm text-gray-600">Usuarios Bloqueados</p>
+                        <p id="usuariosBloqueados" class="text-2xl font-bold text-gray-900">0</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Filtros y BÃºsqueda -->
+        <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 mb-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Buscar usuario</label>
+                    <div class="relative">
+                        <i class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                        <input type="text" id="searchUsuario"
+                            class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                            placeholder="Nombre, email...">
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Rol</label>
+                    <select id="filterRol"
+                        class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                        <option value="">Todos los roles</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Estado</label>
+                    <select id="filterEstado"
+                        class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                        <option value="">Todos los estados</option>
+                        <option value="ACTIVO">Activo</option>
+                        <option value="INACTIVO">Inactivo</option>
+                        <option value="BLOQUEADO">Bloqueado</option>
+                        <option value="SUSPENDIDO">Suspendido</option>
+                    </select>
+                </div>
+                <div class="flex items-end">
+                    <button id="btnLimpiarFiltros"
+                        class="w-full bg-gray-100 hover:bg-gray-200 text-gray-700 px-4 py-2 rounded-lg font-medium transition-colors">
+                        <i class="fas fa-times mr-2"></i>
+                        Limpiar
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tabla de Usuarios -->
+        <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+            <div class="p-6 border-b border-gray-200">
+                <div class="flex justify-between items-center">
+                    <h3 class="text-lg font-semibold text-gray-900">Lista de Usuarios</h3>
+                    <div class="flex items-center space-x-2">
+                        <button class="text-gray-400 hover:text-gray-600" title="Exportar">
+                            <i class="fas fa-download"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="overflow-x-auto">
+                <table class="w-full">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Usuario</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Email</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Rol</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Estado</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Último Acceso</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Fecha Creación</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Contraseña</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Configuración</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Preferencias</th>
+                            <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tablaUsuarios" class="bg-white divide-y divide-gray-200">
+                        <!-- Los datos se cargarÃ¡n dinÃ¡micamente -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- PaginaciÃ³n -->
+            <div class="bg-white px-6 py-3 border-t border-gray-200">
+                <div class="flex items-center justify-between">
+                    <div class="text-sm text-gray-700">
+                        Mostrando <span id="paginaInfo">1-10 de 50</span> resultados
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <button id="btnAnterior"
+                            class="px-3 py-1 border border-gray-300 rounded-md text-sm hover:bg-gray-50" disabled>
+                            Anterior
+                        </button>
+                        <div id="numeroPaginas" class="flex items-center space-x-1"></div>
+                        <button id="btnSiguiente"
+                            class="px-3 py-1 border border-gray-300 rounded-md text-sm hover:bg-gray-50">
+                            Siguiente
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Modal para Usuario -->
+    <div id="modalUsuario"
+        class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+            <div class="p-6 border-b border-gray-200">
+                <div class="flex justify-between items-center">
+                    <h2 id="tituloModal" class="text-xl font-semibold text-gray-900">Nuevo Usuario</h2>
+                    <button id="btnCerrarModal" class="text-gray-400 hover:text-gray-600">
+                        <i class="fas fa-times text-xl"></i>
+                    </button>
+                </div>
+            </div>
+
+            <form id="formUsuario" class="p-6">
+                <div class="grid grid-cols-1 gap-6">
+                    <!-- InformaciÃ³n del Usuario -->
+                    <div>
+                        <h3 class="text-lg font-medium text-gray-900 mb-4">InformaciÃ³n del Usuario</h3>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Nombre de Usuario *</label>
+                        <input type="text" id="nombreUsuario" required
+                            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                            placeholder="Ej: juan.perez">
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Email *</label>
+                        <input type="email" id="emailUsuario" required
+                            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                            placeholder="usuario@tecnotaller.com">
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">ContraseÃ±a *</label>
+                            <div class="relative">
+                                <input type="password" id="claveUsuario" required
+                                    class="w-full px-3 py-2 pr-10 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                    placeholder="ContraseÃ±a segura">
+                                <button type="button" id="togglePassword"
+                                    class="absolute inset-y-0 right-0 pr-3 flex items-center">
+                                    <i class="fas fa-eye text-gray-400 hover:text-gray-600"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Confirmar ContraseÃ±a *</label>
+                            <input type="password" id="confirmarClave" required
+                                class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                placeholder="Repetir contraseÃ±a">
+                        </div>
+                    </div>
+
+                    <!-- Seguridad de ContraseÃ±a -->
+                    <div id="passwordStrength" class="hidden">
+                        <div class="flex items-center space-x-2 text-xs">
+                            <span>Seguridad:</span>
+                            <div class="flex space-x-1">
+                                <div class="h-2 w-6 bg-gray-200 rounded"></div>
+                                <div class="h-2 w-6 bg-gray-200 rounded"></div>
+                                <div class="h-2 w-6 bg-gray-200 rounded"></div>
+                                <div class="h-2 w-6 bg-gray-200 rounded"></div>
+                            </div>
+                            <span id="strengthText">-</span>
+                        </div>
+                    </div>
+
+                    <!-- InformaciÃ³n de Acceso -->
+                    <div class="mt-6">
+                        <h3 class="text-lg font-medium text-gray-900 mb-4">ConfiguraciÃ³n de Acceso</h3>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Rol del Usuario *</label>
+                        <select id="rolId" required
+                            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                            <option value="">Seleccionar rol</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Estado</label>
+                        <select id="estado"
+                            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                            <option value="ACTIVO">Activo</option>
+                            <option value="INACTIVO">Inactivo</option>
+                            <option value="SUSPENDIDO">Suspendido</option>
+                        </select>
+                    </div>
+
+                    <!-- ConfiguraciÃ³n de SesiÃ³n -->
+                    <div class="mt-6">
+                        <h3 class="text-lg font-medium text-gray-900 mb-4">ConfiguraciÃ³n de SesiÃ³n</h3>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Tiempo de SesiÃ³n
+                                (horas)</label>
+                            <select id="tiempoSesion"
+                                class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                                <option value="1">1 hora</option>
+                                <option value="2">2 horas</option>
+                                <option value="4">4 horas</option>
+                                <option value="8" selected>8 horas</option>
+                                <option value="24">24 horas</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Intentos de Login</label>
+                            <select id="intentosLogin"
+                                class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                                <option value="3" selected>3 intentos</option>
+                                <option value="5">5 intentos</option>
+                                <option value="10">10 intentos</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- ConfiguraciÃ³n de Notificaciones -->
+                    <div class="mt-6">
+                        <h3 class="text-lg font-medium text-gray-900 mb-4">Preferencias</h3>
+                    </div>
+
+                    <div class="space-y-4">
+                        <label class="flex items-center">
+                            <input type="checkbox" id="notificacionesEmail"
+                                class="rounded border-gray-300 text-blue-600 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
+                            <span class="ml-2 text-sm text-gray-700">Recibir notificaciones por email</span>
+                        </label>
+
+                        <label class="flex items-center">
+                            <input type="checkbox" id="cambioClaveProximoLogin"
+                                class="rounded border-gray-300 text-blue-600 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
+                            <span class="ml-2 text-sm text-gray-700">Cambiar contraseÃ±a en prÃ³ximo login</span>
+                        </label>
+
+                        <label class="flex items-center">
+                            <input type="checkbox" id="accesoDesdeCualquierIP"
+                                class="rounded border-gray-300 text-blue-600 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
+                            <span class="ml-2 text-sm text-gray-700">Permitir acceso desde cualquier IP</span>
+                        </label>
+                    </div>
+
+                    <!-- Notas -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Notas Adicionales</label>
+                        <textarea id="notas" rows="3"
+                            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                            placeholder="Observaciones sobre el usuario..."></textarea>
+                    </div>
+                </div>
+
+                <div class="flex justify-end space-x-4 mt-8 pt-6 border-t border-gray-200">
+                    <button type="button" id="btnCancelar"
+                        class="px-6 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 font-medium">
+                        Cancelar
+                    </button>
+                    <button type="submit"
+                        class="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium">
+                        <i class="fas fa-save mr-2"></i>
+                        Guardar Usuario
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="../js/modulos/usuarios.js"></script>
+
+    <!-- Inicializar componentes compartidos -->
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            if (window.loadCommonComponents) {
+                await window.loadCommonComponents();
+                console.log('Módulo Usuarios cargado con componentes compartidos');
+            } else {
+                console.error('loadCommonComponents no encontrado');
+            }
+        });
+    </script>
+</body>
+
+</html>

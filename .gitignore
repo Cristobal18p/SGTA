@@ -1,0 +1,32 @@
+# Ignorar dependencias de Node.js
+node_modules/
+
+# Ignorar logs
+*.log
+
+# Ignorar archivos de entorno
+.env
+
+# Ignorar directorios de backup
+backup/
+
+# Ignorar archivos temporales
+*.tmp
+*.temp
+
+# Ignorar archivos de VSCode
+.vscode/
+
+# Ignorar archivos de sistema
+.DS_Store
+Thumbs.db
+
+# Ignorar archivos de dump
+*.DMP
+
+# Ignorar archivos de export/import
+export_*.log
+import_*.log
+
+# Ignorar archivos de ejemplo
+API.TEXT

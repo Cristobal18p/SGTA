@@ -1,0 +1,451 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal - TecnoTaller</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {}
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/dark-mode.css">
+    <style>
+        body.dark #filterCargo,
+        body.dark #filterSexo,
+        body.dark #filterSalario {
+            background-color: #23272e;
+            color: #f3f4f6;
+            border: 1px solid #444c56;
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.12);
+            transition: background 0.2s, color 0.2s, border 0.2s;
+        }
+
+        body.dark #filterCargo:hover,
+        body.dark #filterSexo:hover,
+        body.dark #filterSalario:hover {
+            background-color: #2d323b;
+            border-color: #6366f1;
+            color: #fff;
+        }
+
+        body.dark #filterCargo:focus,
+        body.dark #filterSexo:focus,
+        body.dark #filterSalario:focus {
+            background-color: #23272e;
+            border-color: #6366f1;
+            box-shadow: 0 0 0 2px #6366f1;
+            color: #fff;
+            outline: none;
+        }
+
+        body.dark #filterCargo option,
+        body.dark #filterSexo option,
+        body.dark #filterSalario option {
+            background-color: #23272e;
+            color: #f3f4f6;
+        }
+    </style>
+
+    <!-- Sistema centralizado de temas -->
+    <script src="../js/componentes/theme-manager.js"></script>
+    <script src="../js/componentes/toast-manager.js"></script>
+    <script src="../js/componentes/components-loader.js"></script>
+    <script src="../js/componentes/navbar-manager.js"></script>
+    <script src="../js/componentes/modals-manager.js"></script>
+    <script src="../js/componentes/app-initializer.js"></script>
+</head>
+
+<body class="bg-gray-50 font-inter">
+    <!-- Navbar Component -->
+    <div id="navbar-container"></div>
+
+    <!-- Sidebar Overlay -->
+    <div id="sidebarOverlay" class="hidden fixed inset-0 bg-black bg-opacity-50 z-40"></div>
+
+    <!-- Sidebar Component -->
+    <div id="sidebar-container"></div>
+
+    <!-- Modals Component -->
+    <div id="modals-container"></div>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Breadcrumbs -->
+        <nav class="flex mb-8" aria-label="Breadcrumb">
+            <ol class="inline-flex items-center space-x-1 md:space-x-3">
+                <li class="inline-flex items-center">
+                    <a href="dashboard.html" class="text-sm font-medium text-gray-500 hover:text-blue-600">
+                        <i class="fas fa-home mr-2"></i>Dashboard
+                    </a>
+                </li>
+                <li>
+                    <div class="flex items-center">
+                        <i class="fas fa-chevron-right text-gray-400 mx-2"></i>
+                        <span class="text-sm font-medium text-blue-600">Personal</span>
+                    </div>
+                </li>
+            </ol>
+        </nav>
+
+        <!-- Header -->
+        <div class="flex justify-between items-center mb-8">
+            <div>
+                <h1 class="text-3xl font-bold text-gray-900">Gestión de Personal</h1>
+                <p class="text-gray-600 mt-2">Administra los empleados y técnicos del taller</p>
+            </div>
+            <div class="flex space-x-4">
+                <button id="btnReporteAsistencia"
+                    class="bg-purple-100 hover:bg-purple-200 text-purple-700 px-4 py-2 rounded-lg font-medium transition-colors flex items-center">
+                    <i class="fas fa-calendar-check mr-2"></i>
+                    Asistencia
+                </button>
+                <button id="btnNuevoPersonal"
+                    class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-medium transition-colors flex items-center">
+                    <i class="fas fa-plus mr-2"></i>
+                    Nuevo Empleado
+                </button>
+            </div>
+        </div>
+
+        <!-- Estadísticas del Personal -->
+        <div class="grid grid-cols-1 md:grid-cols-5 gap-6 mb-8">
+            <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+                <div class="flex items-center">
+                    <div class="p-3 bg-blue-100 rounded-lg">
+                        <i class="fas fa-users text-blue-600 text-xl"></i>
+                    </div>
+                    <div class="ml-4">
+                        <p class="text-sm text-gray-600">Total Personal</p>
+                        <p id="totalPersonal" class="text-2xl font-bold text-gray-900">0</p>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+                <div class="flex items-center">
+                    <div class="p-3 bg-green-100 rounded-lg">
+                        <i class="fas fa-wrench text-green-600 text-xl"></i>
+                    </div>
+                    <div class="ml-4">
+                        <p class="text-sm text-gray-600">Técnicos</p>
+                        <p id="totalTecnicos" class="text-2xl font-bold text-gray-900">0</p>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+                <div class="flex items-center">
+                    <div class="p-3 bg-yellow-100 rounded-lg">
+                        <i class="fas fa-tools text-yellow-600 text-xl"></i>
+                    </div>
+                    <div class="ml-4">
+                        <p class="text-sm text-gray-600">Mecánicos</p>
+                        <p id="totalMecanicos" class="text-2xl font-bold text-gray-900">0</p>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+                <div class="flex items-center">
+                    <div class="p-3 bg-purple-100 rounded-lg">
+                        <i class="fas fa-user-tie text-purple-600 text-xl"></i>
+                    </div>
+                    <div class="ml-4">
+                        <p class="text-sm text-gray-600">Administrativos</p>
+                        <p id="totalAdministrativos" class="text-2xl font-bold text-gray-900">0</p>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+                <div class="flex items-center">
+                    <div class="p-3 bg-red-100 rounded-lg">
+                        <i class="fas fa-calendar-alt text-red-600 text-xl"></i>
+                    </div>
+                    <div class="ml-4">
+                        <p class="text-sm text-gray-600">Presentes Hoy</p>
+                        <p id="presentesHoy" class="text-2xl font-bold text-gray-900">0</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Filtros y Búsqueda -->
+        <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 mb-8">
+            <div class="grid grid-cols-1 md:grid-cols-5 gap-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Buscar empleado</label>
+                    <div class="relative">
+                        <i class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                        <input type="text" id="searchPersonal"
+                            class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                            placeholder="Nombre, cédula...">
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Cargo</label>
+                    <select id="filterCargo"
+                        class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                        <option value="">Todos los cargos</option>
+                        <option value="ADMINISTRADOR">Administrador</option>
+                        <option value="TECNICO">Técnico</option>
+                        <option value="MECANICO">Mecánico</option>
+                        <option value="RECEPCIONISTA">Recepcionista</option>
+                        <option value="SUPERVISOR">Supervisor</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Sexo</label>
+                    <select id="filterSexo"
+                        class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                        <option value="">Todos</option>
+                        <option value="M">Masculino</option>
+                        <option value="F">Femenino</option>
+                        <option value="O">Otro</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Rango Salarial</label>
+                    <select id="filterSalario"
+                        class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                        <option value="">Todos los rangos</option>
+                        <option value="500-800">$500 - $800</option>
+                        <option value="800-1200">$800 - $1,200</option>
+                        <option value="1200-2000">$1,200 - $2,000</option>
+                        <option value="2000+">$2,000+</option>
+                    </select>
+                </div>
+                <div class="flex items-end">
+                    <button id="btnLimpiarFiltros"
+                        class="w-full bg-gray-100 hover:bg-gray-200 text-gray-700 px-4 py-2 rounded-lg font-medium transition-colors">
+                        <i class="fas fa-times mr-2"></i>
+                        Limpiar
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tabla de Personal -->
+        <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+            <div class="p-6 border-b border-gray-200">
+                <div class="flex justify-between items-center">
+                    <h3 class="text-lg font-semibold text-gray-900">Lista de Personal</h3>
+                    <div class="flex items-center space-x-2">
+                        <button class="text-gray-400 hover:text-gray-600" title="Exportar">
+                            <i class="fas fa-download"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="overflow-x-auto">
+                <table class="w-full">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Empleado</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Cédula</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Cargo</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Contacto</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Salario</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Fecha Contrat.</th>
+                            <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tablaPersonal" class="bg-white divide-y divide-gray-200">
+                        <!-- Los datos se cargarán dinámicamente -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Paginación -->
+            <div class="bg-white px-6 py-3 border-t border-gray-200">
+                <div class="flex items-center justify-between">
+                    <div class="text-sm text-gray-700">
+                        Mostrando <span id="paginaInfo">1-10 de 50</span> resultados
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <button id="btnAnterior"
+                            class="px-3 py-1 border border-gray-300 rounded-md text-sm hover:bg-gray-50" disabled>
+                            Anterior
+                        </button>
+                        <div id="numeroPaginas" class="flex items-center space-x-1"></div>
+                        <button id="btnSiguiente"
+                            class="px-3 py-1 border border-gray-300 rounded-md text-sm hover:bg-gray-50">
+                            Siguiente
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Modal para Personal -->
+    <div id="modalPersonal"
+        class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+            <div class="p-6 border-b border-gray-200">
+                <div class="flex justify-between items-center">
+                    <h2 id="tituloModal" class="text-xl font-semibold text-gray-900">Nuevo Empleado</h2>
+                    <button id="btnCerrarModal" class="text-gray-400 hover:text-gray-600">
+                        <i class="fas fa-times text-xl"></i>
+                    </button>
+                </div>
+            </div>
+
+            <form id="formPersonal" class="p-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Información Personal -->
+                    <div class="md:col-span-2">
+                        <h3 class="text-lg font-medium text-gray-900 mb-4">Información Personal</h3>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Primer Nombre *</label>
+                        <input type="text" id="primerNombre" required
+                            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Segundo Nombre</label>
+                        <input type="text" id="segundoNombre"
+                            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Primer Apellido *</label>
+                        <input type="text" id="primerApellido" required
+                            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Segundo Apellido</label>
+                        <input type="text" id="segundoApellido"
+                            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Número de Cédula *</label>
+                        <input type="text" id="numeroCedula" required
+                            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Sexo</label>
+                        <select id="sexo"
+                            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                            <option value="">Seleccionar</option>
+                            <option value="M">Masculino</option>
+                            <option value="F">Femenino</option>
+                            <option value="O">Otro</option>
+                        </select>
+                    </div>
+
+                    <!-- Información de Contacto -->
+                    <div class="md:col-span-2 mt-6">
+                        <h3 class="text-lg font-medium text-gray-900 mb-4">Información de Contacto</h3>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Teléfono</label>
+                        <input type="tel" id="telefono"
+                            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Email</label>
+                        <input type="email" id="email"
+                            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Dirección</label>
+                        <select id="direccionId"
+                            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                            <option value="">Seleccionar dirección</option>
+                        </select>
+                    </div>
+
+                    <!-- Información Laboral -->
+                    <div class="md:col-span-2 mt-6">
+                        <h3 class="text-lg font-medium text-gray-900 mb-4">Información Laboral</h3>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Cargo *</label>
+                        <select id="cargo" required
+                            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                            <option value="">Seleccionar cargo</option>
+                            <option value="ADMINISTRADOR">Administrador</option>
+                            <option value="TECNICO">Técnico</option>
+                            <option value="MECANICO">Mecánico</option>
+                            <option value="RECEPCIONISTA">Recepcionista</option>
+                            <option value="SUPERVISOR">Supervisor</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Salario *</label>
+                        <input type="number" id="salario" step="0.01" min="0" required
+                            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                            placeholder="500.00">
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Fecha de Contratación *</label>
+                        <input type="date" id="fechaContratacion" required
+                            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Usuario del Sistema</label>
+                        <select id="usuarioId"
+                            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                            <option value="">Seleccionar usuario (opcional)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="flex justify-end space-x-4 mt-8 pt-6 border-t border-gray-200">
+                    <button type="button" id="btnCancelar"
+                        class="px-6 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 font-medium">
+                        Cancelar
+                    </button>
+                    <button type="submit"
+                        class="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium">
+                        <i class="fas fa-save mr-2"></i>
+                        Guardar Empleado
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer Component -->
+    <div id="footer-container"></div>
+
+    <script src="../js/modulos/personal.js"></script>
+
+    <!-- Inicializar componentes compartidos -->
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            if (window.loadCommonComponents) {
+                await window.loadCommonComponents();
+                console.log('Módulo Personal cargado con componentes compartidos');
+            } else {
+                console.error('loadCommonComponents no encontrado');
+            }
+        });
+    </script>
+</body>
+
+</html>

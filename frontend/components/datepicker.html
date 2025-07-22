@@ -1,0 +1,1279 @@
+<!-- ============================================ -->
+<!-- DATE PICKER COMPONENT - TecnoTaller -->
+<!-- ============================================ -->
+
+<!-- Date Picker Básico -->
+<div class="datepicker-basic relative">
+    <label for="basic-date" class="block text-sm font-medium text-gray-700 mb-2">Fecha</label>
+    <div class="relative">
+        <input type="text" id="basic-date" readonly
+            class="datepicker-input w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent cursor-pointer"
+            placeholder="Seleccionar fecha">
+        <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+            <i class="fas fa-calendar-alt text-gray-400"></i>
+        </div>
+    </div>
+
+    <!-- Calendario desplegable -->
+    <div
+        class="datepicker-dropdown absolute top-full left-0 mt-2 bg-white border border-gray-300 rounded-lg shadow-lg z-50 hidden">
+        <div class="datepicker-header flex items-center justify-between p-4 border-b border-gray-200">
+            <button type="button" class="prev-month-btn text-gray-600 hover:text-amber-600 transition-colors">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+
+            <div class="flex items-center space-x-2">
+                <select
+                    class="month-select text-sm border border-gray-300 rounded px-2 py-1 focus:ring-2 focus:ring-amber-500">
+                    <option value="0">Enero</option>
+                    <option value="1">Febrero</option>
+                    <option value="2">Marzo</option>
+                    <option value="3">Abril</option>
+                    <option value="4">Mayo</option>
+                    <option value="5">Junio</option>
+                    <option value="6">Julio</option>
+                    <option value="7">Agosto</option>
+                    <option value="8">Septiembre</option>
+                    <option value="9">Octubre</option>
+                    <option value="10">Noviembre</option>
+                    <option value="11">Diciembre</option>
+                </select>
+
+                <input type="number"
+                    class="year-input text-sm border border-gray-300 rounded px-2 py-1 w-20 focus:ring-2 focus:ring-amber-500"
+                    min="1900" max="2100">
+            </div>
+
+            <button type="button" class="next-month-btn text-gray-600 hover:text-amber-600 transition-colors">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+        </div>
+
+        <div class="datepicker-calendar p-4">
+            <!-- Días de la semana -->
+            <div class="grid grid-cols-7 gap-1 mb-2">
+                <div class="text-xs font-medium text-gray-500 text-center py-2">Dom</div>
+                <div class="text-xs font-medium text-gray-500 text-center py-2">Lun</div>
+                <div class="text-xs font-medium text-gray-500 text-center py-2">Mar</div>
+                <div class="text-xs font-medium text-gray-500 text-center py-2">Mié</div>
+                <div class="text-xs font-medium text-gray-500 text-center py-2">Jue</div>
+                <div class="text-xs font-medium text-gray-500 text-center py-2">Vie</div>
+                <div class="text-xs font-medium text-gray-500 text-center py-2">Sáb</div>
+            </div>
+
+            <!-- Días del mes -->
+            <div class="calendar-days grid grid-cols-7 gap-1">
+                <!-- Los días se generan dinámicamente -->
+            </div>
+        </div>
+
+        <div class="datepicker-footer flex items-center justify-between p-4 border-t border-gray-200">
+            <button type="button" class="today-btn text-sm text-amber-600 hover:text-amber-700 font-medium">Hoy</button>
+            <button type="button" class="clear-btn text-sm text-gray-600 hover:text-gray-700">Limpiar</button>
+        </div>
+    </div>
+</div>
+
+<!-- Date Range Picker -->
+<div class="daterange-picker relative">
+    <label class="block text-sm font-medium text-gray-700 mb-2">Rango de Fechas</label>
+    <div class="grid grid-cols-2 gap-4">
+        <div class="relative">
+            <input type="text" id="start-date" readonly
+                class="datepicker-input w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent cursor-pointer"
+                placeholder="Fecha inicio">
+            <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+                <i class="fas fa-calendar-alt text-gray-400"></i>
+            </div>
+        </div>
+
+        <div class="relative">
+            <input type="text" id="end-date" readonly
+                class="datepicker-input w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent cursor-pointer"
+                placeholder="Fecha fin">
+            <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+                <i class="fas fa-calendar-alt text-gray-400"></i>
+            </div>
+        </div>
+    </div>
+
+    <!-- Calendario de rango -->
+    <div class="daterange-dropdown absolute top-full left-0 mt-2 bg-white border border-gray-300 rounded-lg shadow-lg z-50 hidden"
+        style="width: 600px;">
+        <div class="flex">
+            <!-- Calendario izquierdo -->
+            <div class="flex-1 border-r border-gray-200">
+                <div class="datepicker-header flex items-center justify-between p-4 border-b border-gray-200">
+                    <button type="button" class="prev-month-btn text-gray-600 hover:text-amber-600 transition-colors">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <div class="current-month font-medium text-gray-900"></div>
+                    <div class="w-6"></div>
+                </div>
+                <div class="calendar-left p-4"></div>
+            </div>
+
+            <!-- Calendario derecho -->
+            <div class="flex-1">
+                <div class="datepicker-header flex items-center justify-between p-4 border-b border-gray-200">
+                    <div class="w-6"></div>
+                    <div class="current-month font-medium text-gray-900"></div>
+                    <button type="button" class="next-month-btn text-gray-600 hover:text-amber-600 transition-colors">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+                <div class="calendar-right p-4"></div>
+            </div>
+        </div>
+
+        <div class="daterange-footer flex items-center justify-between p-4 border-t border-gray-200">
+            <div class="preset-ranges flex items-center space-x-2">
+                <button type="button"
+                    class="preset-btn text-xs px-3 py-1 text-gray-600 border border-gray-300 rounded hover:bg-gray-50"
+                    data-range="today">Hoy</button>
+                <button type="button"
+                    class="preset-btn text-xs px-3 py-1 text-gray-600 border border-gray-300 rounded hover:bg-gray-50"
+                    data-range="yesterday">Ayer</button>
+                <button type="button"
+                    class="preset-btn text-xs px-3 py-1 text-gray-600 border border-gray-300 rounded hover:bg-gray-50"
+                    data-range="week">Esta semana</button>
+                <button type="button"
+                    class="preset-btn text-xs px-3 py-1 text-gray-600 border border-gray-300 rounded hover:bg-gray-50"
+                    data-range="month">Este mes</button>
+            </div>
+
+            <div class="flex items-center space-x-2">
+                <button type="button"
+                    class="cancel-btn px-4 py-2 text-sm text-gray-600 hover:text-gray-700">Cancelar</button>
+                <button type="button"
+                    class="apply-btn px-4 py-2 text-sm text-white bg-amber-600 rounded hover:bg-amber-700 transition-all">Aplicar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Date Picker con Tiempo -->
+<div class="datetime-picker relative">
+    <label class="block text-sm font-medium text-gray-700 mb-2">Fecha y Hora</label>
+    <div class="relative">
+        <input type="text" id="datetime-input" readonly
+            class="datepicker-input w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent cursor-pointer"
+            placeholder="Seleccionar fecha y hora">
+        <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+            <i class="fas fa-clock text-gray-400"></i>
+        </div>
+    </div>
+
+    <!-- Dropdown con fecha y tiempo -->
+    <div
+        class="datetime-dropdown absolute top-full left-0 mt-2 bg-white border border-gray-300 rounded-lg shadow-lg z-50 hidden">
+        <div class="flex">
+            <!-- Selector de fecha -->
+            <div class="datepicker-section border-r border-gray-200">
+                <div class="datepicker-header flex items-center justify-between p-4 border-b border-gray-200">
+                    <button type="button" class="prev-month-btn text-gray-600 hover:text-amber-600">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <div class="current-month font-medium"></div>
+                    <button type="button" class="next-month-btn text-gray-600 hover:text-amber-600">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+                <div class="calendar-days-container p-4"></div>
+            </div>
+
+            <!-- Selector de tiempo -->
+            <div class="timepicker-section p-4 w-32">
+                <div class="text-sm font-medium text-gray-700 mb-3">Hora</div>
+                <div class="space-y-3">
+                    <!-- Horas -->
+                    <div>
+                        <label class="text-xs text-gray-500">Hora</label>
+                        <select class="hour-select w-full text-sm border border-gray-300 rounded px-2 py-1">
+                            <!-- Opciones 00-23 -->
+                        </select>
+                    </div>
+
+                    <!-- Minutos -->
+                    <div>
+                        <label class="text-xs text-gray-500">Minuto</label>
+                        <select class="minute-select w-full text-sm border border-gray-300 rounded px-2 py-1">
+                            <!-- Opciones 00-59 -->
+                        </select>
+                    </div>
+
+                    <!-- Segundos (opcional) -->
+                    <div class="seconds-container hidden">
+                        <label class="text-xs text-gray-500">Segundo</label>
+                        <select class="second-select w-full text-sm border border-gray-300 rounded px-2 py-1">
+                            <!-- Opciones 00-59 -->
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="datetime-footer flex items-center justify-between p-4 border-t border-gray-200">
+            <button type="button" class="now-btn text-sm text-amber-600 hover:text-amber-700 font-medium">Ahora</button>
+            <div class="flex items-center space-x-2">
+                <button type="button" class="cancel-btn text-sm text-gray-600 hover:text-gray-700">Cancelar</button>
+                <button type="button"
+                    class="apply-btn px-4 py-2 text-sm text-white bg-amber-600 rounded hover:bg-amber-700">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Date Picker Inline -->
+<div class="datepicker-inline">
+    <label class="block text-sm font-medium text-gray-700 mb-2">Seleccionar Fecha</label>
+    <div class="inline-calendar bg-white border border-gray-300 rounded-lg shadow-sm">
+        <div class="calendar-header flex items-center justify-between p-4 border-b border-gray-200">
+            <button type="button" class="prev-month-btn text-gray-600 hover:text-amber-600 transition-colors">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+
+            <div class="flex items-center space-x-2">
+                <select class="month-select text-sm border-0 focus:ring-0 font-medium">
+                    <!-- Meses -->
+                </select>
+                <input type="number" class="year-input text-sm border-0 focus:ring-0 w-16 font-medium">
+            </div>
+
+            <button type="button" class="next-month-btn text-gray-600 hover:text-amber-600 transition-colors">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+        </div>
+
+        <div class="calendar-body p-4">
+            <div class="weekdays grid grid-cols-7 gap-1 mb-2">
+                <div class="text-xs font-medium text-gray-500 text-center py-2">D</div>
+                <div class="text-xs font-medium text-gray-500 text-center py-2">L</div>
+                <div class="text-xs font-medium text-gray-500 text-center py-2">M</div>
+                <div class="text-xs font-medium text-gray-500 text-center py-2">M</div>
+                <div class="text-xs font-medium text-gray-500 text-center py-2">J</div>
+                <div class="text-xs font-medium text-gray-500 text-center py-2">V</div>
+                <div class="text-xs font-medium text-gray-500 text-center py-2">S</div>
+            </div>
+            <div class="days-grid grid grid-cols-7 gap-1">
+                <!-- Días generados dinámicamente -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Date Picker Compacto -->
+<div class="datepicker-compact relative">
+    <label class="block text-sm font-medium text-gray-700 mb-2">Fecha</label>
+    <div class="flex items-center space-x-2">
+        <select
+            class="day-select flex-1 text-sm border border-gray-300 rounded px-3 py-2 focus:ring-2 focus:ring-amber-500">
+            <!-- Días 1-31 -->
+        </select>
+        <select
+            class="month-select flex-1 text-sm border border-gray-300 rounded px-3 py-2 focus:ring-2 focus:ring-amber-500">
+            <!-- Meses -->
+        </select>
+        <input type="number"
+            class="year-select flex-1 text-sm border border-gray-300 rounded px-3 py-2 focus:ring-2 focus:ring-amber-500"
+            min="1900" max="2100" placeholder="Año">
+    </div>
+</div>
+
+<style>
+    /* Date Picker Container */
+    .datepicker-basic,
+    .daterange-picker,
+    .datetime-picker {
+        max-width: 300px;
+    }
+
+    /* Input Styles */
+    .datepicker-input {
+        transition: all 0.2s ease;
+        background-color: white;
+    }
+
+    .datepicker-input:focus {
+        outline: none;
+        box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.1);
+    }
+
+    .datepicker-input:hover {
+        border-color: rgb(209, 213, 219);
+    }
+
+    /* Dropdown Styles */
+    .datepicker-dropdown,
+    .daterange-dropdown,
+    .datetime-dropdown {
+        min-width: 320px;
+        animation: fadeInDown 0.2s ease-out;
+    }
+
+    @keyframes fadeInDown {
+        from {
+            opacity: 0;
+            transform: translateY(-10px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    /* Calendar Header */
+    .datepicker-header button {
+        width: 32px;
+        height: 32px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 6px;
+        transition: all 0.2s ease;
+    }
+
+    .datepicker-header button:hover {
+        background-color: rgb(249, 250, 251);
+        color: rgb(245, 158, 11);
+    }
+
+    /* Calendar Days */
+    .calendar-days button,
+    .days-grid button {
+        width: 36px;
+        height: 36px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 6px;
+        font-size: 0.875rem;
+        transition: all 0.2s ease;
+        border: none;
+        background: transparent;
+        color: rgb(17, 24, 39);
+        cursor: pointer;
+    }
+
+    .calendar-days button:hover,
+    .days-grid button:hover {
+        background-color: rgb(249, 250, 251);
+        color: rgb(245, 158, 11);
+    }
+
+    .calendar-days button.selected,
+    .days-grid button.selected {
+        background-color: rgb(245, 158, 11);
+        color: white;
+        font-weight: 600;
+        box-shadow: 0 4px 12px rgba(245, 158, 11, 0.4);
+    }
+
+    .calendar-days button.today,
+    .days-grid button.today {
+        background-color: rgb(254, 243, 199);
+        color: rgb(146, 64, 14);
+        font-weight: 600;
+    }
+
+    .calendar-days button.today.selected,
+    .days-grid button.today.selected {
+        background-color: rgb(245, 158, 11);
+        color: white;
+    }
+
+    .calendar-days button.other-month,
+    .days-grid button.other-month {
+        color: rgb(156, 163, 175);
+    }
+
+    .calendar-days button:disabled,
+    .days-grid button:disabled {
+        color: rgb(209, 213, 219);
+        cursor: not-allowed;
+        background: transparent;
+    }
+
+    .calendar-days button:disabled:hover,
+    .days-grid button:disabled:hover {
+        background: transparent;
+        color: rgb(209, 213, 219);
+    }
+
+    /* Range Selection */
+    .calendar-days button.in-range,
+    .days-grid button.in-range {
+        background-color: rgb(254, 243, 199);
+        color: rgb(146, 64, 14);
+    }
+
+    .calendar-days button.range-start,
+    .days-grid button.range-start {
+        background-color: rgb(245, 158, 11);
+        color: white;
+        border-radius: 6px 0 0 6px;
+    }
+
+    .calendar-days button.range-end,
+    .days-grid button.range-end {
+        background-color: rgb(245, 158, 11);
+        color: white;
+        border-radius: 0 6px 6px 0;
+    }
+
+    .calendar-days button.range-start.range-end,
+    .days-grid button.range-start.range-end {
+        border-radius: 6px;
+    }
+
+    /* Footer Buttons */
+    .datepicker-footer button,
+    .daterange-footer button,
+    .datetime-footer button {
+        transition: all 0.2s ease;
+    }
+
+    .today-btn,
+    .now-btn {
+        color: rgb(245, 158, 11);
+        font-weight: 500;
+    }
+
+    .today-btn:hover,
+    .now-btn:hover {
+        color: rgb(217, 119, 6);
+    }
+
+    .clear-btn,
+    .cancel-btn {
+        color: rgb(107, 114, 128);
+    }
+
+    .clear-btn:hover,
+    .cancel-btn:hover {
+        color: rgb(75, 85, 99);
+    }
+
+    .apply-btn {
+        background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+        box-shadow: 0 2px 8px rgba(245, 158, 11, 0.3);
+    }
+
+    .apply-btn:hover {
+        background: linear-gradient(135deg, #d97706 0%, #b45309 100%);
+        box-shadow: 0 4px 12px rgba(245, 158, 11, 0.4);
+        transform: translateY(-1px);
+    }
+
+    /* Preset Buttons */
+    .preset-btn {
+        transition: all 0.2s ease;
+    }
+
+    .preset-btn:hover {
+        background-color: rgb(249, 250, 251);
+        border-color: rgb(209, 213, 219);
+    }
+
+    .preset-btn.active {
+        background-color: rgb(245, 158, 11);
+        border-color: rgb(245, 158, 11);
+        color: white;
+    }
+
+    /* Time Picker */
+    .timepicker-section select {
+        transition: all 0.2s ease;
+    }
+
+    .timepicker-section select:focus {
+        outline: none;
+        border-color: rgb(245, 158, 11);
+        box-shadow: 0 0 0 2px rgba(245, 158, 11, 0.2);
+    }
+
+    /* Inline Calendar */
+    .inline-calendar {
+        display: inline-block;
+        max-width: 300px;
+    }
+
+    .calendar-header select,
+    .calendar-header input {
+        background: transparent;
+        color: rgb(17, 24, 39);
+    }
+
+    .calendar-header select:focus,
+    .calendar-header input:focus {
+        outline: none;
+        background-color: rgb(249, 250, 251);
+    }
+
+    /* Compact Date Picker */
+    .datepicker-compact select,
+    .datepicker-compact input {
+        transition: all 0.2s ease;
+    }
+
+    .datepicker-compact select:focus,
+    .datepicker-compact input:focus {
+        outline: none;
+        box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.1);
+    }
+
+    /* Responsive Design */
+    @media (max-width: 640px) {
+        .datepicker-dropdown {
+            left: 0;
+            right: 0;
+            min-width: auto;
+            max-width: 100vw;
+            margin: 0 1rem;
+        }
+
+        .daterange-dropdown {
+            width: auto !important;
+            max-width: 100vw;
+            margin: 0 1rem;
+        }
+
+        .daterange-dropdown .flex {
+            flex-direction: column;
+        }
+
+        .daterange-dropdown .flex-1 {
+            border-right: none;
+        }
+
+        .daterange-dropdown .flex-1:first-child {
+            border-bottom: 1px solid rgb(229, 231, 235);
+        }
+
+        .preset-ranges {
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .preset-btn {
+            flex: 1;
+            min-width: 60px;
+        }
+    }
+
+    /* Dark Mode Support */
+    @media (prefers-color-scheme: dark) {
+
+        .datepicker-dropdown,
+        .daterange-dropdown,
+        .datetime-dropdown,
+        .inline-calendar {
+            background-color: rgb(31, 41, 55);
+            border-color: rgb(75, 85, 99);
+            color: rgb(243, 244, 246);
+        }
+
+        .datepicker-input {
+            background-color: rgb(31, 41, 55);
+            border-color: rgb(75, 85, 99);
+            color: rgb(243, 244, 246);
+        }
+
+        .calendar-days button,
+        .days-grid button {
+            color: rgb(243, 244, 246);
+        }
+
+        .calendar-days button:hover,
+        .days-grid button:hover {
+            background-color: rgb(55, 65, 81);
+        }
+
+        .calendar-days button.other-month,
+        .days-grid button.other-month {
+            color: rgb(107, 114, 128);
+        }
+    }
+
+    /* Loading State */
+    .datepicker-loading {
+        position: relative;
+        pointer-events: none;
+    }
+
+    .datepicker-loading::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 16px;
+        height: 16px;
+        margin: -8px 0 0 -8px;
+        border: 2px solid rgb(245, 158, 11);
+        border-top-color: transparent;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+        from {
+            transform: rotate(0deg);
+        }
+
+        to {
+            transform: rotate(360deg);
+        }
+    }
+
+    /* Error State */
+    .datepicker-error .datepicker-input {
+        border-color: rgb(239, 68, 68);
+        box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+    }
+
+    /* Success State */
+    .datepicker-success .datepicker-input {
+        border-color: rgb(34, 197, 94);
+        box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.1);
+    }
+</style>
+
+<script>
+    // ============================================
+    // DATE PICKER API
+    // ============================================
+    class DatePickerAPI {
+        constructor(container, config = {}) {
+            this.container = typeof container === 'string' ? document.querySelector(container) : container;
+            this.config = {
+                format: 'dd/mm/yyyy',
+                language: 'es',
+                startDate: null,
+                endDate: null,
+                minDate: null,
+                maxDate: null,
+                disabledDates: [],
+                enabledDates: [],
+                disabledDays: [], // 0 = domingo, 6 = sábado
+                showTime: false,
+                timeFormat: '24',
+                inline: false,
+                autoClose: true,
+                showToday: true,
+                showClear: true,
+                position: 'bottom-left',
+                ...config
+            };
+
+            this.selectedDate = null;
+            this.selectedStartDate = null;
+            this.selectedEndDate = null;
+            this.currentMonth = new Date().getMonth();
+            this.currentYear = new Date().getFullYear();
+            this.isOpen = false;
+            this.isRange = false;
+            this.callbacks = {
+                onSelect: null,
+                onChange: null,
+                onOpen: null,
+                onClose: null
+            };
+
+            // Textos en español
+            this.texts = {
+                months: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
+                    'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+                monthsShort: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun',
+                    'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
+                weekdays: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+                weekdaysShort: ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'],
+                weekdaysMin: ['D', 'L', 'M', 'M', 'J', 'V', 'S'],
+                today: 'Hoy',
+                clear: 'Limpiar',
+                close: 'Cerrar',
+                apply: 'Aplicar',
+                cancel: 'Cancelar',
+                now: 'Ahora'
+            };
+
+            this.init();
+        }
+
+        // Inicializar datepicker
+        init() {
+            if (!this.container) {
+                console.error('DatePickerAPI: Container not found');
+                return;
+            }
+
+            this.setupStructure();
+            this.bindEvents();
+
+            if (this.config.inline) {
+                this.show();
+            }
+        }
+
+        // Configurar estructura HTML
+        setupStructure() {
+            const input = this.container.querySelector('.datepicker-input');
+            if (!input) {
+                console.error('DatePickerAPI: Input not found');
+                return;
+            }
+
+            this.input = input;
+            this.dropdown = this.container.querySelector('.datepicker-dropdown');
+
+            // Determinar si es rango
+            this.isRange = this.container.classList.contains('daterange-picker');
+
+            if (this.isRange) {
+                this.startInput = this.container.querySelector('#start-date');
+                this.endInput = this.container.querySelector('#end-date');
+            }
+
+            // Configurar input como readonly si no es inline
+            if (!this.config.inline) {
+                this.input.readOnly = true;
+            }
+        }
+
+        // Bindear eventos
+        bindEvents() {
+            // Click en input para abrir/cerrar
+            if (this.input && !this.config.inline) {
+                this.input.addEventListener('click', () => {
+                    if (this.isOpen) {
+                        this.hide();
+                    } else {
+                        this.show();
+                    }
+                });
+            }
+
+            // Eventos del rango
+            if (this.isRange) {
+                if (this.startInput) {
+                    this.startInput.addEventListener('click', () => this.show());
+                }
+                if (this.endInput) {
+                    this.endInput.addEventListener('click', () => this.show());
+                }
+            }
+
+            // Click fuera para cerrar
+            document.addEventListener('click', (e) => {
+                if (!this.container.contains(e.target) && this.isOpen && !this.config.inline) {
+                    this.hide();
+                }
+            });
+
+            // Eventos del calendario
+            if (this.dropdown) {
+                this.bindCalendarEvents();
+            }
+        }
+
+        // Bindear eventos del calendario
+        bindCalendarEvents() {
+            // Navegación de meses
+            const prevBtn = this.dropdown.querySelector('.prev-month-btn');
+            const nextBtn = this.dropdown.querySelector('.next-month-btn');
+
+            if (prevBtn) {
+                prevBtn.addEventListener('click', () => this.previousMonth());
+            }
+
+            if (nextBtn) {
+                nextBtn.addEventListener('click', () => this.nextMonth());
+            }
+
+            // Selectores de mes y año
+            const monthSelect = this.dropdown.querySelector('.month-select');
+            const yearInput = this.dropdown.querySelector('.year-input');
+
+            if (monthSelect) {
+                monthSelect.addEventListener('change', (e) => {
+                    this.currentMonth = parseInt(e.target.value);
+                    this.renderCalendar();
+                });
+            }
+
+            if (yearInput) {
+                yearInput.addEventListener('change', (e) => {
+                    this.currentYear = parseInt(e.target.value);
+                    this.renderCalendar();
+                });
+            }
+
+            // Botones de acción
+            const todayBtn = this.dropdown.querySelector('.today-btn');
+            const clearBtn = this.dropdown.querySelector('.clear-btn');
+            const applyBtn = this.dropdown.querySelector('.apply-btn');
+            const cancelBtn = this.dropdown.querySelector('.cancel-btn');
+
+            if (todayBtn) {
+                todayBtn.addEventListener('click', () => this.selectToday());
+            }
+
+            if (clearBtn) {
+                clearBtn.addEventListener('click', () => this.clear());
+            }
+
+            if (applyBtn) {
+                applyBtn.addEventListener('click', () => this.apply());
+            }
+
+            if (cancelBtn) {
+                cancelBtn.addEventListener('click', () => this.hide());
+            }
+
+            // Presets de rango
+            const presetBtns = this.dropdown.querySelectorAll('.preset-btn');
+            presetBtns.forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const range = e.target.dataset.range;
+                    this.selectPreset(range);
+                });
+            });
+        }
+
+        // Mostrar calendario
+        show() {
+            if (this.config.inline || this.isOpen) return;
+
+            this.isOpen = true;
+            this.renderCalendar();
+
+            if (this.dropdown) {
+                this.dropdown.classList.remove('hidden');
+            }
+
+            if (this.callbacks.onOpen) {
+                this.callbacks.onOpen();
+            }
+        }
+
+        // Ocultar calendario
+        hide() {
+            if (!this.isOpen || this.config.inline) return;
+
+            this.isOpen = false;
+
+            if (this.dropdown) {
+                this.dropdown.classList.add('hidden');
+            }
+
+            if (this.callbacks.onClose) {
+                this.callbacks.onClose();
+            }
+        }
+
+        // Renderizar calendario
+        renderCalendar() {
+            this.updateHeader();
+            this.renderDays();
+        }
+
+        // Actualizar cabecera
+        updateHeader() {
+            const monthSelects = this.dropdown.querySelectorAll('.month-select');
+            const yearInputs = this.dropdown.querySelectorAll('.year-input');
+            const currentMonths = this.dropdown.querySelectorAll('.current-month');
+
+            monthSelects.forEach(select => {
+                select.value = this.currentMonth;
+            });
+
+            yearInputs.forEach(input => {
+                input.value = this.currentYear;
+            });
+
+            currentMonths.forEach(element => {
+                element.textContent = `${this.texts.months[this.currentMonth]} ${this.currentYear}`;
+            });
+        }
+
+        // Renderizar días
+        renderDays() {
+            const calendarContainers = this.dropdown.querySelectorAll('.calendar-days, .days-grid');
+
+            calendarContainers.forEach(container => {
+                container.innerHTML = this.generateDaysHTML();
+            });
+
+            // Bindear eventos de días
+            this.bindDayEvents();
+        }
+
+        // Generar HTML de días
+        generateDaysHTML() {
+            const firstDay = new Date(this.currentYear, this.currentMonth, 1);
+            const lastDay = new Date(this.currentYear, this.currentMonth + 1, 0);
+            const startDate = new Date(firstDay);
+            startDate.setDate(startDate.getDate() - firstDay.getDay());
+
+            let html = '';
+            const today = new Date();
+
+            for (let week = 0; week < 6; week++) {
+                for (let day = 0; day < 7; day++) {
+                    const currentDate = new Date(startDate);
+                    currentDate.setDate(startDate.getDate() + (week * 7) + day);
+
+                    const isCurrentMonth = currentDate.getMonth() === this.currentMonth;
+                    const isToday = this.isSameDay(currentDate, today);
+                    const isSelected = this.isDateSelected(currentDate);
+                    const isDisabled = this.isDateDisabled(currentDate);
+                    const isInRange = this.isRange && this.isDateInRange(currentDate);
+
+                    let classes = ['calendar-day'];
+
+                    if (!isCurrentMonth) classes.push('other-month');
+                    if (isToday) classes.push('today');
+                    if (isSelected) classes.push('selected');
+                    if (isInRange) classes.push('in-range');
+                    if (isDisabled) classes.push('disabled');
+
+                    html += `
+                    <button type="button" 
+                            class="${classes.join(' ')}" 
+                            data-date="${this.formatDateForData(currentDate)}"
+                            ${isDisabled ? 'disabled' : ''}>
+                        ${currentDate.getDate()}
+                    </button>
+                `;
+                }
+            }
+
+            return html;
+        }
+
+        // Bindear eventos de días
+        bindDayEvents() {
+            const dayButtons = this.dropdown.querySelectorAll('.calendar-day');
+
+            dayButtons.forEach(button => {
+                button.addEventListener('click', (e) => {
+                    if (e.target.disabled) return;
+
+                    const dateStr = e.target.dataset.date;
+                    const date = this.parseDataDate(dateStr);
+
+                    this.selectDate(date);
+                });
+            });
+        }
+
+        // Seleccionar fecha
+        selectDate(date) {
+            if (this.isRange) {
+                this.selectRangeDate(date);
+            } else {
+                this.selectedDate = new Date(date);
+                this.updateInput();
+
+                if (this.config.autoClose) {
+                    this.hide();
+                }
+            }
+
+            this.renderCalendar();
+
+            if (this.callbacks.onSelect) {
+                this.callbacks.onSelect(this.isRange ? {
+                    start: this.selectedStartDate,
+                    end: this.selectedEndDate
+                } : this.selectedDate);
+            }
+        }
+
+        // Seleccionar fecha de rango
+        selectRangeDate(date) {
+            if (!this.selectedStartDate || (this.selectedStartDate && this.selectedEndDate)) {
+                // Iniciar nueva selección
+                this.selectedStartDate = new Date(date);
+                this.selectedEndDate = null;
+            } else if (this.selectedStartDate && !this.selectedEndDate) {
+                // Completar rango
+                if (date < this.selectedStartDate) {
+                    this.selectedEndDate = this.selectedStartDate;
+                    this.selectedStartDate = new Date(date);
+                } else {
+                    this.selectedEndDate = new Date(date);
+                }
+
+                this.updateRangeInputs();
+
+                if (this.config.autoClose) {
+                    setTimeout(() => this.hide(), 100);
+                }
+            }
+        }
+
+        // Actualizar input
+        updateInput() {
+            if (this.selectedDate && this.input) {
+                this.input.value = this.formatDate(this.selectedDate);
+            }
+
+            if (this.callbacks.onChange) {
+                this.callbacks.onChange(this.selectedDate);
+            }
+        }
+
+        // Actualizar inputs de rango
+        updateRangeInputs() {
+            if (this.selectedStartDate && this.startInput) {
+                this.startInput.value = this.formatDate(this.selectedStartDate);
+            }
+
+            if (this.selectedEndDate && this.endInput) {
+                this.endInput.value = this.formatDate(this.selectedEndDate);
+            }
+
+            if (this.callbacks.onChange) {
+                this.callbacks.onChange({
+                    start: this.selectedStartDate,
+                    end: this.selectedEndDate
+                });
+            }
+        }
+
+        // Mes anterior
+        previousMonth() {
+            if (this.currentMonth === 0) {
+                this.currentMonth = 11;
+                this.currentYear--;
+            } else {
+                this.currentMonth--;
+            }
+            this.renderCalendar();
+        }
+
+        // Mes siguiente
+        nextMonth() {
+            if (this.currentMonth === 11) {
+                this.currentMonth = 0;
+                this.currentYear++;
+            } else {
+                this.currentMonth++;
+            }
+            this.renderCalendar();
+        }
+
+        // Seleccionar hoy
+        selectToday() {
+            const today = new Date();
+            this.selectDate(today);
+        }
+
+        // Limpiar selección
+        clear() {
+            this.selectedDate = null;
+            this.selectedStartDate = null;
+            this.selectedEndDate = null;
+
+            if (this.input) this.input.value = '';
+            if (this.startInput) this.startInput.value = '';
+            if (this.endInput) this.endInput.value = '';
+
+            this.renderCalendar();
+
+            if (this.callbacks.onChange) {
+                this.callbacks.onChange(null);
+            }
+        }
+
+        // Aplicar selección (para rangos)
+        apply() {
+            if (this.isRange && this.selectedStartDate && this.selectedEndDate) {
+                this.updateRangeInputs();
+            }
+            this.hide();
+        }
+
+        // Seleccionar preset de rango
+        selectPreset(range) {
+            const today = new Date();
+            let start, end;
+
+            switch (range) {
+                case 'today':
+                    start = end = new Date(today);
+                    break;
+                case 'yesterday':
+                    start = end = new Date(today);
+                    start.setDate(start.getDate() - 1);
+                    end = new Date(start);
+                    break;
+                case 'week':
+                    start = new Date(today);
+                    start.setDate(start.getDate() - start.getDay());
+                    end = new Date(start);
+                    end.setDate(end.getDate() + 6);
+                    break;
+                case 'month':
+                    start = new Date(today.getFullYear(), today.getMonth(), 1);
+                    end = new Date(today.getFullYear(), today.getMonth() + 1, 0);
+                    break;
+            }
+
+            if (start && end) {
+                this.selectedStartDate = start;
+                this.selectedEndDate = end;
+                this.updateRangeInputs();
+                this.renderCalendar();
+            }
+        }
+
+        // Utilidades de fecha
+        isSameDay(date1, date2) {
+            return date1.getFullYear() === date2.getFullYear() &&
+                date1.getMonth() === date2.getMonth() &&
+                date1.getDate() === date2.getDate();
+        }
+
+        isDateSelected(date) {
+            if (this.isRange) {
+                return (this.selectedStartDate && this.isSameDay(date, this.selectedStartDate)) ||
+                    (this.selectedEndDate && this.isSameDay(date, this.selectedEndDate));
+            }
+            return this.selectedDate && this.isSameDay(date, this.selectedDate);
+        }
+
+        isDateInRange(date) {
+            if (!this.selectedStartDate || !this.selectedEndDate) return false;
+            return date >= this.selectedStartDate && date <= this.selectedEndDate;
+        }
+
+        isDateDisabled(date) {
+            // Verificar fechas mínimas y máximas
+            if (this.config.minDate && date < this.config.minDate) return true;
+            if (this.config.maxDate && date > this.config.maxDate) return true;
+
+            // Verificar días deshabilitados
+            if (this.config.disabledDays.includes(date.getDay())) return true;
+
+            // Verificar fechas específicas deshabilitadas
+            if (this.config.disabledDates.some(d => this.isSameDay(date, d))) return true;
+
+            // Verificar fechas habilitadas (si está definido)
+            if (this.config.enabledDates.length > 0) {
+                return !this.config.enabledDates.some(d => this.isSameDay(date, d));
+            }
+
+            return false;
+        }
+
+        formatDate(date) {
+            const day = String(date.getDate()).padStart(2, '0');
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const year = date.getFullYear();
+
+            return this.config.format
+                .replace('dd', day)
+                .replace('mm', month)
+                .replace('yyyy', year);
+        }
+
+        formatDateForData(date) {
+            return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
+        }
+
+        parseDataDate(dateStr) {
+            const [year, month, day] = dateStr.split('-');
+            return new Date(parseInt(year), parseInt(month) - 1, parseInt(day));
+        }
+
+        // Métodos de configuración
+        setMinDate(date) {
+            this.config.minDate = date;
+            this.renderCalendar();
+        }
+
+        setMaxDate(date) {
+            this.config.maxDate = date;
+            this.renderCalendar();
+        }
+
+        setDisabledDates(dates) {
+            this.config.disabledDates = dates;
+            this.renderCalendar();
+        }
+
+        // Callbacks
+        onSelect(callback) {
+            this.callbacks.onSelect = callback;
+        }
+
+        onChange(callback) {
+            this.callbacks.onChange = callback;
+        }
+
+        onOpen(callback) {
+            this.callbacks.onOpen = callback;
+        }
+
+        onClose(callback) {
+            this.callbacks.onClose = callback;
+        }
+
+        // Métodos de obtención
+        getSelectedDate() {
+            return this.selectedDate;
+        }
+
+        getSelectedRange() {
+            return {
+                start: this.selectedStartDate,
+                end: this.selectedEndDate
+            };
+        }
+
+        // Destruir instancia
+        destroy() {
+            if (this.dropdown) {
+                this.dropdown.remove();
+            }
+            // Remover event listeners si es necesario
+        }
+    }
+
+    // Inicializar cuando se carga el DOM
+    document.addEventListener('DOMContentLoaded', () => {
+        // Ejemplo de uso (comentado)
+        /*
+        // Date picker básico
+        const basicDatePicker = new DatePickerAPI('.datepicker-basic', {
+            format: 'dd/mm/yyyy',
+            autoClose: true
+        });
+    
+        basicDatePicker.onChange((date) => {
+            console.log('Fecha seleccionada:', date);
+        });
+    
+        // Date range picker
+        const rangePicker = new DatePickerAPI('.daterange-picker', {
+            format: 'dd/mm/yyyy'
+        });
+    
+        rangePicker.onChange((range) => {
+            console.log('Rango seleccionado:', range);
+        });
+    
+        // Date picker con restricciones
+        const restrictedPicker = new DatePickerAPI('.datepicker-restricted', {
+            minDate: new Date(),
+            disabledDays: [0, 6], // Deshabilitar fines de semana
+            disabledDates: [
+                new Date(2024, 0, 1), // Año nuevo
+                new Date(2024, 11, 25) // Navidad
+            ]
+        });
+        */
+    });
+</script>

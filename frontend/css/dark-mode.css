@@ -1,0 +1,2189 @@
+/* ===========================================
+   PALETA DE COLORES ELEGANTE - TECNOTALLER
+   =========================================== */
+
+/* Variables globales para sistema elegante y minimalista */
+:root {
+    /* Colores base elegantes */
+    --primary-brand: #1a365d;
+    --primary-brand-light: #2d5a87;
+    --primary-brand-dark: #0f2340;
+
+    --accent-steel: #4a5568;
+    --accent-steel-light: #718096;
+    --accent-steel-dark: #2d3748;
+
+    --accent-gold: #d69e2e;
+    --accent-gold-light: #ecc94b;
+    --accent-gold-dark: #b7791f;
+
+    /* Paleta de grises elegantes */
+    --gray-50: #f8fafc;
+    --gray-100: #f1f5f9;
+    --gray-200: #e2e8f0;
+    --gray-300: #cbd5e1;
+    --gray-400: #94a3b8;
+    --gray-500: #64748b;
+    --gray-600: #475569;
+    --gray-700: #334155;
+    --gray-800: #1e293b;
+    --gray-900: #0f172a;
+
+    /* Modo claro elegante */
+    --light-bg-primary: #ffffff;
+    --light-bg-secondary: var(--gray-50);
+    --light-bg-tertiary: var(--gray-100);
+    --light-bg-card: #ffffff;
+    --light-bg-hover: var(--gray-100);
+
+    --light-border-primary: var(--gray-200);
+    --light-border-secondary: var(--gray-300);
+
+    --light-text-primary: var(--gray-900);
+    --light-text-secondary: var(--gray-700);
+    --light-text-tertiary: var(--gray-600);
+    --light-text-muted: var(--gray-500);
+    --light-text-subtle: var(--gray-400);
+
+    /* Modo oscuro elegante */
+    --dark-bg-primary: #0a0f1a;
+    --dark-bg-secondary: #111827;
+    --dark-bg-tertiary: #1f2937;
+    --dark-bg-card: #141b26;
+    --dark-bg-hover: #1f2937;
+
+    --dark-border-primary: #2d3748;
+    --dark-border-secondary: #4a5568;
+
+    --dark-text-primary: #f7fafc;
+    --dark-text-secondary: #e2e8f0;
+    --dark-text-tertiary: #cbd5e1;
+    --dark-text-muted: #94a3b8;
+    --dark-text-subtle: #64748b;
+
+    /* Sombras elegantes */
+    --light-shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --light-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --light-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    --light-shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+
+    --dark-shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.6);
+    --dark-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.5), 0 2px 4px -1px rgba(0, 0, 0, 0.3);
+    --dark-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.7), 0 4px 6px -2px rgba(0, 0, 0, 0.4);
+    --dark-shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.8), 0 10px 10px -5px rgba(0, 0, 0, 0.5);
+
+    /* Estados de colores elegantes */
+    --success-light: #059669;
+    --success-dark: #10b981;
+    --warning-light: #d97706;
+    --warning-dark: #f59e0b;
+    --error-light: #dc2626;
+    --error-dark: #ef4444;
+    --info-light: #0369a1;
+    --info-dark: #3b82f6;
+}
+
+/* ===========================================
+   MODO CLARO ELEGANTE
+   =========================================== */
+
+body {
+    background-color: var(--light-bg-primary);
+    color: var(--light-text-primary);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* Navbar modo claro */
+nav {
+    background-color: var(--light-bg-card);
+    border-color: var(--light-border-primary);
+    box-shadow: var(--light-shadow-sm);
+}
+
+/* Cards modo claro */
+.bg-white {
+    background-color: var(--light-bg-card);
+    border-color: var(--light-border-primary);
+}
+
+.bg-gray-50 {
+    background-color: var(--light-bg-secondary);
+}
+
+.bg-gray-100 {
+    background-color: var(--light-bg-tertiary);
+}
+
+/* Textos modo claro */
+.text-gray-900 {
+    color: var(--light-text-primary);
+}
+
+.text-gray-700 {
+    color: var(--light-text-secondary);
+}
+
+.text-gray-600 {
+    color: var(--light-text-tertiary);
+}
+
+.text-gray-500 {
+    color: var(--light-text-muted);
+}
+
+.text-gray-400 {
+    color: var(--light-text-subtle);
+}
+
+/* Bordes modo claro */
+.border-gray-200 {
+    border-color: var(--light-border-primary);
+}
+
+.border-gray-300 {
+    border-color: var(--light-border-secondary);
+}
+
+/* Hovers modo claro */
+.hover\:bg-gray-50:hover {
+    background-color: var(--light-bg-hover);
+}
+
+.hover\:bg-gray-100:hover {
+    background-color: var(--light-bg-tertiary);
+}
+
+/* ===========================================
+   MODO OSCURO GLOBAL
+   =========================================== */
+
+.dark {
+    background-color: var(--dark-bg-primary);
+    color: var(--dark-text-primary);
+}
+
+.dark body {
+    background-color: var(--dark-bg-primary);
+    color: var(--dark-text-primary);
+}
+
+/* ===========================================
+   FONDOS EN MODO OSCURO
+   =========================================== */
+
+.dark .bg-white {
+    background-color: var(--dark-bg-secondary) !important;
+    border-color: var(--dark-border-primary) !important;
+}
+
+.dark .bg-gray-50 {
+    background-color: var(--dark-bg-primary) !important;
+}
+
+.dark .bg-gray-100 {
+    background-color: var(--dark-bg-secondary) !important;
+}
+
+.dark .bg-gray-200 {
+    background-color: var(--dark-bg-terciary) !important;
+}
+
+.dark .bg-gray-900 {
+    background-color: var(--dark-text-primary) !important;
+}
+
+/* ===========================================
+   TEXTOS EN MODO OSCURO
+   =========================================== */
+
+.dark .text-gray-900 {
+    color: var(--dark-text-primary) !important;
+}
+
+.dark .text-gray-800 {
+    color: var(--dark-text-secondary) !important;
+}
+
+.dark .text-gray-700 {
+    color: var(--dark-text-secondary) !important;
+}
+
+.dark .text-gray-600 {
+    color: var(--dark-text-terciary) !important;
+}
+
+.dark .text-gray-500 {
+    color: var(--dark-text-muted) !important;
+}
+
+.dark .text-gray-400 {
+    color: var(--dark-text-subtle) !important;
+}
+
+.dark .text-gray-300 {
+    color: var(--dark-border-secondary) !important;
+}
+
+/* ===========================================
+   HOVERS EN MODO OSCURO
+   =========================================== */
+
+.dark .hover\:bg-gray-50:hover {
+    background-color: var(--dark-bg-terciary) !important;
+}
+
+.dark .hover\:bg-gray-100:hover {
+    background-color: var(--dark-border-secondary) !important;
+}
+
+.dark .hover\:text-gray-600:hover {
+    color: var(--dark-text-terciary) !important;
+}
+
+.dark .hover\:text-gray-700:hover {
+    color: var(--dark-text-secondary) !important;
+}
+
+.dark .hover\:text-gray-900:hover {
+    color: var(--dark-text-primary) !important;
+}
+
+/* ===========================================
+   NAVBAR EN MODO OSCURO
+   =========================================== */
+
+.dark nav,
+.dark .tt-navbar {
+    background-color: var(--dark-bg-secondary) !important;
+    border-color: var(--dark-border-primary) !important;
+    box-shadow: var(--dark-shadow-sm) !important;
+}
+
+/* ===========================================
+   SIDEBAR EN MODO OSCURO
+   =========================================== */
+
+.dark #sidebar {
+    background-color: var(--dark-bg-secondary) !important;
+    border-color: var(--dark-border-primary) !important;
+    box-shadow: 2px 0 4px rgba(0, 0, 0, 0.3);
+}
+
+.dark #sidebar .border-gray-200 {
+    border-color: var(--dark-border-primary) !important;
+}
+
+.dark #sidebar .text-gray-900 {
+    color: var(--dark-text-primary) !important;
+}
+
+.dark #sidebar .text-gray-700 {
+    color: var(--dark-text-secondary) !important;
+}
+
+.dark #sidebar .text-gray-500 {
+    color: var(--dark-text-muted) !important;
+}
+
+.dark #sidebar .text-gray-400 {
+    color: var(--dark-text-subtle) !important;
+}
+
+.dark #sidebar .hover\:bg-gray-100:hover {
+    background-color: var(--dark-bg-terciary) !important;
+}
+
+.dark #sidebar .group-hover\:text-gray-700:hover {
+    color: var(--dark-text-secondary) !important;
+}
+
+.dark #sidebar .bg-gray-50 {
+    background-color: var(--dark-bg-terciary) !important;
+}
+
+.dark #sidebar .bg-gray-50:hover {
+    background-color: var(--dark-border-secondary) !important;
+}
+
+.dark #sidebar a.bg-blue-600 {
+    background-color: #2563eb !important;
+    color: white !important;
+}
+
+.dark #sidebar a.bg-blue-600 i {
+    color: white !important;
+}
+
+/* ===========================================
+   OVERLAYS EN MODO OSCURO
+   =========================================== */
+
+.dark #sidebarOverlay {
+    background-color: rgba(0, 0, 0, 0.7) !important;
+}
+
+/* ===========================================
+   BORDES EN MODO OSCURO
+   =========================================== */
+
+.dark .border-gray-200 {
+    border-color: var(--dark-border-primary) !important;
+}
+
+.dark .border-gray-300 {
+    border-color: var(--dark-border-secondary) !important;
+}
+
+/* ===========================================
+   SOMBRAS EN MODO OSCURO
+   =========================================== */
+
+.dark .shadow-sm {
+    box-shadow: var(--dark-shadow-sm) !important;
+}
+
+.dark .shadow-md {
+    box-shadow: var(--dark-shadow-md) !important;
+}
+
+.dark .shadow-lg {
+    box-shadow: var(--dark-shadow-lg) !important;
+}
+
+/* ===========================================
+   CARDS DE COLORES EN MODO OSCURO
+   =========================================== */
+
+.dark .bg-blue-100 {
+    background-color: #1e3a8a !important;
+}
+
+.dark .text-blue-600 {
+    color: #60a5fa !important;
+}
+
+.dark .text-blue-800 {
+    color: #93c5fd !important;
+}
+
+.dark .hover\:text-blue-600:hover {
+    color: #93c5fd !important;
+}
+
+.dark .hover\:text-blue-800:hover {
+    color: #dbeafe !important;
+}
+
+.dark .bg-green-100 {
+    background-color: #14532d !important;
+}
+
+.dark .text-green-600 {
+    color: #4ade80 !important;
+}
+
+.dark .text-green-800 {
+    color: #86efac !important;
+}
+
+.dark .hover\:text-green-600:hover {
+    color: #86efac !important;
+}
+
+.dark .hover\:text-green-800:hover {
+    color: #bbf7d0 !important;
+}
+
+.dark .bg-yellow-100 {
+    background-color: #92400e !important;
+}
+
+.dark .text-yellow-600 {
+    color: #fbbf24 !important;
+}
+
+.dark .text-yellow-800 {
+    color: #fcd34d !important;
+}
+
+.dark .hover\:text-yellow-600:hover {
+    color: #fcd34d !important;
+}
+
+.dark .hover\:text-yellow-800:hover {
+    color: #fde68a !important;
+}
+
+.dark .bg-purple-100 {
+    background-color: #581c87 !important;
+}
+
+.dark .text-purple-600 {
+    color: #a855f7 !important;
+}
+
+.dark .text-purple-800 {
+    color: #c084fc !important;
+}
+
+.dark .hover\:text-purple-600:hover {
+    color: #c084fc !important;
+}
+
+.dark .hover\:text-purple-800:hover {
+    color: #ddd6fe !important;
+}
+
+.dark .bg-orange-100 {
+    background-color: #9a3412 !important;
+}
+
+.dark .text-orange-600 {
+    color: #fb923c !important;
+}
+
+.dark .text-orange-800 {
+    color: #fdba74 !important;
+}
+
+.dark .hover\:text-orange-600:hover {
+    color: #fdba74 !important;
+}
+
+.dark .hover\:text-orange-800:hover {
+    color: #fed7aa !important;
+}
+
+.dark .bg-red-100 {
+    background-color: #7f1d1d !important;
+}
+
+.dark .text-red-600 {
+    color: #f87171 !important;
+}
+
+.dark .text-red-800 {
+    color: #fca5a5 !important;
+}
+
+.dark .hover\:bg-red-50:hover {
+    background-color: #7f1d1d !important;
+}
+
+/* ===========================================
+   MODALES EN MODO OSCURO
+   =========================================== */
+
+.dark .tt-modal,
+.dark #profileModal .bg-white,
+.dark #appearanceModal .bg-white {
+    background-color: var(--dark-bg-secondary) !important;
+    border-color: var(--dark-border-primary) !important;
+    color: var(--dark-text-primary) !important;
+}
+
+.dark .tt-modal-title,
+.dark #profileModal .text-gray-900,
+.dark #appearanceModal .text-gray-900 {
+    color: var(--dark-text-primary) !important;
+}
+
+.dark .tt-modal-close,
+.dark #profileModal .text-gray-400,
+.dark #appearanceModal .text-gray-400 {
+    color: var(--dark-text-subtle) !important;
+}
+
+.dark .tt-modal-close:hover,
+.dark #profileModal .hover\:text-gray-600:hover,
+.dark #appearanceModal .hover\:text-gray-600:hover {
+    color: var(--dark-text-terciary) !important;
+}
+
+/* Modales específicos */
+.dark #profileModal .bg-gray-50,
+.dark #appearanceModal .bg-gray-50 {
+    background-color: var(--dark-bg-terciary) !important;
+}
+
+.dark #profileModal .text-gray-700,
+.dark #appearanceModal .text-gray-700 {
+    color: var(--dark-text-secondary) !important;
+}
+
+.dark #profileModal .hover\:bg-gray-100:hover,
+.dark #appearanceModal .hover\:bg-gray-100:hover {
+    background-color: var(--dark-bg-hover) !important;
+}
+
+.dark #profileModal .hover\:bg-gray-600:hover {
+    background-color: var(--dark-border-secondary) !important;
+}
+
+/* ===========================================
+   TOGGLE SWITCH EN MODO OSCURO
+   =========================================== */
+
+.dark .slider {
+    background-color: var(--dark-border-secondary) !important;
+}
+
+.dark input:checked+.slider {
+    background-color: #3b82f6 !important;
+}
+
+.dark .slider:before {
+    background-color: var(--dark-text-secondary) !important;
+}
+
+/* ===========================================
+   BREADCRUMBS EN MODO OSCURO
+   =========================================== */
+
+.dark .text-blue-600 {
+    color: #60a5fa !important;
+}
+
+/* ===========================================
+   BANNER DE BIENVENIDA - mantener colores originales
+   =========================================== */
+
+.dark .bg-gradient-to-r.from-blue-600.to-indigo-600 {
+    background: linear-gradient(to right, #2563eb, #4f46e5) !important;
+}
+
+.dark .text-blue-100 {
+    color: #dbeafe !important;
+}
+
+.dark .text-blue-200 {
+    color: #bfdbfe !important;
+}
+
+/* ===========================================
+   BOTONES DEL NAVBAR EN MODO OSCURO
+   =========================================== */
+
+.dark #sidebarToggle {
+    color: var(--dark-text-subtle) !important;
+}
+
+.dark #sidebarToggle:hover {
+    color: var(--dark-text-secondary) !important;
+    background-color: var(--dark-bg-terciary) !important;
+}
+
+/* ===========================================
+   COMPONENTES PERSONALIZADOS EN MODO OSCURO
+   =========================================== */
+
+.dark .tt-card {
+    background: var(--dark-bg-card) !important;
+    border-color: var(--dark-border-primary) !important;
+    color: var(--dark-text-primary) !important;
+}
+
+.dark .tt-card-title {
+    color: var(--dark-text-primary) !important;
+}
+
+.dark .tt-navbar {
+    background-color: rgba(17, 24, 39, 0.95) !important;
+    border-color: var(--dark-border-primary) !important;
+}
+
+.dark .tt-navbar-title {
+    color: var(--dark-text-primary) !important;
+}
+
+.dark .tt-navbar-subtitle {
+    color: var(--dark-text-muted) !important;
+}
+
+/* ===========================================
+   BOTONES EN MODO OSCURO
+   =========================================== */
+
+.dark .tt-btn-secondary {
+    background-color: var(--dark-bg-terciary) !important;
+    color: var(--dark-text-secondary) !important;
+}
+
+.dark .tt-btn-secondary:hover {
+    background-color: var(--dark-border-secondary) !important;
+}
+
+/* ===========================================
+   MEJORAS ADICIONALES
+   =========================================== */
+
+.dark button:hover {
+    opacity: 0.9;
+}
+
+.dark .transition-colors {
+    transition: color 0.2s ease, background-color 0.2s ease;
+}
+
+.dark button:focus,
+.dark a:focus {
+    outline: 2px solid #60a5fa;
+    outline-offset: 2px;
+}
+
+/* ===========================================
+   NOTIFICACIONES EN MODO OSCURO
+   =========================================== */
+
+.dark .bg-red-500 {
+    background-color: #dc2626 !important;
+
+}
+
+
+.dark .tt-card:hover {
+    box-shadow: var(--dark-shadow-md);
+}
+
+.dark .tt-card-header {
+    border-color: var(--dark-border-primary);
+}
+
+.dark .tt-card-footer {
+    background: var(--dark-bg-secondary);
+    border-color: var(--dark-border-primary);
+}
+
+/* ===========================================
+   TARJETAS DE ESTADÍSTICAS CON COLORES
+   =========================================== */
+
+/* Tarjetas base con colores elegantes */
+.tt-stat-card-blue {
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.05), rgba(99, 102, 241, 0.05));
+    border-left: 4px solid #3b82f6;
+    border-color: rgba(59, 130, 246, 0.1);
+}
+
+.tt-stat-card-green {
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.05), rgba(5, 150, 105, 0.05));
+    border-left: 4px solid #10b981;
+    border-color: rgba(16, 185, 129, 0.1);
+}
+
+.tt-stat-card-yellow {
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.05), rgba(217, 119, 6, 0.05));
+    border-left: 4px solid #f59e0b;
+    border-color: rgba(245, 158, 11, 0.1);
+}
+
+.tt-stat-card-red {
+    background: linear-gradient(135deg, rgba(239, 68, 68, 0.05), rgba(220, 38, 38, 0.05));
+    border-left: 4px solid #ef4444;
+    border-color: rgba(239, 68, 68, 0.1);
+}
+
+.tt-stat-card-purple {
+    background: linear-gradient(135deg, rgba(168, 85, 247, 0.05), rgba(147, 51, 234, 0.05));
+    border-left: 4px solid #a855f7;
+    border-color: rgba(168, 85, 247, 0.1);
+}
+
+.tt-stat-card-orange {
+    background: linear-gradient(135deg, rgba(251, 146, 60, 0.05), rgba(234, 88, 12, 0.05));
+    border-left: 4px solid #fb923c;
+    border-color: rgba(251, 146, 60, 0.1);
+}
+
+.tt-stat-card-indigo {
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.05), rgba(79, 70, 229, 0.05));
+    border-left: 4px solid #6366f1;
+    border-color: rgba(99, 102, 241, 0.1);
+}
+
+.tt-stat-card-pink {
+    background: linear-gradient(135deg, rgba(236, 72, 153, 0.05), rgba(219, 39, 119, 0.05));
+    border-left: 4px solid #ec4899;
+    border-color: rgba(236, 72, 153, 0.1);
+}
+
+/* Efectos hover para tarjetas con colores */
+.tt-stat-card-blue:hover {
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.08), rgba(99, 102, 241, 0.08));
+    border-color: rgba(59, 130, 246, 0.15);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(59, 130, 246, 0.15);
+}
+
+.tt-stat-card-green:hover {
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.08), rgba(5, 150, 105, 0.08));
+    border-color: rgba(16, 185, 129, 0.15);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(16, 185, 129, 0.15);
+}
+
+.tt-stat-card-yellow:hover {
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.08), rgba(217, 119, 6, 0.08));
+    border-color: rgba(245, 158, 11, 0.15);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(245, 158, 11, 0.15);
+}
+
+.tt-stat-card-red:hover {
+    background: linear-gradient(135deg, rgba(239, 68, 68, 0.08), rgba(220, 38, 38, 0.08));
+    border-color: rgba(239, 68, 68, 0.15);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(239, 68, 68, 0.15);
+}
+
+.tt-stat-card-purple:hover {
+    background: linear-gradient(135deg, rgba(168, 85, 247, 0.08), rgba(147, 51, 234, 0.08));
+    border-color: rgba(168, 85, 247, 0.15);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(168, 85, 247, 0.15);
+}
+
+.tt-stat-card-orange:hover {
+    background: linear-gradient(135deg, rgba(251, 146, 60, 0.08), rgba(234, 88, 12, 0.08));
+    border-color: rgba(251, 146, 60, 0.15);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(251, 146, 60, 0.15);
+}
+
+.tt-stat-card-indigo:hover {
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.08), rgba(79, 70, 229, 0.08));
+    border-color: rgba(99, 102, 241, 0.15);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(99, 102, 241, 0.15);
+}
+
+.tt-stat-card-pink:hover {
+    background: linear-gradient(135deg, rgba(236, 72, 153, 0.08), rgba(219, 39, 119, 0.08));
+    border-color: rgba(236, 72, 153, 0.15);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(236, 72, 153, 0.15);
+}
+
+/* Iconos de tarjetas con colores actualizados */
+.tt-stat-icon-blue {
+    background: linear-gradient(135deg, #3b82f6, #6366f1);
+    color: white;
+    border-radius: 0.75rem;
+}
+
+.tt-stat-icon-green {
+    background: linear-gradient(135deg, #10b981, #059669);
+    color: white;
+    border-radius: 0.75rem;
+}
+
+.tt-stat-icon-yellow {
+    background: linear-gradient(135deg, #f59e0b, #d97706);
+    color: white;
+    border-radius: 0.75rem;
+}
+
+.tt-stat-icon-red {
+    background: linear-gradient(135deg, #ef4444, #dc2626);
+    color: white;
+    border-radius: 0.75rem;
+}
+
+.tt-stat-icon-purple {
+    background: linear-gradient(135deg, #a855f7, #9333ea);
+    color: white;
+    border-radius: 0.75rem;
+}
+
+.tt-stat-icon-orange {
+    background: linear-gradient(135deg, #fb923c, #ea580c);
+    color: white;
+    border-radius: 0.75rem;
+}
+
+.tt-stat-icon-indigo {
+    background: linear-gradient(135deg, #6366f1, #4f46e5);
+    color: white;
+    border-radius: 0.75rem;
+}
+
+.tt-stat-icon-pink {
+    background: linear-gradient(135deg, #ec4899, #db2777);
+    color: white;
+    border-radius: 0.75rem;
+}
+
+/* Números de estadísticas con colores */
+.tt-stat-number-blue {
+    color: #1e40af;
+}
+
+.tt-stat-number-green {
+    color: #047857;
+}
+
+.tt-stat-number-yellow {
+    color: #b45309;
+}
+
+.tt-stat-number-red {
+    color: #b91c1c;
+}
+
+.tt-stat-number-purple {
+    color: #7c2d12;
+}
+
+.tt-stat-number-orange {
+    color: #c2410c;
+}
+
+.tt-stat-number-indigo {
+    color: #3730a3;
+}
+
+.tt-stat-number-pink {
+    color: #be185d;
+}
+
+/* ===========================================
+   MODO OSCURO - TARJETAS DE ESTADÍSTICAS
+   =========================================== */
+
+/* Tarjetas en modo oscuro */
+.dark .tt-stat-card-blue {
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.08), rgba(99, 102, 241, 0.08));
+    border-left-color: #60a5fa;
+    border-color: rgba(96, 165, 250, 0.15);
+}
+
+.dark .tt-stat-card-green {
+    background: linear-gradient(135deg, rgba(74, 222, 128, 0.08), rgba(16, 185, 129, 0.08));
+    border-left-color: #4ade80;
+    border-color: rgba(74, 222, 128, 0.15);
+}
+
+.dark .tt-stat-card-yellow {
+    background: linear-gradient(135deg, rgba(251, 191, 36, 0.08), rgba(245, 158, 11, 0.08));
+    border-left-color: #fbbf24;
+    border-color: rgba(251, 191, 36, 0.15);
+}
+
+.dark .tt-stat-card-red {
+    background: linear-gradient(135deg, rgba(248, 113, 113, 0.08), rgba(239, 68, 68, 0.08));
+    border-left-color: #f87171;
+    border-color: rgba(248, 113, 113, 0.15);
+}
+
+.dark .tt-stat-card-purple {
+    background: linear-gradient(135deg, rgba(196, 181, 253, 0.08), rgba(168, 85, 247, 0.08));
+    border-left-color: #c4b5fd;
+    border-color: rgba(196, 181, 253, 0.15);
+}
+
+.dark .tt-stat-card-orange {
+    background: linear-gradient(135deg, rgba(253, 186, 116, 0.08), rgba(251, 146, 60, 0.08));
+    border-left-color: #fdba74;
+    border-color: rgba(253, 186, 116, 0.15);
+}
+
+.dark .tt-stat-card-indigo {
+    background: linear-gradient(135deg, rgba(165, 180, 252, 0.08), rgba(99, 102, 241, 0.08));
+    border-left-color: #a5b4fc;
+    border-color: rgba(165, 180, 252, 0.15);
+}
+
+.dark .tt-stat-card-pink {
+    background: linear-gradient(135deg, rgba(251, 207, 232, 0.08), rgba(236, 72, 153, 0.08));
+    border-left-color: #fbcfe8;
+    border-color: rgba(251, 207, 232, 0.15);
+}
+
+/* Hover en modo oscuro */
+.dark .tt-stat-card-blue:hover {
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.12), rgba(99, 102, 241, 0.12));
+    border-color: rgba(96, 165, 250, 0.25);
+    box-shadow: 0 8px 25px rgba(96, 165, 250, 0.2);
+}
+
+.dark .tt-stat-card-green:hover {
+    background: linear-gradient(135deg, rgba(74, 222, 128, 0.12), rgba(16, 185, 129, 0.12));
+    border-color: rgba(74, 222, 128, 0.25);
+    box-shadow: 0 8px 25px rgba(74, 222, 128, 0.2);
+}
+
+.dark .tt-stat-card-yellow:hover {
+    background: linear-gradient(135deg, rgba(251, 191, 36, 0.12), rgba(245, 158, 11, 0.12));
+    border-color: rgba(251, 191, 36, 0.25);
+    box-shadow: 0 8px 25px rgba(251, 191, 36, 0.2);
+}
+
+.dark .tt-stat-card-red:hover {
+    background: linear-gradient(135deg, rgba(248, 113, 113, 0.12), rgba(239, 68, 68, 0.12));
+    border-color: rgba(248, 113, 113, 0.25);
+    box-shadow: 0 8px 25px rgba(248, 113, 113, 0.2);
+}
+
+.dark .tt-stat-card-purple:hover {
+    background: linear-gradient(135deg, rgba(196, 181, 253, 0.12), rgba(168, 85, 247, 0.12));
+    border-color: rgba(196, 181, 253, 0.25);
+    box-shadow: 0 8px 25px rgba(196, 181, 253, 0.2);
+}
+
+.dark .tt-stat-card-orange:hover {
+    background: linear-gradient(135deg, rgba(253, 186, 116, 0.12), rgba(251, 146, 60, 0.12));
+    border-color: rgba(253, 186, 116, 0.25);
+    box-shadow: 0 8px 25px rgba(253, 186, 116, 0.2);
+}
+
+.dark .tt-stat-card-indigo:hover {
+    background: linear-gradient(135deg, rgba(165, 180, 252, 0.12), rgba(99, 102, 241, 0.12));
+    border-color: rgba(165, 180, 252, 0.25);
+    box-shadow: 0 8px 25px rgba(165, 180, 252, 0.2);
+}
+
+.dark .tt-stat-card-pink:hover {
+    background: linear-gradient(135deg, rgba(251, 207, 232, 0.12), rgba(236, 72, 153, 0.12));
+    border-color: rgba(251, 207, 232, 0.25);
+    box-shadow: 0 8px 25px rgba(251, 207, 232, 0.2);
+}
+
+/* Números en modo oscuro */
+.dark .tt-stat-number-blue {
+    color: #93c5fd;
+}
+
+.dark .tt-stat-number-green {
+    color: #86efac;
+}
+
+.dark .tt-stat-number-yellow {
+    color: #fcd34d;
+}
+
+.dark .tt-stat-number-red {
+    color: #fca5a5;
+}
+
+.dark .tt-stat-number-purple {
+    color: #ddd6fe;
+}
+
+.dark .tt-stat-number-orange {
+    color: #fed7aa;
+}
+
+.dark .tt-stat-number-indigo {
+    color: #c7d2fe;
+}
+
+.dark .tt-stat-number-pink {
+    color: #f9a8d4;
+}
+
+/* Iconos en modo oscuro - mantener gradientes pero con mejor contraste */
+.dark .tt-stat-icon-blue {
+    background: linear-gradient(135deg, #60a5fa, #818cf8);
+}
+
+.dark .tt-stat-icon-green {
+    background: linear-gradient(135deg, #4ade80, #34d399);
+}
+
+.dark .tt-stat-icon-yellow {
+    background: linear-gradient(135deg, #fbbf24, #f59e0b);
+}
+
+.dark .tt-stat-icon-red {
+    background: linear-gradient(135deg, #f87171, #ef4444);
+}
+
+.dark .tt-stat-icon-purple {
+    background: linear-gradient(135deg, #c084fc, #a855f7);
+}
+
+.dark .tt-stat-icon-orange {
+    background: linear-gradient(135deg, #fdba74, #fb923c);
+}
+
+.dark .tt-stat-icon-indigo {
+    background: linear-gradient(135deg, #a5b4fc, #818cf8);
+}
+
+.dark .tt-stat-icon-pink {
+    background: linear-gradient(135deg, #f9a8d4, #ec4899);
+}
+
+/* Transiciones suaves para todas las tarjetas de estadísticas */
+.tt-stat-card-blue,
+.tt-stat-card-green,
+.tt-stat-card-yellow,
+.tt-stat-card-red,
+.tt-stat-card-purple,
+.tt-stat-card-orange,
+.tt-stat-card-indigo,
+.tt-stat-card-pink {
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+/* Iconos de estadísticas en modo oscuro */
+.dark .tt-stat-icon.icon-blue {
+    background: rgba(37, 99, 235, 0.2);
+    color: #60a5fa;
+}
+
+.dark .tt-stat-icon.icon-green {
+    background: rgba(5, 150, 105, 0.2);
+    color: #4ade80;
+}
+
+.dark .tt-stat-icon.icon-yellow {
+    background: rgba(217, 119, 6, 0.2);
+    color: #fbbf24;
+}
+
+.dark .tt-stat-icon.icon-red {
+    background: rgba(220, 38, 38, 0.2);
+    color: #f87171;
+}
+
+.dark .tt-stat-icon.icon-purple {
+    background: rgba(124, 58, 237, 0.2);
+    color: #a855f7;
+}
+
+.dark .tt-stat-icon.icon-orange {
+    background: rgba(234, 88, 12, 0.2);
+    color: #fb923c;
+}
+
+.dark .tt-stat-card:hover .tt-stat-icon.icon-blue {
+    background: rgba(37, 99, 235, 0.3);
+}
+
+.dark .tt-stat-card:hover .tt-stat-icon.icon-green {
+    background: rgba(5, 150, 105, 0.3);
+}
+
+.dark .tt-stat-card:hover .tt-stat-icon.icon-yellow {
+    background: rgba(217, 119, 6, 0.3);
+}
+
+.dark .tt-stat-card:hover .tt-stat-icon.icon-red {
+    background: rgba(220, 38, 38, 0.3);
+}
+
+.dark .tt-stat-card:hover .tt-stat-icon.icon-purple {
+    background: rgba(124, 58, 237, 0.3);
+}
+
+.dark .tt-stat-card:hover .tt-stat-icon.icon-orange {
+    background: rgba(234, 88, 12, 0.3);
+}
+
+/* Enlaces de acciones de estadísticas */
+.dark .tt-stat-action a.action-blue {
+    color: #60a5fa;
+}
+
+.dark .tt-stat-action a.action-green {
+    color: #4ade80;
+}
+
+.dark .tt-stat-action a.action-yellow {
+    color: #fbbf24;
+}
+
+.dark .tt-stat-action a.action-red {
+    color: #f87171;
+}
+
+.dark .tt-stat-action a.action-purple {
+    color: #a855f7;
+}
+
+.dark .tt-stat-action a.action-orange {
+    color: #fb923c;
+}
+
+/* ===========================================
+   BOTONES EN MODO OSCURO
+   =========================================== */
+
+/* Botones secundarios */
+.dark .tt-btn.btn-secondary {
+    background: transparent;
+    color: var(--dark-text-secondary);
+    border-color: var(--dark-border-secondary);
+}
+
+.dark .tt-btn.btn-secondary:hover {
+    background: var(--dark-bg-hover);
+    border-color: var(--dark-text-muted);
+}
+
+.dark .tt-btn.btn-outline-primary {
+    color: #60a5fa;
+    border-color: #60a5fa;
+}
+
+.dark .tt-btn.btn-outline-primary:hover {
+    background: #60a5fa;
+    color: var(--dark-bg-primary);
+}
+
+/* Botones de acción rápida */
+.dark .tt-quick-action {
+    border-color: var(--dark-border-secondary);
+    background: transparent;
+}
+
+.dark .tt-quick-action:hover {
+    border-color: #60a5fa;
+    background: rgba(96, 165, 250, 0.1);
+}
+
+.dark .tt-quick-action.action-green:hover {
+    border-color: #4ade80;
+    background: rgba(74, 222, 128, 0.1);
+}
+
+.dark .tt-quick-action.action-yellow:hover {
+    border-color: #fbbf24;
+    background: rgba(251, 191, 36, 0.1);
+}
+
+.dark .tt-quick-action.action-purple:hover {
+    border-color: #a855f7;
+    background: rgba(168, 85, 247, 0.1);
+}
+
+.dark .tt-quick-action.action-orange:hover {
+    border-color: #fb923c;
+    background: rgba(251, 146, 60, 0.1);
+}
+
+.dark .tt-quick-action .action-title {
+    color: var(--dark-text-primary);
+}
+
+.dark .tt-quick-action .action-subtitle {
+    color: var(--dark-text-muted);
+}
+
+/* ===========================================
+   TABLAS EN MODO OSCURO
+   =========================================== */
+
+.dark .tt-table-container {
+    background: var(--dark-bg-card);
+    border-color: var(--dark-border-primary);
+    box-shadow: var(--dark-shadow-sm);
+}
+
+.dark .tt-table-header {
+    border-color: var(--dark-border-primary);
+}
+
+.dark .tt-table-title {
+    color: var(--dark-text-primary);
+}
+
+.dark .tt-table thead th {
+    background: var(--dark-bg-secondary);
+    color: var(--dark-text-muted);
+    border-color: var(--dark-border-primary);
+}
+
+.dark .tt-table tbody td {
+    border-color: var(--dark-border-primary);
+    color: var(--dark-text-secondary);
+}
+
+.dark .tt-table tbody tr:hover {
+    background: var(--dark-bg-hover);
+}
+
+/* Avatares en modo oscuro */
+.dark .tt-avatar.avatar-blue {
+    background: rgba(96, 165, 250, 0.2);
+    color: #60a5fa;
+}
+
+.dark .tt-avatar.avatar-green {
+    background: rgba(74, 222, 128, 0.2);
+    color: #4ade80;
+}
+
+.dark .tt-avatar.avatar-purple {
+    background: rgba(168, 85, 247, 0.2);
+    color: #a855f7;
+}
+
+.dark .tt-avatar.avatar-orange {
+    background: rgba(251, 146, 60, 0.2);
+    color: #fb923c;
+}
+
+/* Acciones de tabla */
+.dark .tt-table-row-actions button:hover {
+    background: var(--dark-bg-hover);
+}
+
+.dark .tt-table-row-actions .action-view {
+    color: #60a5fa;
+}
+
+.dark .tt-table-row-actions .action-edit {
+    color: #4ade80;
+}
+
+.dark .tt-table-row-actions .action-delete {
+    color: #f87171;
+}
+
+/* ===========================================
+   BADGES EN MODO OSCURO
+   =========================================== */
+
+.dark .tt-badge.badge-success {
+    background: rgba(74, 222, 128, 0.2);
+    color: #4ade80;
+}
+
+.dark .tt-badge.badge-warning {
+    background: rgba(251, 191, 36, 0.2);
+    color: #fbbf24;
+}
+
+.dark .tt-badge.badge-danger {
+    background: rgba(248, 113, 113, 0.2);
+    color: #f87171;
+}
+
+.dark .tt-badge.badge-info {
+    background: rgba(96, 165, 250, 0.2);
+    color: #60a5fa;
+}
+
+.dark .tt-badge.badge-purple {
+    background: rgba(168, 85, 247, 0.2);
+    color: #a855f7;
+}
+
+.dark .tt-badge.badge-gray {
+    background: rgba(148, 163, 184, 0.2);
+    color: var(--dark-text-muted);
+}
+
+/* ===========================================
+   FORMULARIOS EN MODO OSCURO
+   =========================================== */
+
+.dark .tt-form-label {
+    color: var(--dark-text-secondary);
+}
+
+.dark .tt-form-input,
+.dark .tt-form-select,
+.dark .tt-form-textarea {
+    background: var(--dark-bg-card);
+    border-color: var(--dark-border-secondary);
+    color: var(--dark-text-primary);
+}
+
+.dark .tt-form-input::placeholder,
+.dark .tt-form-select::placeholder,
+.dark .tt-form-textarea::placeholder {
+    color: var(--dark-text-muted);
+}
+
+.dark .tt-form-input:focus,
+.dark .tt-form-select:focus,
+.dark .tt-form-textarea:focus {
+    border-color: #60a5fa;
+    box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.1);
+}
+
+.dark .tt-form-input.input-error,
+.dark .tt-form-select.input-error,
+.dark .tt-form-textarea.input-error {
+    border-color: #f87171;
+}
+
+.dark .tt-form-input.input-error:focus,
+.dark .tt-form-select.input-error:focus,
+.dark .tt-form-textarea.input-error:focus {
+    box-shadow: 0 0 0 3px rgba(248, 113, 113, 0.1);
+}
+
+.dark .tt-form-help {
+    color: var(--dark-text-muted);
+}
+
+.dark .tt-form-error {
+    color: #f87171;
+}
+
+/* Checkboxes y radios en modo oscuro */
+.dark .tt-checkbox input,
+.dark .tt-radio input {
+    background: var(--dark-bg-card);
+    border-color: var(--dark-border-secondary);
+}
+
+.dark .tt-checkbox input:checked,
+.dark .tt-radio input:checked {
+    background: #60a5fa;
+    border-color: #60a5fa;
+}
+
+/* ===========================================
+   ALERTAS EN MODO OSCURO
+   =========================================== */
+
+.dark .tt-alert.alert-success {
+    background: rgba(74, 222, 128, 0.1);
+    border-color: rgba(74, 222, 128, 0.2);
+    color: #4ade80;
+}
+
+.dark .tt-alert.alert-warning {
+    background: rgba(251, 191, 36, 0.1);
+    border-color: rgba(251, 191, 36, 0.2);
+    color: #fbbf24;
+}
+
+.dark .tt-alert.alert-danger {
+    background: rgba(248, 113, 113, 0.1);
+    border-color: rgba(248, 113, 113, 0.2);
+    color: #f87171;
+}
+
+.dark .tt-alert.alert-info {
+    background: rgba(96, 165, 250, 0.1);
+    border-color: rgba(96, 165, 250, 0.2);
+    color: #60a5fa;
+}
+
+.dark .tt-alert-title {
+    color: currentColor;
+}
+
+.dark .tt-alert-message {
+    color: currentColor;
+    opacity: 0.9;
+}
+
+/* ===========================================
+   MODALES EN MODO OSCURO
+   =========================================== */
+
+.dark .tt-modal-overlay {
+    background: rgba(0, 0, 0, 0.7);
+}
+
+.dark .tt-modal {
+    background: var(--dark-bg-card);
+    box-shadow: var(--dark-shadow-xl);
+}
+
+.dark .tt-modal-header {
+    border-color: var(--dark-border-primary);
+}
+
+.dark .tt-modal-title {
+    color: var(--dark-text-primary);
+}
+
+.dark .tt-modal-close {
+    color: var(--dark-text-muted);
+}
+
+.dark .tt-modal-close:hover {
+    color: var(--dark-text-secondary);
+    background: var(--dark-bg-hover);
+}
+
+.dark .tt-modal-footer {
+    border-color: var(--dark-border-primary);
+}
+
+/* ===========================================
+   MODALES ESPECÍFICOS DEL DASHBOARD
+   =========================================== */
+
+/* Modal de Perfil */
+.dark #profileModal .bg-white {
+    background-color: var(--dark-bg-card) !important;
+    border-color: var(--dark-border-primary) !important;
+}
+
+.dark #profileModal .bg-gray-50 {
+    background-color: var(--dark-bg-hover) !important;
+}
+
+.dark #profileModal .text-gray-900 {
+    color: var(--dark-text-primary) !important;
+}
+
+.dark #profileModal .text-gray-700 {
+    color: var(--dark-text-secondary) !important;
+}
+
+.dark #profileModal .text-gray-500 {
+    color: var(--dark-text-muted) !important;
+}
+
+.dark #profileModal .text-gray-400 {
+    color: var(--dark-text-subtle) !important;
+}
+
+.dark #profileModal .hover\:bg-gray-100:hover {
+    background-color: var(--dark-bg-hover) !important;
+}
+
+.dark #profileModal .border-gray-200 {
+    border-color: var(--dark-border-primary) !important;
+}
+
+/* Modal de Configuración */
+.dark #appearanceModal .bg-white {
+    background-color: var(--dark-bg-card) !important;
+    border-color: var(--dark-border-primary) !important;
+}
+
+.dark #appearanceModal .bg-gray-50 {
+    background-color: var(--dark-bg-hover) !important;
+}
+
+.dark #appearanceModal .text-gray-900 {
+    color: var(--dark-text-primary) !important;
+}
+
+.dark #appearanceModal .text-gray-500 {
+    color: var(--dark-text-muted) !important;
+}
+
+/* ===========================================
+   TOGGLE SWITCH EN MODO OSCURO
+   =========================================== */
+
+.dark .tt-toggle-slider {
+    background: var(--dark-border-secondary);
+}
+
+.dark .tt-toggle-slider:before {
+    background: var(--dark-text-primary);
+}
+
+.dark .tt-toggle input:checked+.tt-toggle-slider {
+    background: #60a5fa;
+}
+
+/* ===========================================
+   BREADCRUMBS EN MODO OSCURO
+   =========================================== */
+
+.dark .tt-breadcrumb-item:not(:last-child)::after {
+    color: var(--dark-text-muted);
+}
+
+.dark .tt-breadcrumb-item a {
+    color: #60a5fa;
+}
+
+.dark .tt-breadcrumb-item a:hover {
+    color: #93c5fd;
+}
+
+.dark .tt-breadcrumb-item.current {
+    color: var(--dark-text-muted);
+}
+
+/* ===========================================
+   BARRAS DE PROGRESO EN MODO OSCURO
+   =========================================== */
+
+.dark .tt-progress {
+    background: var(--dark-bg-secondary);
+}
+
+.dark .tt-progress-bar.progress-blue {
+    background: #60a5fa;
+}
+
+.dark .tt-progress-bar.progress-green {
+    background: #4ade80;
+}
+
+.dark .tt-progress-bar.progress-yellow {
+    background: #fbbf24;
+}
+
+.dark .tt-progress-bar.progress-red {
+    background: #f87171;
+}
+
+.dark .tt-progress-label {
+    color: var(--dark-text-secondary);
+}
+
+.dark .tt-progress-value {
+    color: var(--dark-text-muted);
+}
+
+/* ===========================================
+   ELEMENTOS ESPECÍFICOS EN MODO OSCURO
+   =========================================== */
+
+/* Loading spinner */
+.dark .tt-loading {
+    border-color: var(--dark-border-secondary);
+    border-top-color: #60a5fa;
+}
+
+/* Skeleton */
+.dark .tt-skeleton {
+    background: linear-gradient(90deg, var(--dark-bg-secondary) 25%, var(--dark-bg-hover) 50%, var(--dark-bg-secondary) 75%);
+}
+
+/* ===========================================
+   LAYOUT EN MODO OSCURO
+   =========================================== */
+
+/* Sidebar */
+.dark #sidebar {
+    background: var(--dark-bg-card);
+    border-color: var(--dark-border-primary);
+    box-shadow: 2px 0 4px rgba(0, 0, 0, 0.3);
+}
+
+.dark #sidebar .border-gray-200 {
+    border-color: var(--dark-border-primary);
+}
+
+.dark #sidebar .text-gray-900 {
+    color: var(--dark-text-primary);
+}
+
+.dark #sidebar .text-gray-700 {
+    color: var(--dark-text-secondary);
+}
+
+.dark #sidebar .text-gray-500 {
+    color: var(--dark-text-muted);
+}
+
+.dark #sidebar .text-gray-400 {
+    color: var(--dark-text-subtle);
+}
+
+.dark #sidebar .hover\:bg-gray-100:hover {
+    background: var(--dark-bg-hover);
+}
+
+.dark #sidebar .group-hover\:text-gray-700:hover {
+    color: var(--dark-text-secondary);
+}
+
+/* Estados activos del sidebar */
+.dark #sidebar a.bg-blue-600 {
+    background: #60a5fa;
+    color: var(--dark-bg-primary);
+}
+
+.dark #sidebar a.bg-blue-600 i {
+    color: var(--dark-bg-primary);
+}
+
+/* Navbar */
+.dark nav {
+    background: var(--dark-bg-card);
+    border-color: var(--dark-border-primary);
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3);
+}
+
+/* Overlay del sidebar en móvil */
+.dark #sidebarOverlay {
+    background: rgba(0, 0, 0, 0.7);
+}
+
+/* ===========================================
+   CLASES ESPECÍFICAS DE TAILWIND EN MODO OSCURO
+   =========================================== */
+
+/* Fondos */
+.dark .bg-white {
+    background-color: var(--dark-bg-card);
+    border-color: var(--dark-border-primary);
+}
+
+.dark .bg-gray-50 {
+    background-color: var(--dark-bg-primary);
+}
+
+.dark .bg-gray-100 {
+    background-color: var(--dark-bg-secondary);
+}
+
+.dark .bg-gray-200 {
+    background-color: var(--dark-bg-terciary);
+}
+
+/* Textos */
+.dark .text-gray-900 {
+    color: var(--dark-text-primary);
+}
+
+.dark .text-gray-800 {
+    color: var(--dark-text-primary);
+}
+
+.dark .text-gray-700 {
+    color: var(--dark-text-secondary);
+}
+
+.dark .text-gray-600 {
+    color: var(--dark-text-terciary);
+}
+
+.dark .text-gray-500 {
+    color: var(--dark-text-muted);
+}
+
+.dark .text-gray-400 {
+    color: var(--dark-text-subtle);
+}
+
+/* Bordes */
+.dark .border-gray-200 {
+    border-color: var(--dark-border-primary);
+}
+
+.dark .border-gray-300 {
+    border-color: var(--dark-border-secondary);
+}
+
+/* Hovers */
+.dark .hover\:bg-gray-50:hover {
+    background-color: var(--dark-bg-hover);
+}
+
+.dark .hover\:bg-gray-100:hover {
+    background-color: var(--dark-bg-terciary);
+}
+
+.dark .hover\:text-gray-600:hover {
+    color: var(--dark-text-terciary);
+}
+
+.dark .hover\:text-gray-700:hover {
+    color: var(--dark-text-secondary);
+}
+
+.dark .hover\:text-gray-900:hover {
+    color: var(--dark-text-primary);
+}
+
+/* Sombras */
+.dark .shadow-sm {
+    box-shadow: var(--dark-shadow-sm);
+}
+
+.dark .shadow-md {
+    box-shadow: var(--dark-shadow-md);
+}
+
+.dark .shadow-lg {
+    box-shadow: var(--dark-shadow-lg);
+}
+
+/* ===========================================
+   MEJORAS DE CONTRASTE Y ACCESIBILIDAD
+   =========================================== */
+
+.dark button:focus,
+.dark a:focus {
+    outline: 2px solid #60a5fa;
+    outline-offset: 2px;
+}
+
+.dark .transition-colors {
+    transition: color 0.2s ease, background-color 0.2s ease;
+}
+
+/* Estados de hover mejorados */
+.dark button:hover {
+    opacity: 0.9;
+}
+
+/* Mejoras específicas para iconos */
+.dark i.fas,
+.dark i.far,
+.dark i.fab {
+    opacity: 0.9;
+}
+
+/* Banner de bienvenida - mantener colores originales */
+.dark .bg-gradient-to-r.from-blue-600.to-indigo-600 {
+    background: linear-gradient(to right, #2563eb, #4f46e5);
+}
+
+.dark .text-blue-100 {
+    color: #dbeafe;
+}
+
+.dark .text-blue-200 {
+    color: #bfdbfe;
+}
+
+/* ===========================================
+   TOGGLE SWITCH PARA MODO OSCURO
+   =========================================== */
+
+.toggle-switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 24px;
+}
+
+.toggle-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #cbd5e1;
+    transition: 0.3s ease;
+    border-radius: 24px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 18px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    transition: 0.3s ease;
+    border-radius: 50%;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+input:checked+.slider {
+    background-color: #3b82f6;
+}
+
+input:checked+.slider:before {
+    transform: translateX(26px);
+}
+
+/* Estilos para modo oscuro */
+.dark .slider {
+    background-color: #475569;
+}
+
+.dark input:checked+.slider {
+    background-color: #60a5fa;
+}
+
+.dark .slider:before {
+    background-color: #f8fafc;
+}
+
+/* ===========================================
+   RESPONSIVE EN MODO OSCURO
+   =========================================== */
+
+@media (max-width: 1023px) {
+    .dark .sidebar-open {
+        transform: translateX(0);
+    }
+}
+
+/* ===========================================
+   BOTONES ESPECÍFICOS DEL MÓDULO CLIENTES
+   =========================================== */
+
+/* Botón limpiar filtros específico de clientes */
+.dark #btnLimpiarFiltros {
+    background-color: var(--dark-bg-terciary) !important;
+    border: 1px solid var(--dark-border-secondary) !important;
+    color: var(--dark-text-primary) !important;
+    box-shadow: var(--dark-shadow-sm) !important;
+}
+
+.dark #btnLimpiarFiltros:hover {
+    background-color: var(--dark-bg-hover) !important;
+    border-color: var(--accent-gold) !important;
+    color: var(--accent-gold) !important;
+    transform: translateY(-1px);
+}
+
+/* Botón de exportar en tabla de clientes */
+.dark button[title="Exportar"] {
+    background-color: var(--dark-bg-terciary) !important;
+    border: 1px solid var(--dark-border-secondary) !important;
+    color: var(--dark-text-primary) !important;
+    padding: 8px 12px !important;
+    border-radius: 6px !important;
+}
+
+.dark button[title="Exportar"]:hover {
+    background-color: var(--dark-bg-hover) !important;
+    border-color: var(--accent-gold) !important;
+    color: var(--accent-gold) !important;
+}
+
+/* ===========================================
+   MÓDULO VEHÍCULOS - INPUTS Y SELECTS
+   =========================================== */
+
+/* Inputs específicos del módulo vehículos */
+.dark #searchVehiculo,
+.dark #filterMarca,
+.dark #filterCombustible,
+.dark #filterAnio {
+    background-color: var(--dark-bg-secondary) !important;
+    border-color: var(--dark-border-secondary) !important;
+    color: var(--dark-text-primary) !important;
+}
+
+.dark #searchVehiculo::placeholder {
+    color: var(--dark-text-muted) !important;
+}
+
+.dark #searchVehiculo:focus,
+.dark #filterMarca:focus,
+.dark #filterCombustible:focus,
+.dark #filterAnio:focus {
+    border-color: #3b82f6 !important;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1) !important;
+}
+
+/* Options en selects del módulo vehículos */
+.dark #filterMarca option,
+.dark #filterCombustible option,
+.dark #filterAnio option {
+    background-color: var(--dark-bg-secondary) !important;
+    color: var(--dark-text-primary) !important;
+}
+
+/* ===========================================
+   MÓDULO CITAS - INPUTS, SELECTS Y BOTONES
+   =========================================== */
+
+/* Inputs y selects específicos del módulo citas */
+.dark #searchCita,
+.dark #filterEstado,
+.dark #filterTipoCita,
+.dark #filterFecha {
+    background-color: var(--dark-bg-secondary) !important;
+    border-color: var(--dark-border-secondary) !important;
+    color: var(--dark-text-primary) !important;
+}
+
+.dark #searchCita::placeholder {
+    color: var(--dark-text-muted) !important;
+}
+
+.dark #searchCita:focus,
+.dark #filterEstado:focus,
+.dark #filterTipoCita:focus,
+.dark #filterFecha:focus {
+    border-color: #3b82f6 !important;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1) !important;
+}
+
+/* Options en selects del módulo citas */
+.dark #filterEstado option,
+.dark #filterTipoCita option {
+    background-color: var(--dark-bg-secondary) !important;
+    color: var(--dark-text-primary) !important;
+}
+
+/* Botón Vista Calendario específico */
+.dark #btnVistaCalendario {
+    background: linear-gradient(135deg, #7c3aed 0%, #a855f7 100%) !important;
+    border: 1px solid #8b5cf6 !important;
+    color: white !important;
+    box-shadow: 0 4px 6px -1px rgba(124, 58, 237, 0.3) !important;
+}
+
+.dark #btnVistaCalendario:hover {
+    background: linear-gradient(135deg, #6d28d9 0%, #9333ea 100%) !important;
+    border-color: #7c3aed !important;
+    transform: translateY(-1px) !important;
+    box-shadow: 0 6px 8px -1px rgba(124, 58, 237, 0.4) !important;
+}
+
+.dark #btnVistaCalendario i {
+    color: white !important;
+}
+
+/* ===========================================
+   MÓDULOS ADICIONALES - INPUTS Y BOTONES
+   =========================================== */
+
+/* SERVICIOS */
+.dark #searchServicio,
+.dark #filterCategoria,
+.dark #filterPrecio {
+    background-color: var(--dark-bg-secondary) !important;
+    border-color: var(--dark-border-secondary) !important;
+    color: var(--dark-text-primary) !important;
+}
+
+.dark #searchServicio::placeholder {
+    color: var(--dark-text-muted) !important;
+}
+
+.dark #filterCategoria option,
+.dark #filterPrecio option {
+    background-color: var(--dark-bg-secondary) !important;
+    color: var(--dark-text-primary) !important;
+}
+
+/* PRODUCTOS */
+.dark #searchProducto,
+.dark #filterCategoriaProducto,
+.dark #filterMarcaProducto {
+    background-color: var(--dark-bg-secondary) !important;
+    border-color: var(--dark-border-secondary) !important;
+    color: var(--dark-text-primary) !important;
+}
+
+.dark #searchProducto::placeholder {
+    color: var(--dark-text-muted) !important;
+}
+
+
+
+/* FACTURAS */
+.dark #searchFactura,
+.dark #filterEstadoFactura,
+.dark #filterMetodoPago,
+.dark #filterFechaDesde,
+.dark #filterFechaHasta {
+    background-color: var(--dark-bg-secondary) !important;
+    border-color: var(--dark-border-secondary) !important;
+    color: var(--dark-text-primary) !important;
+}
+
+.dark #searchFactura::placeholder {
+    color: var(--dark-text-muted) !important;
+}
+
+/* PERSONAL */
+.dark #searchPersonal,
+.dark #filterRol,
+.dark #filterSucursal,
+.dark #filterEstadoPersonal {
+    background-color: var(--dark-bg-secondary) !important;
+    border-color: var(--dark-border-secondary) !important;
+    color: var(--dark-text-primary) !important;
+}
+
+.dark #searchPersonal::placeholder {
+    color: var(--dark-text-muted) !important;
+}
+
+/* FILTROS DE CARGO Y SEXO (PERSONAL) */
+.dark #filterCargo,
+.dark #filterSexo {
+    background-color: var(--dark-bg-secondary) !important;
+    border-color: var(--dark-border-secondary) !important;
+    color: var(--dark-text-primary) !important;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.12);
+    transition: background 0.2s, color 0.2s, border 0.2s;
+}
+
+.dark #filterCargo:hover,
+.dark #filterSexo:hover {
+    background-color: #2d323b !important;
+    border-color: #6366f1 !important;
+    color: #fff !important;
+}
+
+.dark #filterCargo:focus,
+.dark #filterSexo:focus {
+    background-color: var(--dark-bg-secondary) !important;
+    border-color: #6366f1 !important;
+    box-shadow: 0 0 0 2px #6366f1 !important;
+    color: #fff !important;
+    outline: none !important;
+}
+
+.dark #filterCargo option,
+.dark #filterSexo option {
+    background-color: var(--dark-bg-secondary) !important;
+    color: var(--dark-text-primary) !important;
+}
+
+/* FILTRO DE RANGO SALARIAL (PERSONAL) */
+.dark #filterRangoSalarial {
+    background-color: var(--dark-bg-secondary) !important;
+    border-color: var(--dark-border-secondary) !important;
+    color: var(--dark-text-primary) !important;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.12);
+    transition: background 0.2s, color 0.2s, border 0.2s;
+}
+
+.dark #filterRangoSalarial:hover {
+    background-color: #2d323b !important;
+    border-color: #6366f1 !important;
+    color: #fff !important;
+}
+
+.dark #filterRangoSalarial:focus {
+    background-color: var(--dark-bg-secondary) !important;
+    border-color: #6366f1 !important;
+    box-shadow: 0 0 0 2px #6366f1 !important;
+    color: #fff !important;
+    outline: none !important;
+}
+
+.dark #filterRangoSalarial option {
+    background-color: var(--dark-bg-secondary) !important;
+    color: var(--dark-text-primary) !important;
+}
+
+.dark #filterRangoSalarial::placeholder {
+    color: var(--dark-text-muted) !important;
+}
+
+/* BOTÓN DE ASISTENCIA (PERSONAL) */
+.dark #btnAsistencia {
+    background: linear-gradient(90deg, #7c3aed 0%, #a78bfa 100%) !important;
+    color: #fff !important;
+    border: none !important;
+    box-shadow: 0 2px 8px 0 rgba(124, 58, 237, 0.15) !important;
+    transition: background 0.2s, color 0.2s;
+}
+
+.dark #btnAsistencia:hover {
+    background: linear-gradient(90deg, #a78bfa 0%, #7c3aed 100%) !important;
+    color: #ffe082 !important;
+}
+
+.dark #btnAsistencia:focus {
+    outline: 2px solid #a78bfa !important;
+    outline-offset: 2px !important;
+}
+
+/* USUARIOS */
+.dark #searchUsuario,
+.dark #filterRolUsuario,
+.dark #filterEstadoUsuario {
+    background-color: var(--dark-bg-secondary) !important;
+    border-color: var(--dark-border-secondary) !important;
+    color: var(--dark-text-primary) !important;
+}
+
+.dark #searchUsuario::placeholder {
+    color: var(--dark-text-muted) !important;
+}
+
+/* ===========================================
+   BOTONES DE REPORTES Y GENERACIÓN
+   =========================================== */
+
+/* Botones de reportes con gradientes únicos */
+.dark #btnReporteVentas,
+.dark .btn-reporte-ventas {
+    background: linear-gradient(135deg, #059669 0%, #10b981 100%) !important;
+    border: 1px solid #10b981 !important;
+    color: white !important;
+    box-shadow: 0 4px 6px -1px rgba(5, 150, 105, 0.3) !important;
+}
+
+.dark #btnReporteVentas:hover,
+.dark .btn-reporte-ventas:hover {
+    background: linear-gradient(135deg, #047857 0%, #059669 100%) !important;
+    transform: translateY(-1px) !important;
+    box-shadow: 0 6px 8px -1px rgba(5, 150, 105, 0.4) !important;
+}
+
+/* Botones de generar */
+.dark #btnGenerar,
+.dark .btn-generar,
+.dark button[class*="generar"] {
+    background: linear-gradient(135deg, #dc2626 0%, #ef4444 100%) !important;
+    border: 1px solid #ef4444 !important;
+    color: white !important;
+    box-shadow: 0 4px 6px -1px rgba(220, 38, 38, 0.3) !important;
+}
+
+.dark #btnGenerar:hover,
+.dark .btn-generar:hover,
+.dark button[class*="generar"]:hover {
+    background: linear-gradient(135deg, #b91c1c 0%, #dc2626 100%) !important;
+    transform: translateY(-1px) !important;
+    box-shadow: 0 6px 8px -1px rgba(220, 38, 38, 0.4) !important;
+}
+
+/* Botones de configuración */
+.dark #btnConfigurar,
+.dark .btn-configuracion,
+.dark button[title*="Configurar"],
+.dark button[title*="Configuración"] {
+    background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%) !important;
+    border: 1px solid #8b5cf6 !important;
+    color: white !important;
+    box-shadow: 0 4px 6px -1px rgba(99, 102, 241, 0.3) !important;
+}
+
+.dark #btnConfigurar:hover,
+.dark .btn-configuracion:hover,
+.dark button[title*="Configurar"]:hover,
+.dark button[title*="Configuración"]:hover {
+    background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%) !important;
+    transform: translateY(-1px) !important;
+    box-shadow: 0 6px 8px -1px rgba(99, 102, 241, 0.4) !important;
+}
+
+/* Focus states para todos los inputs */
+.dark #searchServicio:focus,
+.dark #filterCategoria:focus,
+.dark #filterPrecio:focus,
+.dark #searchProducto:focus,
+.dark #filterCategoriaProducto:focus,
+.dark #filterMarcaProducto:focus,
+.dark #searchProveedor:focus,
+.dark #filterTipoProveedor:focus,
+.dark #filterEstadoProveedor:focus,
+.dark #searchFactura:focus,
+.dark #filterEstadoFactura:focus,
+.dark #filterMetodoPago:focus,
+.dark #filterFechaDesde:focus,
+.dark #filterFechaHasta:focus,
+.dark #searchPersonal:focus,
+.dark #filterRol:focus,
+.dark #filterSucursal:focus,
+.dark #filterEstadoPersonal:focus,
+.dark #searchUsuario:focus,
+.dark #filterRolUsuario:focus,
+.dark #filterEstadoUsuario:focus {
+    border-color: #3b82f6 !important;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1) !important;
+}
+
+.tt-navbar {
+    background-color: black;
+    color: white;
+}
+
+.dark .tt-navbar {
+    background-color: rgba(17, 24, 39, 0.95);
+}

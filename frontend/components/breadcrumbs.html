@@ -1,0 +1,1373 @@
+<!-- ============================================ -->
+<!-- BREADCRUMBS COMPONENT - TecnoTaller -->
+<!-- ============================================ -->
+
+<!-- Breadcrumbs Básico -->
+<nav class="breadcrumbs-basic" aria-label="Navegación">
+    <ol class="breadcrumbs-list flex items-center space-x-2 text-sm">
+        <li class="breadcrumb-item">
+            <a href="#" class="breadcrumb-link text-gray-500 hover:text-amber-600 transition-colors">
+                <i class="fas fa-home mr-1"></i>
+                Inicio
+            </a>
+        </li>
+        <li class="breadcrumb-separator text-gray-400">
+            <i class="fas fa-chevron-right"></i>
+        </li>
+        <li class="breadcrumb-item">
+            <a href="#" class="breadcrumb-link text-gray-500 hover:text-amber-600 transition-colors">
+                Clientes
+            </a>
+        </li>
+        <li class="breadcrumb-separator text-gray-400">
+            <i class="fas fa-chevron-right"></i>
+        </li>
+        <li class="breadcrumb-item breadcrumb-current">
+            <span class="text-gray-900 font-medium">Detalle del Cliente</span>
+        </li>
+    </ol>
+</nav>
+
+<!-- Breadcrumbs con Dropdown -->
+<nav class="breadcrumbs-dropdown" aria-label="Navegación">
+    <ol class="breadcrumbs-list flex items-center space-x-2 text-sm">
+        <li class="breadcrumb-item">
+            <a href="#" class="breadcrumb-link text-gray-500 hover:text-amber-600 transition-colors">
+                <i class="fas fa-home mr-1"></i>
+                Dashboard
+            </a>
+        </li>
+        <li class="breadcrumb-separator text-gray-400">
+            <i class="fas fa-chevron-right"></i>
+        </li>
+
+        <!-- Dropdown para rutas colapsadas -->
+        <li class="breadcrumb-item breadcrumb-dropdown relative">
+            <button
+                class="breadcrumb-dropdown-btn text-gray-500 hover:text-amber-600 transition-colors px-2 py-1 rounded hover:bg-gray-100"
+                aria-expanded="false">
+                <i class="fas fa-ellipsis-h"></i>
+            </button>
+
+            <!-- Menú desplegable -->
+            <div
+                class="breadcrumb-dropdown-menu hidden absolute top-full left-0 mt-1 min-w-48 bg-white border border-gray-200 rounded-lg shadow-lg z-50">
+                <div class="py-1">
+                    <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-amber-600">
+                        <i class="fas fa-users mr-2 text-gray-400"></i>
+                        Gestión
+                    </a>
+                    <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-amber-600">
+                        <i class="fas fa-car mr-2 text-gray-400"></i>
+                        Vehículos
+                    </a>
+                </div>
+            </div>
+        </li>
+
+        <li class="breadcrumb-separator text-gray-400">
+            <i class="fas fa-chevron-right"></i>
+        </li>
+        <li class="breadcrumb-item">
+            <a href="#" class="breadcrumb-link text-gray-500 hover:text-amber-600 transition-colors">
+                Servicios
+            </a>
+        </li>
+        <li class="breadcrumb-separator text-gray-400">
+            <i class="fas fa-chevron-right"></i>
+        </li>
+        <li class="breadcrumb-item breadcrumb-current">
+            <span class="text-gray-900 font-medium">Mantenimiento Preventivo</span>
+        </li>
+    </ol>
+</nav>
+
+<!-- Breadcrumbs Responsivo (Mobile) -->
+<nav class="breadcrumbs-responsive" aria-label="Navegación">
+    <!-- Vista desktop -->
+    <ol class="breadcrumbs-desktop hidden md:flex items-center space-x-2 text-sm">
+        <li class="breadcrumb-item">
+            <a href="#" class="breadcrumb-link text-gray-500 hover:text-amber-600 transition-colors">
+                <i class="fas fa-home mr-1"></i>
+                Inicio
+            </a>
+        </li>
+        <li class="breadcrumb-separator text-gray-400">
+            <i class="fas fa-chevron-right"></i>
+        </li>
+        <li class="breadcrumb-item">
+            <a href="#" class="breadcrumb-link text-gray-500 hover:text-amber-600 transition-colors">
+                Inventario
+            </a>
+        </li>
+        <li class="breadcrumb-separator text-gray-400">
+            <i class="fas fa-chevron-right"></i>
+        </li>
+        <li class="breadcrumb-item">
+            <a href="#" class="breadcrumb-link text-gray-500 hover:text-amber-600 transition-colors">
+                Productos
+            </a>
+        </li>
+        <li class="breadcrumb-separator text-gray-400">
+            <i class="fas fa-chevron-right"></i>
+        </li>
+        <li class="breadcrumb-item breadcrumb-current">
+            <span class="text-gray-900 font-medium">Aceites y Lubricantes</span>
+        </li>
+    </ol>
+
+    <!-- Vista mobile -->
+    <div class="breadcrumbs-mobile md:hidden flex items-center justify-between">
+        <button class="breadcrumb-back-btn flex items-center text-gray-500 hover:text-amber-600 transition-colors">
+            <i class="fas fa-arrow-left mr-2"></i>
+            <span>Productos</span>
+        </button>
+
+        <div class="breadcrumb-current-mobile text-sm font-medium text-gray-900 truncate">
+            Aceites y Lubricantes
+        </div>
+
+        <button class="breadcrumb-menu-btn text-gray-500 hover:text-amber-600 transition-colors p-1">
+            <i class="fas fa-ellipsis-v"></i>
+        </button>
+    </div>
+</nav>
+
+<!-- Breadcrumbs con Iconos Personalizados -->
+<nav class="breadcrumbs-icons" aria-label="Navegación">
+    <ol class="breadcrumbs-list flex items-center space-x-2 text-sm">
+        <li class="breadcrumb-item">
+            <a href="#" class="breadcrumb-link flex items-center text-gray-500 hover:text-amber-600 transition-colors">
+                <i class="fas fa-tachometer-alt mr-2 text-amber-500"></i>
+                Dashboard
+            </a>
+        </li>
+        <li class="breadcrumb-separator text-gray-400">
+            <i class="fas fa-chevron-right"></i>
+        </li>
+        <li class="breadcrumb-item">
+            <a href="#" class="breadcrumb-link flex items-center text-gray-500 hover:text-amber-600 transition-colors">
+                <i class="fas fa-calendar-check mr-2 text-blue-500"></i>
+                Citas
+            </a>
+        </li>
+        <li class="breadcrumb-separator text-gray-400">
+            <i class="fas fa-chevron-right"></i>
+        </li>
+        <li class="breadcrumb-item breadcrumb-current">
+            <span class="flex items-center text-gray-900 font-medium">
+                <i class="fas fa-plus-circle mr-2 text-green-500"></i>
+                Nueva Cita
+            </span>
+        </li>
+    </ol>
+</nav>
+
+<!-- Breadcrumbs con Badges -->
+<nav class="breadcrumbs-badges" aria-label="Navegación">
+    <ol class="breadcrumbs-list flex items-center space-x-2 text-sm">
+        <li class="breadcrumb-item">
+            <a href="#" class="breadcrumb-link text-gray-500 hover:text-amber-600 transition-colors">
+                <i class="fas fa-home mr-1"></i>
+                Inicio
+            </a>
+        </li>
+        <li class="breadcrumb-separator text-gray-400">
+            <i class="fas fa-chevron-right"></i>
+        </li>
+        <li class="breadcrumb-item">
+            <a href="#" class="breadcrumb-link flex items-center text-gray-500 hover:text-amber-600 transition-colors">
+                Facturas
+                <span
+                    class="ml-2 inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">
+                    Pendientes
+                </span>
+            </a>
+        </li>
+        <li class="breadcrumb-separator text-gray-400">
+            <i class="fas fa-chevron-right"></i>
+        </li>
+        <li class="breadcrumb-item breadcrumb-current">
+            <span class="flex items-center text-gray-900 font-medium">
+                Factura #2024-001
+                <span
+                    class="ml-2 inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-amber-100 text-amber-800">
+                    Borrador
+                </span>
+            </span>
+        </li>
+    </ol>
+</nav>
+
+<!-- Breadcrumbs Compacto -->
+<nav class="breadcrumbs-compact" aria-label="Navegación">
+    <div class="flex items-center space-x-2 text-sm">
+        <button
+            class="breadcrumb-home-btn text-gray-500 hover:text-amber-600 transition-colors p-1 rounded hover:bg-gray-100"
+            title="Ir al inicio">
+            <i class="fas fa-home"></i>
+        </button>
+
+        <span class="breadcrumb-separator text-gray-400">/</span>
+
+        <span class="breadcrumb-path text-gray-500">
+            Reportes / Ventas / Mensual
+        </span>
+
+        <span class="breadcrumb-separator text-gray-400">/</span>
+
+        <span class="breadcrumb-current text-gray-900 font-medium">
+            Enero 2024
+        </span>
+    </div>
+</nav>
+
+<!-- Breadcrumbs con Steps/Pasos -->
+<nav class="breadcrumbs-steps" aria-label="Progreso del proceso">
+    <ol class="breadcrumbs-list flex items-center">
+        <!-- Paso completado -->
+        <li class="breadcrumb-step breadcrumb-step-completed flex items-center">
+            <div class="step-indicator">
+                <div class="step-circle bg-green-500 text-white">
+                    <i class="fas fa-check text-xs"></i>
+                </div>
+                <span class="step-label">Información del Cliente</span>
+            </div>
+        </li>
+
+        <!-- Separador -->
+        <li class="step-connector">
+            <div class="connector-line bg-green-500"></div>
+        </li>
+
+        <!-- Paso actual -->
+        <li class="breadcrumb-step breadcrumb-step-current flex items-center">
+            <div class="step-indicator">
+                <div class="step-circle bg-amber-500 text-white">
+                    <span class="text-xs font-bold">2</span>
+                </div>
+                <span class="step-label">Selección de Servicios</span>
+            </div>
+        </li>
+
+        <!-- Separador -->
+        <li class="step-connector">
+            <div class="connector-line bg-gray-300"></div>
+        </li>
+
+        <!-- Paso pendiente -->
+        <li class="breadcrumb-step breadcrumb-step-pending flex items-center">
+            <div class="step-indicator">
+                <div class="step-circle bg-gray-300 text-gray-600">
+                    <span class="text-xs font-bold">3</span>
+                </div>
+                <span class="step-label">Programación</span>
+            </div>
+        </li>
+
+        <!-- Separador -->
+        <li class="step-connector">
+            <div class="connector-line bg-gray-300"></div>
+        </li>
+
+        <!-- Último paso -->
+        <li class="breadcrumb-step breadcrumb-step-pending flex items-center">
+            <div class="step-indicator">
+                <div class="step-circle bg-gray-300 text-gray-600">
+                    <span class="text-xs font-bold">4</span>
+                </div>
+                <span class="step-label">Confirmación</span>
+            </div>
+        </li>
+    </ol>
+</nav>
+
+<!-- Breadcrumbs con Búsqueda -->
+<nav class="breadcrumbs-search" aria-label="Navegación">
+    <div class="flex items-center justify-between">
+        <ol class="breadcrumbs-list flex items-center space-x-2 text-sm">
+            <li class="breadcrumb-item">
+                <a href="#" class="breadcrumb-link text-gray-500 hover:text-amber-600 transition-colors">
+                    <i class="fas fa-home mr-1"></i>
+                    Inicio
+                </a>
+            </li>
+            <li class="breadcrumb-separator text-gray-400">
+                <i class="fas fa-chevron-right"></i>
+            </li>
+            <li class="breadcrumb-item">
+                <a href="#" class="breadcrumb-link text-gray-500 hover:text-amber-600 transition-colors">
+                    Técnicos
+                </a>
+            </li>
+            <li class="breadcrumb-separator text-gray-400">
+                <i class="fas fa-chevron-right"></i>
+            </li>
+            <li class="breadcrumb-item breadcrumb-current">
+                <span class="text-gray-900 font-medium">Lista de Técnicos</span>
+            </li>
+        </ol>
+
+        <!-- Buscador rápido -->
+        <div class="breadcrumb-quick-search relative">
+            <input type="text" placeholder="Buscar técnico..."
+                class="w-48 px-3 py-1 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent">
+            <div class="absolute inset-y-0 right-0 flex items-center pr-3">
+                <i class="fas fa-search text-gray-400 text-xs"></i>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<!-- Breadcrumbs con Botones de Acción -->
+<nav class="breadcrumbs-actions" aria-label="Navegación">
+    <div class="flex items-center justify-between">
+        <ol class="breadcrumbs-list flex items-center space-x-2 text-sm">
+            <li class="breadcrumb-item">
+                <a href="#" class="breadcrumb-link text-gray-500 hover:text-amber-600 transition-colors">
+                    <i class="fas fa-home mr-1"></i>
+                    Dashboard
+                </a>
+            </li>
+            <li class="breadcrumb-separator text-gray-400">
+                <i class="fas fa-chevron-right"></i>
+            </li>
+            <li class="breadcrumb-item">
+                <a href="#" class="breadcrumb-link text-gray-500 hover:text-amber-600 transition-colors">
+                    Proyectos
+                </a>
+            </li>
+            <li class="breadcrumb-separator text-gray-400">
+                <i class="fas fa-chevron-right"></i>
+            </li>
+            <li class="breadcrumb-item breadcrumb-current">
+                <span class="text-gray-900 font-medium">Sistema de Gestión v2.0</span>
+            </li>
+        </ol>
+
+        <!-- Botones de acción -->
+        <div class="breadcrumb-actions flex items-center space-x-2">
+            <button
+                class="action-btn text-gray-500 hover:text-amber-600 transition-colors p-1 rounded hover:bg-gray-100"
+                title="Marcar como favorito">
+                <i class="far fa-star"></i>
+            </button>
+            <button
+                class="action-btn text-gray-500 hover:text-amber-600 transition-colors p-1 rounded hover:bg-gray-100"
+                title="Compartir">
+                <i class="fas fa-share-alt"></i>
+            </button>
+            <button
+                class="action-btn text-gray-500 hover:text-amber-600 transition-colors p-1 rounded hover:bg-gray-100"
+                title="Más opciones">
+                <i class="fas fa-ellipsis-h"></i>
+            </button>
+        </div>
+    </div>
+</nav>
+
+<style>
+    /* ============================================ */
+    /* BASE BREADCRUMBS STYLES */
+    /* ============================================ */
+
+    .breadcrumbs-basic,
+    .breadcrumbs-dropdown,
+    .breadcrumbs-responsive,
+    .breadcrumbs-icons,
+    .breadcrumbs-badges,
+    .breadcrumbs-compact,
+    .breadcrumbs-search,
+    .breadcrumbs-actions {
+        padding: 1rem 0;
+    }
+
+    .breadcrumbs-list {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+
+    .breadcrumb-item {
+        display: flex;
+        align-items: center;
+    }
+
+    .breadcrumb-link {
+        text-decoration: none;
+        transition: color 0.2s ease;
+        padding: 0.25rem 0.5rem;
+        border-radius: 0.375rem;
+    }
+
+    .breadcrumb-link:hover {
+        background-color: rgba(249, 250, 251, 0.8);
+    }
+
+    .breadcrumb-separator {
+        user-select: none;
+        pointer-events: none;
+        margin: 0 0.25rem;
+    }
+
+    .breadcrumb-current {
+        color: rgb(17, 24, 39);
+        font-weight: 500;
+    }
+
+    /* ============================================ */
+    /* DROPDOWN BREADCRUMBS */
+    /* ============================================ */
+
+    .breadcrumb-dropdown {
+        position: relative;
+    }
+
+    .breadcrumb-dropdown-btn {
+        border: none;
+        background: none;
+        cursor: pointer;
+        transition: all 0.2s ease;
+    }
+
+    .breadcrumb-dropdown-btn:hover {
+        background-color: rgb(249, 250, 251);
+    }
+
+    .breadcrumb-dropdown-menu {
+        animation: fadeInDown 0.2s ease-out;
+        max-height: 300px;
+        overflow-y: auto;
+    }
+
+    @keyframes fadeInDown {
+        from {
+            opacity: 0;
+            transform: translateY(-10px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .breadcrumb-dropdown-menu a {
+        transition: all 0.2s ease;
+        text-decoration: none;
+    }
+
+    .breadcrumb-dropdown-menu a:hover {
+        background-color: rgb(249, 250, 251);
+        color: rgb(245, 158, 11);
+    }
+
+    /* ============================================ */
+    /* RESPONSIVE BREADCRUMBS */
+    /* ============================================ */
+
+    .breadcrumbs-mobile {
+        background-color: rgb(249, 250, 251);
+        border-radius: 0.5rem;
+        padding: 0.75rem 1rem;
+    }
+
+    .breadcrumb-back-btn,
+    .breadcrumb-menu-btn {
+        border: none;
+        background: none;
+        cursor: pointer;
+        transition: color 0.2s ease;
+        padding: 0.25rem;
+        border-radius: 0.25rem;
+    }
+
+    .breadcrumb-back-btn:hover,
+    .breadcrumb-menu-btn:hover {
+        background-color: rgb(255, 255, 255);
+    }
+
+    .breadcrumb-current-mobile {
+        max-width: 200px;
+    }
+
+    /* ============================================ */
+    /* BREADCRUMBS WITH ICONS */
+    /* ============================================ */
+
+    .breadcrumbs-icons .breadcrumb-link,
+    .breadcrumbs-icons .breadcrumb-current span {
+        display: flex;
+        align-items: center;
+    }
+
+    .breadcrumbs-icons i {
+        flex-shrink: 0;
+    }
+
+    /* ============================================ */
+    /* BREADCRUMBS WITH BADGES */
+    /* ============================================ */
+
+    .breadcrumbs-badges .breadcrumb-link,
+    .breadcrumbs-badges .breadcrumb-current span {
+        display: flex;
+        align-items: center;
+    }
+
+    .breadcrumbs-badges .inline-flex {
+        margin-left: 0.5rem;
+        flex-shrink: 0;
+    }
+
+    /* ============================================ */
+    /* COMPACT BREADCRUMBS */
+    /* ============================================ */
+
+    .breadcrumbs-compact {
+        background-color: rgb(249, 250, 251);
+        border-radius: 0.5rem;
+        padding: 0.5rem 1rem;
+    }
+
+    .breadcrumb-home-btn {
+        border: none;
+        background: none;
+        cursor: pointer;
+        transition: all 0.2s ease;
+    }
+
+    .breadcrumb-path {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 300px;
+    }
+
+    /* ============================================ */
+    /* STEPS BREADCRUMBS */
+    /* ============================================ */
+
+    .breadcrumbs-steps {
+        padding: 2rem 0;
+    }
+
+    .breadcrumbs-steps .breadcrumbs-list {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .breadcrumb-step {
+        flex: 1;
+        text-align: center;
+    }
+
+    .step-indicator {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .step-circle {
+        width: 2.5rem;
+        height: 2.5rem;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 600;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+    }
+
+    .step-label {
+        font-size: 0.875rem;
+        font-weight: 500;
+        text-align: center;
+        max-width: 120px;
+        line-height: 1.2;
+        margin-top: 0.5rem;
+    }
+
+    .step-connector {
+        flex: 1;
+        height: 2px;
+        margin: 0 1rem;
+        align-self: flex-start;
+        margin-top: 1.25rem;
+    }
+
+    .connector-line {
+        height: 100%;
+        transition: background-color 0.3s ease;
+    }
+
+    /* Step states */
+    .breadcrumb-step-completed .step-circle {
+        background-color: rgb(34, 197, 94);
+        border: 2px solid rgb(34, 197, 94);
+    }
+
+    .breadcrumb-step-completed .step-label {
+        color: rgb(34, 197, 94);
+        font-weight: 600;
+    }
+
+    .breadcrumb-step-current .step-circle {
+        background-color: rgb(245, 158, 11);
+        border: 2px solid rgb(245, 158, 11);
+        box-shadow: 0 0 0 4px rgba(245, 158, 11, 0.2);
+    }
+
+    .breadcrumb-step-current .step-label {
+        color: rgb(245, 158, 11);
+        font-weight: 600;
+    }
+
+    .breadcrumb-step-pending .step-circle {
+        background-color: rgb(209, 213, 219);
+        border: 2px solid rgb(209, 213, 219);
+    }
+
+    .breadcrumb-step-pending .step-label {
+        color: rgb(107, 114, 128);
+    }
+
+    /* ============================================ */
+    /* BREADCRUMBS WITH SEARCH */
+    /* ============================================ */
+
+    .breadcrumb-quick-search input {
+        transition: all 0.2s ease;
+    }
+
+    .breadcrumb-quick-search input:focus {
+        outline: none;
+        box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.1);
+    }
+
+    /* ============================================ */
+    /* BREADCRUMBS WITH ACTIONS */
+    /* ============================================ */
+
+    .breadcrumb-actions {
+        gap: 0.5rem;
+    }
+
+    .action-btn {
+        border: none;
+        background: none;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        width: 2rem;
+        height: 2rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .action-btn:hover {
+        background-color: rgb(249, 250, 251);
+        color: rgb(245, 158, 11);
+    }
+
+    /* ============================================ */
+    /* ANIMATIONS */
+    /* ============================================ */
+
+    .breadcrumb-item {
+        animation: fadeInUp 0.3s ease-out;
+    }
+
+    .breadcrumb-item:nth-child(1) {
+        animation-delay: 0s;
+    }
+
+    .breadcrumb-item:nth-child(3) {
+        animation-delay: 0.1s;
+    }
+
+    .breadcrumb-item:nth-child(5) {
+        animation-delay: 0.2s;
+    }
+
+    .breadcrumb-item:nth-child(7) {
+        animation-delay: 0.3s;
+    }
+
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(10px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    /* ============================================ */
+    /* RESPONSIVE DESIGN */
+    /* ============================================ */
+
+    @media (max-width: 768px) {
+        .breadcrumbs-list {
+            flex-wrap: wrap;
+            gap: 0.25rem;
+        }
+
+        .breadcrumb-item {
+            flex-shrink: 1;
+            min-width: 0;
+        }
+
+        .breadcrumb-link,
+        .breadcrumb-current span {
+            font-size: 0.875rem;
+            padding: 0.25rem;
+        }
+
+        /* Ocultar separadores en mobile si es necesario */
+        .breadcrumb-separator:not(:last-of-type) {
+            display: none;
+        }
+
+        /* Steps responsive */
+        .breadcrumbs-steps .breadcrumbs-list {
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .step-connector {
+            width: 2px;
+            height: 2rem;
+            margin: 0;
+            align-self: center;
+        }
+
+        .connector-line {
+            width: 100%;
+            height: 2rem;
+        }
+
+        .step-indicator {
+            flex-direction: row;
+            gap: 1rem;
+            text-align: left;
+        }
+
+        .step-label {
+            margin-top: 0;
+            max-width: none;
+        }
+    }
+
+    @media (max-width: 640px) {
+        .breadcrumb-path {
+            max-width: 150px;
+        }
+
+        .breadcrumb-quick-search input {
+            width: 120px;
+        }
+
+        .breadcrumb-actions {
+            display: none;
+        }
+    }
+
+    /* ============================================ */
+    /* DARK MODE SUPPORT */
+    /* ============================================ */
+
+    @media (prefers-color-scheme: dark) {
+        .breadcrumb-link {
+            color: rgb(156, 163, 175);
+        }
+
+        .breadcrumb-link:hover {
+            color: rgb(245, 158, 11);
+            background-color: rgba(55, 65, 81, 0.5);
+        }
+
+        .breadcrumb-separator {
+            color: rgb(107, 114, 128);
+        }
+
+        .breadcrumb-current {
+            color: rgb(243, 244, 246);
+        }
+
+        .breadcrumbs-mobile,
+        .breadcrumbs-compact {
+            background-color: rgb(55, 65, 81);
+        }
+
+        .breadcrumb-dropdown-menu {
+            background-color: rgb(31, 41, 55);
+            border-color: rgb(75, 85, 99);
+        }
+
+        .breadcrumb-dropdown-menu a {
+            color: rgb(243, 244, 246);
+        }
+
+        .breadcrumb-dropdown-menu a:hover {
+            background-color: rgb(55, 65, 81);
+            color: rgb(245, 158, 11);
+        }
+
+        .breadcrumb-quick-search input {
+            background-color: rgb(31, 41, 55);
+            border-color: rgb(75, 85, 99);
+            color: rgb(243, 244, 246);
+        }
+
+        .breadcrumb-quick-search input::placeholder {
+            color: rgb(107, 114, 128);
+        }
+    }
+
+    /* ============================================ */
+    /* ACCESSIBILITY */
+    /* ============================================ */
+
+    .breadcrumbs-basic[aria-label],
+    .breadcrumbs-dropdown[aria-label],
+    .breadcrumbs-responsive[aria-label],
+    .breadcrumbs-icons[aria-label],
+    .breadcrumbs-badges[aria-label],
+    .breadcrumbs-search[aria-label],
+    .breadcrumbs-actions[aria-label],
+    .breadcrumbs-steps[aria-label] 
+        /* Accesibilidad asegurada con aria-label */
+    
+
+    .breadcrumb-link:focus,
+    .breadcrumb-dropdown-btn:focus,
+    .breadcrumb-back-btn:focus,
+    .breadcrumb-menu-btn:focus,
+    .breadcrumb-home-btn:focus,
+    .action-btn:focus {
+        outline: 2px solid rgb(245, 158, 11);
+        outline-offset: 2px;
+    }
+
+    /* ============================================ */
+    /* PRINT STYLES */
+    /* ============================================ */
+
+    @media print {
+
+        .breadcrumb-dropdown-menu,
+        .breadcrumb-actions,
+        .breadcrumb-quick-search {
+            display: none;
+        }
+
+        .breadcrumb-link {
+            color: black;
+            text-decoration: underline;
+        }
+
+        .breadcrumb-separator {
+            color: black;
+        }
+
+        .breadcrumbs-mobile {
+            display: none;
+        }
+
+        .breadcrumbs-desktop {
+            display: flex !important;
+        }
+    }
+</style>
+
+<script>
+    // ============================================
+    // BREADCRUMBS API
+    // ============================================
+    class BreadcrumbsAPI {
+        constructor(container, config = {}) {
+            this.container = typeof container === 'string' ? document.querySelector(container) : container;
+            this.config = {
+                maxItems: 5,
+                collapseThreshold: 3,
+                separator: 'chevron-right',
+                showHome: true,
+                homeIcon: 'fas fa-home',
+                responsiveBreakpoint: 768,
+                ...config
+            };
+
+            this.breadcrumbs = [];
+            this.callbacks = {
+                onItemClick: null,
+                onNavigate: null
+            };
+
+            this.init();
+        }
+
+        // Inicializar API
+        init() {
+            if (!this.container) {
+                console.error('BreadcrumbsAPI: Container not found');
+                return;
+            }
+
+            this.setupEventListeners();
+            this.setupDropdowns();
+            this.setupResponsive();
+            this.loadFromDOM();
+        }
+
+        // Configurar event listeners
+        setupEventListeners() {
+            // Click en enlaces de breadcrumb
+            this.container.addEventListener('click', (e) => {
+                const link = e.target.closest('.breadcrumb-link');
+                if (link) {
+                    e.preventDefault();
+                    this.handleBreadcrumbClick(link, e);
+                }
+
+                // Click en botón de back (mobile)
+                const backBtn = e.target.closest('.breadcrumb-back-btn');
+                if (backBtn) {
+                    this.handleBackClick(e);
+                }
+
+                // Click en botones de acción
+                const actionBtn = e.target.closest('.action-btn');
+                if (actionBtn) {
+                    this.handleActionClick(actionBtn, e);
+                }
+            });
+        }
+
+        // Configurar dropdowns
+        setupDropdowns() {
+            const dropdownBtns = this.container.querySelectorAll('.breadcrumb-dropdown-btn');
+
+            dropdownBtns.forEach(btn => {
+                const menu = btn.nextElementSibling;
+                if (menu && menu.classList.contains('breadcrumb-dropdown-menu')) {
+                    this.setupDropdown(btn, menu);
+                }
+            });
+        }
+
+        // Configurar dropdown individual
+        setupDropdown(trigger, menu) {
+            trigger.addEventListener('click', (e) => {
+                e.stopPropagation();
+                this.toggleDropdown(menu);
+            });
+
+            // Cerrar al hacer click fuera
+            document.addEventListener('click', (e) => {
+                if (!trigger.contains(e.target) && !menu.contains(e.target)) {
+                    this.closeDropdown(menu);
+                }
+            });
+
+            // Cerrar con ESC
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                    this.closeDropdown(menu);
+                }
+            });
+        }
+
+        // Toggle dropdown
+        toggleDropdown(menu) {
+            if (menu.classList.contains('hidden')) {
+                this.openDropdown(menu);
+            } else {
+                this.closeDropdown(menu);
+            }
+        }
+
+        // Abrir dropdown
+        openDropdown(menu) {
+            menu.classList.remove('hidden');
+        }
+
+        // Cerrar dropdown
+        closeDropdown(menu) {
+            menu.classList.add('hidden');
+        }
+
+        // Configurar responsive
+        setupResponsive() {
+            if (window.innerWidth <= this.config.responsiveBreakpoint) {
+                this.enableMobileMode();
+            }
+
+            window.addEventListener('resize', () => {
+                if (window.innerWidth <= this.config.responsiveBreakpoint) {
+                    this.enableMobileMode();
+                } else {
+                    this.disableMobileMode();
+                }
+            });
+        }
+
+        // Habilitar modo mobile
+        enableMobileMode() {
+            const desktop = this.container.querySelector('.breadcrumbs-desktop');
+            const mobile = this.container.querySelector('.breadcrumbs-mobile');
+
+            if (desktop) desktop.style.display = 'none';
+            if (mobile) mobile.style.display = 'flex';
+        }
+
+        // Deshabilitar modo mobile
+        disableMobileMode() {
+            const desktop = this.container.querySelector('.breadcrumbs-desktop');
+            const mobile = this.container.querySelector('.breadcrumbs-mobile');
+
+            if (desktop) desktop.style.display = 'flex';
+            if (mobile) mobile.style.display = 'none';
+        }
+
+        // Cargar breadcrumbs del DOM
+        loadFromDOM() {
+            const items = this.container.querySelectorAll('.breadcrumb-item:not(.breadcrumb-dropdown)');
+
+            items.forEach((item, index) => {
+                const link = item.querySelector('.breadcrumb-link');
+                const current = item.querySelector('.breadcrumb-current span');
+
+                if (link) {
+                    this.breadcrumbs.push({
+                        title: link.textContent.trim(),
+                        href: link.getAttribute('href'),
+                        icon: this.extractIcon(link),
+                        active: false
+                    });
+                } else if (current) {
+                    this.breadcrumbs.push({
+                        title: current.textContent.trim(),
+                        href: null,
+                        icon: this.extractIcon(current),
+                        active: true
+                    });
+                }
+            });
+        }
+
+        // Extraer icono de un elemento
+        extractIcon(element) {
+            const icon = element.querySelector('i');
+            return icon ? icon.className : null;
+        }
+
+        // Manejar click en breadcrumb
+        handleBreadcrumbClick(link, event) {
+            const item = link.closest('.breadcrumb-item');
+            const href = link.getAttribute('href');
+            const title = link.textContent.trim();
+
+            if (this.callbacks.onItemClick) {
+                const result = this.callbacks.onItemClick({
+                    title,
+                    href,
+                    element: item,
+                    event
+                });
+
+                // Si el callback retorna false, prevenir navegación
+                if (result === false) {
+                    return;
+                }
+            }
+
+            // Navegación por defecto
+            if (href && href !== '#') {
+                this.navigate(href);
+            }
+        }
+
+        // Manejar click en botón back
+        handleBackClick(event) {
+            if (this.breadcrumbs.length > 1) {
+                const previousItem = this.breadcrumbs[this.breadcrumbs.length - 2];
+                if (previousItem.href) {
+                    this.navigate(previousItem.href);
+                }
+            }
+        }
+
+        // Manejar click en botones de acción
+        handleActionClick(button, event) {
+            const action = this.getButtonAction(button);
+
+            // Trigger custom event
+            const customEvent = new CustomEvent('breadcrumbAction', {
+                detail: {
+                    action,
+                    button,
+                    event
+                }
+            });
+
+            this.container.dispatchEvent(customEvent);
+        }
+
+        // Obtener acción del botón
+        getButtonAction(button) {
+            if (button.title.includes('favorito')) return 'favorite';
+            if (button.title.includes('Compartir')) return 'share';
+            if (button.title.includes('opciones')) return 'more';
+            return 'unknown';
+        }
+
+        // Navegar a una URL
+        navigate(href) {
+            if (this.callbacks.onNavigate) {
+                this.callbacks.onNavigate(href);
+            } else {
+                window.location.href = href;
+            }
+        }
+
+        // Agregar breadcrumb
+        addBreadcrumb(item) {
+            // Desactivar item actual si existe
+            this.breadcrumbs.forEach(crumb => crumb.active = false);
+
+            // Agregar nuevo item
+            this.breadcrumbs.push({
+                title: item.title,
+                href: item.href || null,
+                icon: item.icon || null,
+                active: true
+            });
+
+            this.render();
+        }
+
+        // Remover breadcrumb
+        removeBreadcrumb(index) {
+            if (index >= 0 && index < this.breadcrumbs.length) {
+                this.breadcrumbs.splice(index, 1);
+                this.render();
+            }
+        }
+
+        // Actualizar breadcrumb
+        updateBreadcrumb(index, item) {
+            if (index >= 0 && index < this.breadcrumbs.length) {
+                this.breadcrumbs[index] = { ...this.breadcrumbs[index], ...item };
+                this.render();
+            }
+        }
+
+        // Limpiar breadcrumbs
+        clear() {
+            this.breadcrumbs = [];
+            this.render();
+        }
+
+        // Establecer breadcrumbs
+        setBreadcrumbs(items) {
+            this.breadcrumbs = items.map((item, index) => ({
+                title: item.title,
+                href: item.href || null,
+                icon: item.icon || null,
+                active: index === items.length - 1
+            }));
+
+            this.render();
+        }
+
+        // Renderizar breadcrumbs
+        render() {
+            const list = this.container.querySelector('.breadcrumbs-list');
+            if (!list) return;
+
+            // Determinar si necesitamos colapsar
+            const needsCollapse = this.breadcrumbs.length > this.config.maxItems;
+            const visibleItems = needsCollapse ?
+                this.getCollapsedItems() :
+                this.breadcrumbs;
+
+            let html = '';
+
+            visibleItems.forEach((item, index) => {
+                if (item.collapsed) {
+                    html += this.renderCollapsedDropdown(item.items);
+                } else {
+                    html += this.renderBreadcrumbItem(item, index > 0);
+                }
+            });
+
+            list.innerHTML = html;
+            this.setupEventListeners();
+        }
+
+        // Obtener items colapsados
+        getCollapsedItems() {
+            if (this.breadcrumbs.length <= this.config.maxItems) {
+                return this.breadcrumbs;
+            }
+
+            const result = [];
+            const threshold = this.config.collapseThreshold;
+
+            // Primeros items
+            result.push(...this.breadcrumbs.slice(0, threshold - 1));
+
+            // Items colapsados
+            const collapsedItems = this.breadcrumbs.slice(threshold - 1, -1);
+            if (collapsedItems.length > 0) {
+                result.push({
+                    collapsed: true,
+                    items: collapsedItems
+                });
+            }
+
+            // Último item
+            result.push(this.breadcrumbs[this.breadcrumbs.length - 1]);
+
+            return result;
+        }
+
+        // Renderizar item de breadcrumb
+        renderBreadcrumbItem(item, showSeparator = true) {
+            let html = '';
+
+            if (showSeparator) {
+                html += `
+                <li class="breadcrumb-separator text-gray-400">
+                    <i class="fas fa-${this.config.separator}"></i>
+                </li>
+            `;
+            }
+
+            if (item.active) {
+                html += `
+                <li class="breadcrumb-item breadcrumb-current">
+                    <span class="text-gray-900 font-medium">
+                        ${item.icon ? `<i class="${item.icon} mr-1"></i>` : ''}
+                        ${item.title}
+                    </span>
+                </li>
+            `;
+            } else {
+                html += `
+                <li class="breadcrumb-item">
+                    <a href="${item.href || '#'}" class="breadcrumb-link text-gray-500 hover:text-amber-600 transition-colors">
+                        ${item.icon ? `<i class="${item.icon} mr-1"></i>` : ''}
+                        ${item.title}
+                    </a>
+                </li>
+            `;
+            }
+
+            return html;
+        }
+
+        // Renderizar dropdown colapsado
+        renderCollapsedDropdown(items) {
+            return `
+            <li class="breadcrumb-separator text-gray-400">
+                <i class="fas fa-${this.config.separator}"></i>
+            </li>
+            <li class="breadcrumb-item breadcrumb-dropdown relative">
+                <button class="breadcrumb-dropdown-btn text-gray-500 hover:text-amber-600 transition-colors px-2 py-1 rounded hover:bg-gray-100">
+                    <i class="fas fa-ellipsis-h"></i>
+                </button>
+                
+                <div class="breadcrumb-dropdown-menu hidden absolute top-full left-0 mt-1 min-w-48 bg-white border border-gray-200 rounded-lg shadow-lg z-50">
+                    <div class="py-1">
+                        ${items.map(item => `
+                            <a href="${item.href || '#'}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-amber-600">
+                                ${item.icon ? `<i class="${item.icon} mr-2 text-gray-400"></i>` : ''}
+                                ${item.title}
+                            </a>
+                        `).join('')}
+                    </div>
+                </div>
+            </li>
+        `;
+        }
+
+        // Callbacks
+        onItemClick(callback) {
+            this.callbacks.onItemClick = callback;
+        }
+
+        onNavigate(callback) {
+            this.callbacks.onNavigate = callback;
+        }
+
+        // Obtener breadcrumbs actuales
+        getBreadcrumbs() {
+            return [...this.breadcrumbs];
+        }
+
+        // Obtener breadcrumb actual
+        getCurrentBreadcrumb() {
+            return this.breadcrumbs.find(item => item.active) || null;
+        }
+
+        // Destruir instancia
+        destroy() {
+            // Remover event listeners si es necesario
+            this.container = null;
+        }
+    }
+
+    // Inicializar cuando se carga el DOM
+    document.addEventListener('DOMContentLoaded', () => {
+        // Auto-inicializar breadcrumbs
+        const breadcrumbContainers = document.querySelectorAll('[class*="breadcrumbs-"]');
+
+        breadcrumbContainers.forEach(container => {
+            new BreadcrumbsAPI(container);
+        });
+
+        // Ejemplo de uso (comentado)
+        /*
+        const breadcrumbs = new BreadcrumbsAPI('.breadcrumbs-basic');
+        
+        // Agregar breadcrumb
+        breadcrumbs.addBreadcrumb({
+            title: 'Nueva Página',
+            href: '/nueva-pagina',
+            icon: 'fas fa-file'
+        });
+        
+        // Establecer breadcrumbs completos
+        breadcrumbs.setBreadcrumbs([
+            { title: 'Inicio', href: '/', icon: 'fas fa-home' },
+            { title: 'Productos', href: '/productos' },
+            { title: 'Categorías', href: '/productos/categorias' },
+            { title: 'Detalles' } // Activo por defecto (último)
+        ]);
+        
+        // Escuchar clicks
+        breadcrumbs.onItemClick((item) => {
+            console.log('Breadcrumb clicked:', item);
+            // Retornar false para prevenir navegación
+            // return false;
+        });
+        
+        breadcrumbs.onNavigate((href) => {
+            console.log('Navigating to:', href);
+            // Navegación personalizada
+        });
+        
+        // Escuchar acciones
+        document.addEventListener('breadcrumbAction', (e) => {
+            console.log('Action:', e.detail.action);
+        });
+        */
+    });
+</script>

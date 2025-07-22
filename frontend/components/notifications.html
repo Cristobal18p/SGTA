@@ -1,0 +1,836 @@
+<!-- ============================================ -->
+<!-- NOTIFICATIONS COMPONENT - TecnoTaller -->
+<!-- ============================================ -->
+
+<!-- Contenedor de notificaciones Toast -->
+<div id="notificationsContainer" class="notifications-container fixed top-4 right-4 z-50 space-y-3 max-w-sm w-full">
+    <!-- Las notificaciones se insertarán aquí dinámicamente -->
+</div>
+
+<!-- Notificación Toast de ejemplo (normalmente oculta) -->
+<div
+    class="notification toast hidden bg-white rounded-xl shadow-lg border border-gray-200 overflow-hidden max-w-sm w-full">
+    <!-- Toast Success -->
+    <div class="notification-success hidden">
+        <div class="flex items-start p-4">
+            <div class="flex-shrink-0">
+                <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
+                    <i class="fas fa-check-circle text-green-600"></i>
+                </div>
+            </div>
+            <div class="ml-3 flex-1">
+                <div class="text-sm font-medium text-gray-900">Operación exitosa</div>
+                <div class="text-sm text-gray-500 mt-1">El cliente se guardó correctamente</div>
+            </div>
+            <button class="notification-close ml-4 text-gray-400 hover:text-gray-600 transition-colors">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="notification-progress bg-green-200 h-1">
+            <div class="notification-progress-bar bg-green-500 h-full transition-all duration-300"></div>
+        </div>
+    </div>
+
+    <!-- Toast Error -->
+    <div class="notification-error hidden">
+        <div class="flex items-start p-4">
+            <div class="flex-shrink-0">
+                <div class="w-10 h-10 bg-red-100 rounded-full flex items-center justify-center">
+                    <i class="fas fa-exclamation-circle text-red-600"></i>
+                </div>
+            </div>
+            <div class="ml-3 flex-1">
+                <div class="text-sm font-medium text-gray-900">Error en la operación</div>
+                <div class="text-sm text-gray-500 mt-1">No se pudo conectar con el servidor</div>
+            </div>
+            <button class="notification-close ml-4 text-gray-400 hover:text-gray-600 transition-colors">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="notification-progress bg-red-200 h-1">
+            <div class="notification-progress-bar bg-red-500 h-full transition-all duration-300"></div>
+        </div>
+    </div>
+
+    <!-- Toast Warning -->
+    <div class="notification-warning hidden">
+        <div class="flex items-start p-4">
+            <div class="flex-shrink-0">
+                <div class="w-10 h-10 bg-amber-100 rounded-full flex items-center justify-center">
+                    <i class="fas fa-exclamation-triangle text-amber-600"></i>
+                </div>
+            </div>
+            <div class="ml-3 flex-1">
+                <div class="text-sm font-medium text-gray-900">Advertencia</div>
+                <div class="text-sm text-gray-500 mt-1">El inventario está bajo en este producto</div>
+            </div>
+            <button class="notification-close ml-4 text-gray-400 hover:text-gray-600 transition-colors">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="notification-progress bg-amber-200 h-1">
+            <div class="notification-progress-bar bg-amber-500 h-full transition-all duration-300"></div>
+        </div>
+    </div>
+
+    <!-- Toast Info -->
+    <div class="notification-info hidden">
+        <div class="flex items-start p-4">
+            <div class="flex-shrink-0">
+                <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
+                    <i class="fas fa-info-circle text-blue-600"></i>
+                </div>
+            </div>
+            <div class="ml-3 flex-1">
+                <div class="text-sm font-medium text-gray-900">Información</div>
+                <div class="text-sm text-gray-500 mt-1">Nueva actualización disponible</div>
+            </div>
+            <button class="notification-close ml-4 text-gray-400 hover:text-gray-600 transition-colors">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="notification-progress bg-blue-200 h-1">
+            <div class="notification-progress-bar bg-blue-500 h-full transition-all duration-300"></div>
+        </div>
+    </div>
+</div>
+
+<!-- Notificación con acciones -->
+<div
+    class="notification notification-with-actions hidden bg-white rounded-xl shadow-lg border border-gray-200 overflow-hidden max-w-sm w-full">
+    <div class="flex items-start p-4">
+        <div class="flex-shrink-0">
+            <div class="w-10 h-10 bg-amber-100 rounded-full flex items-center justify-center">
+                <i class="fas fa-calendar text-amber-600"></i>
+            </div>
+        </div>
+        <div class="ml-3 flex-1">
+            <div class="text-sm font-medium text-gray-900">Cita próxima</div>
+            <div class="text-sm text-gray-500 mt-1">Juan Díaz tiene una cita en 30 minutos</div>
+            <div class="mt-3 flex space-x-2">
+                <button
+                    class="notification-action-btn bg-amber-600 text-white px-3 py-1 rounded text-xs font-medium hover:bg-amber-700 transition-colors">
+                    Ver Cita
+                </button>
+                <button
+                    class="notification-action-btn text-gray-600 px-3 py-1 rounded text-xs font-medium hover:bg-gray-100 transition-colors">
+                    Recordar después
+                </button>
+            </div>
+        </div>
+        <button class="notification-close ml-4 text-gray-400 hover:text-gray-600 transition-colors">
+            <i class="fas fa-times"></i>
+        </button>
+    </div>
+</div>
+
+<!-- Panel de notificaciones (estilo dropdown) -->
+<div id="notificationsPanel"
+    class="notifications-panel hidden fixed top-16 right-4 bg-white rounded-xl shadow-xl border border-gray-200 w-80 max-h-96 overflow-hidden z-40">
+    <!-- Header del panel -->
+    <div class="panel-header bg-gradient-to-r from-gray-50 to-gray-100 p-4 border-b border-gray-200">
+        <div class="flex items-center justify-between">
+            <h3 class="text-lg font-semibold text-gray-900 flex items-center">
+                <i class="fas fa-bell text-amber-500 mr-2"></i>
+                Notificaciones
+            </h3>
+            <div class="flex items-center space-x-2">
+                <button id="markAllRead"
+                    class="text-sm text-amber-600 hover:text-amber-800 font-medium transition-colors">
+                    Marcar todas como leídas
+                </button>
+                <button id="closePanel" class="text-gray-400 hover:text-gray-600 transition-colors">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Lista de notificaciones -->
+    <div class="panel-body overflow-y-auto max-h-80">
+        <div id="notificationsList" class="divide-y divide-gray-200">
+            <!-- Notificación sin leer -->
+            <div class="notification-item unread p-4 hover:bg-gray-50 transition-colors cursor-pointer">
+                <div class="flex items-start space-x-3">
+                    <div class="w-2 h-2 bg-amber-500 rounded-full mt-2 flex-shrink-0"></div>
+                    <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0">
+                        <i class="fas fa-user-plus text-green-600"></i>
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <div class="text-sm font-medium text-gray-900">Nuevo cliente registrado</div>
+                        <div class="text-sm text-gray-500 mt-1">María González se registró en el sistema</div>
+                        <div class="text-xs text-gray-400 mt-2">Hace 5 minutos</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Notificación leída -->
+            <div class="notification-item read p-4 hover:bg-gray-50 transition-colors cursor-pointer">
+                <div class="flex items-start space-x-3">
+                    <div class="w-2 h-2 bg-transparent rounded-full mt-2 flex-shrink-0"></div>
+                    <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
+                        <i class="fas fa-wrench text-blue-600"></i>
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <div class="text-sm font-medium text-gray-700">Servicio completado</div>
+                        <div class="text-sm text-gray-500 mt-1">Cambio de aceite para Toyota Corolla (ABC-123)</div>
+                        <div class="text-xs text-gray-400 mt-2">Hace 1 hora</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Notificación urgente -->
+            <div
+                class="notification-item urgent p-4 hover:bg-gray-50 transition-colors cursor-pointer border-l-4 border-red-500">
+                <div class="flex items-start space-x-3">
+                    <div class="w-2 h-2 bg-red-500 rounded-full mt-2 flex-shrink-0 animate-pulse"></div>
+                    <div class="w-10 h-10 bg-red-100 rounded-full flex items-center justify-center flex-shrink-0">
+                        <i class="fas fa-exclamation-triangle text-red-600"></i>
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <div class="text-sm font-medium text-gray-900">Inventario crítico</div>
+                        <div class="text-sm text-gray-500 mt-1">Solo quedan 2 unidades de filtro de aceite</div>
+                        <div class="text-xs text-gray-400 mt-2">Hace 30 minutos</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Notificación con imagen -->
+            <div class="notification-item read p-4 hover:bg-gray-50 transition-colors cursor-pointer">
+                <div class="flex items-start space-x-3">
+                    <div class="w-2 h-2 bg-transparent rounded-full mt-2 flex-shrink-0"></div>
+                    <img src="https://via.placeholder.com/40x40" alt="Avatar"
+                        class="w-10 h-10 rounded-full flex-shrink-0">
+                    <div class="flex-1 min-w-0">
+                        <div class="text-sm font-medium text-gray-700">Comentario en servicio</div>
+                        <div class="text-sm text-gray-500 mt-1">Carlos Rodríguez calificó el servicio con 5 estrellas
+                        </div>
+                        <div class="text-xs text-gray-400 mt-2">Hace 2 horas</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Estado vacío -->
+        <div id="emptyState" class="empty-state hidden p-8 text-center">
+            <i class="fas fa-bell-slash text-4xl text-gray-300 mb-4"></i>
+            <h3 class="text-lg font-medium text-gray-900 mb-2">No hay notificaciones</h3>
+            <p class="text-gray-500">Cuando recibas notificaciones aparecerán aquí</p>
+        </div>
+    </div>
+
+    <!-- Footer del panel -->
+    <div class="panel-footer bg-gray-50 p-3 border-t border-gray-200">
+        <button
+            class="w-full text-center text-sm font-medium text-amber-600 hover:text-amber-800 py-2 transition-colors">
+            Ver todas las notificaciones
+        </button>
+    </div>
+</div>
+
+<!-- Badge de contador (para el icono de notificaciones en navbar) -->
+<div
+    class="notification-badge hidden absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center font-bold">
+    <span id="notificationCount">3</span>
+</div>
+
+<style>
+    /* Contenedor de Notificaciones */
+    .notifications-container {
+        pointer-events: none;
+    }
+
+    .notifications-container>* {
+        pointer-events: all;
+    }
+
+    /* Toast Notifications */
+    .notification.toast {
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        animation: slideInRight 0.3s ease-out;
+    }
+
+    .notification.toast.removing {
+        animation: slideOutRight 0.3s ease-in;
+    }
+
+    @keyframes slideInRight {
+        from {
+            opacity: 0;
+            transform: translateX(100%);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+
+    @keyframes slideOutRight {
+        from {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        to {
+            opacity: 0;
+            transform: translateX(100%);
+        }
+    }
+
+    /* Progress Bar */
+    .notification-progress {
+        overflow: hidden;
+    }
+
+    .notification-progress-bar {
+        width: 0%;
+        transition: width linear;
+    }
+
+    /* Panel de Notificaciones */
+    .notifications-panel {
+        animation: slideInDown 0.3s ease-out;
+    }
+
+    @keyframes slideInDown {
+        from {
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    /* Notification Items */
+    .notification-item {
+        transition: all 0.2s ease;
+    }
+
+    .notification-item:hover {
+        transform: translateX(2px);
+    }
+
+    .notification-item.unread {
+        background-color: rgba(245, 158, 11, 0.05);
+    }
+
+    .notification-item.urgent {
+        background-color: rgba(239, 68, 68, 0.05);
+    }
+
+    /* Badge */
+    .notification-badge {
+        animation: bounce 0.5s ease-out;
+    }
+
+    @keyframes bounce {
+
+        0%,
+        20%,
+        53%,
+        80%,
+        100% {
+            transform: translate3d(0, 0, 0);
+        }
+
+        40%,
+        43% {
+            transform: translate3d(0, -8px, 0);
+        }
+
+        70% {
+            transform: translate3d(0, -4px, 0);
+        }
+
+        90% {
+            transform: translate3d(0, -2px, 0);
+        }
+    }
+
+    /* Pulse Animation for Urgent */
+    @keyframes pulse {
+        0% {
+            opacity: 1;
+        }
+
+        50% {
+            opacity: 0.5;
+        }
+
+        100% {
+            opacity: 1;
+        }
+    }
+
+    .animate-pulse {
+        animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    }
+
+    /* Action Buttons */
+    .notification-action-btn {
+        transition: all 0.2s ease;
+    }
+
+    .notification-action-btn:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    }
+
+    /* Scrollbar for Panel */
+    .panel-body::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    .panel-body::-webkit-scrollbar-track {
+        background: rgb(243, 244, 246);
+        border-radius: 3px;
+    }
+
+    .panel-body::-webkit-scrollbar-thumb {
+        background: rgb(209, 213, 219);
+        border-radius: 3px;
+    }
+
+    .panel-body::-webkit-scrollbar-thumb:hover {
+        background: rgb(156, 163, 175);
+    }
+
+    /* Responsive */
+    @media (max-width: 640px) {
+        .notifications-container {
+            left: 1rem;
+            right: 1rem;
+            max-width: none;
+        }
+
+        .notifications-panel {
+            left: 1rem;
+            right: 1rem;
+            width: auto;
+            max-width: none;
+        }
+    }
+
+    /* Dark mode support */
+    @media (prefers-color-scheme: dark) {
+        .notification.toast {
+            background-color: rgb(31, 41, 55);
+            border-color: rgb(75, 85, 99);
+            color: rgb(243, 244, 246);
+        }
+
+        .notifications-panel {
+            background-color: rgb(31, 41, 55);
+            border-color: rgb(75, 85, 99);
+        }
+    }
+</style>
+
+<script>
+    // ============================================
+    // NOTIFICATIONS API
+    // ============================================
+    class NotificationsAPI {
+        constructor(config = {}) {
+            this.config = {
+                position: 'top-right',
+                defaultDuration: 5000,
+                maxNotifications: 5,
+                enableSound: false,
+                enableProgress: true,
+                ...config
+            };
+
+            this.notifications = [];
+            this.notificationId = 0;
+            this.container = null;
+            this.panel = null;
+
+            this.initializeContainer();
+            this.initializeEvents();
+        }
+
+        // Inicializar contenedor
+        initializeContainer() {
+            this.container = document.getElementById('notificationsContainer');
+            this.panel = document.getElementById('notificationsPanel');
+
+            if (!this.container) {
+                this.container = document.createElement('div');
+                this.container.id = 'notificationsContainer';
+                this.container.className = 'notifications-container fixed top-4 right-4 z-50 space-y-3 max-w-sm w-full';
+                document.body.appendChild(this.container);
+            }
+        }
+
+        // Inicializar eventos
+        initializeEvents() {
+            // Cerrar panel al hacer clic fuera
+            document.addEventListener('click', (e) => {
+                if (this.panel && !this.panel.contains(e.target) && !e.target.closest('[data-notifications-trigger]')) {
+                    this.hidePanel();
+                }
+            });
+
+            // Botones del panel
+            document.getElementById('closePanel')?.addEventListener('click', () => {
+                this.hidePanel();
+            });
+
+            document.getElementById('markAllRead')?.addEventListener('click', () => {
+                this.markAllAsRead();
+            });
+        }
+
+        // Mostrar notificación toast
+        show(type, title, message, options = {}) {
+            const config = {
+                duration: this.config.defaultDuration,
+                actions: [],
+                persistent: false,
+                sound: this.config.enableSound,
+                ...options
+            };
+
+            const notification = this.createToast(type, title, message, config);
+            this.addToContainer(notification);
+
+            // Auto-remove si no es persistente
+            if (!config.persistent && config.duration > 0) {
+                this.autoRemove(notification, config.duration);
+            }
+
+            return notification;
+        }
+
+        // Crear toast
+        createToast(type, title, message, config) {
+            const id = ++this.notificationId;
+            const notification = document.createElement('div');
+            notification.className = 'notification toast bg-white rounded-xl shadow-lg border border-gray-200 overflow-hidden max-w-sm w-full';
+            notification.dataset.id = id;
+            notification.dataset.type = type;
+
+            const colors = {
+                success: { bg: 'green', icon: 'check-circle' },
+                error: { bg: 'red', icon: 'exclamation-circle' },
+                warning: { bg: 'amber', icon: 'exclamation-triangle' },
+                info: { bg: 'blue', icon: 'info-circle' }
+            };
+
+            const color = colors[type] || colors.info;
+
+            let actionsHTML = '';
+            if (config.actions && config.actions.length > 0) {
+                actionsHTML = `
+                <div class="mt-3 flex space-x-2">
+                    ${config.actions.map(action => `
+                        <button class="notification-action-btn bg-${color.bg}-600 text-white px-3 py-1 rounded text-xs font-medium hover:bg-${color.bg}-700 transition-colors" 
+                                onclick="${action.onclick}">
+                            ${action.text}
+                        </button>
+                    `).join('')}
+                </div>
+            `;
+            }
+
+            notification.innerHTML = `
+            <div class="flex items-start p-4">
+                <div class="flex-shrink-0">
+                    <div class="w-10 h-10 bg-${color.bg}-100 rounded-full flex items-center justify-center">
+                        <i class="fas fa-${color.icon} text-${color.bg}-600"></i>
+                    </div>
+                </div>
+                <div class="ml-3 flex-1">
+                    <div class="text-sm font-medium text-gray-900">${title}</div>
+                    <div class="text-sm text-gray-500 mt-1">${message}</div>
+                    ${actionsHTML}
+                </div>
+                <button class="notification-close ml-4 text-gray-400 hover:text-gray-600 transition-colors">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            ${this.config.enableProgress ? `
+                <div class="notification-progress bg-${color.bg}-200 h-1">
+                    <div class="notification-progress-bar bg-${color.bg}-500 h-full"></div>
+                </div>
+            ` : ''}
+        `;
+
+            // Event listeners
+            const closeBtn = notification.querySelector('.notification-close');
+            closeBtn.addEventListener('click', () => {
+                this.remove(notification);
+            });
+
+            // Reproducir sonido si está habilitado
+            if (config.sound) {
+                this.playSound(type);
+            }
+
+            return notification;
+        }
+
+        // Agregar al contenedor
+        addToContainer(notification) {
+            this.container.appendChild(notification);
+            this.notifications.push(notification);
+
+            // Limitar número máximo de notificaciones
+            if (this.notifications.length > this.config.maxNotifications) {
+                const oldest = this.notifications.shift();
+                this.remove(oldest);
+            }
+
+            // Agregar al panel de notificaciones
+            this.addToPanel(notification);
+        }
+
+        // Auto-remover notificación
+        autoRemove(notification, duration) {
+            const progressBar = notification.querySelector('.notification-progress-bar');
+
+            if (progressBar && this.config.enableProgress) {
+                progressBar.style.transitionDuration = `${duration}ms`;
+                // Usar requestAnimationFrame para asegurar que la animación se inicie
+                requestAnimationFrame(() => {
+                    progressBar.style.width = '100%';
+                });
+            }
+
+            setTimeout(() => {
+                this.remove(notification);
+            }, duration);
+        }
+
+        // Remover notificación
+        remove(notification) {
+            if (!notification || !notification.parentNode) return;
+
+            notification.classList.add('removing');
+
+            setTimeout(() => {
+                if (notification.parentNode) {
+                    notification.parentNode.removeChild(notification);
+                }
+
+                const index = this.notifications.indexOf(notification);
+                if (index > -1) {
+                    this.notifications.splice(index, 1);
+                }
+            }, 300);
+        }
+
+        // Limpiar todas las notificaciones
+        clear() {
+            this.notifications.forEach(notification => {
+                this.remove(notification);
+            });
+            this.notifications = [];
+        }
+
+        // Métodos de conveniencia
+        success(title, message, options = {}) {
+            return this.show('success', title, message, options);
+        }
+
+        error(title, message, options = {}) {
+            return this.show('error', title, message, options);
+        }
+
+        warning(title, message, options = {}) {
+            return this.show('warning', title, message, options);
+        }
+
+        info(title, message, options = {}) {
+            return this.show('info', title, message, options);
+        }
+
+        // Panel de notificaciones
+        showPanel() {
+            if (this.panel) {
+                this.panel.classList.remove('hidden');
+                this.loadPanelNotifications();
+            }
+        }
+
+        hidePanel() {
+            if (this.panel) {
+                this.panel.classList.add('hidden');
+            }
+        }
+
+        togglePanel() {
+            if (this.panel?.classList.contains('hidden')) {
+                this.showPanel();
+            } else {
+                this.hidePanel();
+            }
+        }
+
+        // Cargar notificaciones en el panel
+        loadPanelNotifications() {
+            // En implementación real, cargar desde la API
+            console.log('Cargando notificaciones del servidor...');
+            // 🔧 CONECTAR CON TU API
+        }
+
+        // Agregar notificación al panel
+        addToPanel(notification) {
+            const type = notification.dataset.type;
+            const title = notification.querySelector('.text-sm.font-medium').textContent;
+            const message = notification.querySelector('.text-sm.text-gray-500').textContent;
+
+            // Crear elemento para el panel
+            const panelItem = document.createElement('div');
+            panelItem.className = 'notification-item unread p-4 hover:bg-gray-50 transition-colors cursor-pointer';
+
+            const colors = {
+                success: { bg: 'green', icon: 'check-circle' },
+                error: { bg: 'red', icon: 'exclamation-circle' },
+                warning: { bg: 'amber', icon: 'exclamation-triangle' },
+                info: { bg: 'blue', icon: 'info-circle' }
+            };
+
+            const color = colors[type] || colors.info;
+
+            panelItem.innerHTML = `
+            <div class="flex items-start space-x-3">
+                <div class="w-2 h-2 bg-${color.bg}-500 rounded-full mt-2 flex-shrink-0"></div>
+                <div class="w-10 h-10 bg-${color.bg}-100 rounded-full flex items-center justify-center flex-shrink-0">
+                    <i class="fas fa-${color.icon} text-${color.bg}-600"></i>
+                </div>
+                <div class="flex-1 min-w-0">
+                    <div class="text-sm font-medium text-gray-900">${title}</div>
+                    <div class="text-sm text-gray-500 mt-1">${message}</div>
+                    <div class="text-xs text-gray-400 mt-2">Ahora</div>
+                </div>
+            </div>
+        `;
+
+            const listContainer = document.getElementById('notificationsList');
+            if (listContainer) {
+                listContainer.insertBefore(panelItem, listContainer.firstChild);
+            }
+
+            this.updateBadge();
+        }
+
+        // Marcar todas como leídas
+        markAllAsRead() {
+            const unreadItems = document.querySelectorAll('.notification-item.unread');
+            unreadItems.forEach(item => {
+                item.classList.remove('unread');
+                item.classList.add('read');
+
+                // Cambiar el punto indicador
+                const dot = item.querySelector('.w-2.h-2');
+                if (dot) {
+                    dot.classList.remove('bg-amber-500', 'bg-red-500', 'bg-green-500', 'bg-blue-500');
+                    dot.classList.add('bg-transparent');
+                }
+            });
+
+            this.updateBadge();
+        }
+
+        // Actualizar badge de contador
+        updateBadge() {
+            const badge = document.getElementById('notificationCount');
+            const unreadCount = document.querySelectorAll('.notification-item.unread').length;
+
+            if (badge) {
+                badge.textContent = unreadCount;
+                badge.parentElement.classList.toggle('hidden', unreadCount === 0);
+            }
+        }
+
+        // Reproducir sonido
+        playSound(type) {
+            if (!this.config.enableSound) return;
+
+            try {
+                const audio = new Audio();
+                const sounds = {
+                    success: 'data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmgfBTOE0fPTgjMGHm+z7qSBLAUthM/z2Ik5CB5ztuvAl1YRBWW7/PFdRQYaTZ3Wz4c5CD+Z2+/UeT8FLYrQ8tV8YQYjgtLz1LxsFBB7xOLtwGUgBT6a2e7Uhj0GJYbU8tuLMwcXZLjt559NGAoKRpzg+NB9WwgfgtLz1I4wBwVeturs5mERB2m08OzKYQ8WQqjr8bVhDwEAG',
+                    error: 'data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmgfBTOE0fPTgjMGHm+z7qSBLAUthM/z2Ik5CB5ztuvAl1YRBWW7/PFdRQYaTZ3Wz4c5CD+Z2+/UeT8FLYrQ8tV8YQYjgtLz1LxsFBB7xOLtwGUgBT6a2e7Uhj0GJYbU8tuLMwcXZLjt559NGAoKRpzg+NB9WwgfgtLz1I4wBwVeturs5mERB2m08OzKYQ8WQqjr8bVhDwEAGw==',
+                    warning: 'data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmgfBTOE0fPTgjMGHm+z7qSBLAUthM/z2Ik5CB5ztuvAl1YRBWW7/PFdRQYaTZ3Wz4c5CD+Z2+/UeT8FLYrQ8tV8YQYjgtLz1LxsFBB7xOLtwGUgBT6a2e7Uhj0GJYbU8tuLMwcXZLjt559NGAoKRpzg+NB9WwgfgtLz1I4wBwVeturs5mERB2m08OzKYQ8WQqjr8bVhDwEAGw==',
+                    info: 'data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmgfBTOE0fPTgjMGHm+z7qSBLAUthM/z2Ik5CB5ztuvAl1YRBWW7/PFdRQYaTZ3Wz4c5CD+Z2+/UeT8FLYrQ8tV8YQYjgtLz1LxsFBB7xOLtwGUgBT6a2e7Uhj0GJYbU8tuLMwcXZLjt559NGAoKRpzg+NB9WwgfgtLz1I4wBwVeturs5mERB2m08OzKYQ8WQqjr8bVhDwEAGw=='
+                };
+
+                audio.src = sounds[type] || sounds.info;
+                audio.volume = 0.3;
+                audio.play().catch(() => {
+                    // Silenciar errores de audio (navegador puede bloquear autoplay)
+                });
+            } catch (error) {
+                // Silenciar errores
+            }
+        }
+
+        // Configurar posición
+        setPosition(position) {
+            this.config.position = position;
+
+            const positions = {
+                'top-right': 'top-4 right-4',
+                'top-left': 'top-4 left-4',
+                'bottom-right': 'bottom-4 right-4',
+                'bottom-left': 'bottom-4 left-4',
+                'top-center': 'top-4 left-1/2 transform -translate-x-1/2',
+                'bottom-center': 'bottom-4 left-1/2 transform -translate-x-1/2'
+            };
+
+            if (this.container) {
+                this.container.className = `notifications-container fixed ${positions[position]} z-50 space-y-3 max-w-sm w-full`;
+            }
+        }
+
+        // Configurar duración por defecto
+        setDefaultDuration(duration) {
+            this.config.defaultDuration = duration;
+        }
+
+        // Habilitar/deshabilitar sonidos
+        enableSound(enable = true) {
+            this.config.enableSound = enable;
+        }
+    }
+
+    // Inicializar API de notificaciones
+    document.addEventListener('DOMContentLoaded', () => {
+        window.notificationsAPI = new NotificationsAPI({
+            position: 'top-right',
+            defaultDuration: 5000,
+            maxNotifications: 5,
+            enableSound: false,
+            enableProgress: true
+        });
+
+        // Ejemplo de uso (comentado)
+        /*
+        // Notificación de éxito
+        notificationsAPI.success('Cliente guardado', 'El cliente se guardó correctamente en el sistema');
+    
+        // Notificación de error
+        notificationsAPI.error('Error de conexión', 'No se pudo conectar con el servidor', {
+            persistent: true,
+            actions: [{
+                text: 'Reintentar',
+                onclick: 'location.reload()'
+            }]
+        });
+    
+        // Notificación de advertencia
+        notificationsAPI.warning('Inventario bajo', 'Solo quedan 2 unidades de filtro de aceite');
+    
+        // Notificación de información
+        notificationsAPI.info('Nueva actualización', 'Hay una nueva versión disponible del sistema');
+        */
+    });
+</script>

@@ -1,0 +1,279 @@
+<!-- ============================================ -->
+<!-- MODALES COMPARTIDOS - TecnoTaller -->
+<!-- ============================================ -->
+
+<!-- Modal de Configuración de Apariencia -->
+<div id="appearanceModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 w-96 border dark:border-gray-700">
+        <div class="flex items-center justify-between mb-6">
+            <h2 class="text-lg font-semibold text-gray-900 dark:text-gray-100">Configuración de Apariencia</h2>
+            <button id="closeModalBtn" class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+
+        <div class="space-y-4">
+            <div class="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center">
+                        <i class="fas fa-moon text-blue-600 dark:text-blue-400"></i>
+                    </div>
+                    <div>
+                        <p class="font-medium text-gray-900 dark:text-gray-100">Modo Oscuro</p>
+                        <p class="text-sm text-gray-500 dark:text-gray-400">Los cambios se aplican automáticamente</p>
+                    </div>
+                </div>
+                <label class="toggle-switch">
+                    <input type="checkbox" id="darkModeToggle">
+                    <span class="slider"></span>
+                </label>
+            </div>
+        </div>
+
+        <div class="mt-6 text-right">
+            <button id="applySettingsBtn"
+                class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+                Cerrar
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Modal de Perfil -->
+<div id="profileModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 w-80 border dark:border-gray-700">
+        <div class="flex items-center justify-between mb-6">
+            <h2 class="text-lg font-semibold text-gray-900 dark:text-gray-100">Perfil de Usuario</h2>
+            <button id="closeProfileModalBtn" class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+
+        <!-- Info del usuario -->
+        <div class="flex items-center space-x-3 p-4 bg-gray-50 dark:bg-gray-700 rounded-lg mb-6">
+            <div
+                class="w-12 h-12 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-full flex items-center justify-center">
+                <i class="fas fa-user text-white"></i>
+            </div>
+            <div class="flex-1">
+                <p id="profileModalUserName" class="text-sm font-medium text-gray-900 dark:text-gray-100">Usuario</p>
+                <p id="profileModalUserRole" class="text-xs text-gray-500 dark:text-gray-400">Sin rol</p>
+                <p id="profileModalUserEmail" class="text-xs text-gray-500 dark:text-gray-400">No disponible</p>
+            </div>
+        </div>
+
+        <!-- Opciones -->
+        <div class="space-y-2">
+            <button id="openEditProfileBtn"
+                class="w-full flex items-center space-x-3 p-3 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors text-left">
+                <i class="fas fa-user-edit text-blue-600 dark:text-blue-400"></i>
+                <span>Editar Perfil</span>
+            </button>
+
+            <button id="openSettingsBtn"
+                class="w-full flex items-center space-x-3 p-3 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors text-left">
+                <i class="fas fa-cog text-gray-600 dark:text-gray-400"></i>
+                <span>Configuración</span>
+            </button>
+
+            <hr class="my-3 border-gray-200 dark:border-gray-600">
+
+            <button id="profileLogoutBtn"
+                class="w-full flex items-center space-x-3 p-3 rounded-lg text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors text-left">
+                <i class="fas fa-sign-out-alt text-red-500"></i>
+                <span>Cerrar Sesión</span>
+            </button>
+        </div>
+    </div>
+</div>
+
+<div id="logoutConfirmModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden z-50">
+  <div class="bg-white dark:bg-gray-800 rounded-lg p-6 shadow-lg text-center">
+    <h2 class="text-lg font-semibold mb-4 text-gray-900 dark:text-gray-100">¿Estás seguro de que quieres cerrar sesión?</h2>
+    <div class="flex justify-center gap-4">
+      <button class="logout-confirm-yes bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 transition">Sí, cerrar sesión</button>
+      <button class="logout-confirm-no bg-gray-300 text-gray-800 px-4 py-2 rounded hover:bg-gray-400 transition dark:bg-gray-700 dark:text-gray-100 dark:hover:bg-gray-600">No</button>
+    </div>
+  </div>
+</div>
+
+<script>
+    // ============================================
+    // MODALES API
+    // ============================================
+    class ModalsAPI {
+        constructor() {
+            this.profileModal = document.getElementById('profileModal');
+            this.appearanceModal = document.getElementById('appearanceModal');
+            this.initializeEvents();
+        }
+
+        initializeEvents() {
+            // Modal de Perfil
+            const userMenuBtn = document.getElementById('userMenuBtn');
+            const closeProfileModalBtn = document.getElementById('closeProfileModalBtn');
+            const openEditProfileBtn = document.getElementById('openEditProfileBtn');
+            const openSettingsBtn = document.getElementById('openSettingsBtn');
+
+            // Modal de Configuración
+            const closeModalBtn = document.getElementById('closeModalBtn');
+            const applySettingsBtn = document.getElementById('applySettingsBtn');
+            const darkModeToggle = document.getElementById('darkModeToggle');
+
+            // Eventos Modal de Perfil
+            if (userMenuBtn) {
+                userMenuBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    this.openProfileModal();
+                });
+            }
+
+            if (closeProfileModalBtn) {
+                closeProfileModalBtn.addEventListener('click', () => this.closeProfileModal());
+            }
+
+            if (openEditProfileBtn) {
+                openEditProfileBtn.addEventListener('click', () => {
+                    // Verificar si ya estamos en la página de editar perfil
+                    const currentPage = window.location.pathname.split('/').pop();
+                    if (currentPage === 'editar-perfil.html') {
+                        this.closeProfileModal();
+                        if (window.toastManager) {
+                            window.toastManager.show('Ya estás en la página de editar perfil', 'info');
+                        }
+                    } else {
+                        window.location.href = 'editar-perfil.html';
+                    }
+                });
+            }
+
+            if (openSettingsBtn) {
+                openSettingsBtn.addEventListener('click', () => this.openAppearanceModal());
+            }
+
+            // Eventos Modal de Configuración
+            if (closeModalBtn) {
+                closeModalBtn.addEventListener('click', () => this.closeAppearanceModal());
+            }
+
+            if (applySettingsBtn) {
+                applySettingsBtn.addEventListener('click', () => {
+                    if (window.toastManager) {
+                        window.toastManager.show('Configuración guardada', 'success');
+                    }
+                    this.closeAppearanceModal();
+                });
+            }
+
+            // Funcionalidad del toggle de modo oscuro
+            if (darkModeToggle) {
+                darkModeToggle.addEventListener('change', function () {
+                    if (this.checked) {
+                        document.documentElement.classList.add('dark');
+                    } else {
+                        document.documentElement.classList.remove('dark');
+                    }
+
+                    localStorage.setItem('darkMode', this.checked);
+
+                    if (window.toastManager) {
+                        const mode = this.checked ? 'oscuro' : 'claro';
+                        window.toastManager.show(`Modo ${mode} activado`, 'success');
+                    }
+                });
+            }
+
+            // Logout desde modal de perfil
+            const profileLogoutBtn = document.getElementById('profileLogoutBtn');
+            if (profileLogoutBtn) {
+                profileLogoutBtn.addEventListener('click', () => {
+                    if (confirm('¿Estás seguro de que quieres cerrar sesión?')) {
+                        if (window.toastManager) {
+                            window.toastManager.show('Cerrando sesión...', 'info');
+                        }
+                        setTimeout(() => {
+                            window.location.href = 'index.html';
+                        }, 1000);
+                    }
+                });
+            }
+
+            // Cerrar modales al hacer click fuera
+            this.profileModal?.addEventListener('click', (e) => {
+                if (e.target === this.profileModal) {
+                    this.closeProfileModal();
+                }
+            });
+
+            this.appearanceModal?.addEventListener('click', (e) => {
+                if (e.target === this.appearanceModal) {
+                    this.closeAppearanceModal();
+                }
+            });
+
+            // Cerrar modales con tecla Escape
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                    if (!this.profileModal?.classList.contains('hidden')) {
+                        this.closeProfileModal();
+                    }
+                    if (!this.appearanceModal?.classList.contains('hidden')) {
+                        this.closeAppearanceModal();
+                    }
+                }
+            });
+        }
+
+        closeProfileModal() {
+            this.profileModal?.classList.add('hidden');
+        }
+
+        // Métodos del Modal de Configuración
+        openAppearanceModal() {
+            this.appearanceModal?.classList.remove('hidden');
+            this.closeProfileModal(); // Cerrar modal de perfil al abrir configuración
+
+            // Sincronizar el estado del toggle con el modo actual
+            const darkModeToggle = document.getElementById('darkModeToggle');
+            if (darkModeToggle) {
+                darkModeToggle.checked = document.documentElement.classList.contains('dark');
+            }
+        }
+
+        closeAppearanceModal() {
+            this.appearanceModal?.classList.add('hidden');
+        }
+
+        // Sincronizar tema inicial
+        syncInitialTheme() {
+            const darkModePref = localStorage.getItem('darkMode');
+            if (darkModePref === null) {
+                // Si no hay preferencia, forzar modo claro por defecto
+                document.documentElement.classList.remove('dark');
+                localStorage.setItem('darkMode', 'false');
+            } else if (darkModePref === 'true') {
+                document.documentElement.classList.add('dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+            }
+
+            // Sincronizar el toggle del modal con el estado inicial
+            const darkModeToggleInit = document.getElementById('darkModeToggle');
+            if (darkModeToggleInit) {
+                darkModeToggleInit.checked = darkModePref === 'true';
+            }
+
+            // Asegurar que los componentes compartidos no estén en modo oscuro por defecto
+            const modals = document.querySelectorAll('.modal');
+            modals.forEach(modal => {
+                modal.classList.remove('dark');
+            });
+        }
+    }
+
+    // Inicializar cuando se carga el componente
+    document.addEventListener('DOMContentLoaded', () => {
+        window.modalsAPI = new ModalsAPI();
+        window.modalsAPI.syncInitialTheme();
+    });
+</script>

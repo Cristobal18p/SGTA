@@ -1,0 +1,461 @@
+<!-- ============================================ -->
+<!-- CARDS COMPONENT - TecnoTaller -->
+<!-- ============================================ -->
+
+<!-- Card básica -->
+<div
+    class="card bg-white rounded-xl shadow-lg border border-gray-200 hover:shadow-xl transition-all duration-300 hover:scale-105">
+    <div class="card-header p-6 border-b border-gray-100">
+        <div class="flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="card-icon bg-blue-100 p-3 rounded-full">
+                    <i class="fas fa-users text-blue-600 text-xl"></i>
+                </div>
+                <div>
+                    <h3 class="card-title text-lg font-semibold text-gray-900">Clientes</h3>
+                    <p class="card-subtitle text-sm text-gray-500">Total registrados</p>
+                </div>
+            </div>
+            <div class="card-actions">
+                <button class="text-gray-400 hover:text-gray-600 transition-colors">
+                    <i class="fas fa-ellipsis-v"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="card-body p-6">
+        <div class="flex items-center justify-between">
+            <div>
+                <div class="card-value text-3xl font-bold text-gray-900">245</div>
+                <div class="card-change flex items-center space-x-1 mt-1">
+                    <i class="fas fa-arrow-up text-green-500 text-sm"></i>
+                    <span class="text-green-500 text-sm font-medium">+12%</span>
+                    <span class="text-gray-500 text-sm">vs mes anterior</span>
+                </div>
+            </div>
+            <div class="card-chart w-16 h-16 bg-blue-50 rounded-lg flex items-center justify-center">
+                <i class="fas fa-chart-line text-blue-500 text-lg"></i>
+            </div>
+        </div>
+    </div>
+    <div class="card-footer p-4 bg-gray-50 rounded-b-xl">
+        <a href="#"
+            class="card-link flex items-center justify-between text-blue-600 hover:text-blue-800 transition-colors">
+            <span class="text-sm font-medium">Ver todos los clientes</span>
+            <i class="fas fa-arrow-right text-xs"></i>
+        </a>
+    </div>
+</div>
+
+<!-- Card de resumen con múltiples valores -->
+<div
+    class="card bg-gradient-to-br from-amber-500 to-orange-600 text-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300">
+    <div class="card-body p-6">
+        <div class="flex items-center justify-between mb-4">
+            <div class="card-icon bg-white/20 p-3 rounded-full">
+                <i class="fas fa-dollar-sign text-2xl"></i>
+            </div>
+            <div class="text-right">
+                <div class="text-xs opacity-80">Ingresos</div>
+                <div class="text-sm font-medium">Este mes</div>
+            </div>
+        </div>
+        <div class="space-y-3">
+            <div>
+                <div class="text-3xl font-bold">$45,280</div>
+                <div class="text-sm opacity-80">Total facturado</div>
+            </div>
+            <div class="grid grid-cols-2 gap-4 text-sm">
+                <div>
+                    <div class="font-medium">Servicios</div>
+                    <div class="opacity-80">$32,180</div>
+                </div>
+                <div>
+                    <div class="font-medium">Productos</div>
+                    <div class="opacity-80">$13,100</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Card simple de estadística -->
+<div class="card bg-white rounded-xl shadow-md border border-gray-200 hover:shadow-lg transition-all duration-300">
+    <div class="card-body p-6">
+        <div class="flex items-center space-x-4">
+            <div class="card-icon bg-green-100 p-4 rounded-full">
+                <i class="fas fa-calendar text-green-600 text-xl"></i>
+            </div>
+            <div class="flex-1">
+                <h3 class="card-title text-lg font-semibold text-gray-900">Citas Hoy</h3>
+                <div class="card-value text-2xl font-bold text-gray-900 mt-1">12</div>
+                <p class="card-subtitle text-sm text-gray-500 mt-1">6 pendientes, 4 completadas, 2 canceladas</p>
+            </div>
+            <div class="card-progress">
+                <div class="w-16 h-16 relative">
+                    <svg class="w-full h-full transform -rotate-90" viewBox="0 0 36 36">
+                        <path class="text-gray-200" stroke="currentColor" stroke-width="3" fill="none"
+                            d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"></path>
+                        <path class="text-green-500" stroke="currentColor" stroke-width="3" fill="none"
+                            stroke-dasharray="66.6, 100"
+                            d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"></path>
+                    </svg>
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <span class="text-sm font-bold text-gray-900">67%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Card de producto/servicio -->
+<div class="card bg-white rounded-xl shadow-md border border-gray-200 hover:shadow-lg transition-all duration-300">
+    <div class="card-header relative">
+        <div class="h-32 bg-gradient-to-r from-purple-400 to-pink-400 rounded-t-xl"></div>
+        <div class="absolute top-4 right-4">
+            <span class="badge bg-white text-purple-600 px-2 py-1 rounded-full text-xs font-medium">Popular</span>
+        </div>
+    </div>
+    <div class="card-body p-6">
+        <div class="flex items-start justify-between mb-4">
+            <div>
+                <h3 class="card-title text-lg font-semibold text-gray-900">Cambio de Aceite</h3>
+                <p class="card-subtitle text-sm text-gray-500">Servicio básico de mantenimiento</p>
+            </div>
+            <div class="text-right">
+                <div class="card-price text-xl font-bold text-gray-900">$45</div>
+                <div class="text-sm text-gray-500">por servicio</div>
+            </div>
+        </div>
+        <div class="flex items-center justify-between">
+            <div class="flex items-center space-x-2">
+                <div class="flex text-yellow-400">
+                    <i class="fas fa-star text-sm"></i>
+                    <i class="fas fa-star text-sm"></i>
+                    <i class="fas fa-star text-sm"></i>
+                    <i class="fas fa-star text-sm"></i>
+                    <i class="fas fa-star text-sm"></i>
+                </div>
+                <span class="text-sm text-gray-500">(24 reseñas)</span>
+            </div>
+            <span class="text-green-600 text-sm font-medium">En stock</span>
+        </div>
+    </div>
+    <div class="card-footer p-4 border-t border-gray-100">
+        <button class="btn-primary w-full py-2 px-4 rounded-lg text-white font-medium transition-all">
+            Agendar Servicio
+        </button>
+    </div>
+</div>
+
+<!-- Card de notificación/alerta -->
+<div class="card bg-red-50 border border-red-200 rounded-xl shadow-md">
+    <div class="card-body p-6">
+        <div class="flex items-start space-x-4">
+            <div class="card-icon bg-red-100 p-3 rounded-full flex-shrink-0">
+                <i class="fas fa-exclamation-triangle text-red-600"></i>
+            </div>
+            <div class="flex-1">
+                <h3 class="card-title text-lg font-semibold text-red-900">Vehículo requiere atención</h3>
+                <p class="card-subtitle text-red-700 mt-1">El Toyota Corolla (ABC-123) tiene una cita vencida de
+                    mantenimiento desde hace 5 días.</p>
+                <div class="card-actions mt-4 flex space-x-3">
+                    <button class="btn-danger px-4 py-2 rounded-lg text-white text-sm font-medium">
+                        Contactar Cliente
+                    </button>
+                    <button class="text-red-600 hover:text-red-800 text-sm font-medium">
+                        Ver Detalles
+                    </button>
+                </div>
+            </div>
+            <button class="text-red-400 hover:text-red-600 transition-colors">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+    </div>
+</div>
+
+<style>
+    /* Card Styles */
+    .card {
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+    }
+
+    .card:hover {
+        transform: translateY(-2px);
+    }
+
+    .card-icon {
+        transition: all 0.3s ease;
+    }
+
+    .card:hover .card-icon {
+        transform: scale(1.1);
+    }
+
+    /* Buttons */
+    .btn-primary {
+        background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+        box-shadow: 0 4px 15px rgba(245, 158, 11, 0.4);
+    }
+
+    .btn-primary:hover {
+        background: linear-gradient(135deg, #d97706 0%, #b45309 100%);
+        box-shadow: 0 6px 20px rgba(245, 158, 11, 0.5);
+        transform: translateY(-1px);
+    }
+
+    .btn-danger {
+        background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+        box-shadow: 0 4px 15px rgba(220, 38, 38, 0.4);
+    }
+
+    .btn-danger:hover {
+        background: linear-gradient(135deg, #b91c1c 0%, #991b1b 100%);
+        box-shadow: 0 6px 20px rgba(220, 38, 38, 0.5);
+        transform: translateY(-1px);
+    }
+
+    /* Badge */
+    .badge {
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Animations */
+    @keyframes slideInUp {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .card.animate-in {
+        animation: slideInUp 0.5s ease-out;
+    }
+</style>
+
+<script>
+    // ============================================
+    // CARDS API
+    // ============================================
+    class CardsAPI {
+        constructor() {
+            this.cards = [];
+            this.initializeCards();
+        }
+
+        // Inicializar todas las cards
+        initializeCards() {
+            this.cards = document.querySelectorAll('.card');
+            this.setupAnimations();
+        }
+
+        // Configurar animaciones
+        setupAnimations() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animate-in');
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            this.cards.forEach(card => {
+                observer.observe(card);
+            });
+        }
+
+        // Crear card dinámicamente
+        createCard(config) {
+            const {
+                type = 'basic',
+                title,
+                subtitle,
+                value,
+                change,
+                icon,
+                color = 'blue',
+                link,
+                actions = []
+            } = config;
+
+            const card = document.createElement('div');
+            card.className = 'card bg-white rounded-xl shadow-md border border-gray-200 hover:shadow-lg transition-all duration-300';
+
+            let cardHTML = '';
+
+            if (type === 'stat') {
+                cardHTML = `
+                <div class="card-body p-6">
+                    <div class="flex items-center space-x-4">
+                        <div class="card-icon bg-${color}-100 p-4 rounded-full">
+                            <i class="fas fa-${icon} text-${color}-600 text-xl"></i>
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="card-title text-lg font-semibold text-gray-900">${title}</h3>
+                            <div class="card-value text-2xl font-bold text-gray-900 mt-1">${value}</div>
+                            ${subtitle ? `<p class="card-subtitle text-sm text-gray-500 mt-1">${subtitle}</p>` : ''}
+                            ${change ? `
+                                <div class="card-change flex items-center space-x-1 mt-2">
+                                    <i class="fas fa-arrow-${change.direction} text-${change.direction === 'up' ? 'green' : 'red'}-500 text-sm"></i>
+                                    <span class="text-${change.direction === 'up' ? 'green' : 'red'}-500 text-sm font-medium">${change.value}</span>
+                                    <span class="text-gray-500 text-sm">${change.label}</span>
+                                </div>
+                            ` : ''}
+                        </div>
+                    </div>
+                </div>
+            `;
+            }
+
+            if (link) {
+                cardHTML += `
+                <div class="card-footer p-4 bg-gray-50 rounded-b-xl">
+                    <a href="${link.url}" class="card-link flex items-center justify-between text-${color}-600 hover:text-${color}-800 transition-colors">
+                        <span class="text-sm font-medium">${link.text}</span>
+                        <i class="fas fa-arrow-right text-xs"></i>
+                    </a>
+                </div>
+            `;
+            }
+
+            card.innerHTML = cardHTML;
+            return card;
+        }
+
+        // Actualizar valor de card
+        updateCard(cardSelector, newValue, animated = true) {
+            const card = document.querySelector(cardSelector);
+            const valueElement = card?.querySelector('.card-value');
+
+            if (valueElement) {
+                if (animated) {
+                    this.animateValue(valueElement, parseInt(valueElement.textContent) || 0, newValue);
+                } else {
+                    valueElement.textContent = newValue;
+                }
+            }
+        }
+
+        // Animar cambio de valor
+        animateValue(element, start, end, duration = 1000) {
+            const range = end - start;
+            const startTime = performance.now();
+
+            const animate = (currentTime) => {
+                const elapsed = currentTime - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+
+                const current = start + (range * this.easeOutCubic(progress));
+                element.textContent = Math.floor(current);
+
+                if (progress < 1) {
+                    requestAnimationFrame(animate);
+                }
+            };
+
+            requestAnimationFrame(animate);
+        }
+
+        // Función de easing
+        easeOutCubic(t) {
+            return 1 - Math.pow(1 - t, 3);
+        }
+
+        // Mostrar card de notificación
+        showNotificationCard(config) {
+            const {
+                type = 'info',
+                title,
+                message,
+                actions = [],
+                autoHide = false,
+                duration = 5000
+            } = config;
+
+            const colors = {
+                info: 'blue',
+                success: 'green',
+                warning: 'yellow',
+                error: 'red'
+            };
+
+            const icons = {
+                info: 'info-circle',
+                success: 'check-circle',
+                warning: 'exclamation-triangle',
+                error: 'times-circle'
+            };
+
+            const color = colors[type];
+            const icon = icons[type];
+
+            const notification = document.createElement('div');
+            notification.className = `card bg-${color}-50 border border-${color}-200 rounded-xl shadow-md mb-4`;
+
+            notification.innerHTML = `
+            <div class="card-body p-6">
+                <div class="flex items-start space-x-4">
+                    <div class="card-icon bg-${color}-100 p-3 rounded-full flex-shrink-0">
+                        <i class="fas fa-${icon} text-${color}-600"></i>
+                    </div>
+                    <div class="flex-1">
+                        <h3 class="card-title text-lg font-semibold text-${color}-900">${title}</h3>
+                        <p class="card-subtitle text-${color}-700 mt-1">${message}</p>
+                        ${actions.length > 0 ? `
+                            <div class="card-actions mt-4 flex space-x-3">
+                                ${actions.map(action => `
+                                    <button class="btn-${action.type || 'primary'} px-4 py-2 rounded-lg text-white text-sm font-medium" onclick="${action.onclick}">
+                                        ${action.text}
+                                    </button>
+                                `).join('')}
+                            </div>
+                        ` : ''}
+                    </div>
+                    <button class="text-${color}-400 hover:text-${color}-600 transition-colors" onclick="this.closest('.card').remove()">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            </div>
+        `;
+
+            // Insertar en el contenedor de notificaciones o al inicio del body
+            const container = document.getElementById('notifications-container') || document.body;
+            container.insertBefore(notification, container.firstChild);
+
+            // Auto-ocultar
+            if (autoHide) {
+                setTimeout(() => {
+                    notification.remove();
+                }, duration);
+            }
+
+            return notification;
+        }
+
+        // Crear grid de cards
+        createCardGrid(cards, columns = 3) {
+            const grid = document.createElement('div');
+            grid.className = `grid grid-cols-1 md:grid-cols-2 lg:grid-cols-${columns} gap-6`;
+
+            cards.forEach(cardConfig => {
+                const card = this.createCard(cardConfig);
+                grid.appendChild(card);
+            });
+
+            return grid;
+        }
+    }
+
+    // Inicializar API de cards
+    document.addEventListener('DOMContentLoaded', () => {
+        window.cardsAPI = new CardsAPI();
+    });
+</script>

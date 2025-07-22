@@ -1,0 +1,646 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configuración del Sistema - TecnoTaller</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {}
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/dark-mode.css">
+
+    <!-- Sistema centralizado de temas -->
+    <script src="../js/componentes/theme-manager.js"></script>
+    <script src="../js/componentes/toast-manager.js"></script>
+    <script src="../js/componentes/components-loader.js"></script>
+    <script src="../js/componentes/navbar-manager.js"></script>
+    <script src="../js/componentes/modals-manager.js"></script>
+    <script src="../js/componentes/app-initializer.js"></script>
+</head>
+
+<body class="bg-gray-50 font-inter">
+    <!-- Navbar Component -->
+    <div id="navbar-container"></div>
+
+    <!-- Sidebar Overlay -->
+    <div id="sidebarOverlay" class="hidden fixed inset-0 bg-black bg-opacity-50 z-40"></div>
+
+    <!-- Sidebar Component -->
+    <div id="sidebar-container"></div>
+
+    <!-- Modals Component -->
+    <div id="modals-container"></div>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Breadcrumbs -->
+        <nav class="flex mb-8" aria-label="Breadcrumb">
+            <ol class="inline-flex items-center space-x-1 md:space-x-3">
+                <li class="inline-flex items-center">
+                    <a href="dashboard.html" class="text-sm font-medium text-gray-500 hover:text-blue-600">
+                        <i class="fas fa-home mr-2"></i>Dashboard
+                    </a>
+                </li>
+                <li>
+                    <div class="flex items-center">
+                        <i class="fas fa-chevron-right text-gray-400 mx-2"></i>
+                        <span class="text-sm font-medium text-blue-600">Configuración</span>
+                    </div>
+                </li>
+            </ol>
+        </nav>
+
+        <!-- Header -->
+        <div class="flex justify-between items-center mb-8">
+            <div>
+                <h1 class="text-3xl font-bold text-gray-900">Configuración del Sistema</h1>
+                <p class="text-gray-600 mt-2">Gestiona las configuraciones generales del sistema</p>
+            </div>
+            <div class="flex space-x-4">
+                <button id="btnBackup"
+                    class="bg-green-100 hover:bg-green-200 text-green-700 px-4 py-2 rounded-lg font-medium transition-colors flex items-center">
+                    <i class="fas fa-database mr-2"></i>
+                    Respaldar Sistema
+                </button>
+                <button id="btnGuardarConfig"
+                    class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-medium transition-colors flex items-center">
+                    <i class="fas fa-save mr-2"></i>
+                    Guardar Cambios
+                </button>
+            </div>
+        </div>
+
+        <!-- Configuración en Pestañas -->
+        <div class="bg-white rounded-xl shadow-sm border border-gray-200">
+            <!-- Pestañas -->
+            <div class="border-b border-gray-200">
+                <nav class="flex space-x-8 px-6" aria-label="Tabs">
+                    <button
+                        class="tab-button active border-b-2 border-blue-500 py-4 px-1 text-sm font-medium text-blue-600"
+                        data-tab="general">
+                        <i class="fas fa-cogs mr-2"></i>General
+                    </button>
+                    <button
+                        class="tab-button border-b-2 border-transparent py-4 px-1 text-sm font-medium text-gray-500 hover:text-gray-700"
+                        data-tab="empresa">
+                        <i class="fas fa-building mr-2"></i>Empresa
+                    </button>
+                    <button
+                        class="tab-button border-b-2 border-transparent py-4 px-1 text-sm font-medium text-gray-500 hover:text-gray-700"
+                        data-tab="sistema">
+                        <i class="fas fa-server mr-2"></i>Sistema
+                    </button>
+                    <button
+                        class="tab-button border-b-2 border-transparent py-4 px-1 text-sm font-medium text-gray-500 hover:text-gray-700"
+                        data-tab="seguridad">
+                        <i class="fas fa-shield-alt mr-2"></i>Seguridad
+                    </button>
+                    <button
+                        class="tab-button border-b-2 border-transparent py-4 px-1 text-sm font-medium text-gray-500 hover:text-gray-700"
+                        data-tab="integraciones">
+                        <i class="fas fa-plug mr-2"></i>Integraciones
+                    </button>
+                    <button
+                        class="tab-button border-b-2 border-transparent py-4 px-1 text-sm font-medium text-gray-500 hover:text-gray-700"
+                        data-tab="respaldos">
+                        <i class="fas fa-database mr-2"></i>Respaldos
+                    </button>
+                </nav>
+            </div>
+
+            <!-- Contenido de Pestañas -->
+            <div class="p-6">
+                <!-- Pestaña General -->
+                <div id="tab-general" class="tab-content">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-6">Configuración General</h3>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                        <!-- Configuración Regional -->
+                        <div class="space-y-4">
+                            <h4 class="font-medium text-gray-900">Configuración Regional</h4>
+
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Idioma del Sistema</label>
+                                <select id="idiomaSistema"
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                                    <option value="es">Español</option>
+                                    <option value="en">Inglés</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Zona Horaria</label>
+                                <select id="zonaHoraria"
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                                    <option value="America/Panama">América/Panamá (UTC-5)</option>
+                                    <option value="America/New_York">América/Nueva_York (UTC-5)</option>
+                                    <option value="America/Mexico_City">América/Ciudad_México (UTC-6)</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Formato de Fecha</label>
+                                <select id="formatoFecha"
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                                    <option value="dd/mm/yyyy">DD/MM/YYYY</option>
+                                    <option value="mm/dd/yyyy">MM/DD/YYYY</option>
+                                    <option value="yyyy-mm-dd">YYYY-MM-DD</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Moneda</label>
+                                <select id="moneda"
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                                    <option value="USD">Dólar Estadounidense (USD)</option>
+                                    <option value="PAB">Balboa Panameño (PAB)</option>
+                                    <option value="EUR">Euro (EUR)</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Configuración de Operaciones -->
+                        <div class="space-y-4">
+                            <h4 class="font-medium text-gray-900">Configuración de Operaciones</h4>
+
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Horario de Atención</label>
+                                <div class="grid grid-cols-2 gap-2">
+                                    <input type="time" id="horarioInicio" value="08:00"
+                                        class="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                                    <input type="time" id="horarioFin" value="18:00"
+                                        class="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                                </div>
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Días Laborables</label>
+                                <div class="grid grid-cols-2 gap-2">
+                                    <label class="flex items-center">
+                                        <input type="checkbox" id="lunes" checked
+                                            class="rounded border-gray-300 text-blue-600">
+                                        <span class="ml-2 text-sm">Lunes</span>
+                                    </label>
+                                    <label class="flex items-center">
+                                        <input type="checkbox" id="martes" checked
+                                            class="rounded border-gray-300 text-blue-600">
+                                        <span class="ml-2 text-sm">Martes</span>
+                                    </label>
+                                    <label class="flex items-center">
+                                        <input type="checkbox" id="miercoles" checked
+                                            class="rounded border-gray-300 text-blue-600">
+                                        <span class="ml-2 text-sm">Miércoles</span>
+                                    </label>
+                                    <label class="flex items-center">
+                                        <input type="checkbox" id="jueves" checked
+                                            class="rounded border-gray-300 text-blue-600">
+                                        <span class="ml-2 text-sm">Jueves</span>
+                                    </label>
+                                    <label class="flex items-center">
+                                        <input type="checkbox" id="viernes" checked
+                                            class="rounded border-gray-300 text-blue-600">
+                                        <span class="ml-2 text-sm">Viernes</span>
+                                    </label>
+                                    <label class="flex items-center">
+                                        <input type="checkbox" id="sabado"
+                                            class="rounded border-gray-300 text-blue-600">
+                                        <span class="ml-2 text-sm">Sábado</span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Duración Promedio de Cita
+                                    (minutos)</label>
+                                <input type="number" id="duracionCita" value="60" min="15" max="480"
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Stock Mínimo de
+                                    Alerta</label>
+                                <input type="number" id="stockMinimo" value="10" min="1"
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pestaña Empresa -->
+                <div id="tab-empresa" class="tab-content hidden">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-6">Información de la Empresa</h3>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                        <!-- Información Básica -->
+                        <div class="space-y-4">
+                            <h4 class="font-medium text-gray-900">Información Básica</h4>
+
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Nombre de la Empresa</label>
+                                <input type="text" id="nombreEmpresa" value="TecnoTaller"
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">RUC/NIT</label>
+                                <input type="text" id="rucEmpresa" placeholder="Ej: 1234567890"
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Teléfono Principal</label>
+                                <input type="tel" id="telefonoEmpresa" placeholder="Ej: +507 1234-5678"
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Email Corporativo</label>
+                                <input type="email" id="emailEmpresa" placeholder="info@tecnotaller.com"
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Sitio Web</label>
+                                <input type="url" id="sitioWebEmpresa" placeholder="https://www.tecnotaller.com"
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                            </div>
+                        </div>
+
+                        <!-- DirecciÃ³n y Logo -->
+                        <div class="space-y-4">
+                            <h4 class="font-medium text-gray-900">Dirección y Imagen</h4>
+
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Dirección Completa</label>
+                                <textarea id="direccionEmpresa" rows="3"
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                    placeholder="Dirección completa de la empresa..."></textarea>
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Logo de la Empresa</label>
+                                <div class="flex items-center space-x-4">
+                                    <div class="w-20 h-20 bg-gray-100 rounded-lg flex items-center justify-center">
+                                        <i class="fas fa-image text-gray-400 text-2xl"></i>
+                                    </div>
+                                    <div>
+                                        <input type="file" id="logoEmpresa" accept="image/*" class="hidden">
+                                        <button type="button" onclick="document.getElementById('logoEmpresa').click()"
+                                            class="bg-blue-100 hover:bg-blue-200 text-blue-700 px-4 py-2 rounded-lg font-medium transition-colors">
+                                            Seleccionar Logo
+                                        </button>
+                                        <p class="text-xs text-gray-500 mt-1">Formato: PNG, JPG. Máximo: 2MB</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Eslogan/Lema</label>
+                                <input type="text" id="esloganEmpresa" placeholder="Tu taller de confianza"
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pestaña Sistema -->
+                <div id="tab-sistema" class="tab-content hidden">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-6">Configuración del Sistema</h3>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                        <!-- Configuración de Base de Datos -->
+                        <div class="space-y-4">
+                            <h4 class="font-medium text-gray-900">Base de Datos</h4>
+
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Servidor de Base de
+                                    Datos</label>
+                                <input type="text" id="servidorBD" value="localhost"
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Puerto</label>
+                                <input type="number" id="puertoBD" value="1521"
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Nombre de la Base de
+                                    Datos</label>
+                                <input type="text" id="nombreBD" value="TECNOTALLER"
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                            </div>
+
+                            <button id="btnTestConexion"
+                                class="w-full bg-green-100 hover:bg-green-200 text-green-700 px-4 py-2 rounded-lg font-medium transition-colors">
+                                <i class="fas fa-plug mr-2"></i>
+                                Probar Conexión
+                            </button>
+                        </div>
+
+                        <!-- Configuración de Rendimiento -->
+                        <div class="space-y-4">
+                            <h4 class="font-medium text-gray-900">Rendimiento</h4>
+
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Registros por
+                                    PÃ¡gina</label>
+                                <select id="registrosPorPagina"
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                                    <option value="10">10 registros</option>
+                                    <option value="25" selected>25 registros</option>
+                                    <option value="50">50 registros</option>
+                                    <option value="100">100 registros</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Tiempo de Cache
+                                    (minutos)</label>
+                                <input type="number" id="tiempoCache" value="30" min="5" max="1440"
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Nivel de Log</label>
+                                <select id="nivelLog"
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                                    <option value="ERROR">Solo Errores</option>
+                                    <option value="WARN">Advertencias y Errores</option>
+                                    <option value="INFO" selected>Información General</option>
+                                    <option value="DEBUG">Modo Debug</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label class="flex items-center">
+                                    <input type="checkbox" id="modoMantenimiento"
+                                        class="rounded border-gray-300 text-blue-600">
+                                    <span class="ml-2 text-sm text-gray-700">Modo Mantenimiento</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pestaña Seguridad -->
+                <div id="tab-seguridad" class="tab-content hidden">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-6">Configuración de Seguridad</h3>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                        <!-- Políticas de Contraseña -->
+                        <div class="space-y-4">
+                            <h4 class="font-medium text-gray-900">Políticas de Contraseña</h4>
+
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Longitud Mínima</label>
+                                <input type="number" id="longitudMinima" value="8" min="6" max="20"
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">ExpiraciÃ³n (dÃ­as)</label>
+                                <input type="number" id="expiracionClave" value="90" min="30" max="365"
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                            </div>
+
+                            <div class="space-y-2">
+                                <label class="flex items-center">
+                                    <input type="checkbox" id="requiereMayusculas" checked
+                                        class="rounded border-gray-300 text-blue-600">
+                                    <span class="ml-2 text-sm text-gray-700">Requiere mayúsculas</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="checkbox" id="requiereMinusculas" checked
+                                        class="rounded border-gray-300 text-blue-600">
+                                    <span class="ml-2 text-sm text-gray-700">Requiere minúsculas</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="checkbox" id="requiereNumeros" checked
+                                        class="rounded border-gray-300 text-blue-600">
+                                    <span class="ml-2 text-sm text-gray-700">Requiere números</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="checkbox" id="requiereSimbolos"
+                                        class="rounded border-gray-300 text-blue-600">
+                                    <span class="ml-2 text-sm text-gray-700">Requiere símbolos especiales</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Configuración de Sesiones -->
+                        <div class="space-y-4">
+                            <h4 class="font-medium text-gray-900">Sesiones y Acceso</h4>
+
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Tiempo de SesiÃ³n Inactiva
+                                    (minutos)</label>
+                                <input type="number" id="tiempoSesionInactiva" value="30" min="5" max="480"
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Intentos de Login
+                                    Fallidos</label>
+                                <input type="number" id="intentosFallidos" value="3" min="3" max="10"
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Tiempo de Bloqueo
+                                    (minutos)</label>
+                                <input type="number" id="tiempoBloqueo" value="15" min="5" max="1440"
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                            </div>
+
+                            <div class="space-y-2">
+                                <label class="flex items-center">
+                                    <input type="checkbox" id="dobleAutenticacion"
+                                        class="rounded border-gray-300 text-blue-600">
+                                    <span class="ml-2 text-sm text-gray-700">Autenticación de dos factores</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="checkbox" id="logAccesos" checked
+                                        class="rounded border-gray-300 text-blue-600">
+                                    <span class="ml-2 text-sm text-gray-700">Registrar accesos al sistema</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pestaña Integraciones -->
+                <div id="tab-integraciones" class="tab-content hidden">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-6">Integraciones Externas</h3>
+
+                    <div class="space-y-6">
+                        <!-- Email -->
+                        <div class="bg-gray-50 rounded-lg p-6">
+                            <div class="flex items-center justify-between mb-4">
+                                <div>
+                                    <h4 class="font-medium text-gray-900">Configuración de Email</h4>
+                                    <p class="text-sm text-gray-600">Servidor SMTP para envío de correos</p>
+                                </div>
+                                <label class="relative inline-flex items-center cursor-pointer">
+                                    <input type="checkbox" id="emailActivo" class="sr-only peer">
+                                    <div
+                                        class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600">
+                                    </div>
+                                </label>
+                            </div>
+
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Servidor SMTP</label>
+                                    <input type="text" id="servidorSMTP" placeholder="smtp.gmail.com"
+                                        class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Puerto</label>
+                                    <input type="number" id="puertoSMTP" value="587"
+                                        class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Usuario</label>
+                                    <input type="email" id="usuarioSMTP" placeholder="sistema@tecnotaller.com"
+                                        class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Contraseña</label>
+                                    <input type="password" id="claveSMTP"
+                                        class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- WhatsApp API -->
+                        <div class="bg-gray-50 rounded-lg p-6">
+                            <div class="flex items-center justify-between mb-4">
+                                <div>
+                                    <h4 class="font-medium text-gray-900">WhatsApp Business API</h4>
+                                    <p class="text-sm text-gray-600">Envío de notificaciones por WhatsApp</p>
+                                </div>
+                                <label class="relative inline-flex items-center cursor-pointer">
+                                    <input type="checkbox" id="whatsappActivo" class="sr-only peer">
+                                    <div
+                                        class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600">
+                                    </div>
+                                </label>
+                            </div>
+
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">API Token</label>
+                                    <input type="password" id="tokenWhatsapp"
+                                        class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Número de
+                                        Teléfono</label>
+                                    <input type="tel" id="numeroWhatsapp" placeholder="+507 1234-5678"
+                                        class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pestaña Respaldos -->
+                <div id="tab-respaldos" class="tab-content hidden">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-6">Gestión de Respaldos</h3>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                        <!-- Configuración de Respaldos -->
+                        <div class="space-y-4">
+                            <h4 class="font-medium text-gray-900">Configuración Automática</h4>
+
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Frecuencia de
+                                    Respaldo</label>
+                                <select id="frecuenciaRespaldo"
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                                    <option value="diario">Diario</option>
+                                    <option value="semanal" selected>Semanal</option>
+                                    <option value="mensual">Mensual</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Hora de Respaldo</label>
+                                <input type="time" id="horaRespaldo" value="02:00"
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Retener Respaldos
+                                    (días)</label>
+                                <input type="number" id="retenerRespaldos" value="30" min="7" max="365"
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                            </div>
+
+                            <div>
+                                <label class="flex items-center">
+                                    <input type="checkbox" id="respaldoAutomatico" checked
+                                        class="rounded border-gray-300 text-blue-600">
+                                    <span class="ml-2 text-sm text-gray-700">Activar respaldos automáticos</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Historial de Respaldos -->
+                        <div class="space-y-4">
+                            <h4 class="font-medium text-gray-900">Respaldos Recientes</h4>
+
+                            <div class="bg-gray-50 rounded-lg p-4 max-h-64 overflow-y-auto">
+                                <div id="historialRespaldos" class="space-y-2">
+                                    <!-- Se cargarán dinámicamente -->
+                                </div>
+                            </div>
+
+                            <div class="flex space-x-2">
+                                <button id="btnCrearRespaldo"
+                                    class="flex-1 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-medium transition-colors">
+                                    <i class="fas fa-database mr-2"></i>
+                                    Crear Respaldo Ahora
+                                </button>
+                                <button id="btnRestaurarRespaldo"
+                                    class="flex-1 bg-yellow-100 hover:bg-yellow-200 text-yellow-700 px-4 py-2 rounded-lg font-medium transition-colors">
+                                    <i class="fas fa-upload mr-2"></i>
+                                    Restaurar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer Component -->
+    <div id="footer-container"></div>
+
+    <script src="../js/modulos/configuracion.js"></script>
+
+    <!-- Inicializar componentes compartidos -->
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            if (window.loadCommonComponents) {
+                await window.loadCommonComponents();
+                console.log('Módulo Configuración cargado con componentes compartidos');
+            } else {
+                console.error('loadCommonComponents no encontrado');
+            }
+        });
+    </script>
+</body>
+
+</html>

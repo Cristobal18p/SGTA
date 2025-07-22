@@ -1,0 +1,334 @@
+<!-- ============================================ -->
+<!-- NAVBAR/HEADER COMPONENT - TecnoTaller -->
+<!-- ============================================ -->
+<nav
+    class="tt-navbar bg-white dark:bg-gray-900 shadow-elegant border-b border-gray-200 dark:border-gray-700 sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center h-16">
+            <div class="flex items-center gap-3">
+                <!-- Botón menú -->
+                <button id="sidebarToggle"
+                    class="p-2 rounded-lg text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors tt-focus-ring">
+                    <i class="fas fa-bars text-lg"></i>
+                </button>
+                <!-- Logo y nombre -->
+                <div class="logo-circle inline-flex items-center justify-center w-16 h-16 rounded-full shadow-lg">
+                    <i class="fas fa-wrench text-2xl text-white"></i>
+                </div>
+                <div class="ml-2 flex flex-col">
+                    <h1 class="font-bold text-xl text-gray-900 dark:text-gray-100 text-elegant">TecnoTaller</h1>
+                    <span class="text-xs text-gray-500 dark:text-gray-400 font-medium mt-1">Soluciones inteligentes para
+                        tu taller automotriz</span>
+                </div>
+            </div>
+            <!-- Acciones del usuario -->
+            <div class="flex items-center gap-4">
+                <div class="relative">
+                    <button id="notificationsBtn"
+                        class="relative p-2 text-gray-400 dark:text-gray-300 hover:text-gray-500 dark:hover:text-gray-100 focus:outline-none">
+                        <i class="fas fa-bell text-lg"></i>
+                        <span
+                            class="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">3</span>
+                    </button>
+                </div>
+                <div class="relative">
+                    <button id="userMenuBtn"
+                        class="flex items-center space-x-2 p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+                        <div
+                            class="w-8 h-8 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-full flex items-center justify-center">
+                            <i class="fas fa-user text-white text-sm"></i>
+                        </div>
+                        <div class="hidden md:block text-left">
+                            <p id="userFullName" class="text-sm font-medium text-gray-900 dark:text-gray-100">Admin
+                                Usuario</p>
+                            <p id="userRole" class="text-xs text-gray-500 dark:text-gray-400">Administrador</p>
+                        </div>
+                        <i class="fas fa-chevron-down text-gray-400 dark:text-gray-200 text-sm"></i>
+                    </button>
+
+                    <!-- Dropdown del usuario -->
+                    <div id="userDropdown"
+                        class="absolute right-0 mt-2 w-72 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 hidden z-50">
+                        <div class="p-4 border-b border-gray-200 dark:border-gray-700">
+                            <div class="flex items-center space-x-3">
+                                <div
+                                    class="w-12 h-12 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-full flex items-center justify-center">
+                                    <i class="fas fa-user text-white text-lg"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <p id="dropdownUserName" class="font-medium text-gray-900 dark:text-gray-100">Admin
+                                        Usuario</p>
+                                    <p id="dropdownUserRole" class="text-sm text-gray-500 dark:text-gray-400">
+                                        Administrador</p>
+                                    <p id="dropdownUserEmail" class="text-xs text-gray-400 dark:text-gray-500">
+                                        admin@tecnotaller.com</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="py-1">
+                            <a href="#" id="profileBtn"
+                                class="flex items-center px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">
+                                <i class="fas fa-user-circle mr-3"></i>Mi Perfil
+                            </a>
+                            <a href="#" id="settingsBtn"
+                                class="flex items-center px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">
+                                <i class="fas fa-cog mr-3"></i>Configuración
+                            </a>
+                            <hr class="my-1 border-gray-200 dark:border-gray-700">
+                            <a href="#" id="logoutBtn"
+                                class="flex items-center px-4 py-2 text-sm text-red-600 dark:text-red-400 hover:bg-gray-100 dark:hover:bg-gray-700">
+                                <i class="fas fa-sign-out-alt mr-3"></i>Cerrar Sesión
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Menú móvil desplegable -->
+    <div id="mobileMenu" class="md:hidden bg-gray-800 border-t border-gray-700 hidden">
+        <div class="px-4 py-2 space-y-2">
+            <a href="./dashboard.html" class="block px-3 py-2 rounded-lg hover:bg-amber-600/20 transition-all">
+                <i class="fas fa-tachometer-alt mr-2"></i>Dashboard
+            </a>
+            <a href="./clientes.html" class="block px-3 py-2 rounded-lg hover:bg-amber-600/20 transition-all">
+                <i class="fas fa-users mr-2"></i>Clientes
+            </a>
+            <a href="./citas.html" class="block px-3 py-2 rounded-lg hover:bg-amber-600/20 transition-all">
+                <i class="fas fa-calendar mr-2"></i>Citas
+            </a>
+            <a href="./vehiculos.html" class="block px-3 py-2 rounded-lg hover:bg-amber-600/20 transition-all">
+                <i class="fas fa-car mr-2"></i>Vehículos
+            </a>
+        </div>
+    </div>
+</nav>
+
+<style>
+    /* Importar tema elegante */
+    @import url('../css/dark-mode.css');
+
+    .logo-circle {
+        background: linear-gradient(135deg, var(--primary-brand, #1a365d) 0%, var(--primary-brand-light, #2d5a87) 100%);
+        box-shadow: 0 4px 20px rgba(26, 54, 93, 0.15);
+        width: 56px;
+        height: 56px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 1rem;
+        transition: all 0.2s ease-in-out;
+    }
+
+    .logo-circle:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 6px 24px rgba(26, 54, 93, 0.25);
+    }
+
+    .dark .logo-circle {
+        background: linear-gradient(135deg, var(--accent-steel, #4a5568) 0%, var(--accent-steel-light, #718096) 100%);
+        box-shadow: 0 4px 20px rgba(74, 85, 104, 0.25);
+    }
+
+    .dark .logo-circle:hover {
+        box-shadow: 0 6px 24px rgba(74, 85, 104, 0.35);
+    }
+
+    .nav-link.active {
+        background: linear-gradient(135deg, var(--primary-brand, #1a365d), var(--primary-brand-light, #2d5a87));
+        color: white;
+        box-shadow: 0 2px 8px rgba(26, 54, 93, 0.15);
+    }
+
+    .dark .nav-link.active {
+        background: linear-gradient(135deg, var(--accent-steel, #4a5568), var(--accent-steel-light, #718096));
+    }
+
+    /* Efectos hover elegantes */
+    .transition-colors {
+        transition: color 0.2s ease-in-out, background-color 0.2s ease-in-out, transform 0.2s ease-in-out;
+    }
+
+    button:hover {
+        transform: translateY(-1px);
+    }
+
+    /* Navbar con efecto glassmorphism */
+    .tt-navbar {
+        backdrop-filter: blur(12px);
+        background: rgba(255, 255, 255, 0.95);
+    }
+
+    .dark .tt-navbar {
+        background: rgba(17, 24, 39, 0.95);
+    }
+</style>
+
+<script>
+    // ============================================
+    // NAVBAR API
+    // ============================================
+    class NavbarAPI {
+        constructor() {
+            this.initializeEvents();
+            this.loadUserData();
+        }
+
+        // Inicializar eventos
+        initializeEvents() {
+            // Toggle menú de usuario
+            document.getElementById('userMenuBtn')?.addEventListener('click', () => {
+                this.toggleUserDropdown();
+            });
+
+            // Toggle menú móvil
+            document.getElementById('mobileMenuBtn')?.addEventListener('click', () => {
+                this.toggleMobileMenu();
+            });
+
+            // Cerrar dropdowns al hacer click fuera
+            document.addEventListener('click', (e) => {
+                if (!e.target.closest('#userMenuBtn') && !e.target.closest('#userDropdown')) {
+                    this.closeUserDropdown();
+                }
+            });
+
+            // Logout
+            document.getElementById('logoutBtn')?.addEventListener('click', () => {
+                this.logout();
+            });
+
+            // Marcar página activa
+            this.setActivePage();
+        }
+
+        // Cargar datos del usuario
+        loadUserData() {
+            const userData = localStorage.getItem('userData');
+            if (userData) {
+                try {
+                    const user = JSON.parse(userData);
+                    console.log('Datos del usuario cargados:', user);
+
+                    // Construir nombre completo
+                    const nombreCompleto = `${user.primer_nombre || ''} ${user.segundo_nombre || ''} ${user.primer_apellido || ''} ${user.segundo_apellido || ''}`.trim();
+                    const nombreMostrar = nombreCompleto || 'Usuario';
+                    const rolMostrar = user.rol_nombre || user.rol || 'Usuario';
+                    const emailMostrar = user.email || user.correo || '';
+
+                    // Actualizar elementos del navbar principal
+                    const userFullNameElement = document.getElementById('userFullName');
+                    const userRoleElement = document.getElementById('userRole');
+
+                    if (userFullNameElement) {
+                        userFullNameElement.textContent = nombreMostrar;
+                    }
+                    if (userRoleElement) {
+                        userRoleElement.textContent = rolMostrar;
+                    }
+
+                    // Actualizar elementos del dropdown
+                    const dropdownUserName = document.getElementById('dropdownUserName');
+                    const dropdownUserRole = document.getElementById('dropdownUserRole');
+                    const dropdownUserEmail = document.getElementById('dropdownUserEmail');
+
+                    if (dropdownUserName) {
+                        dropdownUserName.textContent = nombreMostrar;
+                    }
+                    if (dropdownUserRole) {
+                        dropdownUserRole.textContent = rolMostrar;
+                    }
+                    if (dropdownUserEmail) {
+                        dropdownUserEmail.textContent = emailMostrar;
+                    }
+
+                } catch (error) {
+                    console.error('Error al cargar datos del usuario:', error);
+                    // Mostrar valores por defecto en caso de error
+                    this.setDefaultUserData();
+                }
+            } else {
+                console.warn('No hay datos de usuario en localStorage');
+                this.setDefaultUserData();
+            }
+        }
+
+        // Establecer datos de usuario por defecto
+        setDefaultUserData() {
+            const elements = [
+                { id: 'userFullName', defaultText: 'Usuario' },
+                { id: 'userRole', defaultText: 'Sin rol asignado' },
+                { id: 'dropdownUserName', defaultText: 'Usuario' },
+                { id: 'dropdownUserRole', defaultText: 'Sin rol asignado' },
+                { id: 'dropdownUserEmail', defaultText: 'No disponible' }
+            ];
+
+            elements.forEach(element => {
+                const el = document.getElementById(element.id);
+                if (el) {
+                    el.textContent = element.defaultText;
+                }
+            });
+        }
+
+        // Toggle menú de usuario
+        toggleUserDropdown() {
+            const dropdown = document.getElementById('userDropdown');
+            dropdown?.classList.toggle('hidden');
+        }
+
+        // Cerrar menú de usuario
+        closeUserDropdown() {
+            const dropdown = document.getElementById('userDropdown');
+            dropdown?.classList.add('hidden');
+        }
+
+        // Toggle menú móvil
+        toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu?.classList.toggle('hidden');
+        }
+
+        // Marcar página activa
+        setActivePage() {
+            const currentPage = window.location.pathname.split('/').pop();
+            const links = document.querySelectorAll('.nav-link');
+
+            links.forEach(link => {
+                const href = link.getAttribute('href');
+                if (href && href.includes(currentPage)) {
+                    link.classList.add('active');
+                }
+            });
+        }
+
+        // Mostrar/ocultar badge de notificaciones
+        setNotificationCount(count) {
+            const badge = document.getElementById('notificationsBadge');
+            if (badge) {
+                if (count > 0) {
+                    badge.textContent = count > 99 ? '99+' : count;
+                    badge.classList.remove('hidden');
+                } else {
+                    badge.classList.add('hidden');
+                }
+            }
+        }
+
+        // Cerrar sesión
+        logout() {
+            if (confirm('¿Estás seguro de que quieres cerrar sesión?')) {
+                localStorage.removeItem('authToken');
+                localStorage.removeItem('loginTime');
+                localStorage.removeItem('userData');
+                window.location.href = './index.html';
+            }
+        }
+    }
+
+    // Inicializar navbar cuando se carga el DOM
+    document.addEventListener('DOMContentLoaded', () => {
+        window.navbarAPI = new NavbarAPI();
+    });
+</script>

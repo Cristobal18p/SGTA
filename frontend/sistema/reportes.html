@@ -1,0 +1,311 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reportes y Estadísticas - TecnoTaller</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {}
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/dark-mode.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Sistema centralizado de temas -->
+    <script src="../js/componentes/theme-manager.js"></script>
+    <script src="../js/componentes/toast-manager.js"></script>
+    <script src="../js/componentes/components-loader.js"></script>
+    <script src="../js/componentes/navbar-manager.js"></script>
+    <script src="../js/componentes/modals-manager.js"></script>
+    <script src="../js/componentes/app-initializer.js"></script>
+</head>
+
+<body class="bg-gray-50 font-inter">
+    <!-- Navbar Component -->
+    <div id="navbar-container"></div>
+
+    <!-- Sidebar Overlay -->
+    <div id="sidebarOverlay" class="hidden fixed inset-0 bg-black bg-opacity-50 z-40"></div>
+
+    <!-- Sidebar Component -->
+    <div id="sidebar-container"></div>
+
+    <!-- Modals Component -->
+    <div id="modals-container"></div>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Breadcrumbs -->
+        <nav class="flex mb-8" aria-label="Breadcrumb">
+            <ol class="inline-flex items-center space-x-1 md:space-x-3">
+                <li class="inline-flex items-center">
+                    <a href="dashboard.html" class="text-sm font-medium text-gray-500 hover:text-blue-600">
+                        <i class="fas fa-home mr-2"></i>Dashboard
+                    </a>
+                </li>
+                <li>
+                    <div class="flex items-center">
+                        <i class="fas fa-chevron-right text-gray-400 mx-2"></i>
+                        <span class="text-sm font-medium text-blue-600">Reportes</span>
+                    </div>
+                </li>
+            </ol>
+        </nav>
+
+        <!-- Header -->
+        <div class="flex justify-between items-center mb-8">
+            <div>
+                <h1 class="text-3xl font-bold text-gray-900">Reportes y Estadísticas</h1>
+                <p class="text-gray-600 mt-2">Análisis completo del rendimiento del taller</p>
+            </div>
+            <div class="flex space-x-4">
+                <select id="rangoFecha"
+                    class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                    <option value="7">Últimos 7 días</option>
+                    <option value="30" selected>Últimos 30 días</option>
+                    <option value="90">Últimos 3 meses</option>
+                    <option value="365">Último año</option>
+                    <option value="custom">Rango personalizado</option>
+                </select>
+                <button id="btnExportarReporte"
+                    class="bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded-lg font-medium transition-colors flex items-center">
+                    <i class="fas fa-download mr-2"></i>
+                    Exportar PDF
+                </button>
+            </div>
+        </div>
+
+        <!-- MÃ©tricas Principales -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+            <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+                <div class="flex items-center">
+                    <div class="p-3 bg-blue-100 rounded-lg">
+                        <i class="fas fa-dollar-sign text-blue-600 text-xl"></i>
+                    </div>
+                    <div class="ml-4">
+                        <p class="text-sm text-gray-600">Ingresos Totales</p>
+                        <p id="ingresosTotales" class="text-2xl font-bold text-gray-900">$0</p>
+                        <p id="cambioIngresos" class="text-xs text-green-600">+12% vs periodo anterior</p>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+                <div class="flex items-center">
+                    <div class="p-3 bg-green-100 rounded-lg">
+                        <i class="fas fa-chart-line text-green-600 text-xl"></i>
+                    </div>
+                    <div class="ml-4">
+                        <p class="text-sm text-gray-600">Servicios Realizados</p>
+                        <p id="serviciosRealizados" class="text-2xl font-bold text-gray-900">0</p>
+                        <p id="cambioServicios" class="text-xs text-green-600">+8% vs periodo anterior</p>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+                <div class="flex items-center">
+                    <div class="p-3 bg-yellow-100 rounded-lg">
+                        <i class="fas fa-users text-yellow-600 text-xl"></i>
+                    </div>
+                    <div class="ml-4">
+                        <p class="text-sm text-gray-600">Nuevos Clientes</p>
+                        <p id="nuevosClientes" class="text-2xl font-bold text-gray-900">0</p>
+                        <p id="cambioClientes" class="text-xs text-green-600">+15% vs periodo anterior</p>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+                <div class="flex items-center">
+                    <div class="p-3 bg-purple-100 rounded-lg">
+                        <i class="fas fa-star text-purple-600 text-xl"></i>
+                    </div>
+                    <div class="ml-4">
+                        <p class="text-sm text-gray-600">Satisfacción</p>
+                        <p id="satisfaccionPromedio" class="text-2xl font-bold text-gray-900">0%</p>
+                        <p id="cambioSatisfaccion" class="text-xs text-green-600">+3% vs periodo anterior</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- GrÃ¡ficos Principales -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+            <!-- Ingresos por Mes -->
+            <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+                <div class="flex justify-between items-center mb-6">
+                    <h3 class="text-lg font-semibold text-gray-900">Ingresos Mensuales</h3>
+                    <div class="flex items-center space-x-2">
+                        <button class="text-gray-400 hover:text-gray-600" title="Configurar">
+                            <i class="fas fa-cog"></i>
+                        </button>
+                    </div>
+                </div>
+                <canvas id="graficoIngresos" height="300"></canvas>
+            </div>
+
+            <!-- Servicios MÃ¡s Solicitados -->
+            <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+                <div class="flex justify-between items-center mb-6">
+                    <h3 class="text-lg font-semibold text-gray-900">Servicios Más Solicitados</h3>
+                    <div class="flex items-center space-x-2">
+                        <button class="text-gray-400 hover:text-gray-600" title="Configurar">
+                            <i class="fas fa-cog"></i>
+                        </button>
+                    </div>
+                </div>
+                <canvas id="graficoServicios" height="300"></canvas>
+            </div>
+        </div>
+
+        <!-- AnÃ¡lisis Detallado -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8">
+            <!-- Top Clientes -->
+            <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+                <h3 class="text-lg font-semibold text-gray-900 mb-6">Top 10 Clientes</h3>
+                <div id="topClientes" class="space-y-4">
+                    <!-- Se llenarÃ¡n dinÃ¡micamente -->
+                </div>
+            </div>
+
+            <!-- Rendimiento por TÃ©cnico -->
+            <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+                <h3 class="text-lg font-semibold text-gray-900 mb-6">Rendimiento por Técnico</h3>
+                <div id="rendimientoTecnicos" class="space-y-4">
+                    <!-- Se llenarÃ¡n dinÃ¡micamente -->
+                </div>
+            </div>
+
+            <!-- Estado del Inventario -->
+            <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+                <h3 class="text-lg font-semibold text-gray-900 mb-6">Estado del Inventario</h3>
+                <div id="estadoInventario" class="space-y-4">
+                    <!-- Se llenarÃ¡n dinÃ¡micamente -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Reportes EspecÃ­ficos -->
+        <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+            <h3 class="text-lg font-semibold text-gray-900 mb-6">Reportes Específicos</h3>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Reporte de Ventas -->
+                <div class="border border-gray-200 rounded-lg p-4 hover:bg-gray-50 transition-colors">
+                    <div class="flex items-center mb-3">
+                        <div class="p-2 bg-blue-100 rounded-lg mr-3">
+                            <i class="fas fa-chart-bar text-blue-600"></i>
+                        </div>
+                        <h4 class="font-medium text-gray-900">Reporte de Ventas</h4>
+                    </div>
+                    <p class="text-sm text-gray-600 mb-4">Análisis detallado de ventas por periodo, producto y servicio.
+                    </p>
+                    <button
+                        class="w-full bg-blue-50 hover:bg-blue-100 text-blue-700 py-2 px-4 rounded-lg text-sm font-medium transition-colors">
+                        Generar Reporte
+                    </button>
+                </div>
+
+                <!-- Reporte de Inventario -->
+                <div class="border border-gray-200 rounded-lg p-4 hover:bg-gray-50 transition-colors">
+                    <div class="flex items-center mb-3">
+                        <div class="p-2 bg-green-100 rounded-lg mr-3">
+                            <i class="fas fa-boxes text-green-600"></i>
+                        </div>
+                        <h4 class="font-medium text-gray-900">Reporte de Inventario</h4>
+                    </div>
+                    <p class="text-sm text-gray-600 mb-4">Estado actual del inventario, movimientos y alertas de stock.
+                    </p>
+                    <button
+                        class="w-full bg-green-50 hover:bg-green-100 text-green-700 py-2 px-4 rounded-lg text-sm font-medium transition-colors">
+                        Generar Reporte
+                    </button>
+                </div>
+
+                <!-- Reporte de Personal -->
+                <div class="border border-gray-200 rounded-lg p-4 hover:bg-gray-50 transition-colors">
+                    <div class="flex items-center mb-3">
+                        <div class="p-2 bg-purple-100 rounded-lg mr-3">
+                            <i class="fas fa-users text-purple-600"></i>
+                        </div>
+                        <h4 class="font-medium text-gray-900">Reporte de Personal</h4>
+                    </div>
+                    <p class="text-sm text-gray-600 mb-4">Productividad, asistencia y rendimiento del personal técnico.
+                    </p>
+                    <button
+                        class="w-full bg-purple-50 hover:bg-purple-100 text-purple-700 py-2 px-4 rounded-lg text-sm font-medium transition-colors">
+                        Generar Reporte
+                    </button>
+                </div>
+
+                <!-- Reporte de Clientes -->
+                <div class="border border-gray-200 rounded-lg p-4 hover:bg-gray-50 transition-colors">
+                    <div class="flex items-center mb-3">
+                        <div class="p-2 bg-yellow-100 rounded-lg mr-3">
+                            <i class="fas fa-user-friends text-yellow-600"></i>
+                        </div>
+                        <h4 class="font-medium text-gray-900">Reporte de Clientes</h4>
+                    </div>
+                    <p class="text-sm text-gray-600 mb-4">Análisis de comportamiento y frecuencia de visitas de
+                        clientes.</p>
+                    <button
+                        class="w-full bg-yellow-50 hover:bg-yellow-100 text-yellow-700 py-2 px-4 rounded-lg text-sm font-medium transition-colors">
+                        Generar Reporte
+                    </button>
+                </div>
+
+                <!-- Reporte Financiero -->
+                <div class="border border-gray-200 rounded-lg p-4 hover:bg-gray-50 transition-colors">
+                    <div class="flex items-center mb-3">
+                        <div class="p-2 bg-red-100 rounded-lg mr-3">
+                            <i class="fas fa-calculator text-red-600"></i>
+                        </div>
+                        <h4 class="font-medium text-gray-900">Reporte Financiero</h4>
+                    </div>
+                    <p class="text-sm text-gray-600 mb-4">Estado financiero, flujo de caja y análisis de rentabilidad.
+                    </p>
+                    <button
+                        class="w-full bg-red-50 hover:bg-red-100 text-red-700 py-2 px-4 rounded-lg text-sm font-medium transition-colors">
+                        Generar Reporte
+                    </button>
+                </div>
+
+                <!-- Reporte de Vehículos -->
+                <div class="border border-gray-200 rounded-lg p-4 hover:bg-gray-50 transition-colors">
+                    <div class="flex items-center mb-3">
+                        <div class="p-2 bg-indigo-100 rounded-lg mr-3">
+                            <i class="fas fa-car text-indigo-600"></i>
+                        </div>
+                        <h4 class="font-medium text-gray-900">Reporte de Vehículos</h4>
+                    </div>
+                    <p class="text-sm text-gray-600 mb-4">Historial de mantenimiento y análisis por marca y modelo.</p>
+                    <button
+                        class="w-full bg-indigo-50 hover:bg-indigo-100 text-indigo-700 py-2 px-4 rounded-lg text-sm font-medium transition-colors">
+                        Generar Reporte
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="../js/modulos/reportes.js"></script>
+
+    <!-- Inicializar componentes compartidos -->
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            if (window.loadCommonComponents) {
+                await window.loadCommonComponents();
+                console.log('Módulo Reportes cargado con componentes compartidos');
+            } else {
+                console.error('loadCommonComponents no encontrado');
+            }
+        });
+    </script>
+</body>
+
+</html>
