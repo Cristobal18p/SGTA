@@ -290,8 +290,8 @@ Este proyecto está bajo la licencia **MIT**. Ver `LICENSE` para más detalles.
 
 ## 👥 Equipo
 
-- **Desarrollador Principal**: Cristobal18p
-- **Tipo**: Proyecto individual
+- **Desarrolladores Principal**: Cristobal Prados y Carlos Gonzalez
+- **Tipo**: Proyecto Universitario - Grupal
 - **Estado**: En desarrollo activo
 
 ## 📞 Contacto
