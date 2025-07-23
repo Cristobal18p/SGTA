@@ -1,6 +1,65 @@
 const oracledb = require("oracledb");
 const { simpleExecute } = require("../config/CR7.js");
 
+// OBTENER DIRECCIÓN POR ID CON DATOS DE UBICACIÓN COMPLETOS (GET)
+const obtenerDireccionPorId = async (req, res) => {
+  const { id } = req.params;
+
+  const sql = `
+    SELECT 
+      d.direccion_id,
+      d.corregimiento_id,
+      d.detalle_direccion,
+      c.nombre_corregimiento,
+      dt.distrito_id,
+      dt.nombre_distrito,
+      p.provincia_id,
+      p.nombre_provincia
+    FROM DIRECCIONES d
+    JOIN CORREGIMIENTOS c ON d.corregimiento_id = c.corregimiento_id
+    JOIN DISTRITOS dt ON c.distrito_id = dt.distrito_id
+    JOIN PROVINCIAS p ON dt.provincia_id = p.provincia_id
+    WHERE d.direccion_id = :id
+  `;
+
+  try {
+    const result = await simpleExecute(sql, { id });
+
+    if (result.rows.length === 0) {
+      return res.status(404).json({
+        success: false,
+        error: "Dirección no encontrada",
+      });
+    }
+
+    // Normalizar los nombres de campos de Oracle para el frontend
+    const direccionNormalizada = {
+      direccion_id: result.rows[0].DIRECCION_ID,
+      corregimiento_id: result.rows[0].CORREGIMIENTO_ID,
+      detalle_direccion: result.rows[0].DETALLE_DIRECCION,
+      nombre_corregimiento: result.rows[0].NOMBRE_CORREGIMIENTO,
+      distrito_id: result.rows[0].DISTRITO_ID,
+      nombre_distrito: result.rows[0].NOMBRE_DISTRITO,
+      provincia_id: result.rows[0].PROVINCIA_ID,
+      nombre_provincia: result.rows[0].NOMBRE_PROVINCIA,
+    };
+
+    console.log("📍 Dirección completa obtenida:", direccionNormalizada);
+
+    res.status(200).json({
+      success: true,
+      data: direccionNormalizada,
+    });
+  } catch (error) {
+    console.error("Error al obtener dirección por ID:", error);
+    res.status(500).json({
+      success: false,
+      error: "Error al obtener dirección",
+      details: error.message,
+    });
+  }
+};
+
 // OBTENER TODAS LAS DIRECCIONES (GET)
 const obtenerDirecciones = async (req, res) => {
   const sql = `SELECT * FROM DIRECCIONES ORDER BY direccion_id`;
@@ -42,6 +101,7 @@ const crearDireccion = async (req, res) => {
   try {
     const result = await simpleExecute(sql, binds);
     res.status(201).json({
+      success: true,
       direccion_id: result.outBinds.direccion_id[0],
       message: "Dirección creada exitosamente",
     });
@@ -96,7 +156,10 @@ const actualizarDireccion = async (req, res) => {
         .json({ message: "Dirección no encontrada con el ID proporcionado." });
     }
 
-    res.json({ message: "Dirección actualizada exitosamente" });
+    res.json({
+      success: true,
+      message: "Dirección actualizada exitosamente",
+    });
   } catch (error) {
     console.error("Error al actualizar dirección:", error);
     res.status(500).json({
@@ -131,6 +194,7 @@ const eliminarDireccion = async (req, res) => {
 
 module.exports = {
   obtenerDirecciones,
+  obtenerDireccionPorId,
   crearDireccion,
   actualizarDireccion,
   eliminarDireccion,

@@ -11,6 +11,8 @@ class ModalsManager {
     this.initialized = false;
     this.listenersAdded = false; // Evitar listeners duplicados
     this.logoutCallback = null; // Callback para logout
+    this.initRetries = 0;
+    this.maxRetries = 50; // Máximo 5 segundos de reintentos
   }
 
   // Inicializar los modales después de que se cargue el componente
@@ -22,15 +24,25 @@ class ModalsManager {
     this.logoutConfirmModal = document.getElementById("logoutConfirmModal");
 
     if (!this.profileModal || !this.appearanceModal) {
-      console.warn("Modal elements not found, retrying in 100ms...");
-      setTimeout(() => this.init(), 100);
-      return;
+      this.initRetries++;
+      if (this.initRetries < this.maxRetries) {
+        // Usar requestAnimationFrame para un mejor timing
+        requestAnimationFrame(() => {
+          setTimeout(() => this.init(), 100);
+        });
+        return;
+      } else {
+        console.warn(
+          "⚠️ ModalsManager: Modal elements not found after maximum retries. Some functionality may be limited."
+        );
+        // Continuar con inicialización parcial
+      }
     }
 
     this.setupEventListeners();
     this.syncInitialTheme();
     this.initialized = true;
-    console.log("ModalsManager initialized successfully");
+    console.log("✅ ModalsManager initialized successfully");
   }
 
   setupEventListeners() {
@@ -434,7 +446,5 @@ window.modalsManager = new ModalsManager();
 // Alias para compatibilidad (usado en navbar-manager)
 window.modalsAPI = window.modalsManager;
 
-// Auto-inicializar cuando se carga el DOM
-document.addEventListener("DOMContentLoaded", () => {
-  window.modalsManager.init();
-});
+// No auto-inicializar aquí, dejar que app-initializer lo maneje
+// La inicialización se hará a través del componente loader y app-initializer

@@ -59,6 +59,9 @@ window.loadCommonComponents = async function () {
   try {
     await window.componentLoader.loadComponents(components);
     console.log("✅ Todos los componentes cargados exitosamente");
+
+    // Esperar un frame para que el DOM se actualice completamente
+    await new Promise((resolve) => requestAnimationFrame(resolve));
   } catch (error) {
     console.error("❌ Error cargando componentes:", error);
     return;
@@ -86,19 +89,35 @@ window.loadCommonComponents = async function () {
 
   waitForThemeManager();
 
-  // Reinicializar managers después de cargar componentes
-  setTimeout(() => {
-    // Solo actualizar elementos DOM sin reinicializar completamente
-    if (window.navbarManager && window.navbarManager.updateDisplayName) {
-      window.navbarManager.updateDisplayName();
-    }
+  // Inicializar managers después de cargar componentes con mejor timing
+  await new Promise((resolve) => {
+    requestAnimationFrame(() => {
+      setTimeout(() => {
+        // Inicializar NavbarManager
+        if (window.navbarManager && !window.navbarManager.initialized) {
+          window.navbarManager.init();
+        }
 
-    if (window.modalsManager && window.modalsManager.syncInitialTheme) {
-      window.modalsManager.syncInitialTheme();
-    }
+        // Inicializar ModalsManager
+        if (window.modalsManager && !window.modalsManager.initialized) {
+          window.modalsManager.init();
+        }
 
-    console.log(
-      `✅ Componentes cargados con tema: ${window.themeManager?.getCurrentTheme()}`
-    );
-  }, 200);
+        // Solo actualizar elementos DOM sin reinicializar completamente
+        if (window.navbarManager && window.navbarManager.updateDisplayName) {
+          window.navbarManager.updateDisplayName();
+        }
+
+        if (window.modalsManager && window.modalsManager.syncInitialTheme) {
+          window.modalsManager.syncInitialTheme();
+        }
+
+        console.log(
+          `✅ Componentes cargados con tema: ${window.themeManager?.getCurrentTheme()}`
+        );
+
+        resolve();
+      }, 100);
+    });
+  });
 };

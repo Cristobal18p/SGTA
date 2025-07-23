@@ -73,6 +73,22 @@ class AppInitializer {
     // Esperar a que los managers estén disponibles
     await this.waitForManagers();
 
+    // Dar tiempo adicional para que los elementos DOM estén completamente disponibles
+    await new Promise((resolve) => {
+      requestAnimationFrame(() => {
+        setTimeout(resolve, 200);
+      });
+    });
+
+    // Inicializar managers solo si no están ya inicializados
+    if (window.navbarManager && !window.navbarManager.initialized) {
+      window.navbarManager.init();
+    }
+
+    if (window.modalsManager && !window.modalsManager.initialized) {
+      window.modalsManager.init();
+    }
+
     // Sincronizar después de la inicialización
     setTimeout(() => {
       if (window.navbarManager && window.navbarManager.updateDisplayName) {

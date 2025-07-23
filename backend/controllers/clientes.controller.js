@@ -7,7 +7,7 @@ function generarCedulaTemporal() {
   return `TEMP-${random}`;
 }
 
-// OBTENER UN CLIENTE POR ID (GET)
+// OBTENER UN CLIENTE POR ID (GET) - CON DATOS COMPLETOS DE DIRECCIÓN
 const obtenerClientePorId = async (req, res) => {
   const { cliente_id } = req.params;
   const sql = `
@@ -22,13 +22,28 @@ const obtenerClientePorId = async (req, res) => {
       c.email,
       c.sexo,
       c.tipo_cliente_id,
+      tp.descripcion_tipo,
       c.direccion_id,
       c.nacionalidad_id,
       n.nombre_nacionalidad,
       c.estado,
-      TO_CHAR(c.fecha_registro, 'YYYY-MM-DD') AS fecha_registro
+      c.observaciones,
+      TO_CHAR(c.fecha_registro, 'YYYY-MM-DD') AS fecha_registro,
+      -- Datos completos de dirección
+      d.detalle_direccion,
+      d.corregimiento_id,
+      cor.nombre_corregimiento,
+      cor.distrito_id,
+      dis.nombre_distrito,
+      dis.provincia_id,
+      prov.nombre_provincia
     FROM clientes c
     LEFT JOIN nacionalidades n ON c.nacionalidad_id = n.nacionalidad_id
+    LEFT JOIN tipos_clientes tp ON c.tipo_cliente_id = tp.tipo_cliente_id
+    LEFT JOIN direcciones d ON c.direccion_id = d.direccion_id
+    LEFT JOIN corregimientos cor ON d.corregimiento_id = cor.corregimiento_id
+    LEFT JOIN distritos dis ON cor.distrito_id = dis.distrito_id
+    LEFT JOIN provincias prov ON dis.provincia_id = prov.provincia_id
     WHERE c.cliente_id = :cliente_id
   `;
   try {
@@ -37,7 +52,7 @@ const obtenerClientePorId = async (req, res) => {
       return res.status(404).json({ message: "Cliente no encontrado" });
     }
 
-    // Normalizar los nombres de campos de Oracle
+    // Normalizar los nombres de campos de Oracle con datos completos de dirección
     const clienteNormalizado = {
       cliente_id: result.rows[0].CLIENTE_ID,
       primer_nombre: result.rows[0].PRIMER_NOMBRE,
@@ -49,12 +64,33 @@ const obtenerClientePorId = async (req, res) => {
       email: result.rows[0].EMAIL,
       sexo: result.rows[0].SEXO,
       tipo_cliente_id: result.rows[0].TIPO_CLIENTE_ID,
+      descripcion_tipo: result.rows[0].DESCRIPCION_TIPO,
       direccion_id: result.rows[0].DIRECCION_ID,
       nacionalidad_id: result.rows[0].NACIONALIDAD_ID,
       nombre_nacionalidad: result.rows[0].NOMBRE_NACIONALIDAD,
       estado: result.rows[0].ESTADO,
+      observaciones: result.rows[0].OBSERVACIONES,
       fecha_registro: result.rows[0].FECHA_REGISTRO,
+
+      // Datos completos de dirección
+      detalle_direccion: result.rows[0].DETALLE_DIRECCION,
+      corregimiento_id: result.rows[0].CORREGIMIENTO_ID,
+      corregimiento_nombre: result.rows[0].NOMBRE_CORREGIMIENTO,
+      distrito_id: result.rows[0].DISTRITO_ID,
+      distrito_nombre: result.rows[0].NOMBRE_DISTRITO,
+      provincia_id: result.rows[0].PROVINCIA_ID,
+      provincia_nombre: result.rows[0].NOMBRE_PROVINCIA,
     };
+
+    console.log("📍 Cliente con datos completos de dirección:", {
+      cliente_id: clienteNormalizado.cliente_id,
+      direccion_completa: {
+        provincia: clienteNormalizado.provincia_nombre,
+        distrito: clienteNormalizado.distrito_nombre,
+        corregimiento: clienteNormalizado.corregimiento_nombre,
+        detalle: clienteNormalizado.detalle_direccion,
+      },
+    });
 
     res.status(200).json({ success: true, data: clienteNormalizado });
   } catch (error) {
@@ -102,16 +138,20 @@ const mostrarModuloCliente = async (req, res) => {
     binds.tipoCliente = tipoCliente;
   }
 
-  if (estado) {
+  // Solo mostrar clientes ACTIVO o INACTIVO
+  // Si estado es vacío, null, undefined o 'TODOS', mostrar ambos
+  if (estado && estado !== "" && estado !== "TODOS") {
     condiciones.push(`C.ESTADO = :estado`);
     binds.estado = estado;
+  } else {
+    condiciones.push(`C.ESTADO IN ('ACTIVO', 'INACTIVO')`);
   }
 
   if (condiciones.length > 0) {
     whereClause = `WHERE ${condiciones.join(" AND ")}`;
   }
 
-  // Query principal con paginación
+  // Query principal con paginación - CON DATOS DE DIRECCIÓN
   const sql = `
     SELECT * FROM (
       SELECT 
@@ -127,10 +167,20 @@ const mostrarModuloCliente = async (req, res) => {
         TP.DESCRIPCION_TIPO AS TIPO_CLIENTE_NOMBRE,
         C.ESTADO,
         TO_CHAR(C.FECHA_REGISTRO, 'YYYY-MM-DD') AS FECHA_REGISTRO,
+        -- Agregar datos básicos de dirección para referencia
+        C.DIRECCION_ID,
+        D.DETALLE_DIRECCION,
+        PROV.NOMBRE_PROVINCIA,
+        DIS.NOMBRE_DISTRITO,
+        COR.NOMBRE_CORREGIMIENTO,
         ROW_NUMBER() OVER (ORDER BY C.PRIMER_APELLIDO, C.PRIMER_NOMBRE) AS rn
       FROM CLIENTES C
       LEFT JOIN NACIONALIDADES N ON C.NACIONALIDAD_ID = N.NACIONALIDAD_ID
       LEFT JOIN TIPOS_CLIENTES TP ON C.TIPO_CLIENTE_ID = TP.TIPO_CLIENTE_ID
+      LEFT JOIN DIRECCIONES D ON C.DIRECCION_ID = D.DIRECCION_ID
+      LEFT JOIN CORREGIMIENTOS COR ON D.CORREGIMIENTO_ID = COR.CORREGIMIENTO_ID
+      LEFT JOIN DISTRITOS DIS ON COR.DISTRITO_ID = DIS.DISTRITO_ID
+      LEFT JOIN PROVINCIAS PROV ON DIS.PROVINCIA_ID = PROV.PROVINCIA_ID
       ${whereClause}
     )
     WHERE rn > :offset AND rn <= :limit_offset
@@ -146,6 +196,10 @@ const mostrarModuloCliente = async (req, res) => {
     FROM CLIENTES C
     LEFT JOIN NACIONALIDADES N ON C.NACIONALIDAD_ID = N.NACIONALIDAD_ID
     LEFT JOIN TIPOS_CLIENTES TP ON C.TIPO_CLIENTE_ID = TP.TIPO_CLIENTE_ID
+    LEFT JOIN DIRECCIONES D ON C.DIRECCION_ID = D.DIRECCION_ID
+    LEFT JOIN CORREGIMIENTOS COR ON D.CORREGIMIENTO_ID = COR.CORREGIMIENTO_ID
+    LEFT JOIN DISTRITOS DIS ON COR.DISTRITO_ID = DIS.DISTRITO_ID
+    LEFT JOIN PROVINCIAS PROV ON DIS.PROVINCIA_ID = PROV.PROVINCIA_ID
     ${whereClause}
   `;
 
@@ -172,6 +226,21 @@ const mostrarModuloCliente = async (req, res) => {
       tipo_cliente_nombre: row.TIPO_CLIENTE_NOMBRE,
       estado: row.ESTADO,
       fecha_registro: row.FECHA_REGISTRO,
+      // Datos de dirección para mostrar en la tabla
+      direccion_id: row.DIRECCION_ID,
+      detalle_direccion: row.DETALLE_DIRECCION,
+      provincia_nombre: row.NOMBRE_PROVINCIA,
+      distrito_nombre: row.NOMBRE_DISTRITO,
+      corregimiento_nombre: row.NOMBRE_CORREGIMIENTO,
+      // Dirección completa para mostrar
+      direccion_completa: [
+        row.NOMBRE_PROVINCIA,
+        row.NOMBRE_DISTRITO,
+        row.NOMBRE_CORREGIMIENTO,
+        row.DETALLE_DIRECCION,
+      ]
+        .filter(Boolean)
+        .join(", "),
     }));
 
     // DEBUG: Ver los datos que se envían
@@ -333,6 +402,7 @@ const crearCliente = async (req, res) => {
   try {
     const result = await simpleExecute(sql, binds);
     res.status(201).json({
+      success: true,
       cliente_id: result.outBinds.cliente_id[0],
       numero_cedula: req.body.numero_cedula,
       message: "Cliente creado exitosamente",
@@ -349,6 +419,13 @@ const crearCliente = async (req, res) => {
 const actualizarCliente = async (req, res) => {
   const { cliente_id } = req.params;
 
+  // Debug: Mostrar qué se recibió
+  console.log("📥 Datos recibidos para actualizar cliente:", {
+    cliente_id,
+    body: req.body,
+    keys: Object.keys(req.body),
+  });
+
   // 1. Verificar si hay datos para actualizar
   if (Object.keys(req.body).length === 0) {
     return res
@@ -360,16 +437,37 @@ const actualizarCliente = async (req, res) => {
   const binds = { cliente_id }; // Empezamos con el ID para el WHERE
   const setClauses = []; // Array para guardar las partes del SET (ej: "primer_nombre = :primer_nombre")
 
-  // Solo permitimos actualizar datos editables, no cédula, sexo ni nacionalidad
+  // Solo permitimos actualizar datos editables (alineado con frontend)
   const camposPermitidos = [
-    "primer_nombre",
-    "segundo_nombre",
-    "primer_apellido",
-    "segundo_apellido",
-    "telefono",
-    "email",
-    "tipo_cliente_id",
+    "primer_nombre", // ✅ Editable en frontend
+    "segundo_nombre", // ✅ Editable en frontend
+    "primer_apellido", // ✅ Editable en frontend
+    "segundo_apellido", // ✅ Editable en frontend
+    "telefono", // ✅ Editable en frontend
+    "email", // ✅ Editable en frontend
+    "observaciones", // ✅ Editable en frontend (siempre incluido)
+    "estado", // ✅ Solo para operaciones específicas (cambiar estado)
   ];
+
+  // Campos que NO deben editarse (solo informativos para logs)
+  const camposNoEditables = [
+    "numero_cedula", // ❌ Deshabilitado en frontend
+    "sexo", // ❌ Deshabilitado en frontend
+    "tipo_cliente_id", // ❌ Deshabilitado en frontend
+    "nacionalidad_id", // ❌ Deshabilitado en frontend
+  ];
+
+  // Log de campos no permitidos si se intentan enviar
+  const camposNoPermitidos = Object.keys(req.body).filter((campo) =>
+    camposNoEditables.includes(campo)
+  );
+
+  if (camposNoPermitidos.length > 0) {
+    console.log(
+      "⚠️ Campos no editables enviados (se ignorarán):",
+      camposNoPermitidos
+    );
+  }
 
   // 3. Iterar sobre los campos permitidos para construir la consulta dinámicamente
   camposPermitidos.forEach((campo) => {
@@ -379,11 +477,104 @@ const actualizarCliente = async (req, res) => {
     }
   });
 
-  // Si después de filtrar no queda nada (aunque ya lo validamos al inicio)
+  // Si después de filtrar no queda nada
   if (setClauses.length === 0) {
     return res.status(400).json({
       error: "Ningún campo válido para actualizar fue proporcionado.",
+      received_fields: Object.keys(req.body),
+      allowed_fields: camposPermitidos,
+      note: "Los campos no editables como numero_cedula, sexo, tipo_cliente_id y nacionalidad_id no pueden modificarse.",
     });
+  }
+
+  // Validaciones específicas para campos que se están actualizando
+  if (req.body.email !== undefined) {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (req.body.email && !emailRegex.test(req.body.email)) {
+      return res.status(400).json({
+        error: "El email no tiene un formato válido",
+      });
+    }
+  }
+
+  if (req.body.estado !== undefined) {
+    const estadosValidos = ["ACTIVO", "INACTIVO"];
+    if (!estadosValidos.includes(req.body.estado)) {
+      return res.status(400).json({
+        error: "El estado debe ser 'ACTIVO' o 'INACTIVO'",
+      });
+    }
+  }
+
+  // Validar longitud de campos de texto
+  const camposTexto = [
+    "primer_nombre",
+    "segundo_nombre",
+    "primer_apellido",
+    "segundo_apellido",
+  ];
+  for (const campo of camposTexto) {
+    if (
+      req.body[campo] !== undefined &&
+      req.body[campo] &&
+      req.body[campo].length > 50
+    ) {
+      return res.status(400).json({
+        error: `${campo} excede la longitud máxima de 50 caracteres`,
+      });
+    }
+  }
+
+  if (
+    req.body.telefono !== undefined &&
+    req.body.telefono &&
+    req.body.telefono.length > 20
+  ) {
+    return res.status(400).json({
+      error: "Teléfono excede la longitud máxima de 20 caracteres",
+    });
+  }
+
+  if (
+    req.body.email !== undefined &&
+    req.body.email &&
+    req.body.email.length > 100
+  ) {
+    return res.status(400).json({
+      error: "Email excede la longitud máxima de 100 caracteres",
+    });
+  }
+
+  console.log(
+    "📝 Campos a actualizar:",
+    Object.keys(binds).filter((k) => k !== "cliente_id")
+  );
+
+  // Validar unicidad de email si se está actualizando
+  if (req.body.email !== undefined && req.body.email) {
+    const emailExisteSql = `
+      SELECT COUNT(*) AS TOTAL 
+      FROM CLIENTES 
+      WHERE email = :email AND cliente_id != :cliente_id
+    `;
+    try {
+      const emailResult = await simpleExecute(emailExisteSql, {
+        email: req.body.email,
+        cliente_id,
+      });
+
+      if (emailResult.rows[0].TOTAL > 0) {
+        return res.status(400).json({
+          error: "El email ya está registrado por otro cliente",
+        });
+      }
+    } catch (validationError) {
+      console.error("Error en validación de email:", validationError);
+      return res.status(500).json({
+        error: "Error en validación de datos",
+        details: validationError.message,
+      });
+    }
   }
 
   // 4. Construir la consulta SQL final
@@ -404,7 +595,19 @@ const actualizarCliente = async (req, res) => {
         .json({ message: "Cliente no encontrado con el ID proporcionado." });
     }
 
-    res.json({ message: "Cliente actualizado exitosamente" });
+    const camposActualizados = Object.keys(binds).filter(
+      (k) => k !== "cliente_id"
+    );
+    console.log(
+      `✅ Cliente ${cliente_id} actualizado exitosamente. Campos modificados:`,
+      camposActualizados
+    );
+
+    res.json({
+      success: true,
+      message: "Cliente actualizado exitosamente",
+      updated_fields: camposActualizados,
+    });
   } catch (error) {
     console.error("Error al actualizar cliente:", error);
     res.status(500).json({
@@ -427,7 +630,10 @@ const eliminarCliente = async (req, res) => {
         .status(404)
         .json({ message: "Cliente no encontrado con el ID proporcionado." });
     }
-    res.json({ message: "Cliente eliminado (borrado lógico) exitosamente" });
+    res.json({
+      success: true,
+      message: "Cliente eliminado (borrado lógico) exitosamente",
+    });
   } catch (error) {
     console.error("Error al eliminar cliente:", error);
     res

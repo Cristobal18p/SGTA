@@ -9,14 +9,14 @@ const {
   totalVehiculos,
   vehiculosEnServicio,
   vehiculosProximoMantenimiento,
-  marcaMasPopular
+  marcaMasPopular,
 } = require("../controllers/vehiculos.controller.js");
 
 // CRUD
 router.get("/", obtenerVehiculos); // GET /api/vehiculos
 router.post("/", crearVehiculo); // POST /api/vehiculos
 router.put("/:vehiculo_id", actualizarVehiculo); // PUT /api/vehiculos/5
-router.delete("/:vehiculo_id", eliminarVehiculo); // DELETE /api/vehiculos/5
+router.put("/:vehiculo_id/eliminar", eliminarVehiculo); // PUT /api/vehiculos/5/eliminar
 
 // Estadísticas
 router.get("/total", totalVehiculos); // GET /api/vehiculos/total

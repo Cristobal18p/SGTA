@@ -24,6 +24,9 @@
     <script src="../js/componentes/navbar-manager.js"></script>
     <script src="../js/componentes/modals-manager.js"></script>
     <script src="../js/componentes/app-initializer.js"></script>
+
+    <!-- Módulo específico de Facturas -->
+    <script src="../js/modulos/facturas.js"></script>
 </head>
 
 <body class="bg-gray-50 font-inter">
@@ -249,7 +252,7 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <!-- InformaciÃ³n de la Factura -->
                     <div class="md:col-span-2">
-                        <h3 class="text-lg font-medium text-gray-900 mb-4">InformaciÃ³n de la Factura</h3>
+                        <h3 class="text-lg font-medium text-gray-900 mb-4">Información de la Factura</h3>
                     </div>
 
                     <div>
@@ -307,7 +310,7 @@
                                         <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Tipo
                                         </th>
                                         <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">
-                                            DescripciÃ³n</th>
+                                            Descripción</th>
                                         <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">
                                             Cantidad</th>
                                         <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">
@@ -382,7 +385,15 @@
         document.addEventListener('DOMContentLoaded', async () => {
             if (window.loadCommonComponents) {
                 await window.loadCommonComponents();
-                console.log('Módulo Facturas cargado con componentes compartidos');
+                console.log('Componentes compartidos cargados');
+
+                // Inicializar el módulo de facturas
+                if (window.initFacturas) {
+                    await window.initFacturas();
+                    console.log('Módulo Facturas inicializado');
+                } else {
+                    console.error('initFacturas no encontrado');
+                }
             } else {
                 console.error('loadCommonComponents no encontrado');
             }

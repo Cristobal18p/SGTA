@@ -11,6 +11,8 @@ class NavbarManager {
     this.sidebar = null;
     this.sidebarOverlay = null;
     this.initialized = false;
+    this.initRetries = 0;
+    this.maxRetries = 50; // Máximo 5 segundos de reintentos
   }
 
   // Inicializar el navbar después de que se cargue el componente
@@ -29,9 +31,19 @@ class NavbarManager {
       !this.sidebar ||
       !this.sidebarOverlay
     ) {
-      console.warn("Navbar/Sidebar elements not found, retrying in 200ms...");
-      setTimeout(() => this.init(), 200);
-      return;
+      this.initRetries++;
+      if (this.initRetries < this.maxRetries) {
+        // Usar requestAnimationFrame para un mejor timing
+        requestAnimationFrame(() => {
+          setTimeout(() => this.init(), 200);
+        });
+        return;
+      } else {
+        console.warn(
+          "⚠️ NavbarManager: Navbar/Sidebar elements not found after maximum retries. Some functionality may be limited."
+        );
+        // Continuar con inicialización parcial si algunos elementos están disponibles
+      }
     }
 
     this.setupEventListeners();
@@ -315,7 +327,5 @@ class NavbarManager {
 // Crear instancia global
 window.navbarManager = new NavbarManager();
 
-// Auto-inicializar cuando se carga el DOM
-document.addEventListener("DOMContentLoaded", () => {
-  window.navbarManager.init();
-});
+// No auto-inicializar aquí, dejar que app-initializer lo maneje
+// La inicialización se hará a través del componente loader y app-initializer

@@ -46,7 +46,9 @@ const obtenerCitas = async (req, res) => {
     res.status(200).json(result.rows);
   } catch (error) {
     console.error("Error al obtener citas:", error);
-    res.status(500).json({ error: "Error al obtener citas", details: error.message });
+    res
+      .status(500)
+      .json({ error: "Error al obtener citas", details: error.message });
   }
 };
 
@@ -86,7 +88,9 @@ const obtenerCitaPorId = async (req, res) => {
     res.json(result.rows[0]);
   } catch (error) {
     console.error("Error al obtener cita:", error);
-    res.status(500).json({ error: "Error al obtener cita", details: error.message });
+    res
+      .status(500)
+      .json({ error: "Error al obtener cita", details: error.message });
   }
 };
 
@@ -113,7 +117,9 @@ const crearCita = async (req, res) => {
       cita_id, cliente_id, vehiculo_id, sucursal_id, fecha_cita, estado, tipo_cita
     ) VALUES (
       citas_seq.NEXTVAL, :cliente_id, :vehiculo_id, :sucursal_id,
-      ${fecha_cita ? "TO_DATE(:fecha_cita, 'YYYY-MM-DD HH24:MI:SS')" : "SYSDATE"},
+      ${
+        fecha_cita ? "TO_DATE(:fecha_cita, 'YYYY-MM-DD HH24:MI:SS')" : "SYSDATE"
+      },
       :estado, :tipo_cita
     ) RETURNING cita_id INTO :cita_id
   `;
@@ -137,7 +143,9 @@ const crearCita = async (req, res) => {
     });
   } catch (error) {
     console.error("Error al crear cita:", error);
-    res.status(500).json({ error: "Error al crear cita", details: error.message });
+    res
+      .status(500)
+      .json({ error: "Error al crear cita", details: error.message });
   }
 };
 
@@ -151,14 +159,23 @@ const actualizarCita = async (req, res) => {
     });
   }
 
-  const camposPermitidos = ["cliente_id", "vehiculo_id", "sucursal_id", "fecha_cita", "estado", "tipo_cita"];
+  const camposPermitidos = [
+    "cliente_id",
+    "vehiculo_id",
+    "sucursal_id",
+    "fecha_cita",
+    "estado",
+    "tipo_cita",
+  ];
   const setClauses = [];
   const binds = { cita_id };
 
   camposPermitidos.forEach((campo) => {
     if (req.body[campo] !== undefined) {
       if (campo === "fecha_cita") {
-        setClauses.push(`${campo} = TO_DATE(:${campo}, 'YYYY-MM-DD HH24:MI:SS')`);
+        setClauses.push(
+          `${campo} = TO_DATE(:${campo}, 'YYYY-MM-DD HH24:MI:SS')`
+        );
       } else {
         setClauses.push(`${campo} = :${campo}`);
       }
@@ -188,7 +205,9 @@ const actualizarCita = async (req, res) => {
     res.json({ message: "Cita actualizada exitosamente" });
   } catch (error) {
     console.error("Error al actualizar cita:", error);
-    res.status(500).json({ error: "Error al actualizar cita", details: error.message });
+    res
+      .status(500)
+      .json({ error: "Error al actualizar cita", details: error.message });
   }
 };
 
@@ -208,7 +227,72 @@ const eliminarCita = async (req, res) => {
     res.json({ message: "Cita eliminada exitosamente" });
   } catch (error) {
     console.error("Error al eliminar cita:", error);
-    res.status(500).json({ error: "Error al eliminar cita", details: error.message });
+    res
+      .status(500)
+      .json({ error: "Error al eliminar cita", details: error.message });
+  }
+};
+
+// Obtener estadísticas de citas
+const obtenerEstadisticasCitas = async (req, res) => {
+  const sql = `
+    SELECT
+      COUNT(*) AS total_citas,
+      SUM(CASE WHEN estado = 'AGENDADA' THEN 1 ELSE 0 END) AS citas_agendadas,
+      SUM(CASE WHEN estado = 'EN_PROGRESO' THEN 1 ELSE 0 END) AS citas_en_progreso,
+      SUM(CASE WHEN estado = 'COMPLETADA' THEN 1 ELSE 0 END) AS citas_completadas,
+      SUM(CASE WHEN estado = 'CANCELADA' THEN 1 ELSE 0 END) AS citas_canceladas,
+      SUM(CASE WHEN TRUNC(fecha_cita) = TRUNC(SYSDATE) THEN 1 ELSE 0 END) AS citas_hoy,
+      SUM(CASE WHEN TRUNC(fecha_cita) = TRUNC(SYSDATE + 1) THEN 1 ELSE 0 END) AS citas_manana,
+      SUM(CASE WHEN fecha_cita >= TRUNC(SYSDATE) AND fecha_cita < TRUNC(SYSDATE + 7) THEN 1 ELSE 0 END) AS citas_esta_semana
+    FROM citas
+  `;
+
+  try {
+    const result = await simpleExecute(sql);
+
+    if (result.rows.length > 0) {
+      const stats = result.rows[0];
+
+      res.status(200).json({
+        success: true,
+        data: {
+          resumen: {
+            total_citas: stats.TOTAL_CITAS || 0,
+            citas_agendadas: stats.CITAS_AGENDADAS || 0,
+            citas_en_progreso: stats.CITAS_EN_PROGRESO || 0,
+            citas_completadas: stats.CITAS_COMPLETADAS || 0,
+            citas_canceladas: stats.CITAS_CANCELADAS || 0,
+            citas_hoy: stats.CITAS_HOY || 0,
+            citas_manana: stats.CITAS_MANANA || 0,
+            citas_esta_semana: stats.CITAS_ESTA_SEMANA || 0,
+          },
+        },
+      });
+    } else {
+      res.status(200).json({
+        success: true,
+        data: {
+          resumen: {
+            total_citas: 0,
+            citas_agendadas: 0,
+            citas_en_progreso: 0,
+            citas_completadas: 0,
+            citas_canceladas: 0,
+            citas_hoy: 0,
+            citas_manana: 0,
+            citas_esta_semana: 0,
+          },
+        },
+      });
+    }
+  } catch (error) {
+    console.error("Error al obtener estadísticas de citas:", error);
+    res.status(500).json({
+      success: false,
+      error: "Error al obtener estadísticas de citas",
+      details: error.message,
+    });
   }
 };
 
@@ -218,5 +302,5 @@ module.exports = {
   crearCita,
   actualizarCita,
   eliminarCita,
+  obtenerEstadisticasCitas,
 };
-

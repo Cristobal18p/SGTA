@@ -7,8 +7,9 @@ node_modules/
 # Ignorar archivos de entorno
 .env
 
-# Ignorar directorios de backup
+# Ignorar directorios de backup y base de datos
 backup/
+Database/
 
 # Ignorar archivos temporales
 *.tmp
@@ -30,3 +31,13 @@ import_*.log
 
 # Ignorar archivos de ejemplo
 API.TEXT
+
+# Ignorar carpeta basura del frontend
+frontend/basura/
+
+# Ingorar archivos basura
+*.
+
+# Ignorar toda la carpeta AccesoRemoto en git
+*
+!.gitignore

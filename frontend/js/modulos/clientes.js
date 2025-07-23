@@ -17,54 +17,113 @@ class ClientesManager {
   }
 
   async init() {
+    console.log("🚀 Inicializando módulo de Clientes...");
+
     this.setupComponents();
     this.setupEventListeners();
+
+    // Cargar datos base con logging
+    console.log("📊 Cargando datos base...");
     await this.cargarTiposClientes();
+    console.log("✅ Tipos de clientes cargados");
+
     await this.cargarNacionalidades();
+    console.log("✅ Nacionalidades cargadas");
+
     await this.cargarProvincias();
+    console.log("✅ Provincias cargadas");
+
     await this.cargarClientes();
-    console.log("Módulo de Clientes inicializado");
+    console.log("✅ Lista de clientes cargada");
+
+    // Verificar que todos los selectores estén disponibles
+    this.verificarSelectores();
+
+    console.log("✅ Módulo de Clientes inicializado completamente");
+  }
+
+  // Nueva función para verificar que todos los selectores estén disponibles
+  verificarSelectores() {
+    const selectores = [
+      { id: "provinciaId", nombre: "Provincias" },
+      { id: "distritoId", nombre: "Distritos" },
+      { id: "corregimientoId", nombre: "Corregimientos" },
+      { id: "tipoClienteId", nombre: "Tipos de Cliente" },
+      { id: "nacionalidadId", nombre: "Nacionalidades" },
+    ];
+
+    console.log("🔍 Verificando selectores disponibles:");
+
+    selectores.forEach(({ id, nombre }) => {
+      const elemento = document.getElementById(id);
+      if (elemento) {
+        const opciones = elemento.options.length;
+        const habilitado = !elemento.disabled;
+        console.log(
+          `  ✅ ${nombre}: ${opciones} opciones, ${
+            habilitado ? "habilitado" : "deshabilitado"
+          }`
+        );
+      } else {
+        console.warn(`  ❌ ${nombre}: elemento no encontrado`);
+      }
+    });
   }
 
   setupComponents() {
-    // Inicializar modal component
-    this.modal = new ModalComponent("modalCliente");
-    this.modal.onClose(() => {
-      this.clienteEditando = null;
-      if (this.form) {
-        this.form.reset();
+    // Obtener referencias al modal y formulario nativos
+    this.modal = document.getElementById("modalCliente");
+    this.form = document.getElementById("formCliente");
+
+    // Variable para controlar listeners de ESC (evitar duplicados)
+    this.escListenerAdded = false;
+
+    // Configurar eventos del modal
+    if (this.modal) {
+      // Cerrar modal con botones de cerrar (X y Cancelar)
+      const closeBtns = this.modal.querySelectorAll(
+        ".modal-close, .btn-close, [data-action='close']"
+      );
+      console.log(`Botones de cerrar encontrados: ${closeBtns.length}`);
+      closeBtns.forEach((btn, index) => {
+        console.log(`Botón ${index + 1}:`, btn.id || btn.className);
+        btn.addEventListener("click", (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          console.log(`Cerrando modal desde botón: ${btn.id || "sin ID"}`);
+          this.cerrarModal();
+        });
+      });
+
+      // Cerrar modal haciendo clic fuera
+      this.modal.addEventListener("click", (e) => {
+        if (e.target === this.modal) {
+          this.cerrarModal();
+        }
+      });
+
+      // Cerrar modal con ESC (solo una vez)
+      if (!this.escListenerAdded) {
+        document.addEventListener("keydown", (e) => {
+          if (
+            e.key === "Escape" &&
+            this.modal &&
+            !this.modal.classList.contains("hidden")
+          ) {
+            this.cerrarModal();
+          }
+        });
+        this.escListenerAdded = true;
       }
-    });
+    }
 
-    // Inicializar form component
-    this.form = new FormComponent("formCliente", {
-      validation: true,
-      realTimeValidation: true,
-      showErrorMessages: true,
-    });
-
-    // Agregar validaciones personalizadas
-    this.form.addValidator(
-      "numeroCedula",
-      "cedula",
-      (value) => {
-        if (!value) return true;
-        // Validación básica de formato de cédula panameña
-        const cedulaRegex = /^[0-9]{1,2}-[0-9]{1,4}-[0-9]{1,6}$/;
-        return cedulaRegex.test(value);
-      },
-      "Formato de cédula inválido (Ej: 8-123-456)"
-    );
-
-    // Callback para submit del formulario
-    this.form.onSubmit(async (formData) => {
-      this.form.showSubmitLoading();
-      try {
-        await this.guardarCliente(formData);
-      } finally {
-        this.form.hideSubmitLoading();
-      }
-    });
+    // Configurar eventos del formulario
+    if (this.form) {
+      this.form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        this.manejarSubmitFormulario();
+      });
+    }
   }
 
   setupEventListeners() {
@@ -194,7 +253,7 @@ class ClientesManager {
 
   async guardarCliente(datosCliente) {
     try {
-      // Primero, crear la dirección si es un cliente nuevo
+      // Primero, crear la dirección si es un cliente nuevo o actualizar si cambió
       let direccionId = null;
 
       if (!this.clienteEditando) {
@@ -205,117 +264,162 @@ class ClientesManager {
         });
         console.log("✅ Dirección creada con ID:", direccionId);
       } else {
-        // Cliente existente: usar direccion_id existente o crear nueva si cambió
+        // Cliente existente: usar direccion_id existente o actualizar si cambió
         direccionId = this.clienteEditando.direccion_id;
-        // TODO: Implementar lógica para actualizar dirección si cambió
+        console.log("✅ Usando dirección existente con ID:", direccionId);
+        console.log("📋 Datos del cliente editando:", this.clienteEditando);
+
+        // Verificar si los datos de dirección han cambiado
+        const ubicacionVerificacion =
+          this.verificarCambioUbicacion(datosCliente);
+        if (ubicacionVerificacion.huboChangio) {
+          console.log("📍 Datos de dirección han cambiado, actualizando...");
+          await this.actualizarDireccion(
+            direccionId,
+            ubicacionVerificacion.datosNuevos
+          );
+          console.log("✅ Dirección actualizada exitosamente");
+        } else {
+          console.log(
+            "📍 No hay cambios en la dirección, manteniéndola como está"
+          );
+        }
       }
 
-      // Transformar los datos del formulario al formato del backend
-      const datosBackend = {
-        primer_nombre: datosCliente.primerNombre,
-        segundo_nombre: datosCliente.segundoNombre || null,
-        primer_apellido: datosCliente.primerApellido,
-        segundo_apellido: datosCliente.segundoApellido || null,
-        numero_cedula: datosCliente.numeroCedula,
-        telefono: datosCliente.telefono,
-        email: datosCliente.email,
-        sexo: datosCliente.sexo,
-        tipo_cliente_id: parseInt(datosCliente.tipoClienteId),
-        direccion_id: direccionId, // Usar el ID de la dirección creada
-        nacionalidad_id: parseInt(datosCliente.nacionalidadId),
-        estado: datosCliente.estado || "ACTIVO",
-      };
+      // Determinar qué datos enviar (todos para cliente nuevo, solo cambios para edición)
+      let datosBackend;
+
+      if (!this.clienteEditando) {
+        // Cliente nuevo: enviar todos los datos obligatorios
+        datosBackend = {
+          primer_nombre: datosCliente.primerNombre,
+          segundo_nombre: datosCliente.segundoNombre || null,
+          primer_apellido: datosCliente.primerApellido,
+          segundo_apellido: datosCliente.segundoApellido || null,
+          numero_cedula: datosCliente.numeroCedula,
+          telefono: datosCliente.telefono,
+          email: datosCliente.email,
+          sexo: datosCliente.sexo,
+          tipo_cliente_id: parseInt(datosCliente.tipoClienteId),
+          direccion_id: direccionId,
+          nacionalidad_id: parseInt(datosCliente.nacionalidadId),
+          estado: datosCliente.estado || "ACTIVO",
+          observaciones: datosCliente.observaciones || null, // Incluir observaciones
+        };
+      } else {
+        // Cliente existente: enviar solo los campos que cambiaron
+        datosBackend = this.obtenerCambiosCliente(datosCliente);
+        console.log("🔄 Solo enviando campos modificados:", datosBackend);
+      }
 
       console.log("Datos del formulario recibidos:", datosCliente);
+      console.log("Observaciones del formulario:", datosCliente.observaciones);
       console.log("Datos transformados para enviar al backend:", datosBackend);
+      console.log("Modo edición:", !!this.clienteEditando);
 
-      // Validar campos obligatorios antes de enviar
-      const camposObligatorios = [
-        "primer_nombre",
-        "primer_apellido",
-        "numero_cedula",
-        "telefono",
-        "email",
-        "sexo",
-        "tipo_cliente_id",
-        "direccion_id",
-        "nacionalidad_id",
-      ];
+      if (this.clienteEditando) {
+        console.log("Datos del cliente original:", this.clienteEditando);
+      }
 
-      // Validación más específica para cada campo
+      // Validación simplificada
       const erroresValidacion = [];
 
-      // Validar campos de texto
-      if (
-        !datosBackend.primer_nombre ||
-        datosBackend.primer_nombre.trim() === ""
-      ) {
-        erroresValidacion.push("Primer nombre es obligatorio");
-      }
-      if (
-        !datosBackend.primer_apellido ||
-        datosBackend.primer_apellido.trim() === ""
-      ) {
-        erroresValidacion.push("Primer apellido es obligatorio");
-      }
-      if (
-        !datosBackend.numero_cedula ||
-        datosBackend.numero_cedula.trim() === ""
-      ) {
-        erroresValidacion.push("Número de cédula es obligatorio");
-      }
-      if (!datosBackend.telefono || datosBackend.telefono.trim() === "") {
-        erroresValidacion.push("Teléfono es obligatorio");
-      }
-      if (!datosBackend.email || datosBackend.email.trim() === "") {
-        erroresValidacion.push("Email es obligatorio");
-      }
-      if (
-        !datosBackend.sexo ||
-        (datosBackend.sexo !== "M" && datosBackend.sexo !== "F")
-      ) {
-        erroresValidacion.push("Sexo debe ser M o F");
-      }
-
-      // Validar campos numéricos
-      if (
-        !datosBackend.tipo_cliente_id ||
-        isNaN(datosBackend.tipo_cliente_id) ||
-        datosBackend.tipo_cliente_id <= 0
-      ) {
-        erroresValidacion.push(
-          "Tipo de cliente es obligatorio y debe ser válido"
-        );
-      }
-      if (
-        !datosBackend.direccion_id ||
-        isNaN(datosBackend.direccion_id) ||
-        datosBackend.direccion_id <= 0
-      ) {
-        erroresValidacion.push("Dirección es obligatoria y debe ser válida");
-      }
-      if (
-        !datosBackend.nacionalidad_id ||
-        isNaN(datosBackend.nacionalidad_id) ||
-        datosBackend.nacionalidad_id <= 0
-      ) {
-        erroresValidacion.push("Nacionalidad es obligatoria y debe ser válida");
-      }
-
-      // Validar campos de dirección (solo para clientes nuevos)
       if (!this.clienteEditando) {
+        // Modo NUEVO: validar todos los campos obligatorios
         if (
-          !datosCliente.corregimientoId ||
-          isNaN(parseInt(datosCliente.corregimientoId))
+          !datosBackend.primer_nombre ||
+          datosBackend.primer_nombre.trim() === ""
         ) {
-          erroresValidacion.push("Debe seleccionar un corregimiento válido");
+          erroresValidacion.push("Primer nombre es obligatorio");
         }
         if (
-          !datosCliente.detalleDireccion ||
-          datosCliente.detalleDireccion.trim() === ""
+          !datosBackend.primer_apellido ||
+          datosBackend.primer_apellido.trim() === ""
         ) {
-          erroresValidacion.push("Detalle de dirección es obligatorio");
+          erroresValidacion.push("Primer apellido es obligatorio");
         }
+        if (
+          !datosBackend.numero_cedula ||
+          datosBackend.numero_cedula.trim() === ""
+        ) {
+          erroresValidacion.push("Número de cédula es obligatorio");
+        }
+        if (!datosBackend.telefono || datosBackend.telefono.trim() === "") {
+          erroresValidacion.push("Teléfono es obligatorio");
+        }
+        if (!datosBackend.email || datosBackend.email.trim() === "") {
+          erroresValidacion.push("Email es obligatorio");
+        }
+        if (
+          !datosBackend.sexo ||
+          (datosBackend.sexo !== "M" && datosBackend.sexo !== "F")
+        ) {
+          erroresValidacion.push("Sexo debe ser M o F");
+        }
+        if (
+          !datosBackend.tipo_cliente_id ||
+          isNaN(datosBackend.tipo_cliente_id) ||
+          datosBackend.tipo_cliente_id <= 0
+        ) {
+          erroresValidacion.push(
+            "Tipo de cliente es obligatorio y debe ser válido"
+          );
+        }
+        if (
+          !datosBackend.direccion_id ||
+          isNaN(datosBackend.direccion_id) ||
+          datosBackend.direccion_id <= 0
+        ) {
+          erroresValidacion.push("Dirección es obligatoria y debe ser válida");
+        }
+        if (
+          !datosBackend.nacionalidad_id ||
+          isNaN(datosBackend.nacionalidad_id) ||
+          datosBackend.nacionalidad_id <= 0
+        ) {
+          erroresValidacion.push(
+            "Nacionalidad es obligatoria y debe ser válida"
+          );
+        }
+      } else {
+        // Modo EDICIÓN: solo validar si no hay cambios
+        if (Object.keys(datosBackend).length === 0) {
+          console.log("ℹ️ No hay cambios para guardar");
+          this.mostrarInfo("No se detectaron cambios en los datos del cliente");
+          this.mostrarLoadingFormulario(false);
+          return;
+        }
+
+        // Validar solo los campos que están presentes en los cambios
+        if (
+          datosBackend.primer_nombre !== undefined &&
+          (!datosBackend.primer_nombre ||
+            datosBackend.primer_nombre.trim() === "")
+        ) {
+          erroresValidacion.push("Primer nombre no puede estar vacío");
+        }
+        if (
+          datosBackend.primer_apellido !== undefined &&
+          (!datosBackend.primer_apellido ||
+            datosBackend.primer_apellido.trim() === "")
+        ) {
+          erroresValidacion.push("Primer apellido no puede estar vacío");
+        }
+        if (
+          datosBackend.telefono !== undefined &&
+          (!datosBackend.telefono || datosBackend.telefono.trim() === "")
+        ) {
+          erroresValidacion.push("Teléfono no puede estar vacío");
+        }
+        if (
+          datosBackend.email !== undefined &&
+          (!datosBackend.email || datosBackend.email.trim() === "")
+        ) {
+          erroresValidacion.push("Email no puede estar vacío");
+        }
+
+        // En modo edición solo validar observaciones (siempre se envían)
+        console.log("✅ Validación de edición: solo campos modificados");
       }
 
       if (erroresValidacion.length > 0) {
@@ -338,13 +442,25 @@ class ClientesManager {
       const response = await window.apiClient[method](url, datosBackend);
 
       if (response.success) {
-        this.mostrarExito(
-          this.clienteEditando
-            ? "Cliente actualizado exitosamente"
-            : "Cliente creado exitosamente"
-        );
-        this.modal.close();
+        const esNuevo = !this.clienteEditando;
+        const mensaje = esNuevo
+          ? "✅ Cliente creado exitosamente"
+          : "✅ Cliente actualizado exitosamente";
+
+        // Cerrar modal INMEDIATAMENTE
+        this.cerrarModal();
+
+        // Mostrar mensaje de éxito
+        this.mostrarExito(mensaje);
+
+        // Recargar la lista de clientes
         await this.cargarClientes();
+
+        console.log(
+          `✅ Cliente ${
+            esNuevo ? "creado" : "actualizado"
+          } y modal cerrado correctamente`
+        );
       } else {
         throw new Error(response.message || "Error al guardar cliente");
       }
@@ -388,33 +504,308 @@ class ClientesManager {
       }
 
       this.mostrarError(mensajeError);
+    } finally {
+      // Asegurar que SIEMPRE se quite el loading
+      this.mostrarLoadingFormulario(false);
     }
   }
 
-  async eliminarCliente(clienteId) {
-    const confirmado = await ModalFactory.createConfirmModal(
-      "¿Está seguro de que desea eliminar este cliente? Esta acción no se puede deshacer.",
-      {
-        confirmText: "Eliminar",
-        cancelText: "Cancelar",
+  // Función para obtener solo los campos que cambiaron en modo edición
+  obtenerCambiosCliente(datosFormulario) {
+    const cambios = {};
+
+    // Mapeo de campos del formulario a campos del backend
+    const mapeosCampos = {
+      primerNombre: "primer_nombre",
+      segundoNombre: "segundo_nombre",
+      primerApellido: "primer_apellido",
+      segundoApellido: "segundo_apellido",
+      telefono: "telefono",
+      email: "email",
+      observaciones: "observaciones", // Siempre incluir observaciones
+    };
+
+    // Comparar cada campo
+    Object.entries(mapeosCampos).forEach(([campoForm, campoBackend]) => {
+      const valorFormulario = datosFormulario[campoForm];
+      const valorOriginal = this.clienteEditando[campoForm];
+
+      // Campos de texto (manejar valores vacíos y nulls)
+      const valorFormLimpio = valorFormulario ? valorFormulario.trim() : "";
+      const valorOrigLimpio = valorOriginal ? valorOriginal.trim() : "";
+
+      // Para observaciones, siempre incluir (aunque no hayan cambiado)
+      if (campoForm === "observaciones") {
+        cambios[campoBackend] = valorFormLimpio || null;
+        console.log(
+          `� Observaciones siempre incluidas:`,
+          cambios[campoBackend]
+        );
+      } else if (valorFormLimpio !== valorOrigLimpio) {
+        cambios[campoBackend] = valorFormLimpio || null;
+        console.log(
+          `� Campo ${campoForm} cambió: "${valorOrigLimpio}" → "${valorFormLimpio}"`
+        );
       }
+    });
+
+    // Verificar si hay cambios en la ubicación
+    const ubicacionCambio = this.verificarCambioUbicacion(datosFormulario);
+    if (ubicacionCambio.huboChangio) {
+      console.log(
+        "📍 Se detectaron cambios en la ubicación, estos se manejarán por separado"
+      );
+      // Los cambios de ubicación se manejan en la función de dirección
+    }
+
+    console.log("📋 Cambios finales a enviar:", cambios);
+    return cambios;
+  }
+
+  // Nueva función para verificar cambios en ubicación
+  verificarCambioUbicacion(datosFormulario) {
+    const provinciaFormulario = datosFormulario.provinciaId
+      ? parseInt(datosFormulario.provinciaId)
+      : null;
+    const distritoFormulario = datosFormulario.distritoId
+      ? parseInt(datosFormulario.distritoId)
+      : null;
+    const corregimientoFormulario = datosFormulario.corregimientoId
+      ? parseInt(datosFormulario.corregimientoId)
+      : null;
+    const detalleFormulario = datosFormulario.detalleDireccion
+      ? datosFormulario.detalleDireccion.trim()
+      : "";
+
+    const provinciaOriginal = this.direccionOriginal
+      ? this.direccionOriginal.provincia_id
+      : this.clienteEditando.provincia_id;
+    const distritoOriginal = this.direccionOriginal
+      ? this.direccionOriginal.distrito_id
+      : this.clienteEditando.distrito_id;
+    const corregimientoOriginal = this.direccionOriginal
+      ? this.direccionOriginal.corregimiento_id
+      : this.clienteEditando.corregimiento_id;
+    const detalleOriginal = this.direccionOriginal
+      ? this.direccionOriginal.detalle_direccion
+        ? this.direccionOriginal.detalle_direccion.trim()
+        : ""
+      : this.clienteEditando.detalle_direccion
+      ? this.clienteEditando.detalle_direccion.trim()
+      : "";
+
+    const hubocambio =
+      (provinciaFormulario && provinciaFormulario !== provinciaOriginal) ||
+      (distritoFormulario && distritoFormulario !== distritoOriginal) ||
+      (corregimientoFormulario &&
+        corregimientoFormulario !== corregimientoOriginal) ||
+      (detalleFormulario && detalleFormulario !== detalleOriginal);
+
+    console.log("� Verificando cambios de ubicación:", {
+      original: {
+        provincia_id: provinciaOriginal,
+        distrito_id: distritoOriginal,
+        corregimiento_id: corregimientoOriginal,
+        detalle: detalleOriginal,
+      },
+      formulario: {
+        provincia_id: provinciaFormulario,
+        distrito_id: distritoFormulario,
+        corregimiento_id: corregimientoFormulario,
+        detalle: detalleFormulario,
+      },
+      huboChangio: hubocambio,
+    });
+
+    return {
+      huboChangio: hubocambio,
+      datosNuevos: hubocambio
+        ? {
+            corregimiento_id: corregimientoFormulario || corregimientoOriginal,
+            detalle_direccion: detalleFormulario || detalleOriginal,
+          }
+        : null,
+    };
+  }
+
+  async eliminarCliente(clienteId) {
+    // Crear modal de confirmación personalizado
+    const confirmado = await this.mostrarConfirmacion(
+      "Confirmar Eliminación",
+      "¿Está seguro de que desea eliminar este cliente? Esta acción no se puede deshacer.",
+      "Eliminar",
+      "Cancelar"
     );
 
     if (!confirmado) return;
 
     try {
+      console.log(`🔄 Eliminando cliente ${clienteId}`);
+
       const response = await window.apiClient.delete(`/clientes/${clienteId}`);
 
-      if (response.success) {
+      console.log("📋 Respuesta del servidor:", response);
+
+      // Verificar si la respuesta indica éxito
+      if (
+        response.success === true ||
+        response.message?.includes("exitosamente")
+      ) {
         this.mostrarExito("Cliente eliminado exitosamente");
         await this.cargarClientes();
       } else {
-        throw new Error(response.message || "Error al eliminar cliente");
+        throw new Error(
+          response.message || response.error || "Error al eliminar cliente"
+        );
       }
     } catch (error) {
       console.error("Error al eliminar cliente:", error);
-      this.mostrarError("Error al eliminar cliente: " + error.message);
+
+      // Si el mensaje de error contiene "exitosamente", es en realidad un éxito mal manejado
+      if (error.message && error.message.includes("exitosamente")) {
+        console.log(
+          "⚠️ Éxito detectado erróneamente como error, procesando como éxito"
+        );
+        this.mostrarExito("Cliente eliminado exitosamente");
+        await this.cargarClientes();
+      } else {
+        this.mostrarError("Error al eliminar cliente: " + error.message);
+      }
     }
+  }
+
+  async cambiarEstadoCliente(clienteId, estadoActual) {
+    const nuevoEstado = estadoActual === "ACTIVO" ? "INACTIVO" : "ACTIVO";
+    const accion = nuevoEstado === "ACTIVO" ? "activar" : "desactivar";
+
+    // Crear modal de confirmación personalizado
+    const confirmado = await this.mostrarConfirmacion(
+      `Confirmar ${accion.charAt(0).toUpperCase() + accion.slice(1)}`,
+      `¿Está seguro de que desea ${accion} este cliente?`,
+      accion.charAt(0).toUpperCase() + accion.slice(1),
+      "Cancelar"
+    );
+
+    if (!confirmado) return;
+
+    try {
+      console.log(
+        `🔄 Cambiando estado de cliente ${clienteId} de ${estadoActual} a ${nuevoEstado}`
+      );
+
+      // Ahora que el backend permite actualizar solo el estado, enviamos solo ese campo
+      const response = await window.apiClient.put(`/clientes/${clienteId}`, {
+        estado: nuevoEstado,
+      });
+
+      console.log("📋 Respuesta del servidor:", response);
+
+      // Verificar si la respuesta indica éxito
+      if (
+        response.success === true ||
+        response.message?.includes("exitosamente")
+      ) {
+        this.mostrarExito(
+          `Cliente ${
+            accion === "activar" ? "activado" : "desactivado"
+          } exitosamente`
+        );
+        await this.cargarClientes();
+      } else {
+        throw new Error(
+          response.message || response.error || `Error al ${accion} cliente`
+        );
+      }
+    } catch (error) {
+      console.error(`Error al ${accion} cliente:`, error);
+
+      // Si el mensaje de error contiene "exitosamente", es en realidad un éxito mal manejado
+      if (error.message && error.message.includes("exitosamente")) {
+        console.log(
+          "⚠️ Éxito detectado erróneamente como error, procesando como éxito"
+        );
+        this.mostrarExito(
+          `Cliente ${
+            accion === "activar" ? "activado" : "desactivado"
+          } exitosamente`
+        );
+        await this.cargarClientes();
+      } else {
+        this.mostrarError(`Error al ${accion} cliente: ` + error.message);
+      }
+    }
+  }
+
+  // Modal de confirmación personalizado para el módulo
+  mostrarConfirmacion(
+    titulo,
+    mensaje,
+    textoConfirmar = "Confirmar",
+    textoCancelar = "Cancelar"
+  ) {
+    return new Promise((resolve) => {
+      // Crear modal de confirmación dinámicamente
+      const modalConfirm = document.createElement("div");
+      modalConfirm.className =
+        "fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50";
+      modalConfirm.innerHTML = `
+        <div class="bg-white rounded-lg p-6 m-4 max-w-md w-full">
+          <div class="mb-4">
+            <h3 class="text-lg font-semibold text-gray-900">${titulo}</h3>
+            <p class="mt-2 text-sm text-gray-600">${mensaje}</p>
+          </div>
+          <div class="flex justify-end space-x-3">
+            <button class="cancel-btn px-4 py-2 text-gray-600 border border-gray-300 rounded-md hover:bg-gray-50">
+              ${textoCancelar}
+            </button>
+            <button class="confirm-btn px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700">
+              ${textoConfirmar}
+            </button>
+          </div>
+        </div>
+      `;
+
+      // Agregar al DOM
+      document.body.appendChild(modalConfirm);
+      document.body.style.overflow = "hidden";
+
+      // Event listeners
+      const confirmBtn = modalConfirm.querySelector(".confirm-btn");
+      const cancelBtn = modalConfirm.querySelector(".cancel-btn");
+
+      const cleanup = () => {
+        document.body.removeChild(modalConfirm);
+        document.body.style.overflow = "";
+      };
+
+      confirmBtn.addEventListener("click", () => {
+        cleanup();
+        resolve(true);
+      });
+
+      cancelBtn.addEventListener("click", () => {
+        cleanup();
+        resolve(false);
+      });
+
+      // Cerrar con ESC
+      const handleEsc = (e) => {
+        if (e.key === "Escape") {
+          document.removeEventListener("keydown", handleEsc);
+          cleanup();
+          resolve(false);
+        }
+      };
+      document.addEventListener("keydown", handleEsc);
+
+      // Cerrar haciendo clic fuera
+      modalConfirm.addEventListener("click", (e) => {
+        if (e.target === modalConfirm) {
+          cleanup();
+          resolve(false);
+        }
+      });
+    });
   }
 
   // ===============================
@@ -499,6 +890,25 @@ class ClientesManager {
                                 title="Editar cliente">
                             <i class="fas fa-edit"></i>
                         </button>
+                        <button class="text-${
+                          cliente.estado === "ACTIVO" ? "orange" : "green"
+                        }-600 hover:text-${
+          cliente.estado === "ACTIVO" ? "orange" : "green"
+        }-800 p-1 rounded transition-colors" 
+                                onclick="clientesManager.cambiarEstadoCliente(${id}, '${
+          cliente.estado
+        }')" 
+                                title="${
+                                  cliente.estado === "ACTIVO"
+                                    ? "Desactivar"
+                                    : "Activar"
+                                } cliente">
+                            <i class="fas fa-${
+                              cliente.estado === "ACTIVO"
+                                ? "user-slash"
+                                : "user-check"
+                            }"></i>
+                        </button>
                         <button class="text-red-600 hover:text-red-800 p-1 rounded transition-colors" 
                                 onclick="clientesManager.eliminarCliente(${id})" 
                                 title="Eliminar cliente">
@@ -513,15 +923,238 @@ class ClientesManager {
   }
 
   // ===============================
-  // MODAL Y FORMULARIOS
+  // MODAL Y FORMULARIOS NATIVOS
   // ===============================
 
-  abrirModalNuevo() {
+  abrirModal(titulo = "Cliente") {
+    if (!this.modal) return;
+
+    // Configurar título
+    const modalTitle = this.modal.querySelector(".modal-title");
+    if (modalTitle) modalTitle.textContent = titulo;
+
+    // Mostrar modal
+    this.modal.classList.remove("hidden");
+    document.body.style.overflow = "hidden"; // Prevenir scroll
+  }
+
+  cerrarModal() {
+    console.log("🔴 Iniciando cierre de modal...");
+
+    if (!this.modal) {
+      console.warn("❌ Modal no encontrado");
+      return;
+    }
+
+    // Ocultar modal con animación
+    this.modal.classList.add("hidden");
+    console.log("✅ Modal ocultado");
+
+    // Restaurar scroll del body
+    document.body.style.overflow = "";
+
+    // Limpiar estado de edición
     this.clienteEditando = null;
-    this.modal.setTitle("Nuevo Cliente");
-    this.form.reset();
+    this.direccionOriginal = null;
+
+    // Resetear formulario completamente
+    if (this.form) {
+      this.form.reset();
+
+      // Limpiar errores de validación visibles
+      const errorElements = this.form.querySelectorAll(
+        ".error-message, .text-red-500"
+      );
+      errorElements.forEach((el) => el.remove());
+
+      // Restaurar campos a estado normal
+      const inputs = this.form.querySelectorAll("input, select, textarea");
+      inputs.forEach((input) => {
+        input.classList.remove("border-red-500", "error");
+        input.disabled = false; // Restaurar campos deshabilitados
+      });
+    }
+
+    // Restaurar botón de submit a estado normal
+    this.mostrarLoadingFormulario(false);
+
+    // Mostrar todos los campos de dirección por defecto
     this.mostrarCamposDireccion();
-    this.modal.open();
+
+    // Limpiar información de dirección actual si existe
+    const direccionInfo = document.getElementById("direccionActualInfo");
+    if (direccionInfo) {
+      direccionInfo.remove();
+    }
+
+    console.log("✅ Modal cerrado y limpiado correctamente");
+  }
+
+  async manejarSubmitFormulario() {
+    if (!this.form) return;
+
+    // Mostrar loading
+    this.mostrarLoadingFormulario(true);
+
+    try {
+      // Validar formulario
+      if (!this.validarFormulario()) {
+        this.mostrarLoadingFormulario(false);
+        return;
+      }
+
+      // Obtener datos del formulario
+      const formData = new FormData(this.form);
+      const datosCliente = Object.fromEntries(formData.entries());
+
+      console.log("Datos del formulario a enviar:", datosCliente);
+
+      // Guardar cliente
+      await this.guardarCliente(datosCliente);
+    } catch (error) {
+      console.error("Error en submit:", error);
+      this.mostrarError("Error al procesar el formulario: " + error.message);
+      this.mostrarLoadingFormulario(false);
+    }
+  }
+
+  validarFormulario() {
+    if (!this.form) return false;
+
+    const errores = [];
+
+    // Validar campos obligatorios
+    const camposObligatorios = [
+      { name: "primerNombre", label: "Primer nombre" },
+      { name: "primerApellido", label: "Primer apellido" },
+      { name: "telefono", label: "Teléfono" },
+      { name: "email", label: "Email" },
+    ];
+
+    // Solo validar campos de ubicación y documentos para clientes nuevos
+    if (!this.clienteEditando) {
+      camposObligatorios.push(
+        { name: "numeroCedula", label: "Número de cédula" },
+        { name: "sexo", label: "Sexo" },
+        { name: "tipoClienteId", label: "Tipo de cliente" },
+        { name: "nacionalidadId", label: "Nacionalidad" },
+        { name: "provinciaId", label: "Provincia" },
+        { name: "distritoId", label: "Distrito" },
+        { name: "corregimientoId", label: "Corregimiento" },
+        { name: "detalleDireccion", label: "Detalle de dirección" }
+      );
+    } else {
+      // En modo edición, también validar campos de dirección si están visibles
+      camposObligatorios.push(
+        { name: "provinciaId", label: "Provincia" },
+        { name: "distritoId", label: "Distrito" },
+        { name: "corregimientoId", label: "Corregimiento" },
+        { name: "detalleDireccion", label: "Detalle de dirección" }
+      );
+    }
+
+    // Verificar campos obligatorios
+    camposObligatorios.forEach((campo) => {
+      const elemento = this.form.querySelector(`[name="${campo.name}"]`);
+
+      // Saltar validación si el campo está deshabilitado (campos no editables en modo edición)
+      if (elemento && elemento.disabled) {
+        console.log(
+          `⏭️ Saltando validación de campo deshabilitado: ${campo.label}`
+        );
+        return;
+      }
+
+      if (!elemento || !elemento.value.trim()) {
+        errores.push(`${campo.label} es obligatorio`);
+      }
+    });
+
+    // Validar formato de cédula (solo para clientes nuevos)
+    if (!this.clienteEditando) {
+      const cedulaElement = this.form.querySelector('[name="numeroCedula"]');
+      const cedula = cedulaElement?.value;
+      if (cedula && !/^[0-9]{1,2}-[0-9]{1,4}-[0-9]{1,6}$/.test(cedula)) {
+        errores.push("Formato de cédula inválido (Ej: 8-123-456)");
+      }
+    }
+
+    // Validar email
+    const email = this.form.querySelector('[name="email"]')?.value;
+    if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      errores.push("Formato de email inválido");
+    }
+
+    // Mostrar errores si existen
+    if (errores.length > 0) {
+      this.mostrarError("Errores de validación:\n" + errores.join("\n"));
+      return false;
+    }
+
+    return true;
+  }
+
+  mostrarLoadingFormulario(mostrar) {
+    // Buscar botón de submit con múltiples selectores incluyendo el nuevo ID
+    const submitBtn = this.form?.querySelector(
+      'button[type="submit"], #btnGuardar, .btn-submit, .btn-guardar, .submit-button'
+    );
+
+    if (!submitBtn) {
+      console.warn("No se encontró el botón de submit en el formulario");
+      return;
+    }
+
+    if (mostrar) {
+      // Guardar el HTML original para restaurarlo después
+      if (!submitBtn.dataset.originalHtml) {
+        submitBtn.dataset.originalHtml = submitBtn.innerHTML;
+      }
+
+      submitBtn.disabled = true;
+      submitBtn.classList.add("loading");
+      submitBtn.innerHTML =
+        '<i class="fas fa-spinner fa-spin mr-2"></i>Guardando...';
+    } else {
+      submitBtn.disabled = false;
+      submitBtn.classList.remove("loading");
+
+      // Restaurar HTML original o usar uno por defecto
+      const originalHtml =
+        submitBtn.dataset.originalHtml ||
+        '<i class="fas fa-save mr-2"></i>Guardar Cliente';
+      submitBtn.innerHTML = originalHtml;
+    }
+  }
+
+  abrirModalNuevo() {
+    // Limpiar completamente el estado anterior
+    this.clienteEditando = null;
+
+    // Abrir modal
+    this.abrirModal("Nuevo Cliente");
+
+    // Limpiar formulario completamente
+    if (this.form) {
+      this.form.reset();
+
+      // Habilitar todos los campos
+      const inputs = this.form.querySelectorAll("input, select, textarea");
+      inputs.forEach((input) => {
+        input.disabled = false;
+        input.style.backgroundColor = "";
+        input.title = "";
+        input.classList.remove("border-red-500", "error");
+      });
+    }
+
+    // Mostrar campos de dirección para nuevo cliente
+    this.mostrarCamposDireccion();
+
+    // Resetear selectores de dirección
+    this.resetearSelectoresDireccion();
+
+    console.log("Modal nuevo cliente abierto y limpiado");
   }
 
   ocultarCamposDireccion() {
@@ -537,6 +1170,12 @@ class ClientesManager {
       const contenedor = campo?.closest("div");
       if (contenedor) {
         contenedor.style.display = "none";
+      }
+
+      // Quitar atributo required cuando se ocultan los campos
+      if (campo) {
+        campo.removeAttribute("required");
+        console.log(`🔧 Atributo 'required' removido de ${campoId}`);
       }
     });
 
@@ -562,6 +1201,12 @@ class ClientesManager {
       const contenedor = campo?.closest("div");
       if (contenedor) {
         contenedor.style.display = "block";
+      }
+
+      // Restaurar atributo required cuando se muestran los campos
+      if (campo) {
+        campo.setAttribute("required", "");
+        console.log(`🔧 Atributo 'required' restaurado en ${campoId}`);
       }
     });
 
@@ -604,10 +1249,19 @@ class ClientesManager {
 
         console.log("Datos del cliente recibidos:", cliente);
 
+        // Verificar que el cliente tenga direccion_id
+        if (!cliente.direccion_id) {
+          console.warn(
+            "⚠️ Cliente no tiene direccion_id, usando valor por defecto"
+          );
+          cliente.direccion_id = 1; // Valor temporal para evitar errores
+        }
+
         // Mapear los datos del cliente a los nombres exactos de los campos del formulario
         const formData = {
           // Campos de identificación
           cliente_id: cliente.cliente_id,
+          direccion_id: cliente.direccion_id, // Importante para updates
 
           // Nombres y apellidos
           primerNombre: cliente.primer_nombre || "",
@@ -616,24 +1270,48 @@ class ClientesManager {
           segundoApellido: cliente.segundo_apellido || "",
 
           // Documento y contacto
-
+          numeroCedula: cliente.numero_cedula || "",
           telefono: cliente.telefono || "",
           email: cliente.email || "",
 
           // Otros datos
+          sexo: cliente.sexo || "",
           tipoClienteId: cliente.tipo_cliente_id || "",
+          nacionalidadId: cliente.nacionalidad_id || "",
+
+          // Datos de dirección para cargar
+          provincia_id: cliente.provincia_id,
+          distrito_id: cliente.distrito_id,
+          corregimiento_id: cliente.corregimiento_id,
+          detalle_direccion: cliente.detalle_direccion || "",
+
+          // Nombres de ubicación para mostrar
+          provincia_nombre:
+            cliente.provincia_nombre || cliente.nombre_provincia,
+          distrito_nombre: cliente.distrito_nombre || cliente.nombre_distrito,
+          corregimiento_nombre:
+            cliente.corregimiento_nombre || cliente.nombre_corregimiento,
+
+          // Observaciones del cliente
+          observaciones: cliente.observaciones || "",
         };
 
         console.log("Datos mapeados para el formulario:", formData);
 
         this.clienteEditando = formData;
-        this.modal.setTitle("Editar Cliente");
-        this.form.setData(formData);
+        this.abrirModal("Editar Cliente");
 
-        // Para edición, ocultar los campos de ubicación geográfica ya que la dirección ya existe
-        this.ocultarCamposDireccion();
+        // Rellenar formulario con datos del cliente
+        this.rellenarFormulario(formData);
 
-        this.modal.open();
+        // Para edición, mostrar los campos de ubicación con datos cargados
+        this.mostrarCamposDireccion();
+
+        // Cargar y seleccionar los datos de ubicación
+        await this.cargarDatosUbicacionEdicion(formData);
+
+        // Deshabilitar campos que no deben editarse en modo edición
+        this.configurarCamposEdicion();
       } else {
         throw new Error(response.message);
       }
@@ -641,6 +1319,282 @@ class ClientesManager {
       console.error("Error al cargar cliente:", error);
       this.mostrarError("Error al cargar los datos del cliente");
     }
+  }
+
+  // Nueva función para cargar datos de ubicación en modo edición
+  async cargarDatosUbicacionEdicion(datosCliente) {
+    try {
+      const selectProvincia = document.getElementById("provinciaId");
+      const selectDistrito = document.getElementById("distritoId");
+      const selectCorregimiento = document.getElementById("corregimientoId");
+      const inputDetalle = document.getElementById("detalleDireccion");
+      const inputObservaciones = document.getElementById("observaciones");
+
+      console.log("🔄 Cargando datos de ubicación para edición:", {
+        direccion_id: datosCliente.direccion_id,
+        observaciones: datosCliente.observaciones,
+      });
+
+      // Establecer observaciones si existen
+      if (inputObservaciones) {
+        inputObservaciones.value = datosCliente.observaciones || "";
+        console.log(
+          "✅ Observaciones cargadas:",
+          datosCliente.observaciones || "Sin observaciones"
+        );
+      }
+
+      // Cargar datos de dirección desde el API
+      if (datosCliente.direccion_id) {
+        await this.cargarDireccionCompleta(datosCliente.direccion_id);
+      } else {
+        // Fallback: usar datos que vienen con el cliente si no hay direccion_id
+        console.log("🔄 Usando datos de dirección del cliente como fallback");
+        await this.cargarDireccionDesdeDatosCliente(datosCliente);
+      }
+
+      console.log(
+        "✅ Datos de ubicación y observaciones cargados para edición"
+      );
+    } catch (error) {
+      console.error("Error al cargar datos para edición:", error);
+      this.mostrarError("Error al cargar los datos del cliente");
+    }
+  }
+
+  // Nueva función para cargar dirección completa desde el API
+  async cargarDireccionCompleta(direccionId) {
+    try {
+      console.log("🔄 Cargando dirección completa para ID:", direccionId);
+
+      const response = await window.apiClient.get(
+        `/direcciones/${direccionId}`
+      );
+
+      if (response.success) {
+        const direccion = response.data;
+        console.log("📍 Datos de dirección recibidos:", direccion);
+
+        const selectProvincia = document.getElementById("provinciaId");
+        const selectDistrito = document.getElementById("distritoId");
+        const selectCorregimiento = document.getElementById("corregimientoId");
+        const inputDetalle = document.getElementById("detalleDireccion");
+
+        // 1. CARGAR Y SELECCIONAR PROVINCIA
+        if (direccion.provincia_id && selectProvincia) {
+          // Asegurar que las provincias estén cargadas primero
+          await this.cargarProvincias();
+
+          selectProvincia.value = direccion.provincia_id;
+          selectProvincia.disabled = false;
+          console.log("✅ Provincia seleccionada:", direccion.nombre_provincia);
+
+          // 2. CARGAR Y SELECCIONAR DISTRITO
+          if (direccion.distrito_id) {
+            console.log(
+              "🔄 Cargando distritos para provincia:",
+              direccion.provincia_id
+            );
+            await this.cargarDistritos(direccion.provincia_id);
+
+            // Pequeña pausa para asegurar que los distritos se carguen
+            await new Promise((resolve) => setTimeout(resolve, 100));
+
+            selectDistrito.value = direccion.distrito_id;
+            selectDistrito.disabled = false;
+            console.log("✅ Distrito seleccionado:", direccion.nombre_distrito);
+
+            // 3. CARGAR Y SELECCIONAR CORREGIMIENTO
+            if (direccion.corregimiento_id) {
+              console.log(
+                "🔄 Cargando corregimientos para distrito:",
+                direccion.distrito_id
+              );
+              await this.cargarCorregimientos(direccion.distrito_id);
+
+              // Pequeña pausa para asegurar que los corregimientos se carguen
+              await new Promise((resolve) => setTimeout(resolve, 100));
+
+              selectCorregimiento.value = direccion.corregimiento_id;
+              selectCorregimiento.disabled = false;
+              console.log(
+                "✅ Corregimiento seleccionado:",
+                direccion.nombre_corregimiento
+              );
+            } else {
+              console.warn("⚠️ No hay corregimiento_id en la dirección");
+            }
+          } else {
+            console.warn("⚠️ No hay distrito_id en la dirección");
+          }
+        } else {
+          console.warn("⚠️ No hay provincia_id en la dirección");
+        }
+
+        // 4. ESTABLECER DETALLE DE DIRECCIÓN
+        if (inputDetalle) {
+          inputDetalle.value = direccion.detalle_direccion || "";
+          console.log(
+            "✅ Detalle de dirección cargado:",
+            direccion.detalle_direccion
+          );
+        }
+
+        // 5. VERIFICAR QUE TODOS LOS CAMPOS ESTÉN CORRECTAMENTE ESTABLECIDOS
+        console.log("📋 Verificación final de selectores:", {
+          provincia: {
+            valor: selectProvincia?.value,
+            texto:
+              selectProvincia?.options[selectProvincia?.selectedIndex]?.text,
+            habilitado: !selectProvincia?.disabled,
+          },
+          distrito: {
+            valor: selectDistrito?.value,
+            texto: selectDistrito?.options[selectDistrito?.selectedIndex]?.text,
+            habilitado: !selectDistrito?.disabled,
+          },
+          corregimiento: {
+            valor: selectCorregimiento?.value,
+            texto:
+              selectCorregimiento?.options[selectCorregimiento?.selectedIndex]
+                ?.text,
+            habilitado: !selectCorregimiento?.disabled,
+          },
+          detalle: inputDetalle?.value,
+        });
+
+        // Guardar datos originales para comparar cambios
+        this.direccionOriginal = {
+          provincia_id: direccion.provincia_id,
+          distrito_id: direccion.distrito_id,
+          corregimiento_id: direccion.corregimiento_id,
+          detalle_direccion: direccion.detalle_direccion,
+        };
+
+        console.log("✅ Dirección completa cargada y configurada exitosamente");
+      } else {
+        console.warn("⚠️ No se pudo cargar la dirección:", response.message);
+        this.mostrarError("No se pudo cargar los datos de dirección");
+      }
+    } catch (error) {
+      console.error("❌ Error al cargar dirección completa:", error);
+      this.mostrarError(
+        "Error al cargar los datos de dirección: " + error.message
+      );
+    }
+  }
+
+  // Función fallback para cargar dirección desde datos del cliente
+  async cargarDireccionDesdeDatosCliente(datosCliente) {
+    try {
+      console.log(
+        "🔄 Cargando dirección desde datos del cliente:",
+        datosCliente
+      );
+
+      const selectProvincia = document.getElementById("provinciaId");
+      const selectDistrito = document.getElementById("distritoId");
+      const selectCorregimiento = document.getElementById("corregimientoId");
+      const inputDetalle = document.getElementById("detalleDireccion");
+
+      // 1. CARGAR Y SELECCIONAR PROVINCIA
+      if (datosCliente.provincia_id && selectProvincia) {
+        await this.cargarProvincias();
+        selectProvincia.value = datosCliente.provincia_id;
+        selectProvincia.disabled = false;
+        console.log(
+          "✅ Provincia seleccionada desde datos cliente:",
+          datosCliente.provincia_nombre
+        );
+
+        // 2. CARGAR Y SELECCIONAR DISTRITO
+        if (datosCliente.distrito_id) {
+          await this.cargarDistritos(datosCliente.provincia_id);
+          await new Promise((resolve) => setTimeout(resolve, 100));
+
+          selectDistrito.value = datosCliente.distrito_id;
+          selectDistrito.disabled = false;
+          console.log(
+            "✅ Distrito seleccionado desde datos cliente:",
+            datosCliente.distrito_nombre
+          );
+
+          // 3. CARGAR Y SELECCIONAR CORREGIMIENTO
+          if (datosCliente.corregimiento_id) {
+            await this.cargarCorregimientos(datosCliente.distrito_id);
+            await new Promise((resolve) => setTimeout(resolve, 100));
+
+            selectCorregimiento.value = datosCliente.corregimiento_id;
+            selectCorregimiento.disabled = false;
+            console.log(
+              "✅ Corregimiento seleccionado desde datos cliente:",
+              datosCliente.corregimiento_nombre
+            );
+          }
+        }
+      }
+
+      // 4. ESTABLECER DETALLE DE DIRECCIÓN
+      if (inputDetalle && datosCliente.detalle_direccion) {
+        inputDetalle.value = datosCliente.detalle_direccion;
+        console.log(
+          "✅ Detalle de dirección cargado desde datos cliente:",
+          datosCliente.detalle_direccion
+        );
+      }
+
+      // Guardar datos originales para comparar cambios
+      this.direccionOriginal = {
+        provincia_id: datosCliente.provincia_id,
+        distrito_id: datosCliente.distrito_id,
+        corregimiento_id: datosCliente.corregimiento_id,
+        detalle_direccion: datosCliente.detalle_direccion,
+      };
+
+      console.log("✅ Dirección cargada desde datos del cliente exitosamente");
+    } catch (error) {
+      console.error(
+        "❌ Error al cargar dirección desde datos del cliente:",
+        error
+      );
+    }
+  }
+
+  // Nueva función para configurar campos en modo edición
+  configurarCamposEdicion() {
+    if (!this.form) return;
+
+    // Campos que no deben editarse en modo edición
+    const camposNoEditables = [
+      "numeroCedula", // La cédula no debe cambiar
+      "sexo", // El sexo no debe cambiar
+      "nacionalidadId", // La nacionalidad no debe cambiar
+      "tipoClienteId", // El tipo de cliente no debe cambiar
+    ];
+
+    camposNoEditables.forEach((campo) => {
+      const elemento = this.form.querySelector(`[name="${campo}"]`);
+      if (elemento) {
+        elemento.disabled = true;
+        elemento.style.backgroundColor = "#f3f4f6";
+        elemento.title = "Este campo no puede modificarse";
+        // Quitar el atributo required para campos deshabilitados
+        elemento.removeAttribute("required");
+      }
+    });
+
+    console.log("✅ Campos configurados para modo edición");
+  }
+
+  rellenarFormulario(datos) {
+    if (!this.form) return;
+
+    Object.keys(datos).forEach((key) => {
+      const campo = this.form.querySelector(`[name="${key}"]`);
+      if (campo && datos[key] !== null && datos[key] !== undefined) {
+        campo.value = datos[key];
+      }
+    });
   }
 
   // ===============================
@@ -756,22 +1710,52 @@ class ClientesManager {
 
   async cargarProvincias() {
     try {
-      const response = await window.apiClient.get("/provincias");
+      console.log("🔄 Cargando provincias...");
+
+      let response;
+      try {
+        response = await window.apiClient.get("/provincias");
+      } catch (apiError) {
+        console.warn("API provincias no disponible, usando datos estáticos");
+        // Fallback a datos estáticos si la API no está disponible
+        response = {
+          success: true,
+          data: [
+            { provincia_id: 1, nombre_provincia: "Panamá" },
+            { provincia_id: 2, nombre_provincia: "Coclé" },
+            { provincia_id: 3, nombre_provincia: "Colón" },
+            { provincia_id: 4, nombre_provincia: "Chiriquí" },
+            { provincia_id: 5, nombre_provincia: "Herrera" },
+            { provincia_id: 6, nombre_provincia: "Los Santos" },
+            { provincia_id: 7, nombre_provincia: "Veraguas" },
+            { provincia_id: 8, nombre_provincia: "Bocas del Toro" },
+            { provincia_id: 9, nombre_provincia: "Darién" },
+            { provincia_id: 10, nombre_provincia: "Panamá Oeste" },
+          ],
+        };
+      }
+
       if (response.success) {
         const selectProvincia = document.getElementById("provinciaId");
         if (selectProvincia) {
           selectProvincia.innerHTML = `
-          <option value="">Seleccionar provincia</option>
-          ${response.data
-            .map(
-              (provincia) => `
-              <option value="${provincia.provincia_id}">
-                ${provincia.nombre_provincia}
-              </option>
-          `
-            )
-            .join("")}
-        `;
+            <option value="">Seleccionar provincia</option>
+            ${response.data
+              .map(
+                (provincia) => `
+                <option value="${provincia.provincia_id}">
+                  ${provincia.nombre_provincia}
+                </option>
+            `
+              )
+              .join("")}
+          `;
+
+          // Habilitar el selector de provincias
+          selectProvincia.disabled = false;
+          console.log(
+            `✅ ${response.data.length} provincias cargadas exitosamente`
+          );
         }
       } else {
         throw new Error("No se pudo cargar la lista de provincias");
@@ -799,6 +1783,8 @@ class ClientesManager {
     }
 
     try {
+      console.log(`🔄 Cargando distritos para provincia ${provinciaId}...`);
+
       let response;
       try {
         response = await window.apiClient.get(
@@ -806,16 +1792,43 @@ class ClientesManager {
         );
       } catch (apiError) {
         console.warn("API distritos no disponible, usando datos estáticos");
-        response = {
-          success: true,
-          data: [
+
+        // Datos estáticos más completos por provincia
+        const distritosEstaticos = {
+          1: [
+            // Panamá
             { distrito_id: 1, nombre_distrito: "Panamá", provincia_id: 1 },
             {
               distrito_id: 2,
               nombre_distrito: "San Miguelito",
               provincia_id: 1,
             },
-          ].filter((d) => d.provincia_id == provinciaId),
+            { distrito_id: 3, nombre_distrito: "Arraiján", provincia_id: 1 },
+            { distrito_id: 4, nombre_distrito: "La Chorrera", provincia_id: 1 },
+            { distrito_id: 5, nombre_distrito: "Pacora", provincia_id: 1 },
+          ],
+          2: [
+            // Coclé
+            { distrito_id: 6, nombre_distrito: "Penonomé", provincia_id: 2 },
+            { distrito_id: 7, nombre_distrito: "Aguadulce", provincia_id: 2 },
+            { distrito_id: 8, nombre_distrito: "Antón", provincia_id: 2 },
+          ],
+          3: [
+            // Colón
+            { distrito_id: 9, nombre_distrito: "Colón", provincia_id: 3 },
+            { distrito_id: 10, nombre_distrito: "Chagres", provincia_id: 3 },
+          ],
+          4: [
+            // Chiriquí
+            { distrito_id: 11, nombre_distrito: "David", provincia_id: 4 },
+            { distrito_id: 12, nombre_distrito: "Bugaba", provincia_id: 4 },
+            { distrito_id: 13, nombre_distrito: "Boquerón", provincia_id: 4 },
+          ],
+        };
+
+        response = {
+          success: true,
+          data: distritosEstaticos[provinciaId] || [],
         };
       }
 
@@ -833,14 +1846,18 @@ class ClientesManager {
             .join("")}
         `;
         selectDistrito.disabled = false;
+        console.log(
+          `✅ ${response.data.length} distritos cargados para provincia ${provinciaId}`
+        );
 
-        // Limpiar corregimientos
+        // Limpiar corregimientos cuando se cambia el distrito
         selectCorregimiento.innerHTML =
           '<option value="">Seleccionar corregimiento</option>';
         selectCorregimiento.disabled = true;
       }
     } catch (error) {
       console.error("Error al cargar distritos:", error);
+      this.mostrarError("Error al cargar los distritos");
     }
   }
 
@@ -855,6 +1872,8 @@ class ClientesManager {
     }
 
     try {
+      console.log(`🔄 Cargando corregimientos para distrito ${distritoId}...`);
+
       let response;
       try {
         response = await window.apiClient.get(
@@ -864,9 +1883,11 @@ class ClientesManager {
         console.warn(
           "API corregimientos no disponible, usando datos estáticos"
         );
-        response = {
-          success: true,
-          data: [
+
+        // Datos estáticos más completos por distrito
+        const corregimientosEstaticos = {
+          1: [
+            // Panamá
             {
               corregimiento_id: 1,
               nombre_corregimiento: "Casco Antiguo",
@@ -877,11 +1898,171 @@ class ClientesManager {
               nombre_corregimiento: "San Felipe",
               distrito_id: 1,
             },
-          ].filter((c) => c.distrito_id == distritoId),
+            {
+              corregimiento_id: 3,
+              nombre_corregimiento: "El Chorrillo",
+              distrito_id: 1,
+            },
+            {
+              corregimiento_id: 4,
+              nombre_corregimiento: "Santa Ana",
+              distrito_id: 1,
+            },
+            {
+              corregimiento_id: 5,
+              nombre_corregimiento: "Calidonia",
+              distrito_id: 1,
+            },
+            {
+              corregimiento_id: 6,
+              nombre_corregimiento: "Bella Vista",
+              distrito_id: 1,
+            },
+            {
+              corregimiento_id: 7,
+              nombre_corregimiento: "Betania",
+              distrito_id: 1,
+            },
+            {
+              corregimiento_id: 8,
+              nombre_corregimiento: "Pueblo Nuevo",
+              distrito_id: 1,
+            },
+            {
+              corregimiento_id: 9,
+              nombre_corregimiento: "Río Abajo",
+              distrito_id: 1,
+            },
+            {
+              corregimiento_id: 10,
+              nombre_corregimiento: "Juan Díaz",
+              distrito_id: 1,
+            },
+          ],
+          2: [
+            // San Miguelito
+            {
+              corregimiento_id: 11,
+              nombre_corregimiento: "Amelia Denis de Icaza",
+              distrito_id: 2,
+            },
+            {
+              corregimiento_id: 12,
+              nombre_corregimiento: "Belisario Frías",
+              distrito_id: 2,
+            },
+            {
+              corregimiento_id: 13,
+              nombre_corregimiento: "José Domingo Espinar",
+              distrito_id: 2,
+            },
+            {
+              corregimiento_id: 14,
+              nombre_corregimiento: "Mateo Iturralde",
+              distrito_id: 2,
+            },
+            {
+              corregimiento_id: 15,
+              nombre_corregimiento: "Omar Torrijos",
+              distrito_id: 2,
+            },
+            {
+              corregimiento_id: 16,
+              nombre_corregimiento: "Rufina Alfaro",
+              distrito_id: 2,
+            },
+            {
+              corregimiento_id: 17,
+              nombre_corregimiento: "Villa Lucre",
+              distrito_id: 2,
+            },
+          ],
+          3: [
+            // Arraiján
+            {
+              corregimiento_id: 18,
+              nombre_corregimiento: "Arraiján",
+              distrito_id: 3,
+            },
+            {
+              corregimiento_id: 19,
+              nombre_corregimiento: "Nuevo Chorrillo",
+              distrito_id: 3,
+            },
+            {
+              corregimiento_id: 20,
+              nombre_corregimiento: "Veracruz",
+              distrito_id: 3,
+            },
+          ],
+          4: [
+            // La Chorrera
+            {
+              corregimiento_id: 21,
+              nombre_corregimiento: "La Chorrera",
+              distrito_id: 4,
+            },
+            {
+              corregimiento_id: 22,
+              nombre_corregimiento: "Barrio Balboa",
+              distrito_id: 4,
+            },
+            {
+              corregimiento_id: 23,
+              nombre_corregimiento: "El Coco",
+              distrito_id: 4,
+            },
+          ],
+          6: [
+            // Penonomé
+            {
+              corregimiento_id: 24,
+              nombre_corregimiento: "Penonomé",
+              distrito_id: 6,
+            },
+            {
+              corregimiento_id: 25,
+              nombre_corregimiento: "Coclé",
+              distrito_id: 6,
+            },
+            {
+              corregimiento_id: 26,
+              nombre_corregimiento: "Río Grande",
+              distrito_id: 6,
+            },
+          ],
+          11: [
+            // David
+            {
+              corregimiento_id: 27,
+              nombre_corregimiento: "David",
+              distrito_id: 11,
+            },
+            {
+              corregimiento_id: 28,
+              nombre_corregimiento: "Pedregal",
+              distrito_id: 11,
+            },
+            {
+              corregimiento_id: 29,
+              nombre_corregimiento: "San Carlos",
+              distrito_id: 11,
+            },
+            {
+              corregimiento_id: 30,
+              nombre_corregimiento: "San Pablo Nuevo",
+              distrito_id: 11,
+            },
+          ],
+        };
+
+        response = {
+          success: true,
+          data: corregimientosEstaticos[distritoId] || [],
         };
       }
 
-      if (response.success) {
+      if (response.success && response.data.length > 0) {
         selectCorregimiento.innerHTML = `
           <option value="">Seleccionar corregimiento</option>
           ${response.data
@@ -897,29 +2078,149 @@ class ClientesManager {
             .join("")}
         `;
         selectCorregimiento.disabled = false;
+        console.log(
+          `✅ ${response.data.length} corregimientos cargados para distrito ${distritoId}`
+        );
+      } else {
+        console.warn(
+          `⚠️ No se encontraron corregimientos para distrito ${distritoId}`
+        );
+        selectCorregimiento.innerHTML =
+          '<option value="">No hay corregimientos disponibles</option>';
+        selectCorregimiento.disabled = true;
       }
     } catch (error) {
       console.error("Error al cargar corregimientos:", error);
+      this.mostrarError("Error al cargar los corregimientos");
+    }
+  }
+
+  // ===============================
+  // GESTIÓN DE DIRECCIONES
+  // ===============================
+
+  // Función para verificar si la dirección ha cambiado
+  async verificarCambioDireccion(datosCliente, direccionId) {
+    try {
+      // Si no tenemos datos de dirección nuevos, no hay cambio (mantener originales)
+      if (!datosCliente.corregimientoId && !datosCliente.detalleDireccion) {
+        console.log(
+          "🔍 No hay datos de dirección en el formulario, manteniendo originales"
+        );
+        return false;
+      }
+
+      // Si solo tenemos algunos datos, usar los originales para los faltantes
+      const corregimientoIdNuevo = datosCliente.corregimientoId
+        ? parseInt(datosCliente.corregimientoId)
+        : this.clienteEditando.corregimiento_id;
+
+      const detalleNuevo = datosCliente.detalleDireccion
+        ? datosCliente.detalleDireccion.trim()
+        : this.clienteEditando.detalle_direccion || "";
+
+      const corregimientoIdOriginal = this.clienteEditando.corregimiento_id;
+      const detalleOriginal = this.clienteEditando.detalle_direccion || "";
+
+      const cambio =
+        corregimientoIdNuevo !== corregimientoIdOriginal ||
+        detalleNuevo !== detalleOriginal;
+
+      console.log("🔍 Verificando cambio de dirección:", {
+        original: {
+          corregimiento_id: corregimientoIdOriginal,
+          detalle: detalleOriginal,
+        },
+        nuevo: {
+          corregimiento_id: corregimientoIdNuevo,
+          detalle: detalleNuevo,
+        },
+        cambio,
+      });
+
+      return cambio;
+    } catch (error) {
+      console.error("Error al verificar cambio de dirección:", error);
+      return false; // En caso de error, no cambiar
+    }
+  }
+
+  // Función para actualizar una dirección existente
+  async actualizarDireccion(direccionId, datosDireccion) {
+    try {
+      console.log(
+        `🔄 Actualizando dirección ${direccionId} con datos:`,
+        datosDireccion
+      );
+
+      const response = await window.apiClient.put(
+        `/direcciones/${direccionId}`,
+        datosDireccion
+      );
+
+      console.log("📋 Respuesta del servidor:", response);
+
+      // Verificar si la respuesta indica éxito
+      if (
+        response.success === true ||
+        response.message?.includes("exitosamente")
+      ) {
+        console.log("✅ Dirección actualizada exitosamente");
+        return true;
+      } else {
+        throw new Error(
+          response.message || response.error || "Error al actualizar dirección"
+        );
+      }
+    } catch (error) {
+      console.error("Error al actualizar dirección:", error);
+
+      // Si el mensaje de error contiene "exitosamente", es en realidad un éxito mal manejado
+      if (error.message && error.message.includes("exitosamente")) {
+        console.log(
+          "⚠️ Éxito detectado erróneamente como error, procesando como éxito"
+        );
+        console.log("✅ Dirección actualizada exitosamente");
+        return true;
+      } else {
+        throw error;
+      }
     }
   }
 
   async crearDireccion(datosDireccion) {
     try {
-      console.log("Creando dirección con datos:", datosDireccion);
+      console.log("🔄 Creando dirección con datos:", datosDireccion);
 
       const response = await window.apiClient.post(
         "/direcciones",
         datosDireccion
       );
 
+      console.log("📋 Respuesta del servidor:", response);
+
+      // Verificar si tenemos el ID de la dirección creada
       if (response.direccion_id) {
+        console.log(
+          "✅ Dirección creada exitosamente con ID:",
+          response.direccion_id
+        );
         return response.direccion_id;
       } else {
         throw new Error("No se recibió el ID de la dirección creada");
       }
     } catch (error) {
       console.error("Error al crear dirección:", error);
-      throw new Error("Error al crear la dirección: " + error.message);
+
+      // Si el mensaje de error contiene "exitosamente" pero no tenemos el ID, necesitamos manejar esto
+      if (error.message && error.message.includes("exitosamente")) {
+        console.log("⚠️ Mensaje de éxito detectado pero sin ID de dirección");
+        throw new Error(
+          "Error al obtener el ID de la dirección creada, aunque la creación fue exitosa"
+        );
+      } else {
+        throw new Error("Error al crear la dirección: " + error.message);
+      }
     }
   }
 
@@ -1045,6 +2346,66 @@ class ClientesManager {
   // UTILIDADES Y HELPERS
   // ===============================
 
+  // Función para probar la carga de selectores manualmente (útil para debugging)
+  async probarCargaSelectores() {
+    console.log("🧪 Probando carga manual de selectores...");
+
+    try {
+      // Probar provincias
+      console.log("1️⃣ Probando provincias...");
+      await this.cargarProvincias();
+
+      // Probar distritos (usando provincia 1 - Panamá)
+      console.log("2️⃣ Probando distritos para Panamá...");
+      await this.cargarDistritos(1);
+
+      // Probar corregimientos (usando distrito 1 - Panamá)
+      console.log("3️⃣ Probando corregimientos para Panamá...");
+      await this.cargarCorregimientos(1);
+
+      // Verificar estado final
+      this.verificarSelectores();
+
+      console.log("✅ Prueba de carga completada");
+    } catch (error) {
+      console.error("❌ Error en prueba de carga:", error);
+    }
+  }
+
+  // Función para recargar todos los datos
+  async recargarTodosLosDatos() {
+    console.log("🔄 Recargando todos los datos...");
+
+    try {
+      await this.cargarTiposClientes();
+      await this.cargarNacionalidades();
+      await this.cargarProvincias();
+      await this.cargarClientes();
+
+      console.log("✅ Todos los datos recargados exitosamente");
+      this.verificarSelectores();
+    } catch (error) {
+      console.error("❌ Error al recargar datos:", error);
+      this.mostrarError("Error al recargar los datos: " + error.message);
+    }
+  }
+
+  // Función para resetear completamente el estado del módulo
+  resetearEstado() {
+    this.clienteEditando = null;
+    this.currentPage = 1;
+
+    // Cerrar modal si está abierto
+    if (this.modal && !this.modal.classList.contains("hidden")) {
+      this.cerrarModal();
+    }
+
+    // Limpiar filtros
+    this.limpiarFiltros();
+
+    console.log("🔄 Estado del módulo reseteado");
+  }
+
   getIniciales(primerNombre, primerApellido) {
     const inicial1 = primerNombre ? primerNombre.charAt(0).toUpperCase() : "";
     const inicial2 = primerApellido
@@ -1105,24 +2466,24 @@ class ClientesManager {
   // ===============================
 
   mostrarExito(mensaje) {
-    if (window.ToastManager) {
-      window.ToastManager.show(mensaje, "success");
+    if (window.toastManager) {
+      window.toastManager.show(mensaje, "success");
     } else {
       alert(mensaje);
     }
   }
 
   mostrarError(mensaje) {
-    if (window.ToastManager) {
-      window.ToastManager.show(mensaje, "error");
+    if (window.toastManager) {
+      window.toastManager.show(mensaje, "error");
     } else {
       alert(mensaje);
     }
   }
 
   mostrarInfo(mensaje) {
-    if (window.ToastManager) {
-      window.ToastManager.show(mensaje, "info");
+    if (window.toastManager) {
+      window.toastManager.show(mensaje, "info");
     } else {
       alert(mensaje);
     }
@@ -1132,19 +2493,14 @@ class ClientesManager {
 // Inicializar el manager cuando el DOM esté listo
 let clientesManager;
 
-document.addEventListener("DOMContentLoaded", async () => {
-  // Esperar a que los componentes globales estén listos
-  if (window.loadCommonComponents) {
-    await window.loadCommonComponents();
-  }
-
-  // Inicializar el manager de clientes
+document.addEventListener("DOMContentLoaded", () => {
+  // Inicializar directamente sin esperar componentes globales
   clientesManager = new ClientesManager();
 
   // Hacer disponible globalmente para las acciones de la tabla
   window.clientesManager = clientesManager;
 
-  console.log("Módulo Clientes cargado completamente");
+  console.log("Módulo Clientes cargado completamente - Modo independiente");
 });
 
 // Exportar para uso global

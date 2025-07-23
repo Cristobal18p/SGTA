@@ -3,14 +3,23 @@ const router = express.Router();
 
 const {
   obtenerFacturas,
+  obtenerFacturaPorId,
   crearFactura,
-  actualizarFactura,
-  eliminarFactura,
+  obtenerDatosFormulario,
+  actualizarEstadoFactura,
+  obtenerEstadisticas,
+  generarReporteVentas,
 } = require("../controllers/facturas.controller.js");
 
-router.get("/", obtenerFacturas); // GET /api/facturas
+
+router.get("/datos-formulario", obtenerDatosFormulario); // GET /api/facturas/datos-formulario
+router.get("/estadisticas", obtenerEstadisticas); // GET /api/facturas/estadisticas
+router.get("/reporte-ventas", generarReporteVentas); // GET /api/facturas/reporte-ventas
+
+// Rutas básicas
+router.get("/", obtenerFacturas); // GET /api/facturas (con filtros y paginación)
+router.get("/:facturaId", obtenerFacturaPorId); // GET /api/facturas/123 (detalle)
 router.post("/", crearFactura); // POST /api/facturas
-router.put("/:factura_id", actualizarFactura); // PUT /api/facturas/5
-router.delete("/:factura_id", eliminarFactura); // DELETE /api/facturas/5
+router.put("/:facturaId/estado", actualizarEstadoFactura); // PUT /api/facturas/123/estado
 
 module.exports = router;

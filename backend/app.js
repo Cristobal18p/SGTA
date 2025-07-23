@@ -130,6 +130,14 @@ app.use("/api/estadisticas", estadisticasRoutes);
 const perfilRoutes = require("./routes/perfil.routes.js");
 app.use("/api/perfil", perfilRoutes);
 
+// Ruta para reportes Estadística
+const estadisticaReporteRoutes = require("./routes/estadisticaReporte.routes.js");
+app.use("/api/estadistica-reporte", estadisticaReporteRoutes);
+
+// Ruta para configuración del sistema
+const configuracionRoutes = require("./routes/configuracion.routes.js");
+app.use("/api/configuracion", configuracionRoutes);
+
 // Puerto
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
