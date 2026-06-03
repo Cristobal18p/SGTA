@@ -17,29 +17,29 @@ class ClientesManager {
   }
 
   async init() {
-    console.log("🚀 Inicializando módulo de Clientes...");
+    console.log("Inicializando módulo de Clientes...");
 
     this.setupComponents();
     this.setupEventListeners();
 
     // Cargar datos base con logging
-    console.log("📊 Cargando datos base...");
+    console.log("Cargando datos base...");
     await this.cargarTiposClientes();
-    console.log("✅ Tipos de clientes cargados");
+    console.log("Tipos de clientes cargados");
 
     await this.cargarNacionalidades();
-    console.log("✅ Nacionalidades cargadas");
+    console.log("Nacionalidades cargadas");
 
     await this.cargarProvincias();
-    console.log("✅ Provincias cargadas");
+    console.log("Provincias cargadas");
 
     await this.cargarClientes();
-    console.log("✅ Lista de clientes cargada");
+    console.log("Lista de clientes cargada");
 
     // Verificar que todos los selectores estén disponibles
     this.verificarSelectores();
 
-    console.log("✅ Módulo de Clientes inicializado completamente");
+    console.log("Módulo de Clientes inicializado completamente");
   }
 
   // Nueva función para verificar que todos los selectores estén disponibles
@@ -52,7 +52,7 @@ class ClientesManager {
       { id: "nacionalidadId", nombre: "Nacionalidades" },
     ];
 
-    console.log("🔍 Verificando selectores disponibles:");
+    console.log("Verificando selectores disponibles:");
 
     selectores.forEach(({ id, nombre }) => {
       const elemento = document.getElementById(id);
@@ -60,12 +60,12 @@ class ClientesManager {
         const opciones = elemento.options.length;
         const habilitado = !elemento.disabled;
         console.log(
-          `  ✅ ${nombre}: ${opciones} opciones, ${
+          `   ${nombre}: ${opciones} opciones, ${
             habilitado ? "habilitado" : "deshabilitado"
           }`
         );
       } else {
-        console.warn(`  ❌ ${nombre}: elemento no encontrado`);
+        console.warn(`   ${nombre}: elemento no encontrado`);
       }
     });
   }
@@ -171,9 +171,7 @@ class ClientesManager {
     );
   }
 
-  // ===============================
-  // CRUD DE CLIENTES
-  // ===============================
+  // CRUD de clientes
 
   async cargarClientes() {
     try {
@@ -262,26 +260,26 @@ class ClientesManager {
           corregimiento_id: parseInt(datosCliente.corregimientoId),
           detalle_direccion: datosCliente.detalleDireccion,
         });
-        console.log("✅ Dirección creada con ID:", direccionId);
+        console.log("Dirección creada con ID:", direccionId);
       } else {
         // Cliente existente: usar direccion_id existente o actualizar si cambió
         direccionId = this.clienteEditando.direccion_id;
-        console.log("✅ Usando dirección existente con ID:", direccionId);
-        console.log("📋 Datos del cliente editando:", this.clienteEditando);
+        console.log("Usando dirección existente con ID:", direccionId);
+        console.log("Datos del cliente editando:", this.clienteEditando);
 
         // Verificar si los datos de dirección han cambiado
         const ubicacionVerificacion =
           this.verificarCambioUbicacion(datosCliente);
         if (ubicacionVerificacion.huboChangio) {
-          console.log("📍 Datos de dirección han cambiado, actualizando...");
+          console.log("Datos de dirección han cambiado, actualizando...");
           await this.actualizarDireccion(
             direccionId,
             ubicacionVerificacion.datosNuevos
           );
-          console.log("✅ Dirección actualizada exitosamente");
+          console.log("Dirección actualizada exitosamente");
         } else {
           console.log(
-            "📍 No hay cambios en la dirección, manteniéndola como está"
+            " No hay cambios en la dirección, manteniéndola como está"
           );
         }
       }
@@ -309,7 +307,7 @@ class ClientesManager {
       } else {
         // Cliente existente: enviar solo los campos que cambiaron
         datosBackend = this.obtenerCambiosCliente(datosCliente);
-        console.log("🔄 Solo enviando campos modificados:", datosBackend);
+        console.log("Solo enviando campos modificados:", datosBackend);
       }
 
       console.log("Datos del formulario recibidos:", datosCliente);
@@ -384,7 +382,7 @@ class ClientesManager {
       } else {
         // Modo EDICIÓN: solo validar si no hay cambios
         if (Object.keys(datosBackend).length === 0) {
-          console.log("ℹ️ No hay cambios para guardar");
+          console.log("ℹ No hay cambios para guardar");
           this.mostrarInfo("No se detectaron cambios en los datos del cliente");
           this.mostrarLoadingFormulario(false);
           return;
@@ -419,7 +417,7 @@ class ClientesManager {
         }
 
         // En modo edición solo validar observaciones (siempre se envían)
-        console.log("✅ Validación de edición: solo campos modificados");
+        console.log("Validación de edición: solo campos modificados");
       }
 
       if (erroresValidacion.length > 0) {
@@ -430,7 +428,7 @@ class ClientesManager {
       }
 
       console.log(
-        "✅ Validación frontend exitosa, enviando datos al backend..."
+        " Validación frontend exitosa, enviando datos al backend..."
       );
 
       const url = this.clienteEditando
@@ -444,8 +442,8 @@ class ClientesManager {
       if (response.success) {
         const esNuevo = !this.clienteEditando;
         const mensaje = esNuevo
-          ? "✅ Cliente creado exitosamente"
-          : "✅ Cliente actualizado exitosamente";
+          ? " Cliente creado exitosamente"
+          : " Cliente actualizado exitosamente";
 
         // Cerrar modal INMEDIATAMENTE
         this.cerrarModal();
@@ -457,7 +455,7 @@ class ClientesManager {
         await this.cargarClientes();
 
         console.log(
-          `✅ Cliente ${
+          ` Cliente ${
             esNuevo ? "creado" : "actualizado"
           } y modal cerrado correctamente`
         );
@@ -553,12 +551,12 @@ class ClientesManager {
     const ubicacionCambio = this.verificarCambioUbicacion(datosFormulario);
     if (ubicacionCambio.huboChangio) {
       console.log(
-        "📍 Se detectaron cambios en la ubicación, estos se manejarán por separado"
+        " Se detectaron cambios en la ubicación, estos se manejarán por separado"
       );
       // Los cambios de ubicación se manejan en la función de dirección
     }
 
-    console.log("📋 Cambios finales a enviar:", cambios);
+    console.log("Cambios finales a enviar:", cambios);
     return cambios;
   }
 
@@ -640,11 +638,11 @@ class ClientesManager {
     if (!confirmado) return;
 
     try {
-      console.log(`🔄 Eliminando cliente ${clienteId}`);
+      console.log(` Eliminando cliente ${clienteId}`);
 
       const response = await window.apiClient.delete(`/clientes/${clienteId}`);
 
-      console.log("📋 Respuesta del servidor:", response);
+      console.log("Respuesta del servidor:", response);
 
       // Verificar si la respuesta indica éxito
       if (
@@ -664,7 +662,7 @@ class ClientesManager {
       // Si el mensaje de error contiene "exitosamente", es en realidad un éxito mal manejado
       if (error.message && error.message.includes("exitosamente")) {
         console.log(
-          "⚠️ Éxito detectado erróneamente como error, procesando como éxito"
+          " Éxito detectado erróneamente como error, procesando como éxito"
         );
         this.mostrarExito("Cliente eliminado exitosamente");
         await this.cargarClientes();
@@ -690,7 +688,7 @@ class ClientesManager {
 
     try {
       console.log(
-        `🔄 Cambiando estado de cliente ${clienteId} de ${estadoActual} a ${nuevoEstado}`
+        ` Cambiando estado de cliente ${clienteId} de ${estadoActual} a ${nuevoEstado}`
       );
 
       // Ahora que el backend permite actualizar solo el estado, enviamos solo ese campo
@@ -698,7 +696,7 @@ class ClientesManager {
         estado: nuevoEstado,
       });
 
-      console.log("📋 Respuesta del servidor:", response);
+      console.log("Respuesta del servidor:", response);
 
       // Verificar si la respuesta indica éxito
       if (
@@ -722,7 +720,7 @@ class ClientesManager {
       // Si el mensaje de error contiene "exitosamente", es en realidad un éxito mal manejado
       if (error.message && error.message.includes("exitosamente")) {
         console.log(
-          "⚠️ Éxito detectado erróneamente como error, procesando como éxito"
+          " Éxito detectado erróneamente como error, procesando como éxito"
         );
         this.mostrarExito(
           `Cliente ${
@@ -808,9 +806,7 @@ class ClientesManager {
     });
   }
 
-  // ===============================
-  // RENDERIZADO DE DATOS
-  // ===============================
+  // Renderizado de datos
 
   renderizarTablaClientes(clientes) {
     const tbody = document.getElementById("tablaClientes");
@@ -922,9 +918,7 @@ class ClientesManager {
       .join("");
   }
 
-  // ===============================
-  // MODAL Y FORMULARIOS NATIVOS
-  // ===============================
+  // Modal y formularios nativos
 
   abrirModal(titulo = "Cliente") {
     if (!this.modal) return;
@@ -939,16 +933,16 @@ class ClientesManager {
   }
 
   cerrarModal() {
-    console.log("🔴 Iniciando cierre de modal...");
+    console.log("Iniciando cierre de modal...");
 
     if (!this.modal) {
-      console.warn("❌ Modal no encontrado");
+      console.warn("Modal no encontrado");
       return;
     }
 
     // Ocultar modal con animación
     this.modal.classList.add("hidden");
-    console.log("✅ Modal ocultado");
+    console.log("Modal ocultado");
 
     // Restaurar scroll del body
     document.body.style.overflow = "";
@@ -987,7 +981,7 @@ class ClientesManager {
       direccionInfo.remove();
     }
 
-    console.log("✅ Modal cerrado y limpiado correctamente");
+    console.log("Modal cerrado y limpiado correctamente");
   }
 
   async manejarSubmitFormulario() {
@@ -1060,7 +1054,7 @@ class ClientesManager {
       // Saltar validación si el campo está deshabilitado (campos no editables en modo edición)
       if (elemento && elemento.disabled) {
         console.log(
-          `⏭️ Saltando validación de campo deshabilitado: ${campo.label}`
+          ` Saltando validación de campo deshabilitado: ${campo.label}`
         );
         return;
       }
@@ -1175,7 +1169,7 @@ class ClientesManager {
       // Quitar atributo required cuando se ocultan los campos
       if (campo) {
         campo.removeAttribute("required");
-        console.log(`🔧 Atributo 'required' removido de ${campoId}`);
+        console.log(` Atributo 'required' removido de ${campoId}`);
       }
     });
 
@@ -1206,7 +1200,7 @@ class ClientesManager {
       // Restaurar atributo required cuando se muestran los campos
       if (campo) {
         campo.setAttribute("required", "");
-        console.log(`🔧 Atributo 'required' restaurado en ${campoId}`);
+        console.log(` Atributo 'required' restaurado en ${campoId}`);
       }
     });
 
@@ -1252,7 +1246,7 @@ class ClientesManager {
         // Verificar que el cliente tenga direccion_id
         if (!cliente.direccion_id) {
           console.warn(
-            "⚠️ Cliente no tiene direccion_id, usando valor por defecto"
+            " Cliente no tiene direccion_id, usando valor por defecto"
           );
           cliente.direccion_id = 1; // Valor temporal para evitar errores
         }
@@ -1330,7 +1324,7 @@ class ClientesManager {
       const inputDetalle = document.getElementById("detalleDireccion");
       const inputObservaciones = document.getElementById("observaciones");
 
-      console.log("🔄 Cargando datos de ubicación para edición:", {
+      console.log("Cargando datos de ubicación para edición:", {
         direccion_id: datosCliente.direccion_id,
         observaciones: datosCliente.observaciones,
       });
@@ -1339,7 +1333,7 @@ class ClientesManager {
       if (inputObservaciones) {
         inputObservaciones.value = datosCliente.observaciones || "";
         console.log(
-          "✅ Observaciones cargadas:",
+          " Observaciones cargadas:",
           datosCliente.observaciones || "Sin observaciones"
         );
       }
@@ -1349,12 +1343,12 @@ class ClientesManager {
         await this.cargarDireccionCompleta(datosCliente.direccion_id);
       } else {
         // Fallback: usar datos que vienen con el cliente si no hay direccion_id
-        console.log("🔄 Usando datos de dirección del cliente como fallback");
+        console.log("Usando datos de dirección del cliente como fallback");
         await this.cargarDireccionDesdeDatosCliente(datosCliente);
       }
 
       console.log(
-        "✅ Datos de ubicación y observaciones cargados para edición"
+        " Datos de ubicación y observaciones cargados para edición"
       );
     } catch (error) {
       console.error("Error al cargar datos para edición:", error);
@@ -1365,7 +1359,7 @@ class ClientesManager {
   // Nueva función para cargar dirección completa desde el API
   async cargarDireccionCompleta(direccionId) {
     try {
-      console.log("🔄 Cargando dirección completa para ID:", direccionId);
+      console.log("Cargando dirección completa para ID:", direccionId);
 
       const response = await window.apiClient.get(
         `/direcciones/${direccionId}`
@@ -1373,7 +1367,7 @@ class ClientesManager {
 
       if (response.success) {
         const direccion = response.data;
-        console.log("📍 Datos de dirección recibidos:", direccion);
+        console.log("Datos de dirección recibidos:", direccion);
 
         const selectProvincia = document.getElementById("provinciaId");
         const selectDistrito = document.getElementById("distritoId");
@@ -1387,12 +1381,12 @@ class ClientesManager {
 
           selectProvincia.value = direccion.provincia_id;
           selectProvincia.disabled = false;
-          console.log("✅ Provincia seleccionada:", direccion.nombre_provincia);
+          console.log("Provincia seleccionada:", direccion.nombre_provincia);
 
           // 2. CARGAR Y SELECCIONAR DISTRITO
           if (direccion.distrito_id) {
             console.log(
-              "🔄 Cargando distritos para provincia:",
+              " Cargando distritos para provincia:",
               direccion.provincia_id
             );
             await this.cargarDistritos(direccion.provincia_id);
@@ -1402,12 +1396,12 @@ class ClientesManager {
 
             selectDistrito.value = direccion.distrito_id;
             selectDistrito.disabled = false;
-            console.log("✅ Distrito seleccionado:", direccion.nombre_distrito);
+            console.log("Distrito seleccionado:", direccion.nombre_distrito);
 
             // 3. CARGAR Y SELECCIONAR CORREGIMIENTO
             if (direccion.corregimiento_id) {
               console.log(
-                "🔄 Cargando corregimientos para distrito:",
+                " Cargando corregimientos para distrito:",
                 direccion.distrito_id
               );
               await this.cargarCorregimientos(direccion.distrito_id);
@@ -1418,30 +1412,30 @@ class ClientesManager {
               selectCorregimiento.value = direccion.corregimiento_id;
               selectCorregimiento.disabled = false;
               console.log(
-                "✅ Corregimiento seleccionado:",
+                " Corregimiento seleccionado:",
                 direccion.nombre_corregimiento
               );
             } else {
-              console.warn("⚠️ No hay corregimiento_id en la dirección");
+              console.warn("No hay corregimiento_id en la dirección");
             }
           } else {
-            console.warn("⚠️ No hay distrito_id en la dirección");
+            console.warn("No hay distrito_id en la dirección");
           }
         } else {
-          console.warn("⚠️ No hay provincia_id en la dirección");
+          console.warn("No hay provincia_id en la dirección");
         }
 
         // 4. ESTABLECER DETALLE DE DIRECCIÓN
         if (inputDetalle) {
           inputDetalle.value = direccion.detalle_direccion || "";
           console.log(
-            "✅ Detalle de dirección cargado:",
+            " Detalle de dirección cargado:",
             direccion.detalle_direccion
           );
         }
 
         // 5. VERIFICAR QUE TODOS LOS CAMPOS ESTÉN CORRECTAMENTE ESTABLECIDOS
-        console.log("📋 Verificación final de selectores:", {
+        console.log("Verificación final de selectores:", {
           provincia: {
             valor: selectProvincia?.value,
             texto:
@@ -1471,13 +1465,13 @@ class ClientesManager {
           detalle_direccion: direccion.detalle_direccion,
         };
 
-        console.log("✅ Dirección completa cargada y configurada exitosamente");
+        console.log("Dirección completa cargada y configurada exitosamente");
       } else {
-        console.warn("⚠️ No se pudo cargar la dirección:", response.message);
+        console.warn("No se pudo cargar la dirección:", response.message);
         this.mostrarError("No se pudo cargar los datos de dirección");
       }
     } catch (error) {
-      console.error("❌ Error al cargar dirección completa:", error);
+      console.error("Error al cargar dirección completa:", error);
       this.mostrarError(
         "Error al cargar los datos de dirección: " + error.message
       );
@@ -1488,7 +1482,7 @@ class ClientesManager {
   async cargarDireccionDesdeDatosCliente(datosCliente) {
     try {
       console.log(
-        "🔄 Cargando dirección desde datos del cliente:",
+        " Cargando dirección desde datos del cliente:",
         datosCliente
       );
 
@@ -1503,7 +1497,7 @@ class ClientesManager {
         selectProvincia.value = datosCliente.provincia_id;
         selectProvincia.disabled = false;
         console.log(
-          "✅ Provincia seleccionada desde datos cliente:",
+          " Provincia seleccionada desde datos cliente:",
           datosCliente.provincia_nombre
         );
 
@@ -1515,7 +1509,7 @@ class ClientesManager {
           selectDistrito.value = datosCliente.distrito_id;
           selectDistrito.disabled = false;
           console.log(
-            "✅ Distrito seleccionado desde datos cliente:",
+            " Distrito seleccionado desde datos cliente:",
             datosCliente.distrito_nombre
           );
 
@@ -1527,7 +1521,7 @@ class ClientesManager {
             selectCorregimiento.value = datosCliente.corregimiento_id;
             selectCorregimiento.disabled = false;
             console.log(
-              "✅ Corregimiento seleccionado desde datos cliente:",
+              " Corregimiento seleccionado desde datos cliente:",
               datosCliente.corregimiento_nombre
             );
           }
@@ -1538,7 +1532,7 @@ class ClientesManager {
       if (inputDetalle && datosCliente.detalle_direccion) {
         inputDetalle.value = datosCliente.detalle_direccion;
         console.log(
-          "✅ Detalle de dirección cargado desde datos cliente:",
+          " Detalle de dirección cargado desde datos cliente:",
           datosCliente.detalle_direccion
         );
       }
@@ -1551,10 +1545,10 @@ class ClientesManager {
         detalle_direccion: datosCliente.detalle_direccion,
       };
 
-      console.log("✅ Dirección cargada desde datos del cliente exitosamente");
+      console.log("Dirección cargada desde datos del cliente exitosamente");
     } catch (error) {
       console.error(
-        "❌ Error al cargar dirección desde datos del cliente:",
+        " Error al cargar dirección desde datos del cliente:",
         error
       );
     }
@@ -1583,7 +1577,7 @@ class ClientesManager {
       }
     });
 
-    console.log("✅ Campos configurados para modo edición");
+    console.log("Campos configurados para modo edición");
   }
 
   rellenarFormulario(datos) {
@@ -1597,9 +1591,7 @@ class ClientesManager {
     });
   }
 
-  // ===============================
-  // FILTROS Y BÚSQUEDA
-  // ===============================
+  // Filtros y busqueda
 
   handleBusqueda(valor) {
     this.filtros.busqueda = valor;
@@ -1642,9 +1634,7 @@ class ClientesManager {
     }, 300);
   }
 
-  // ===============================
-  // PAGINACIÓN
-  // ===============================
+  // Paginacion
 
   cambiarPagina(nuevaPagina) {
     if (nuevaPagina < 1 || nuevaPagina > this.totalPages) return;
@@ -1704,13 +1694,11 @@ class ClientesManager {
     }
   }
 
-  // ===============================
-  // DATOS AUXILIARES
-  // ===============================
+  // Datos auxiliares
 
   async cargarProvincias() {
     try {
-      console.log("🔄 Cargando provincias...");
+      console.log("Cargando provincias...");
 
       let response;
       try {
@@ -1754,7 +1742,7 @@ class ClientesManager {
           // Habilitar el selector de provincias
           selectProvincia.disabled = false;
           console.log(
-            `✅ ${response.data.length} provincias cargadas exitosamente`
+            ` ${response.data.length} provincias cargadas exitosamente`
           );
         }
       } else {
@@ -1783,7 +1771,7 @@ class ClientesManager {
     }
 
     try {
-      console.log(`🔄 Cargando distritos para provincia ${provinciaId}...`);
+      console.log(` Cargando distritos para provincia ${provinciaId}...`);
 
       let response;
       try {
@@ -1847,7 +1835,7 @@ class ClientesManager {
         `;
         selectDistrito.disabled = false;
         console.log(
-          `✅ ${response.data.length} distritos cargados para provincia ${provinciaId}`
+          ` ${response.data.length} distritos cargados para provincia ${provinciaId}`
         );
 
         // Limpiar corregimientos cuando se cambia el distrito
@@ -1872,7 +1860,7 @@ class ClientesManager {
     }
 
     try {
-      console.log(`🔄 Cargando corregimientos para distrito ${distritoId}...`);
+      console.log(` Cargando corregimientos para distrito ${distritoId}...`);
 
       let response;
       try {
@@ -2079,11 +2067,11 @@ class ClientesManager {
         `;
         selectCorregimiento.disabled = false;
         console.log(
-          `✅ ${response.data.length} corregimientos cargados para distrito ${distritoId}`
+          ` ${response.data.length} corregimientos cargados para distrito ${distritoId}`
         );
       } else {
         console.warn(
-          `⚠️ No se encontraron corregimientos para distrito ${distritoId}`
+          ` No se encontraron corregimientos para distrito ${distritoId}`
         );
         selectCorregimiento.innerHTML =
           '<option value="">No hay corregimientos disponibles</option>';
@@ -2095,9 +2083,7 @@ class ClientesManager {
     }
   }
 
-  // ===============================
-  // GESTIÓN DE DIRECCIONES
-  // ===============================
+  // Gestion de direcciones
 
   // Función para verificar si la dirección ha cambiado
   async verificarCambioDireccion(datosCliente, direccionId) {
@@ -2105,7 +2091,7 @@ class ClientesManager {
       // Si no tenemos datos de dirección nuevos, no hay cambio (mantener originales)
       if (!datosCliente.corregimientoId && !datosCliente.detalleDireccion) {
         console.log(
-          "🔍 No hay datos de dirección en el formulario, manteniendo originales"
+          " No hay datos de dirección en el formulario, manteniendo originales"
         );
         return false;
       }
@@ -2126,7 +2112,7 @@ class ClientesManager {
         corregimientoIdNuevo !== corregimientoIdOriginal ||
         detalleNuevo !== detalleOriginal;
 
-      console.log("🔍 Verificando cambio de dirección:", {
+      console.log("Verificando cambio de dirección:", {
         original: {
           corregimiento_id: corregimientoIdOriginal,
           detalle: detalleOriginal,
@@ -2149,7 +2135,7 @@ class ClientesManager {
   async actualizarDireccion(direccionId, datosDireccion) {
     try {
       console.log(
-        `🔄 Actualizando dirección ${direccionId} con datos:`,
+        ` Actualizando dirección ${direccionId} con datos:`,
         datosDireccion
       );
 
@@ -2158,14 +2144,14 @@ class ClientesManager {
         datosDireccion
       );
 
-      console.log("📋 Respuesta del servidor:", response);
+      console.log("Respuesta del servidor:", response);
 
       // Verificar si la respuesta indica éxito
       if (
         response.success === true ||
         response.message?.includes("exitosamente")
       ) {
-        console.log("✅ Dirección actualizada exitosamente");
+        console.log("Dirección actualizada exitosamente");
         return true;
       } else {
         throw new Error(
@@ -2178,9 +2164,9 @@ class ClientesManager {
       // Si el mensaje de error contiene "exitosamente", es en realidad un éxito mal manejado
       if (error.message && error.message.includes("exitosamente")) {
         console.log(
-          "⚠️ Éxito detectado erróneamente como error, procesando como éxito"
+          " Éxito detectado erróneamente como error, procesando como éxito"
         );
-        console.log("✅ Dirección actualizada exitosamente");
+        console.log("Dirección actualizada exitosamente");
         return true;
       } else {
         throw error;
@@ -2190,19 +2176,19 @@ class ClientesManager {
 
   async crearDireccion(datosDireccion) {
     try {
-      console.log("🔄 Creando dirección con datos:", datosDireccion);
+      console.log("Creando dirección con datos:", datosDireccion);
 
       const response = await window.apiClient.post(
         "/direcciones",
         datosDireccion
       );
 
-      console.log("📋 Respuesta del servidor:", response);
+      console.log("Respuesta del servidor:", response);
 
       // Verificar si tenemos el ID de la dirección creada
       if (response.direccion_id) {
         console.log(
-          "✅ Dirección creada exitosamente con ID:",
+          " Dirección creada exitosamente con ID:",
           response.direccion_id
         );
         return response.direccion_id;
@@ -2214,7 +2200,7 @@ class ClientesManager {
 
       // Si el mensaje de error contiene "exitosamente" pero no tenemos el ID, necesitamos manejar esto
       if (error.message && error.message.includes("exitosamente")) {
-        console.log("⚠️ Mensaje de éxito detectado pero sin ID de dirección");
+        console.log("Mensaje de éxito detectado pero sin ID de dirección");
         throw new Error(
           "Error al obtener el ID de la dirección creada, aunque la creación fue exitosa"
         );
@@ -2342,39 +2328,37 @@ class ClientesManager {
     }
   }
 
-  // ===============================
-  // UTILIDADES Y HELPERS
-  // ===============================
+  // Utilidades y helpers
 
   // Función para probar la carga de selectores manualmente (útil para debugging)
   async probarCargaSelectores() {
-    console.log("🧪 Probando carga manual de selectores...");
+    console.log("Probando carga manual de selectores...");
 
     try {
       // Probar provincias
-      console.log("1️⃣ Probando provincias...");
+      console.log("1⃣ Probando provincias...");
       await this.cargarProvincias();
 
       // Probar distritos (usando provincia 1 - Panamá)
-      console.log("2️⃣ Probando distritos para Panamá...");
+      console.log("2⃣ Probando distritos para Panamá...");
       await this.cargarDistritos(1);
 
       // Probar corregimientos (usando distrito 1 - Panamá)
-      console.log("3️⃣ Probando corregimientos para Panamá...");
+      console.log("3⃣ Probando corregimientos para Panamá...");
       await this.cargarCorregimientos(1);
 
       // Verificar estado final
       this.verificarSelectores();
 
-      console.log("✅ Prueba de carga completada");
+      console.log("Prueba de carga completada");
     } catch (error) {
-      console.error("❌ Error en prueba de carga:", error);
+      console.error("Error en prueba de carga:", error);
     }
   }
 
   // Función para recargar todos los datos
   async recargarTodosLosDatos() {
-    console.log("🔄 Recargando todos los datos...");
+    console.log("Recargando todos los datos...");
 
     try {
       await this.cargarTiposClientes();
@@ -2382,10 +2366,10 @@ class ClientesManager {
       await this.cargarProvincias();
       await this.cargarClientes();
 
-      console.log("✅ Todos los datos recargados exitosamente");
+      console.log("Todos los datos recargados exitosamente");
       this.verificarSelectores();
     } catch (error) {
-      console.error("❌ Error al recargar datos:", error);
+      console.error("Error al recargar datos:", error);
       this.mostrarError("Error al recargar los datos: " + error.message);
     }
   }
@@ -2403,7 +2387,7 @@ class ClientesManager {
     // Limpiar filtros
     this.limpiarFiltros();
 
-    console.log("🔄 Estado del módulo reseteado");
+    console.log("Estado del módulo reseteado");
   }
 
   getIniciales(primerNombre, primerApellido) {
@@ -2461,9 +2445,7 @@ class ClientesManager {
     }
   }
 
-  // ===============================
-  // NOTIFICACIONES
-  // ===============================
+  // Notificaciones
 
   mostrarExito(mensaje) {
     if (window.toastManager) {

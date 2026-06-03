@@ -1,6 +1,4 @@
-<!-- ============================================ -->
 <!-- PAGINATION COMPONENT - TecnoTaller -->
-<!-- ============================================ -->
 
 <!-- Paginación básica -->
 <div class="pagination-container flex items-center justify-between bg-white p-4 border-t border-gray-200">
@@ -441,9 +439,7 @@
 </style>
 
 <script>
-    // ============================================
-    // PAGINATION API
-    // ============================================
+    // Pagination API
     class PaginationAPI {
         constructor(container, config = {}) {
             this.container = typeof container === 'string' ? document.querySelector(container) : container;
@@ -924,12 +920,12 @@
         // Eventos
         pagination.onPageChange((page) => {
             console.log('Página cambiada a:', page);
-            // 🔧 CARGAR DATOS DE LA NUEVA PÁGINA
+            // Cargar datos de la nueva pagina
         });
     
         pagination.onPageSizeChange((size) => {
             console.log('Tamaño de página cambiado a:', size);
-            // 🔧 ACTUALIZAR DATOS CON NUEVO TAMAÑO
+            // Actualizar datos con nuevo tamano
         });
     
         // Paginación tipo "Load More"
@@ -942,7 +938,7 @@
         });
     
         loadMorePagination.onLoadMore(async (page) => {
-            // 🔧 CARGAR MÁS DATOS
+            // Cargar mas datos
             console.log('Cargando página:', page);
             
             // Simular llamada API

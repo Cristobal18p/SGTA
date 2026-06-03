@@ -1,7 +1,4 @@
-// ============================================
-// MÓDULO DE FACTURAS - TecnoTaller
-// Gestión completa de facturas del sistema
-// ============================================
+// Modulo de facturas - gestion completa de facturas del sistema
 
 class FacturasModule {
   constructor() {
@@ -90,7 +87,7 @@ class FacturasModule {
   }
 
   async init() {
-    console.log("📄 Inicializando módulo de facturas...");
+    console.log("Inicializando módulo de facturas...");
 
     // Esperar a que el DOM esté listo
     if (document.readyState === "loading") {
@@ -101,17 +98,17 @@ class FacturasModule {
   }
 
   setupElements() {
-    console.log("🔧 Configurando elementos del DOM...");
-    console.log("🌐 URL base:", this.baseUrl);
+    console.log("Configurando elementos del DOM...");
+    console.log("URL base:", this.baseUrl);
 
     // Referencias a elementos del DOM
     this.modal = document.getElementById("modalFactura");
     this.form = document.getElementById("formFactura");
     this.tabla = document.getElementById("tablaFacturas");
 
-    console.log("🔧 Modal encontrado:", !!this.modal);
-    console.log("🔧 Formulario encontrado:", !!this.form);
-    console.log("🔧 Tabla encontrada:", !!this.tabla);
+    console.log("Modal encontrado:", !!this.modal);
+    console.log("Formulario encontrado:", !!this.form);
+    console.log("Tabla encontrada:", !!this.tabla);
 
     // Configurar event listeners
     this.setupEventListeners();
@@ -121,7 +118,7 @@ class FacturasModule {
   }
 
   setupEventListeners() {
-    console.log("🔧 Configurando event listeners...");
+    console.log("Configurando event listeners...");
 
     // Botón nueva factura
     const btnNueva = document.getElementById("btnNuevaFactura");
@@ -143,9 +140,9 @@ class FacturasModule {
     // Formulario: submit
     if (this.form) {
       this.form.addEventListener("submit", (e) => this.handleSubmit(e));
-      console.log("✅ Event listener de submit agregado al formulario");
+      console.log("Event listener de submit agregado al formulario");
     } else {
-      console.error("❌ Formulario no encontrado para agregar event listener");
+      console.error("Formulario no encontrado para agregar event listener");
     }
 
     // Botón exportar (si existe)
@@ -208,7 +205,7 @@ class FacturasModule {
     // Configurar filtros de fecha avanzados
     this.setupAdvancedFilters();
 
-    console.log("✅ Event listeners configurados");
+    console.log("Event listeners configurados");
   }
 
   setupAdvancedFilters() {
@@ -251,7 +248,7 @@ class FacturasModule {
     if (filterMetodoPago) {
       filterMetodoPago.addEventListener("change", () => {
         console.log(
-          "🔍 Filtro de método de pago cambiado:",
+          " Filtro de método de pago cambiado:",
           filterMetodoPago.value
         );
         this.filterFacturas();
@@ -298,7 +295,7 @@ class FacturasModule {
 
   async loadInitialData() {
     try {
-      console.log("📊 Cargando datos iniciales...");
+      console.log("Cargando datos iniciales...");
 
       // Cargar datos básicos
       await Promise.all([
@@ -307,9 +304,9 @@ class FacturasModule {
         this.loadSelectorsData(),
       ]);
 
-      console.log("✅ Datos iniciales cargados correctamente");
+      console.log("Datos iniciales cargados correctamente");
     } catch (error) {
-      console.error("❌ Error cargando datos iniciales:", error);
+      console.error("Error cargando datos iniciales:", error);
       this.showToast(
         "Error al cargar los datos iniciales. Verifique que el servidor esté corriendo.",
         "error"
@@ -319,7 +316,7 @@ class FacturasModule {
 
   async loadFacturas() {
     try {
-      console.log("🔄 Cargando facturas...");
+      console.log("Cargando facturas...");
 
       // Mostrar indicador de carga
       this.showLoadingIndicator();
@@ -338,7 +335,7 @@ class FacturasModule {
         document.getElementById("filterMetodoPago")?.value || "";
       const filterFecha = document.getElementById("filterFecha")?.value || "";
 
-      console.log("🔍 Filtros aplicados:", {
+      console.log("Filtros aplicados:", {
         busqueda: searchTerm,
         estado: filterEstado,
         metodoPago: filterMetodoPago,
@@ -354,7 +351,7 @@ class FacturasModule {
       }
 
       const url = `${this.baseUrl}/api/facturas?${params.toString()}`;
-      console.log("📡 URL de facturas:", url);
+      console.log("URL de facturas:", url);
 
       const response = await fetch(url);
 
@@ -363,7 +360,7 @@ class FacturasModule {
       }
 
       const data = await response.json();
-      console.log("📊 Respuesta de facturas:", data);
+      console.log("Respuesta de facturas:", data);
 
       if (data.success) {
         this.facturas = data.data.map((factura) => ({
@@ -396,7 +393,7 @@ class FacturasModule {
         this.updatePagination();
 
         console.log(
-          `✅ ${this.facturas.length} facturas cargadas de ${
+          ` ${this.facturas.length} facturas cargadas de ${
             this.totalRecords || 0
           } total`
         );
@@ -404,7 +401,7 @@ class FacturasModule {
         throw new Error("Respuesta inválida del servidor");
       }
     } catch (error) {
-      console.error("❌ Error cargando facturas:", error);
+      console.error("Error cargando facturas:", error);
       this.showToast("Error al cargar las facturas", "error");
     } finally {
       // Ocultar indicador de carga
@@ -431,7 +428,7 @@ class FacturasModule {
 
   async loadEstadisticas() {
     try {
-      console.log("📊 Cargando estadísticas...");
+      console.log("Cargando estadísticas...");
 
       // Verificar que los elementos HTML estén presentes
       this.verificarElementosEstadisticas();
@@ -446,7 +443,7 @@ class FacturasModule {
       }
 
       const data = await response.json();
-      console.log("📊 Estadísticas recibidas:", data);
+      console.log("Estadísticas recibidas:", data);
 
       if (data.success) {
         const stats = data.data.resumen;
@@ -456,8 +453,8 @@ class FacturasModule {
         this.updateEstadistica("facturasPendientes", stats.facturas_pendientes);
         this.updateEstadistica("montoPorCobrar", stats.monto_pendiente);
 
-        console.log("✅ Estadísticas cargadas correctamente");
-        console.log("📊 Stats procesadas:", {
+        console.log("Estadísticas cargadas correctamente");
+        console.log("Stats procesadas:", {
           totalFacturas: stats.total_facturas,
           ingresosMes: stats.monto_pagado,
           facturasPendientes: stats.facturas_pendientes,
@@ -467,7 +464,7 @@ class FacturasModule {
         throw new Error("Error en la respuesta de estadísticas");
       }
     } catch (error) {
-      console.error("❌ Error cargando estadísticas:", error);
+      console.error("Error cargando estadísticas:", error);
       // Datos por defecto en caso de error
       this.updateEstadistica("totalFacturas", 0);
       this.updateEstadistica("ingresosMes", 0);
@@ -507,21 +504,21 @@ class FacturasModule {
       "montoPorCobrar",
     ];
 
-    console.log("🔍 Verificando elementos de estadísticas en el DOM...");
+    console.log("Verificando elementos de estadísticas en el DOM...");
 
     elementosRequeridos.forEach((elementId) => {
       const element = document.getElementById(elementId);
       if (element) {
-        console.log(`✅ Elemento '${elementId}' encontrado`);
+        console.log(` Elemento '${elementId}' encontrado`);
       } else {
-        console.error(`❌ Elemento '${elementId}' NO encontrado en el DOM`);
+        console.error(` Elemento '${elementId}' NO encontrado en el DOM`);
       }
     });
   }
 
   async loadSelectorsData() {
     try {
-      console.log("📋 Cargando datos para selectores...");
+      console.log("Cargando datos para selectores...");
 
       // Cargar métodos de pago desde su API específica
       await this.loadMetodosPago();
@@ -535,7 +532,7 @@ class FacturasModule {
       }
 
       const data = await response.json();
-      console.log("📋 Datos de formulario recibidos:", data);
+      console.log("Datos de formulario recibidos:", data);
 
       if (data.success) {
         // Mapear clientes con validación
@@ -582,7 +579,7 @@ class FacturasModule {
         // Poblar selectores
         this.populateSelectors();
 
-        console.log("✅ Datos de selectores procesados:", {
+        console.log("Datos de selectores procesados:", {
           clientes: this.clientes.length,
           citas: this.citas.length,
           productos: this.productos.length,
@@ -592,9 +589,9 @@ class FacturasModule {
         throw new Error("Error en la respuesta de datos de formulario");
       }
     } catch (error) {
-      console.error("❌ Error general cargando datos de selectores:", error);
-      console.error("❌ Detalles del error:", error.message);
-      console.error("❌ Stack trace:", error.stack);
+      console.error("Error general cargando datos de selectores:", error);
+      console.error("Detalles del error:", error.message);
+      console.error("Stack trace:", error.stack);
 
       // Inicializar selectores vacíos en caso de error
       this.clientes = [];
@@ -615,7 +612,7 @@ class FacturasModule {
 
   async loadMetodosPago() {
     try {
-      console.log("💳 Cargando métodos de pago desde la API...");
+      console.log("Cargando métodos de pago desde la API...");
 
       const response = await fetch(`${this.baseUrl}/api/metodos_pagos`);
 
@@ -624,7 +621,7 @@ class FacturasModule {
       }
 
       const data = await response.json();
-      console.log("💳 Métodos de pago recibidos:", data);
+      console.log("Métodos de pago recibidos:", data);
 
       if (data.success) {
         // Mapear métodos de pago
@@ -633,25 +630,25 @@ class FacturasModule {
           descripcion: metodo.descripcion_metodo,
         }));
 
-        console.log("✅ Métodos de pago cargados:", this.metodosPago);
+        console.log("Métodos de pago cargados:", this.metodosPago);
       } else {
         throw new Error("Error en la respuesta de métodos de pago");
       }
     } catch (error) {
-      console.error("❌ Error cargando métodos de pago:", error);
+      console.error("Error cargando métodos de pago:", error);
       // Fallback con métodos por defecto
       this.metodosPago = [
         { id: 1, descripcion: "Efectivo" },
         { id: 2, descripcion: "Tarjeta de Crédito" },
         { id: 3, descripcion: "Transferencia" },
       ];
-      console.log("⚠️ Usando métodos de pago por defecto");
+      console.log("Usando métodos de pago por defecto");
     }
   }
 
   async loadSystemConfigurations() {
     try {
-      console.log("⚙️ Cargando configuraciones del sistema...");
+      console.log("Cargando configuraciones del sistema...");
 
       const response = await fetch(
         `${this.baseUrl}/api/configuracion/ESTADOS_FACTURA`
@@ -659,7 +656,7 @@ class FacturasModule {
 
       if (response.ok) {
         const data = await response.json();
-        console.log("⚙️ Configuraciones de estados recibidas:", data);
+        console.log("Configuraciones de estados recibidas:", data);
 
         if (data.success && data.data.length > 0) {
           // Actualizar selector de filtro de estado
@@ -668,7 +665,7 @@ class FacturasModule {
       }
     } catch (error) {
       console.log(
-        "⚠️ Configuraciones del sistema no disponibles, usando valores por defecto"
+        " Configuraciones del sistema no disponibles, usando valores por defecto"
       );
     }
   }
@@ -695,7 +692,7 @@ class FacturasModule {
   }
 
   populateSelectors() {
-    console.log("🔧 Poblando selectores...");
+    console.log("Poblando selectores...");
 
     // Poblar selector de clientes
     const clienteSelect = document.getElementById("clienteId");
@@ -748,42 +745,42 @@ class FacturasModule {
       });
     }
 
-    console.log("✅ Selectores poblados correctamente");
+    console.log("Selectores poblados correctamente");
   }
 
   updateEstadistica(elementId, value) {
     const element = document.getElementById(elementId);
-    console.log(`📊 Actualizando estadística: ${elementId} = ${value}`);
+    console.log(` Actualizando estadística: ${elementId} = ${value}`);
 
     if (element) {
       if (elementId.includes("ingresos") || elementId.includes("monto")) {
         const formattedValue = `$${value.toLocaleString()}`;
         element.textContent = formattedValue;
-        console.log(`✅ Elemento ${elementId} actualizado: ${formattedValue}`);
+        console.log(` Elemento ${elementId} actualizado: ${formattedValue}`);
       } else {
         const formattedValue = value.toLocaleString();
         element.textContent = formattedValue;
-        console.log(`✅ Elemento ${elementId} actualizado: ${formattedValue}`);
+        console.log(` Elemento ${elementId} actualizado: ${formattedValue}`);
       }
     } else {
       console.error(
-        `❌ Elemento con ID '${elementId}' no encontrado en el DOM`
+        ` Elemento con ID '${elementId}' no encontrado en el DOM`
       );
     }
   }
 
   updateTable() {
-    console.log("🔄 Actualizando tabla...");
+    console.log("Actualizando tabla...");
 
     if (!this.tabla) {
-      console.error("❌ Elemento tabla no encontrado");
+      console.error("Elemento tabla no encontrado");
       return;
     }
 
     this.tabla.innerHTML = "";
 
     if (this.facturas.length === 0) {
-      console.log("📊 No hay facturas para mostrar");
+      console.log("No hay facturas para mostrar");
       this.tabla.innerHTML = `
         <tr>
           <td colspan="8" class="px-6 py-8 text-center text-gray-500">
@@ -801,7 +798,7 @@ class FacturasModule {
       this.tabla.appendChild(row);
     });
 
-    console.log("✅ Tabla actualizada correctamente");
+    console.log("Tabla actualizada correctamente");
   }
 
   createFacturaRow(factura) {
@@ -965,7 +962,7 @@ class FacturasModule {
   }
 
   filterFacturas() {
-    console.log("🔍 Aplicando filtros y recargando datos del servidor...");
+    console.log("Aplicando filtros y recargando datos del servidor...");
 
     // Los filtros ahora se aplicarán en el servidor mediante loadFacturas()
     this.currentPage = 1; // Reiniciar a la primera página
@@ -973,7 +970,7 @@ class FacturasModule {
   }
 
   clearFilters() {
-    console.log("🧹 Limpiando filtros...");
+    console.log("Limpiando filtros...");
 
     // Limpiar todos los campos de filtro
     const searchInput = document.getElementById("searchFactura");
@@ -992,7 +989,7 @@ class FacturasModule {
   }
 
   showCreateModal() {
-    console.log("🔧 Abriendo modal para crear nueva factura");
+    console.log("Abriendo modal para crear nueva factura");
 
     this.editMode = false;
     this.currentFacturaId = null;
@@ -1014,7 +1011,7 @@ class FacturasModule {
     if (numeroFacturaInput) {
       numeroFacturaInput.value = numero;
     }
-    console.log("📋 Número de factura generado:", numero);
+    console.log("Número de factura generado:", numero);
   }
 
   setCurrentDate() {
@@ -1066,11 +1063,11 @@ class FacturasModule {
   async handleSubmit(e) {
     e.preventDefault();
 
-    console.log("🚀 === INICIANDO ENVÍO DE FACTURA ===");
+    console.log("=== INICIANDO ENVÍO DE FACTURA ===");
 
     try {
       const formData = this.getFormData();
-      console.log("📋 Datos de la factura:", formData);
+      console.log("Datos de la factura:", formData);
 
       // Validar que hay al menos un detalle
       if (!formData.detalles || formData.detalles.length === 0) {
@@ -1101,7 +1098,7 @@ class FacturasModule {
       }
 
       const result = await response.json();
-      console.log("✅ Respuesta del servidor:", result);
+      console.log("Respuesta del servidor:", result);
 
       if (result.success) {
         this.showToast("Factura creada correctamente", "success");
@@ -1114,7 +1111,7 @@ class FacturasModule {
         );
       }
     } catch (error) {
-      console.error("❌ Error en handleSubmit:", error);
+      console.error("Error en handleSubmit:", error);
       this.showToast(`Error al procesar la factura: ${error.message}`, "error");
     } finally {
       // Rehabilitar botón de envío
@@ -1206,7 +1203,7 @@ class FacturasModule {
   }
 
   agregarDetalle() {
-    console.log("➕ Agregando detalle a la factura");
+    console.log("Agregando detalle a la factura");
 
     // Crear una fila nueva para el detalle
     const detallesBody = document.getElementById("detallesFactura");
@@ -1366,14 +1363,14 @@ class FacturasModule {
     ).textContent = `$${totalFinal.toFixed(2)}`;
 
     console.log(
-      `💰 Totales calculados: Subtotal: $${subtotal.toFixed(
+      ` Totales calculados: Subtotal: $${subtotal.toFixed(
         2
       )}, Total: $${totalFinal.toFixed(2)}`
     );
   }
 
   eliminarDetalle(detalleId) {
-    console.log("🗑️ Eliminando detalle:", detalleId);
+    console.log("Eliminando detalle:", detalleId);
 
     const fila = document.querySelector(`tr[data-detalle-id="${detalleId}"]`);
     if (fila) {
@@ -1383,7 +1380,7 @@ class FacturasModule {
   }
 
   async viewFactura(facturaId) {
-    console.log("👁️ Viendo factura:", facturaId);
+    console.log("Viendo factura:", facturaId);
 
     try {
       const response = await fetch(`${this.baseUrl}/api/facturas/${facturaId}`);
@@ -1393,9 +1390,9 @@ class FacturasModule {
       }
 
       const data = await response.json();
-      console.log("📄 Datos de la factura:", data);
+      console.log("Datos de la factura:", data);
       console.log(
-        "📊 Estructura de data.data:",
+        " Estructura de data.data:",
         JSON.stringify(data.data, null, 2)
       );
 
@@ -1407,13 +1404,13 @@ class FacturasModule {
         );
       }
     } catch (error) {
-      console.error("❌ Error al ver factura:", error);
+      console.error("Error al ver factura:", error);
       this.showToast(`Error al cargar los detalles: ${error.message}`, "error");
     }
   }
 
   showFacturaDetails(facturaData) {
-    console.log("👁️ Mostrando detalles de factura:", facturaData);
+    console.log("Mostrando detalles de factura:", facturaData);
 
     // Determinar la estructura correcta de los datos
     let factura, detalles;
@@ -1431,7 +1428,7 @@ class FacturasModule {
       factura = facturaData;
       detalles = facturaData.detalles || [];
     } else {
-      console.error("❌ Estructura de datos no reconocida:", facturaData);
+      console.error("Estructura de datos no reconocida:", facturaData);
       this.showToast(
         "Error: estructura de datos de factura no válida",
         "error"
@@ -1558,7 +1555,7 @@ class FacturasModule {
   }
 
   async generarPDFFactura(facturaId) {
-    console.log("📄 Generando PDF de factura:", facturaId);
+    console.log("Generando PDF de factura:", facturaId);
 
     let originalText = null;
 
@@ -1581,9 +1578,9 @@ class FacturasModule {
       }
 
       const data = await response.json();
-      console.log("📄 Datos de la factura para PDF:", data);
+      console.log("Datos de la factura para PDF:", data);
       console.log(
-        "📊 Estructura de data.data:",
+        " Estructura de data.data:",
         JSON.stringify(data.data, null, 2)
       );
 
@@ -1595,7 +1592,7 @@ class FacturasModule {
         );
       }
     } catch (error) {
-      console.error("❌ Error generando PDF de factura:", error);
+      console.error("Error generando PDF de factura:", error);
       this.showToast(`Error al generar PDF: ${error.message}`, "error");
     } finally {
       // Restaurar botón
@@ -1610,12 +1607,12 @@ class FacturasModule {
   }
 
   async generarPDFFacturaCompleta(facturaData) {
-    console.log("🖨️ Generando PDF completo de la factura");
-    console.log("📊 Datos recibidos para PDF:", facturaData);
+    console.log("Generando PDF completo de la factura");
+    console.log("Datos recibidos para PDF:", facturaData);
 
     // Verificar si jsPDF está disponible
     if (typeof window.jsPDF === "undefined") {
-      console.error("❌ jsPDF no está disponible");
+      console.error("jsPDF no está disponible");
       this.showToast("Error: Librería jsPDF no disponible", "error");
       return;
     }
@@ -1639,12 +1636,12 @@ class FacturasModule {
       factura = facturaData;
       detalles = facturaData.detalles || [];
     } else {
-      console.error("❌ Estructura de datos no reconocida:", facturaData);
+      console.error("Estructura de datos no reconocida:", facturaData);
       throw new Error("Estructura de datos de factura no válida");
     }
 
-    console.log("📋 Factura procesada:", factura);
-    console.log("📋 Detalles procesados:", detalles);
+    console.log("Factura procesada:", factura);
+    console.log("Detalles procesados:", detalles);
 
     // Configuración del documento
     const pageWidth = doc.internal.pageSize.getWidth();
@@ -1883,12 +1880,12 @@ class FacturasModule {
     }.pdf`;
     doc.save(fileName);
 
-    console.log("✅ PDF de factura generado:", fileName);
+    console.log("PDF de factura generado:", fileName);
     this.showToast("PDF de factura generado correctamente", "success");
   }
 
   async deleteFactura(facturaId) {
-    console.log("🗑️ Eliminando factura:", facturaId);
+    console.log("Eliminando factura:", facturaId);
 
     if (
       !confirm(
@@ -1925,14 +1922,14 @@ class FacturasModule {
         throw new Error(result.error || "Error al anular la factura");
       }
     } catch (error) {
-      console.error("❌ Error al eliminar factura:", error);
+      console.error("Error al eliminar factura:", error);
       this.showToast(`Error al anular la factura: ${error.message}`, "error");
     }
   }
 
   // Función para mostrar/ocultar el menú de estado
   toggleEstadoMenu(facturaId) {
-    console.log(`🔧 Toggle menú de estado para factura ${facturaId}`);
+    console.log(` Toggle menú de estado para factura ${facturaId}`);
 
     // Cerrar otros menús abiertos
     document.querySelectorAll(".estado-menu:not(.hidden)").forEach((menu) => {
@@ -1967,7 +1964,7 @@ class FacturasModule {
 
   // Función para cambiar el estado de una factura
   async cambiarEstadoFactura(facturaId, nuevoEstado) {
-    console.log(`🔄 Cambiando estado de factura ${facturaId} a ${nuevoEstado}`);
+    console.log(` Cambiando estado de factura ${facturaId} a ${nuevoEstado}`);
 
     // Ocultar el menú inmediatamente
     const menu = document.getElementById(`estadoMenu-${facturaId}`);
@@ -2027,13 +2024,13 @@ class FacturasModule {
         await this.loadEstadisticas();
 
         console.log(
-          `✅ Estado de factura ${facturaId} cambiado a ${nuevoEstado}`
+          ` Estado de factura ${facturaId} cambiado a ${nuevoEstado}`
         );
       } else {
         throw new Error(result.error || "Error al cambiar el estado");
       }
     } catch (error) {
-      console.error("❌ Error al cambiar estado:", error);
+      console.error("Error al cambiar estado:", error);
       this.showToast(`Error al cambiar estado: ${error.message}`, "error");
 
       // Restaurar botón en caso de error
@@ -2048,7 +2045,7 @@ class FacturasModule {
   }
 
   async exportarFacturas() {
-    console.log("📊 Exportando facturas...");
+    console.log("Exportando facturas...");
 
     try {
       // Mostrar menú de opciones de exportación
@@ -2084,14 +2081,14 @@ class FacturasModule {
 
       document.body.appendChild(exportMenu);
     } catch (error) {
-      console.error("❌ Error al mostrar opciones de exportación:", error);
+      console.error("Error al mostrar opciones de exportación:", error);
       this.showToast("Error al mostrar opciones de exportación", "error");
     }
   }
 
   async exportToCSV() {
     try {
-      console.log("📄 Exportando facturas a CSV...");
+      console.log("Exportando facturas a CSV...");
 
       // Obtener todas las facturas sin paginación
       const response = await fetch(`${this.baseUrl}/api/facturas?limit=1000`);
@@ -2129,14 +2126,14 @@ class FacturasModule {
       this.downloadFile(csvContent, "facturas.csv", "text/csv");
       this.showToast("Facturas exportadas a CSV", "success");
     } catch (error) {
-      console.error("❌ Error exportando CSV:", error);
+      console.error("Error exportando CSV:", error);
       this.showToast("Error al exportar CSV", "error");
     }
   }
 
   async exportToExcel() {
     try {
-      console.log("📊 Exportando facturas a Excel...");
+      console.log("Exportando facturas a Excel...");
 
       // Para Excel necesitaríamos una librería como SheetJS
       // Por ahora, exportar como CSV con extensión xlsx
@@ -2146,19 +2143,19 @@ class FacturasModule {
         "info"
       );
     } catch (error) {
-      console.error("❌ Error exportando Excel:", error);
+      console.error("Error exportando Excel:", error);
       this.showToast("Error al exportar Excel", "error");
     }
   }
 
   async exportToPDF() {
     try {
-      console.log("📄 Exportando facturas a PDF...");
+      console.log("Exportando facturas a PDF...");
 
       // Reutilizar la funcionalidad del reporte de ventas
       await this.generarReporteVentas();
     } catch (error) {
-      console.error("❌ Error exportando PDF:", error);
+      console.error("Error exportando PDF:", error);
       this.showToast("Error al exportar PDF", "error");
     }
   }
@@ -2176,7 +2173,7 @@ class FacturasModule {
   }
 
   setupAutoComplete(searchInput) {
-    console.log("🔍 Configurando autocompletado para búsqueda");
+    console.log("Configurando autocompletado para búsqueda");
 
     let autocompleteContainer = null;
 
@@ -2283,7 +2280,7 @@ class FacturasModule {
         this.hideAutoCompleteResults();
       }
     } catch (error) {
-      console.error("❌ Error en autocompletado:", error);
+      console.error("Error en autocompletado:", error);
     }
   }
 
@@ -2333,16 +2330,16 @@ class FacturasModule {
 
   // Utility: Toast Messages
   showToast(message, type = "info") {
-    console.log(`🔔 Mostrando toast: "${message}" tipo: ${type}`);
+    console.log(` Mostrando toast: "${message}" tipo: ${type}`);
 
     // Usar el toast manager global si está disponible
     if (window.toastManager) {
-      console.log("   Usando toast manager global");
+      console.log("Usando toast manager global");
       window.toastManager.show(message, type);
       return;
     }
 
-    console.log("   Toast manager no disponible, usando alert fallback");
+    console.log("Toast manager no disponible, usando alert fallback");
 
     if (type === "error") {
       alert("Error: " + message);
@@ -2352,55 +2349,55 @@ class FacturasModule {
       alert(message);
     }
 
-    console.log("   Toast mostrado exitosamente");
+    console.log("Toast mostrado exitosamente");
   }
 
   // Función de prueba para las estadísticas (solo para desarrollo)
   async testEstadisticas() {
-    console.log("🧪 === PROBANDO CARGA DE ESTADÍSTICAS ===");
+    console.log("=== PROBANDO CARGA DE ESTADÍSTICAS ===");
     try {
       await this.loadEstadisticas();
-      console.log("✅ Prueba de estadísticas completada");
+      console.log("Prueba de estadísticas completada");
     } catch (error) {
-      console.error("❌ Error en prueba de estadísticas:", error);
+      console.error("Error en prueba de estadísticas:", error);
     }
   }
 
   // Función de prueba para filtros (solo para desarrollo)
   async testFiltros() {
-    console.log("🧪 === PROBANDO FILTROS ===");
+    console.log("=== PROBANDO FILTROS ===");
 
     try {
       // Probar filtro por estado
-      console.log("🔍 Probando filtro por estado...");
+      console.log("Probando filtro por estado...");
       document.getElementById("filterEstado").value = "PENDIENTE";
       await this.filterFacturas();
 
       // Probar filtro por método de pago
-      console.log("🔍 Probando filtro por método de pago...");
+      console.log("Probando filtro por método de pago...");
       document.getElementById("filterMetodoPago").value = "EFECTIVO";
       await this.filterFacturas();
 
       // Probar filtro por fecha
-      console.log("🔍 Probando filtro por fecha...");
+      console.log("Probando filtro por fecha...");
       const today = new Date().toISOString().split("T")[0];
       document.getElementById("filterFecha").value = today;
       await this.filterFacturas();
 
       // Limpiar filtros
-      console.log("🧹 Limpiando filtros...");
+      console.log("Limpiando filtros...");
       this.clearFilters();
 
-      console.log("✅ Prueba de filtros completada");
+      console.log("Prueba de filtros completada");
     } catch (error) {
-      console.error("❌ Error en prueba de filtros:", error);
+      console.error("Error en prueba de filtros:", error);
     }
   }
 
   // Función de prueba para debugging de estructura de datos
   async testFacturaStructure(facturaId = 1) {
-    console.log("🧪 === PROBANDO ESTRUCTURA DE DATOS DE FACTURA ===");
-    console.log(`🔍 Probando con facturaId: ${facturaId}`);
+    console.log("=== PROBANDO ESTRUCTURA DE DATOS DE FACTURA ===");
+    console.log(` Probando con facturaId: ${facturaId}`);
 
     try {
       const response = await fetch(`${this.baseUrl}/api/facturas/${facturaId}`);
@@ -2410,38 +2407,38 @@ class FacturasModule {
       }
 
       const data = await response.json();
-      console.log("📊 Respuesta completa del servidor:", data);
-      console.log("📊 Tipo de data.data:", typeof data.data);
-      console.log("📊 Es array data.data:", Array.isArray(data.data));
+      console.log("Respuesta completa del servidor:", data);
+      console.log("Tipo de data.data:", typeof data.data);
+      console.log("Es array data.data:", Array.isArray(data.data));
 
       if (data.success && data.data) {
-        console.log("📊 Estructura detallada de data.data:");
+        console.log("Estructura detallada de data.data:");
         console.log(JSON.stringify(data.data, null, 2));
 
         // Analizar posibles estructuras
         if (data.data.factura) {
           console.log(
-            "✅ Estructura detectada: { factura: {...}, detalles: [...] }"
+            " Estructura detectada: { factura: {...}, detalles: [...] }"
           );
-          console.log("📋 Factura:", data.data.factura);
-          console.log("📋 Detalles:", data.data.detalles);
+          console.log("Factura:", data.data.factura);
+          console.log("Detalles:", data.data.detalles);
         } else if (Array.isArray(data.data)) {
-          console.log("✅ Estructura detectada: Array");
-          console.log("📋 Primer elemento (factura):", data.data[0]);
-          console.log("📋 Resto (detalles):", data.data.slice(1));
+          console.log("Estructura detectada: Array");
+          console.log("Primer elemento (factura):", data.data[0]);
+          console.log("Resto (detalles):", data.data.slice(1));
         } else if (data.data.numero_factura || data.data.factura_id) {
-          console.log("✅ Estructura detectada: Objeto directo");
-          console.log("📋 Datos directos:", data.data);
-          console.log("📋 Detalles anidados:", data.data.detalles);
+          console.log("Estructura detectada: Objeto directo");
+          console.log("Datos directos:", data.data);
+          console.log("Detalles anidados:", data.data.detalles);
         } else {
-          console.log("❓ Estructura no reconocida");
+          console.log("Estructura no reconocida");
         }
       }
 
-      console.log("✅ Prueba de estructura completada");
+      console.log("Prueba de estructura completada");
       return data;
     } catch (error) {
-      console.error("❌ Error en prueba de estructura:", error);
+      console.error("Error en prueba de estructura:", error);
       return null;
     }
   }
@@ -2453,9 +2450,9 @@ window.facturasModule = facturasModule;
 
 // Función global de inicialización
 window.initFacturas = async function () {
-  console.log("🚀 Iniciando módulo de facturas desde función global");
+  console.log("Iniciando módulo de facturas desde función global");
   // La inicialización ya se hace en el constructor
   return facturasModule;
 };
 
-console.log("✅ Módulo de facturas cargado correctamente");
+console.log("Módulo de facturas cargado correctamente");

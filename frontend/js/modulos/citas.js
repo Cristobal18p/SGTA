@@ -1,7 +1,4 @@
-// ============================================
-// MÓDULO DE CITAS - TecnoTaller
-// Gestión completa de citas del sistema
-// ============================================
+// Modulo de citas - gestion completa de citas del sistema
 
 class CitasModule {
   constructor() {
@@ -40,7 +37,7 @@ class CitasModule {
   }
 
   async init() {
-    console.log("📅 Inicializando módulo de citas...");
+    console.log("Inicializando módulo de citas...");
 
     // Esperar a que el DOM esté listo
     if (document.readyState === "loading") {
@@ -62,12 +59,12 @@ class CitasModule {
     this.vistaCalendario = document.getElementById("vistaCalendario");
     this.vistaTabla = document.getElementById("vistaTabla");
 
-    console.log("🔧 Modal encontrado:", !!this.modal);
-    console.log("🔧 Formulario encontrado:", !!this.form);
-    console.log("🔧 Tabla encontrada:", !!this.tabla);
-    console.log("🔧 Modal detalle encontrado:", !!this.modalDetalle);
-    console.log("🔧 Vista calendario encontrada:", !!this.vistaCalendario);
-    console.log("🔧 Vista tabla encontrada:", !!this.vistaTabla);
+    console.log("Modal encontrado:", !!this.modal);
+    console.log("Formulario encontrado:", !!this.form);
+    console.log("Tabla encontrada:", !!this.tabla);
+    console.log("Modal detalle encontrado:", !!this.modalDetalle);
+    console.log("Vista calendario encontrada:", !!this.vistaCalendario);
+    console.log("Vista tabla encontrada:", !!this.vistaTabla);
 
     // Configurar event listeners
     this.setupEventListeners();
@@ -246,7 +243,7 @@ class CitasModule {
 
   async loadInitialData() {
     try {
-      console.log("📊 Cargando datos iniciales...");
+      console.log("Cargando datos iniciales...");
 
       // Verificar que el servidor esté disponible
       await this.checkServerHealth();
@@ -257,13 +254,13 @@ class CitasModule {
       // Cargar estadísticas después de tener las citas cargadas
       await this.loadEstadisticas();
 
-      console.log("✅ Datos iniciales cargados correctamente");
+      console.log("Datos iniciales cargados correctamente");
     } catch (error) {
-      console.error("❌ Error cargando datos iniciales:", error);
+      console.error("Error cargando datos iniciales:", error);
 
       // Intentar cargar al menos las estadísticas locales si hay datos
       if (this.citas && this.citas.length > 0) {
-        console.log("🔄 Intentando calcular estadísticas locales...");
+        console.log("Intentando calcular estadísticas locales...");
         this.calcularEstadisticasLocales();
       }
 
@@ -276,15 +273,15 @@ class CitasModule {
 
   async checkServerHealth() {
     try {
-      console.log("🔍 Verificando estado del servidor...");
+      console.log("Verificando estado del servidor...");
       const response = await fetch(`${this.baseUrl}/api/citas`);
       if (response.ok) {
-        console.log("✅ Servidor respondiendo correctamente");
+        console.log("Servidor respondiendo correctamente");
       } else {
         throw new Error(`Servidor respondió con estado: ${response.status}`);
       }
     } catch (error) {
-      console.error("❌ Error de conectividad del servidor:", error);
+      console.error("Error de conectividad del servidor:", error);
       throw new Error(
         "No se puede conectar al servidor. Verifique que esté corriendo en el puerto 3000."
       );
@@ -293,13 +290,13 @@ class CitasModule {
 
   async loadSelectorsData() {
     try {
-      console.log("📋 Cargando datos para selectores...");
+      console.log("Cargando datos para selectores...");
 
       // Cargar clientes desde el endpoint correcto que incluye todos los datos relacionados
-      console.log("🔄 Cargando clientes desde la API...");
+      console.log("Cargando clientes desde la API...");
       try {
         const clientesData = await this.apiCall("/api/clientes/modulo");
-        console.log("📋 Respuesta de clientes/modulo:", clientesData);
+        console.log("Respuesta de clientes/modulo:", clientesData);
 
         // Extraer el array de clientes de la respuesta
         if (Array.isArray(clientesData)) {
@@ -318,17 +315,17 @@ class CitasModule {
           this.clientes = [];
         }
 
-        console.log(`✅ ${this.clientes.length} clientes cargados`);
+        console.log(` ${this.clientes.length} clientes cargados`);
       } catch (error) {
-        console.error("❌ Error cargando clientes:", error);
+        console.error("Error cargando clientes:", error);
         this.clientes = [];
       }
 
       // Cargar vehículos con información del cliente
-      console.log("🔄 Cargando vehículos...");
+      console.log("Cargando vehículos...");
       try {
         const vehiculosData = await this.apiCall("/api/vehiculos");
-        console.log("📋 Respuesta de vehículos:", vehiculosData);
+        console.log("Respuesta de vehículos:", vehiculosData);
 
         // Extraer el array de vehículos de la respuesta
         if (Array.isArray(vehiculosData)) {
@@ -341,17 +338,17 @@ class CitasModule {
           this.vehiculos = [];
         }
 
-        console.log(`✅ ${this.vehiculos.length} vehículos cargados`);
+        console.log(` ${this.vehiculos.length} vehículos cargados`);
       } catch (error) {
-        console.error("❌ Error cargando vehículos:", error);
+        console.error("Error cargando vehículos:", error);
         this.vehiculos = [];
       }
 
       // Cargar sucursales
-      console.log("🔄 Cargando sucursales...");
+      console.log("Cargando sucursales...");
       try {
         const sucursalesData = await this.apiCall("/api/sucursales");
-        console.log("📋 Respuesta de sucursales:", sucursalesData);
+        console.log("Respuesta de sucursales:", sucursalesData);
 
         // Extraer el array de sucursales de la respuesta
         if (Array.isArray(sucursalesData)) {
@@ -364,17 +361,17 @@ class CitasModule {
           this.sucursales = [];
         }
 
-        console.log(`✅ ${this.sucursales.length} sucursales cargadas`);
+        console.log(` ${this.sucursales.length} sucursales cargadas`);
       } catch (error) {
-        console.error("❌ Error cargando sucursales:", error);
+        console.error("Error cargando sucursales:", error);
         this.sucursales = [];
       }
 
       // Cargar servicios
-      console.log("🔄 Cargando servicios...");
+      console.log("Cargando servicios...");
       try {
         const serviciosData = await this.apiCall("/api/servicios");
-        console.log("📋 Respuesta de servicios:", serviciosData);
+        console.log("Respuesta de servicios:", serviciosData);
 
         // Extraer el array de servicios de la respuesta
         if (Array.isArray(serviciosData)) {
@@ -387,9 +384,9 @@ class CitasModule {
           this.servicios = [];
         }
 
-        console.log(`✅ ${this.servicios.length} servicios cargados`);
+        console.log(` ${this.servicios.length} servicios cargados`);
       } catch (error) {
-        console.error("❌ Error cargando servicios:", error);
+        console.error("Error cargando servicios:", error);
         this.servicios = [];
       }
 
@@ -399,9 +396,9 @@ class CitasModule {
       this.populateServiciosSelector();
       this.populateFilterSelectors();
 
-      console.log("✅ Datos de selectores procesados");
+      console.log("Datos de selectores procesados");
     } catch (error) {
-      console.error("❌ Error general cargando datos de selectores:", error);
+      console.error("Error general cargando datos de selectores:", error);
     }
   }
 
@@ -412,7 +409,7 @@ class CitasModule {
     }
 
     try {
-      console.log(`🔄 Cargando vehículos para cliente ID: ${clienteId}`);
+      console.log(` Cargando vehículos para cliente ID: ${clienteId}`);
 
       // Filtrar vehículos por cliente ID
       const vehiculosCliente = this.vehiculos.filter((vehiculo) => {
@@ -421,7 +418,7 @@ class CitasModule {
       });
 
       console.log(
-        `📋 Vehículos encontrados para cliente ${clienteId}:`,
+        ` Vehículos encontrados para cliente ${clienteId}:`,
         vehiculosCliente
       );
 
@@ -429,7 +426,7 @@ class CitasModule {
 
       if (vehiculosCliente.length === 0) {
         console.log(
-          `⚠️ No se encontraron vehículos para el cliente ${clienteId}`
+          ` No se encontraron vehículos para el cliente ${clienteId}`
         );
         this.showToast(
           "El cliente seleccionado no tiene vehículos registrados",
@@ -437,7 +434,7 @@ class CitasModule {
         );
       }
     } catch (error) {
-      console.error("❌ Error cargando vehículos del cliente:", error);
+      console.error("Error cargando vehículos del cliente:", error);
       this.clearVehiculoSelector();
       this.showToast("Error al cargar los vehículos del cliente", "error");
     }
@@ -446,19 +443,19 @@ class CitasModule {
   populateClienteSelector() {
     const selector = document.getElementById("clienteId");
     if (!selector) {
-      console.error("❌ Selector clienteId no encontrado en el DOM");
+      console.error("Selector clienteId no encontrado en el DOM");
       return;
     }
 
     selector.innerHTML = '<option value="">Seleccionar cliente</option>';
 
     if (!Array.isArray(this.clientes)) {
-      console.error("❌ this.clientes no es un array:", this.clientes);
+      console.error("this.clientes no es un array:", this.clientes);
       return;
     }
 
     console.log(
-      `📋 Poblando selector de clientes con ${this.clientes.length} opciones`
+      ` Poblando selector de clientes con ${this.clientes.length} opciones`
     );
 
     this.clientes.forEach((cliente) => {
@@ -489,7 +486,7 @@ class CitasModule {
     });
 
     console.log(
-      `✅ Selector de clientes poblado con ${
+      ` Selector de clientes poblado con ${
         selector.options.length - 1
       } opciones`
     );
@@ -498,14 +495,14 @@ class CitasModule {
   populateVehiculoSelector(vehiculos = []) {
     const selector = document.getElementById("vehiculoId");
     if (!selector) {
-      console.error("❌ Selector vehiculoId no encontrado en el DOM");
+      console.error("Selector vehiculoId no encontrado en el DOM");
       return;
     }
 
     selector.innerHTML = '<option value="">Seleccionar vehículo</option>';
 
     console.log(
-      `📋 Poblando selector de vehículos con ${vehiculos.length} opciones`
+      ` Poblando selector de vehículos con ${vehiculos.length} opciones`
     );
 
     if (vehiculos.length === 0) {
@@ -545,7 +542,7 @@ class CitasModule {
     });
 
     console.log(
-      `✅ Selector de vehículos poblado con ${
+      ` Selector de vehículos poblado con ${
         selector.options.length - 1
       } opciones`
     );
@@ -555,28 +552,28 @@ class CitasModule {
     const selector = document.getElementById("vehiculoId");
     if (selector) {
       selector.innerHTML = '<option value="">Seleccionar vehículo</option>';
-      console.log("🔄 Selector de vehículos limpiado");
+      console.log("Selector de vehículos limpiado");
     } else {
-      console.error("❌ Selector vehiculoId no encontrado para limpiar");
+      console.error("Selector vehiculoId no encontrado para limpiar");
     }
   }
 
   populateSucursalSelector() {
     const selector = document.getElementById("sucursalId");
     if (!selector) {
-      console.error("❌ Selector sucursalId no encontrado en el DOM");
+      console.error("Selector sucursalId no encontrado en el DOM");
       return;
     }
 
     selector.innerHTML = '<option value="">Seleccionar sucursal</option>';
 
     if (!Array.isArray(this.sucursales)) {
-      console.error("❌ this.sucursales no es un array:", this.sucursales);
+      console.error("this.sucursales no es un array:", this.sucursales);
       return;
     }
 
     console.log(
-      `📋 Poblando selector de sucursales con ${this.sucursales.length} opciones`
+      ` Poblando selector de sucursales con ${this.sucursales.length} opciones`
     );
 
     this.sucursales.forEach((sucursal) => {
@@ -593,7 +590,7 @@ class CitasModule {
     });
 
     console.log(
-      `✅ Selector de sucursales poblado con ${
+      ` Selector de sucursales poblado con ${
         selector.options.length - 1
       } opciones`
     );
@@ -603,17 +600,17 @@ class CitasModule {
     const selectores = document.querySelectorAll(".servicio-select");
 
     if (selectores.length === 0) {
-      console.error("❌ Selectores .servicio-select no encontrados en el DOM");
+      console.error("Selectores .servicio-select no encontrados en el DOM");
       return;
     }
 
     if (!Array.isArray(this.servicios)) {
-      console.error("❌ this.servicios no es un array:", this.servicios);
+      console.error("this.servicios no es un array:", this.servicios);
       return;
     }
 
     console.log(
-      `📋 Poblando ${selectores.length} selectores de servicios con ${this.servicios.length} opciones`
+      ` Poblando ${selectores.length} selectores de servicios con ${this.servicios.length} opciones`
     );
 
     selectores.forEach((selector) => {
@@ -641,7 +638,7 @@ class CitasModule {
       });
     });
 
-    console.log(`✅ Selectores de servicios poblados`);
+    console.log(` Selectores de servicios poblados`);
   }
 
   populateFilterSelectors() {
@@ -687,16 +684,16 @@ class CitasModule {
 
   async loadCitas() {
     try {
-      console.log("🔄 Cargando citas...");
+      console.log("Cargando citas...");
       const citas = await this.apiCall("/api/citas");
 
-      console.log("📋 Datos recibidos de la API:", citas);
-      console.log("📋 Tipo de datos:", typeof citas);
-      console.log("📋 Es array:", Array.isArray(citas));
+      console.log("Datos recibidos de la API:", citas);
+      console.log("Tipo de datos:", typeof citas);
+      console.log("Es array:", Array.isArray(citas));
 
       if (citas && citas.length > 0) {
-        console.log("📋 Primera cita:", citas[0]);
-        console.log("📋 Campos de la primera cita:", Object.keys(citas[0]));
+        console.log("Primera cita:", citas[0]);
+        console.log("Campos de la primera cita:", Object.keys(citas[0]));
       }
 
       this.citas = citas || [];
@@ -709,16 +706,16 @@ class CitasModule {
         this.renderCalendario();
       }
 
-      console.log(`✅ ${this.citas.length} citas cargadas`);
+      console.log(` ${this.citas.length} citas cargadas`);
     } catch (error) {
-      console.error("❌ Error cargando citas:", error);
+      console.error("Error cargando citas:", error);
       this.showToast("Error al cargar las citas", "error");
     }
   }
 
   async loadEstadisticas() {
     try {
-      console.log("📊 Cargando estadísticas desde la API...");
+      console.log("Cargando estadísticas desde la API...");
 
       const response = await fetch(`${this.baseUrl}/api/citas/estadisticas`);
 
@@ -727,7 +724,7 @@ class CitasModule {
       }
 
       const data = await response.json();
-      console.log("📊 Estadísticas recibidas:", data);
+      console.log("Estadísticas recibidas:", data);
 
       if (data.success) {
         const stats = data.data.resumen;
@@ -747,8 +744,8 @@ class CitasModule {
         this.updateEstadistica("citasManana", stats.citas_manana || 0);
         this.updateEstadistica("citasEstaSemana", stats.citas_esta_semana || 0);
 
-        console.log("✅ Estadísticas cargadas desde la API");
-        console.log("📊 Stats procesadas:", {
+        console.log("Estadísticas cargadas desde la API");
+        console.log("Stats procesadas:", {
           totalCitas: stats.total_citas,
           citasPendientes: stats.citas_agendadas,
           citasCompletadas: stats.citas_completadas,
@@ -759,11 +756,11 @@ class CitasModule {
         throw new Error("Error en la respuesta de estadísticas");
       }
     } catch (error) {
-      console.error("❌ Error cargando estadísticas:", error);
+      console.error("Error cargando estadísticas:", error);
 
       // Fallback: calcular estadísticas desde los datos locales
       console.log(
-        "🔄 Calculando estadísticas desde datos locales como fallback..."
+        " Calculando estadísticas desde datos locales como fallback..."
       );
       this.calcularEstadisticasLocales();
 
@@ -804,7 +801,7 @@ class CitasModule {
     this.updateEstadistica("citasHoy", citasHoy);
     this.updateEstadistica("citasEnProgreso", enProgreso);
 
-    console.log("✅ Estadísticas calculadas localmente");
+    console.log("Estadísticas calculadas localmente");
   }
 
   updateEstadistica(elementId, value) {
@@ -814,9 +811,9 @@ class CitasModule {
       const numericValue =
         typeof value === "number" ? value : parseInt(value) || 0;
       element.textContent = numericValue.toLocaleString();
-      console.log(`📊 Estadística actualizada: ${elementId} = ${numericValue}`);
+      console.log(` Estadística actualizada: ${elementId} = ${numericValue}`);
     } else {
-      console.log(`⚠️ Elemento ${elementId} no encontrado en el DOM`);
+      console.log(` Elemento ${elementId} no encontrado en el DOM`);
     }
   }
 
@@ -865,18 +862,18 @@ class CitasModule {
   }
 
   updateTable() {
-    console.log("🔄 Actualizando tabla...");
-    console.log("📊 Citas filtradas:", this.filteredCitas.length);
+    console.log("Actualizando tabla...");
+    console.log("Citas filtradas:", this.filteredCitas.length);
 
     if (!this.tabla) {
-      console.error("❌ Elemento tabla no encontrado");
+      console.error("Elemento tabla no encontrado");
       return;
     }
 
     this.tabla.innerHTML = "";
 
     if (this.filteredCitas.length === 0) {
-      console.log("📊 No hay citas para mostrar");
+      console.log("No hay citas para mostrar");
       this.tabla.innerHTML = `
         <tr>
           <td colspan="7" class="px-6 py-8 text-center text-gray-500">
@@ -893,20 +890,20 @@ class CitasModule {
     const citasPage = this.filteredCitas.slice(startIndex, endIndex);
 
     console.log(
-      `📊 Mostrando citas ${startIndex + 1} a ${Math.min(
+      ` Mostrando citas ${startIndex + 1} a ${Math.min(
         endIndex,
         this.filteredCitas.length
       )} de ${this.filteredCitas.length}`
     );
 
     citasPage.forEach((cita, index) => {
-      console.log(`📊 Creando fila para cita ${index + 1}:`, cita);
+      console.log(` Creando fila para cita ${index + 1}:`, cita);
       const row = this.createCitaRow(cita);
       this.tabla.appendChild(row);
     });
 
     this.updatePaginationInfo();
-    console.log("✅ Tabla actualizada correctamente");
+    console.log("Tabla actualizada correctamente");
   }
 
   createCitaRow(cita) {
@@ -1093,7 +1090,7 @@ class CitasModule {
   }
 
   showCreateModal() {
-    console.log("🔧 Abriendo modal para crear nueva cita");
+    console.log("Abriendo modal para crear nueva cita");
 
     this.editMode = false;
     this.currentCitaId = null;
@@ -1106,7 +1103,7 @@ class CitasModule {
     this.resetForm();
 
     // Re-poblar los selectores para asegurar que estén actualizados
-    console.log("🔄 Re-poblando selectores en modal...");
+    console.log("Re-poblando selectores en modal...");
     this.populateClienteSelector();
     this.populateSucursalSelector();
     this.populateServiciosSelector();
@@ -1142,7 +1139,7 @@ class CitasModule {
       this.populateForm(cita);
       this.showModal();
     } catch (error) {
-      console.error("❌ Error preparando edición:", error);
+      console.error("Error preparando edición:", error);
       this.showToast("Error al cargar los datos de la cita", "error");
     }
   }
@@ -1234,7 +1231,7 @@ class CitasModule {
         await this.loadEstadisticas();
       }
     } catch (error) {
-      console.error("❌ Error guardando cita:", error);
+      console.error("Error guardando cita:", error);
       this.showToast("Error al guardar la cita", "error");
     }
   }
@@ -1347,7 +1344,7 @@ class CitasModule {
       await this.loadCitas();
       await this.loadEstadisticas();
     } catch (error) {
-      console.error("❌ Error eliminando cita:", error);
+      console.error("Error eliminando cita:", error);
       this.showToast("Error al eliminar la cita", "error");
     }
   }
@@ -1410,7 +1407,7 @@ class CitasModule {
       await this.loadCitas();
       await this.loadEstadisticas();
     } catch (error) {
-      console.error("❌ Error cambiando estado:", error);
+      console.error("Error cambiando estado:", error);
       this.showToast("Error al cambiar el estado de la cita", "error");
     }
   }
@@ -1420,7 +1417,7 @@ class CitasModule {
     try {
       const fullUrl = url.startsWith("http") ? url : `${this.baseUrl}${url}`;
 
-      console.log(`🌐 API Call: ${method} ${fullUrl}`);
+      console.log(` API Call: ${method} ${fullUrl}`);
 
       const config = {
         method,
@@ -1431,13 +1428,13 @@ class CitasModule {
 
       if (data && (method === "POST" || method === "PUT")) {
         config.body = JSON.stringify(data);
-        console.log(`📤 Request body:`, data);
+        console.log(` Request body:`, data);
       }
 
       const response = await fetch(fullUrl, config);
 
       console.log(
-        `📡 Response status: ${response.status} ${response.statusText}`
+        ` Response status: ${response.status} ${response.statusText}`
       );
 
       if (!response.ok) {
@@ -1445,9 +1442,9 @@ class CitasModule {
         try {
           const errorData = await response.json();
           errorMessage = errorData?.error || errorData?.message || errorMessage;
-          console.log(`❌ Error response:`, errorData);
+          console.log(` Error response:`, errorData);
         } catch (e) {
-          console.log(`❌ Non-JSON error response`);
+          console.log(` Non-JSON error response`);
         }
         throw new Error(errorMessage);
       }
@@ -1457,10 +1454,10 @@ class CitasModule {
       }
 
       const result = await response.json();
-      console.log(`✅ Response data:`, result);
+      console.log(` Response data:`, result);
       return result;
     } catch (error) {
-      console.error(`❌ API Error ${method} ${url}:`, error);
+      console.error(` API Error ${method} ${url}:`, error);
       throw error;
     }
   }
@@ -1551,7 +1548,7 @@ class CitasModule {
     const diasCalendario = document.getElementById("diasCalendario");
 
     if (!mesActual || !diasCalendario) {
-      console.error("❌ Elementos del calendario no encontrados");
+      console.error("Elementos del calendario no encontrados");
       return;
     }
 
@@ -1688,13 +1685,13 @@ class CitasModule {
   // Modal de detalles
   mostrarDetalleCita(cita) {
     if (!this.modalDetalle) {
-      console.error("❌ Modal de detalle no encontrado");
+      console.error("Modal de detalle no encontrado");
       return;
     }
 
     const contenido = document.getElementById("contenidoDetalleCita");
     if (!contenido) {
-      console.error("❌ Contenido del modal de detalle no encontrado");
+      console.error("Contenido del modal de detalle no encontrado");
       return;
     }
 
@@ -1880,7 +1877,7 @@ class CitasModule {
     // Poblar el nuevo selector con los servicios disponibles
     this.populateServiciosSelector();
 
-    console.log("➕ Nuevo servicio agregado");
+    console.log("Nuevo servicio agregado");
   }
 
   eliminarServicio(btnEliminar) {
@@ -1889,7 +1886,7 @@ class CitasModule {
 
     if (servicioDiv && serviciosContainer.children.length > 1) {
       servicioDiv.remove();
-      console.log("➖ Servicio eliminado");
+      console.log("Servicio eliminado");
     } else {
       this.showToast("Debe mantener al menos un servicio", "warning");
     }
@@ -1911,7 +1908,7 @@ class CitasModule {
           servicioSeleccionado.PRECIO || servicioSeleccionado.precio || 0;
         precioInput.value = precio;
         console.log(
-          `💰 Precio autocompletado: $${precio} para servicio ${servicioId}`
+          ` Precio autocompletado: $${precio} para servicio ${servicioId}`
         );
       }
     }
@@ -1963,7 +1960,7 @@ class CitasModule {
         if (precioInput) precioInput.value = "";
       }
 
-      console.log("🔄 Servicios reseteados a estado inicial");
+      console.log("Servicios reseteados a estado inicial");
     }
   }
 }
@@ -1972,4 +1969,4 @@ class CitasModule {
 const citasModule = new CitasModule();
 window.citasModule = citasModule;
 
-console.log("✅ Módulo de citas cargado correctamente");
+console.log("Módulo de citas cargado correctamente");

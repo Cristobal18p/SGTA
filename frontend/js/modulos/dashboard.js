@@ -98,11 +98,9 @@ function initializeDashboardFeatures() {
 
 // Inicialización principal
 async function initDashboard() {
-  console.log("🚀 Iniciando Dashboard TecnoTaller...");
   await (window.loadCommonComponents?.() ?? Promise.resolve());
   cargarEstadisticasDashboard();
   initializeDashboardFeatures();
-  console.log("✅ Dashboard cargado correctamente");
 }
 
 if (document.readyState === "loading") {

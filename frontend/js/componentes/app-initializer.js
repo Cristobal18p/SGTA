@@ -1,6 +1,4 @@
-// ============================================
-// INICIALIZADOR DE APLICACIÓN - TecnoTaller
-// ============================================
+// Inicializador de aplicacion
 
 class AppInitializer {
   constructor() {
@@ -12,7 +10,7 @@ class AppInitializer {
   async init() {
     if (this.initialized) return;
 
-    console.log("🚀 Iniciando TecnoTaller...");
+    console.log(" Iniciando TecnoTaller...");
 
     try {
       // 1. Asegurar que ThemeManager esté disponible
@@ -28,9 +26,9 @@ class AppInitializer {
       this.setupGlobalListeners();
 
       this.initialized = true;
-      console.log("✅ TecnoTaller inicializado correctamente");
+      console.log(" TecnoTaller inicializado correctamente");
     } catch (error) {
-      console.error("❌ Error al inicializar TecnoTaller:", error);
+      console.error(" Error al inicializar TecnoTaller:", error);
     }
   }
 
@@ -54,12 +52,12 @@ class AppInitializer {
   async loadComponents() {
     if (this.componentsLoaded) return;
 
-    console.log("🔄 Cargando componentes...");
+    console.log(" Cargando componentes...");
 
     if (window.loadCommonComponents) {
       await window.loadCommonComponents();
       this.componentsLoaded = true;
-      console.log("✅ Componentes cargados");
+      console.log(" Componentes cargados");
     } else {
       throw new Error("loadCommonComponents no encontrado");
     }
@@ -68,7 +66,7 @@ class AppInitializer {
   async initializeManagers() {
     if (this.managersReady) return;
 
-    console.log("⚙️ Inicializando managers...");
+    console.log(" Inicializando managers...");
 
     // Esperar a que los managers estén disponibles
     await this.waitForManagers();
@@ -100,7 +98,7 @@ class AppInitializer {
       }
 
       this.managersReady = true;
-      console.log("✅ Managers inicializados");
+      console.log(" Managers inicializados");
     }, 200);
   }
 
@@ -126,7 +124,7 @@ class AppInitializer {
     // Listener para errores de tema
     window.addEventListener("error", (event) => {
       if (event.message && event.message.includes("theme")) {
-        console.warn("⚠️ Error relacionado con tema detectado:", event.message);
+        console.warn(" Error relacionado con tema detectado:", event.message);
         // Intentar recuperar aplicando tema por defecto
         if (window.themeManager) {
           window.themeManager.applyThemeToDOM();

@@ -1,13 +1,9 @@
-/* ===========================================
-   TEMA ELEGANTE GLOBAL - TECNOTALLER
-   =========================================== */
+/* TEMA ELEGANTE GLOBAL - TECNOTALLER */
 
 /* Importar fuentes elegantes */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
-/* ===========================================
-   VARIABLES GLOBALES ELEGANTES
-   =========================================== */
+/* VARIABLES GLOBALES ELEGANTES */
 
 :root {
     /* Tipografía elegante */
@@ -38,9 +34,7 @@
     --transition-slow: 0.3s ease-in-out;
 }
 
-/* ===========================================
-   ESTILOS BASE ELEGANTES
-   =========================================== */
+/* ESTILOS BASE ELEGANTES */
 
 * {
     box-sizing: border-box;
@@ -56,9 +50,7 @@ body {
     -moz-osx-font-smoothing: grayscale;
 }
 
-/* ===========================================
-   COMPONENTES ELEGANTES GLOBALES
-   =========================================== */
+/* COMPONENTES ELEGANTES GLOBALES */
 
 /* Navbar elegante */
 .tt-navbar {
@@ -411,9 +403,7 @@ body {
     color: var(--error-dark);
 }
 
-/* ===========================================
-   UTILIDADES ELEGANTES
-   =========================================== */
+/* UTILIDADES ELEGANTES */
 
 .text-elegant {
     font-weight: var(--font-weight-medium);
@@ -436,9 +426,7 @@ body {
     background: linear-gradient(135deg, var(--accent-steel), var(--accent-steel-light));
 }
 
-/* ===========================================
-   ANIMACIONES ELEGANTES
-   =========================================== */
+/* ANIMACIONES ELEGANTES */
 
 @keyframes fadeInUp {
     from {
@@ -488,9 +476,7 @@ body {
     animation: scaleIn 0.3s ease-out;
 }
 
-/* ===========================================
-   RESPONSIVE ELEGANTE
-   =========================================== */
+/* RESPONSIVE ELEGANTE */
 
 @media (max-width: 768px) {
     .tt-card {
@@ -508,9 +494,7 @@ body {
     }
 }
 
-/* ===========================================
-   MEJORAS DE ACCESIBILIDAD
-   =========================================== */
+/* MEJORAS DE ACCESIBILIDAD */
 
 .tt-focus-ring:focus {
     outline: none;

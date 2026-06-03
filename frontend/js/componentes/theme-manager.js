@@ -1,6 +1,4 @@
-// ============================================
-// THEME MANAGER CENTRALIZADO - TecnoTaller
-// ============================================
+// Theme Manager centralizado
 
 class ThemeManager {
   constructor() {
@@ -33,7 +31,7 @@ class ThemeManager {
     const savedTheme = localStorage.getItem(this.storageKey) || "light";
     this.setTheme(savedTheme, false); // false para no notificar en la inicialización
     this.initialized = true;
-    console.log(`🎨 ThemeManager inicializado con tema: ${this.currentTheme}`);
+    console.log(` ThemeManager inicializado con tema: ${this.currentTheme}`);
   }
 
   // Cambiar tema
@@ -58,7 +56,7 @@ class ThemeManager {
       }
     }
 
-    console.log(`🎨 Tema cambiado de ${oldTheme} a ${theme}`);
+    console.log(` Tema cambiado de ${oldTheme} a ${theme}`);
   }
 
   // Alternar entre light y dark
