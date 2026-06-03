@@ -7,15 +7,26 @@ require("dotenv").config();
 const { initialize } = require("./config/CR7.js");
 const { verifyToken } = require("./middleware/auth.middleware.js");
 
-// Validar variables de entorno requeridas antes de iniciar
-const requiredEnvVars = process.env.USE_MOCK_DB === "true" 
-  ? ["JWT_SECRET"]
-  : ["DB_USER", "DB_PASSWORD", "DB_CONNECTION_STRING", "JWT_SECRET"];
-const missingVars = requiredEnvVars.filter((v) => !process.env[v]);
-if (missingVars.length > 0) {
-  console.error(`❌ Variables de entorno faltantes: ${missingVars.join(", ")}`);
-  console.error("   Copia backend/.env.example como backend/.env y configura los valores.");
-  process.exit(1);
+// Auto-detectar si faltan las variables de entorno de Oracle y activar Mock DB por defecto
+const hasOracleConfig = process.env.DB_USER && process.env.DB_PASSWORD && process.env.DB_CONNECTION_STRING;
+if (!hasOracleConfig && process.env.USE_MOCK_DB !== "false") {
+  process.env.USE_MOCK_DB = "true";
+}
+
+// Clave JWT por defecto en desarrollo local para evitar caídas
+if (!process.env.JWT_SECRET) {
+  process.env.JWT_SECRET = "desarrollo_local_secreto_tecnotaller_2026_987654321";
+}
+
+// Validar variables de entorno si no estamos usando la base de datos en memoria
+if (process.env.USE_MOCK_DB !== "true") {
+  const requiredEnvVars = ["DB_USER", "DB_PASSWORD", "DB_CONNECTION_STRING", "JWT_SECRET"];
+  const missingVars = requiredEnvVars.filter((v) => !process.env[v]);
+  if (missingVars.length > 0) {
+    console.error(`❌ Variables de entorno faltantes para producción/Oracle: ${missingVars.join(", ")}`);
+    console.error("   Copia backend/.env.example como backend/.env y configura los valores.");
+    process.exit(1);
+  }
 }
 
 // Middleware - CORS con orígenes específicos

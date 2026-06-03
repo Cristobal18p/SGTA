@@ -88,56 +88,65 @@ TecnoTaller/
     └── Datos de prueba
 ```
 
-## Instalación
+## Instalación y Configuración
 
 ### Prerrequisitos
 
-- **Node.js** (v14.0.0 o superior)
-- **Oracle Database** (12c o superior)
+- **Node.js** (v18.0.0 o superior recomendado)
 - **Git**
+- **Oracle Database** (Opcional, solo si deseas conectarlo a una base de datos real. Por defecto, el sistema se ejecuta usando una base de datos en memoria para facilitar las pruebas locales).
 
-### 1. Clonar el repositorio
+---
 
+### Modo Rápido (Desarrollo / Base de datos en memoria)
+Este proyecto cuenta con una **Base de Datos en Memoria (Mock DB)** integrada. Permite levantar todo el sistema (login, clientes, citas, reportes, facturación, etc.) de forma instantánea sin necesidad de instalar o configurar Oracle.
+
+#### 1. Clonar el repositorio y entrar al proyecto
 ```bash
-git clone https://github.com/Cristobal18p/PROYECTO.git
-cd PROYECTO
+git clone https://github.com/Cristobal18p/SGTA.git
+cd SGTA
 ```
 
-### 2. Configurar el Backend
-
+#### 2. Instalar dependencias e iniciar el servidor (desde la raíz)
 ```bash
-cd backend
-npm install
-```
+# Instala las dependencias del backend automáticamente
+npm run install-all
 
-### 3. Configurar la Base de Datos
-
-1. Instalar Oracle Database
-2. Ejecutar los scripts SQL en `Database/`
-3. Configurar las credenciales en `backend/config/CR7.js`
-
-```javascript
-// backend/config/CR7.js
-module.exports = {
-  user: 'tu_usuario',
-  password: 'tu_password',
-  connectString: 'localhost:1521/XE'
-};
-```
-
-### 4. Iniciar el servidor
-
-```bash
-# Desarrollo
+# Inicia el proyecto en modo desarrollo
 npm run dev
-
-# Producción
-npm start
 ```
 
-### 5. Acceder al sistema
+#### 3. Acceder al sistema
+Abre en tu navegador: **[http://localhost:3000](http://localhost:3000)**
 
-Abrir en el navegador: `http://localhost:3000`
+* **Credenciales de prueba por defecto:**
+  * **Usuario / Email:** `admin@tecnotaller.com` (o el usuario `admin`)
+  * **Contraseña:** `admin123`
+
+---
+
+### Modo Producción / Base de Datos Real (Oracle)
+Si deseas conectar el sistema a tu base de datos Oracle:
+
+1. **Configurar esquema**: Ejecuta los scripts SQL contenidos en la carpeta `Database/` en tu servidor Oracle.
+2. **Crear archivo de entorno**: Copia el archivo de ejemplo en el backend:
+   ```bash
+   cd backend
+   cp .env.example .env
+   ```
+3. **Configurar credenciales**: Edita el archivo `backend/.env` estableciendo `USE_MOCK_DB=false` e ingresando tus credenciales de conexión Oracle:
+   ```env
+   USE_MOCK_DB=false
+   DB_USER=tu_usuario_oracle
+   DB_PASSWORD=tu_contraseña_oracle
+   DB_CONNECTION_STRING=localhost:1521/ORCLPDB
+   JWT_SECRET=tu_jwt_secret_seguro
+   ```
+4. **Ejecutar el servidor**:
+   ```bash
+   # En la raíz del proyecto
+   npm start
+   ```
 
 ## Uso
 
