@@ -3,10 +3,13 @@
 
 async function cargarEstadisticasDashboard() {
   try {
-    const response = await fetch("/api/estadisticas");
+    // Obtener token de autenticación
+    const token = localStorage.getItem('authToken');
+    const headers = token ? { 'Authorization': `Bearer ${token}` } : {};
+
+    const response = await fetch("/api/estadisticas", { headers });
     if (!response.ok) throw new Error("Error al obtener estadísticas");
     const data = await response.json();
-    console.log("Datos recibidos:", data);
 
     // Actualizar tarjetas
     document.getElementById("clientesCount").textContent =
@@ -18,24 +21,37 @@ async function cargarEstadisticasDashboard() {
       data.FACTURAS_MES ?? "-";
 
     // Pendientes en citas
-    const pendientesEl = document.querySelector(".text-orange-600.font-medium");
+    const pendientesEl = document.getElementById("citasPendientes");
     if (pendientesEl) {
       pendientesEl.textContent = `${data.CITAS_PENDIENTES ?? 0} pendientes`;
     }
 
-    // Ingreso del mes en facturas - usar ID directo
+    // Badge de citas de hoy
+    const citasHoyBadge = document.getElementById("citasHoyBadge");
+    if (citasHoyBadge) {
+      citasHoyBadge.textContent = `${data.CITAS_HOY ?? 0} citas`;
+    }
+
+    // Ingreso del mes en facturas
     const ingresoMesEl = document.getElementById("ingresoMes");
     if (ingresoMesEl) {
       ingresoMesEl.textContent = `$${(data.INGRESO_MES ?? 0).toLocaleString(
         "es-ES"
       )}`;
-      console.log("Ingreso actualizado a:", ingresoMesEl.textContent);
-    } else {
-      console.log("No se encontró el elemento ingresoMes");
     }
   } catch (err) {
     console.error("Error cargando estadísticas:", err);
-    // Puedes mostrar un toast o mensaje de error si lo deseas
+    // Mostrar indicadores de error en lugar de spinners
+    ["clientesCount", "citasCount", "vehiculosCount", "facturasCount"].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.textContent = "-";
+    });
+    const pendientesEl = document.getElementById("citasPendientes");
+    if (pendientesEl) pendientesEl.textContent = "Sin datos";
+    const ingresoMesEl = document.getElementById("ingresoMes");
+    if (ingresoMesEl) ingresoMesEl.textContent = "$0";
+    const citasHoyBadge = document.getElementById("citasHoyBadge");
+    if (citasHoyBadge) citasHoyBadge.textContent = "Sin datos";
   }
 }
 

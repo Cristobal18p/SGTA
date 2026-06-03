@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 
 <head>
@@ -83,7 +83,7 @@
                 <div class="flex items-center justify-between">
                     <div class="flex-1">
                         <p class="text-sm font-medium text-gray-600 mb-1">Total Clientes</p>
-                        <p class="text-3xl font-bold text-gray-900" id="clientesCount">1,234</p>
+                        <p class="text-3xl font-bold text-gray-900" id="clientesCount"><i class="fas fa-spinner fa-spin text-lg text-gray-400"></i></p>
                     </div>
                     <div class="ml-4">
                         <div
@@ -107,9 +107,9 @@
                 <div class="flex items-center justify-between">
                     <div class="flex-1">
                         <p class="text-sm font-medium text-gray-600 mb-1">Citas Hoy</p>
-                        <p class="text-3xl font-bold text-gray-900" id="citasCount">8</p>
+                        <p class="text-3xl font-bold text-gray-900" id="citasCount"><i class="fas fa-spinner fa-spin text-lg text-gray-400"></i></p>
                         <div class="flex items-center mt-2">
-                            <span class="text-sm text-orange-600 font-medium">2 pendientes</span>
+                            <span class="text-sm text-orange-600 font-medium" id="citasPendientes">Cargando...</span>
                         </div>
                     </div>
                     <div class="ml-4">
@@ -134,7 +134,7 @@
                 <div class="flex items-center justify-between">
                     <div class="flex-1">
                         <p class="text-sm font-medium text-gray-600 mb-1">Vehículos</p>
-                        <p class="text-3xl font-bold text-gray-900" id="vehiculosCount">567</p>
+                        <p class="text-3xl font-bold text-gray-900" id="vehiculosCount"><i class="fas fa-spinner fa-spin text-lg text-gray-400"></i></p>
                     </div>
                     <div class="ml-4">
                         <div
@@ -158,9 +158,9 @@
                 <div class="flex items-center justify-between">
                     <div class="flex-1">
                         <p class="text-sm font-medium text-gray-600 mb-1">Facturas del Mes</p>
-                        <p class="text-3xl font-bold text-gray-900" id="facturasCount">89</p>
+                        <p class="text-3xl font-bold text-gray-900" id="facturasCount"><i class="fas fa-spinner fa-spin text-lg text-gray-400"></i></p>
                         <div class="flex items-center mt-2">
-                            <span id="ingresoMes" class="text-sm text-green-600 font-medium">$45,250</span>
+                            <span id="ingresoMes" class="text-sm text-green-600 font-medium">Cargando...</span>
                             <span class="text-sm text-gray-500 ml-1">ingresos</span>
                         </div>
                     </div>
@@ -230,8 +230,7 @@
                     <div class="flex items-center justify-between mb-6">
                         <h3 class="text-lg font-semibold text-gray-900">Citas de Hoy</h3>
                         <div class="flex items-center space-x-2">
-                            <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full font-medium">8
-                                citas</span>
+                            <span id="citasHoyBadge" class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full font-medium">Cargando...</span>
                         </div>
                     </div>
 

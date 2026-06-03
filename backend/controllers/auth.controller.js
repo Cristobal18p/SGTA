@@ -3,8 +3,11 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const { simpleExecute } = require("../config/CR7.js");
 
-// Clave secreta para JWT (🔧 CAMBIAR POR UNA CLAVE SEGURA EN PRODUCCIÓN)
-const JWT_SECRET = "tecnotaller_secret_key_2025";
+// Clave secreta para JWT (cargada desde variables de entorno)
+const JWT_SECRET = process.env.JWT_SECRET;
+if (!JWT_SECRET) {
+  throw new Error("JWT_SECRET no está definido en las variables de entorno. Configura tu archivo .env");
+}
 const JWT_EXPIRES_IN = "24h";
 
 // LOGIN - Autenticar usuario
@@ -60,17 +63,14 @@ const login = async (req, res) => {
 
     const usuarioDB = result.rows[0];
 
-    // Verificar contraseña
+    // Verificar contraseña con bcrypt
     let passwordValida = false;
-    // Log para depuración
-    console.log("Password recibido:", password);
-    console.log("Password en BD:", usuarioDB.CLAVE_HASH);
     if (usuarioDB.CLAVE_HASH && usuarioDB.CLAVE_HASH.startsWith("$2b$")) {
-      // Es un hash bcrypt
       passwordValida = await bcrypt.compare(password, usuarioDB.CLAVE_HASH);
     } else {
-      // Comparación texto plano
-      passwordValida = password === usuarioDB.CLAVE_HASH;
+      // La contraseña en BD no está hasheada — rechazar por seguridad
+      console.error("ADVERTENCIA: La contraseña del usuario no está hasheada con bcrypt. Se requiere migración.");
+      passwordValida = false;
     }
 
     if (!passwordValida) {
@@ -85,9 +85,7 @@ const login = async (req, res) => {
       usuario_id: usuarioDB.USUARIO_ID,
       email: usuarioDB.EMAIL_USUARIO,
       rol_id: usuarioDB.ROL_ID,
-      rol_id: usuarioDB.ROL_ID,
       rol_nombre: usuarioDB.ROL_NOMBRE,
-      descripcion_rol: usuarioDB.DESCRIPCION_ROL,
     };
 
     const token = jwt.sign(tokenPayload, JWT_SECRET, {

@@ -35,9 +35,8 @@ API.TEXT
 # Ignorar carpeta basura del frontend
 frontend/basura/
 
-# Ingorar archivos basura
-*.
+# Ignorar la carpeta AccesoRemoto
+AccesoRemoto/
 
-# Ignorar toda la carpeta AccesoRemoto en git
-*
-!.gitignore
+# Ignorar archivos de entorno
+.env

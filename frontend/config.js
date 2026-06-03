@@ -141,12 +141,6 @@ const CONFIG = {
 
     // Mostrar errores detallados
     SHOW_DETAILED_ERRORS: true,
-
-    // Datos de prueba para demo
-    DEMO_CREDENTIALS: {
-      email: "admin@tecnotaller.com",
-      password: "admin123",
-    },
   },
 };
 
