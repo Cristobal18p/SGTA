@@ -1,6 +1,4 @@
-// ============================================
-// TOAST MANAGER - TecnoTaller
-// ============================================
+// Toast Manager para notificaciones
 
 class ToastManager {
   constructor() {

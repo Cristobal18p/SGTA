@@ -1,0 +1,15 @@
+{
+  "name": "sgta-root",
+  "version": "1.0.0",
+  "description": "Sistema de Gestión de Taller Automotriz - TecnoTaller",
+  "private": true,
+  "scripts": {
+    "postinstall": "npm install --prefix backend",
+    "install-all": "npm install --prefix backend",
+    "start": "npm start --prefix backend",
+    "dev": "npm run dev --prefix backend"
+  },
+  "keywords": [],
+  "author": "Cristobal Prados y Carlos Gonzalez",
+  "license": "ISC"
+}

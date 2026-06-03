@@ -5,8 +5,6 @@ async function hashPassword(password) {
   try {
     const saltRounds = 10;
     const hashedPassword = await bcrypt.hash(password, saltRounds);
-    console.log(`Contraseña original: ${password}`);
-    console.log(`Contraseña hasheada: ${hashedPassword}`);
     return hashedPassword;
   } catch (error) {
     console.error("Error al hashear contraseña:", error);
@@ -17,7 +15,6 @@ async function hashPassword(password) {
 async function verifyPassword(password, hash) {
   try {
     const isValid = await bcrypt.compare(password, hash);
-    console.log(`Contraseña válida: ${isValid}`);
     return isValid;
   } catch (error) {
     console.error("Error al verificar contraseña:", error);

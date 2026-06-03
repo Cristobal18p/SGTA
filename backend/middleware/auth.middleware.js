@@ -1,8 +1,11 @@
 const jwt = require("jsonwebtoken");
 const { simpleExecute } = require("../config/CR7.js");
 
-// Clave secreta para JWT (debe ser la misma que en auth.controller.js)
-const JWT_SECRET = "tecnotaller_secret_key_2025";
+// Clave secreta para JWT (cargada desde variables de entorno)
+const JWT_SECRET = process.env.JWT_SECRET;
+if (!JWT_SECRET) {
+  throw new Error("JWT_SECRET no está definido en las variables de entorno. Configura tu archivo .env");
+}
 
 // Middleware para verificar token de autenticación
 const verifyToken = async (req, res, next) => {

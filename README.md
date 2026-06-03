@@ -1,4 +1,4 @@
-# 🔧 TecnoTaller - Sistema de Gestión de Taller Automotriz
+# TecnoTaller - Sistema de Gestión de Taller Automotriz
 
 <div align="center">
 
@@ -12,134 +12,143 @@
 
 **Sistema integral para la gestión completa de talleres automotrices**
 
-[Características](#-características) • [Instalación](#-instalación) • [Uso](#-uso) • [API](#-api) • [Contribuir](#-contribuir)
+[Características](#caracteristicas) • [Instalación](#instalacion) • [Uso](#uso) • [API](#api)
 
 </div>
 
 ---
 
-## 📋 Descripción
+## Descripción
 
-**TecnoTaller** es un sistema web completo diseñado para la gestión integral de talleres automotrices. Permite administrar clientes, vehículos, citas, servicios, inventario y facturación de manera eficiente y profesional.
+**TecnoTaller**es un sistema web completo diseñado para la gestión integral de talleres automotrices. Permite administrar clientes, vehículos, citas, servicios, inventario y facturación de manera eficiente y profesional.
 
-### 🎯 Objetivo
+### Objetivo
 
 Digitalizar y optimizar todos los procesos de un taller automotriz, desde la recepción del cliente hasta la entrega del vehículo reparado, mejorando la eficiencia operativa y la experiencia del cliente.
 
-## ✨ Características
+## Características
 
-### 👥 Gestión de Clientes
-- ✅ Registro completo de información personal
-- ✅ Historial de servicios por cliente
-- ✅ Gestión de múltiples vehículos por cliente
-- ✅ Sistema de búsqueda avanzada
+### Gestión de Clientes
+- Registro completo de información personal
+- Historial de servicios por cliente
+- Gestión de múltiples vehículos por cliente
+- Sistema de búsqueda avanzada
 
-### 🚗 Gestión de Vehículos
-- ✅ Registro detallado (marca, modelo, año, placa)
-- ✅ Historial de mantenimientos y reparaciones
-- ✅ Vinculación automática con propietarios
-- ✅ Control de estado del vehículo
+### Gestión de Vehículos
+- Registro detallado (marca, modelo, año, placa)
+- Historial de mantenimientos y reparaciones
+- Vinculación automática con propietarios
+- Control de estado del vehículo
 
-### 📅 Sistema de Citas
-- ✅ Calendario interactivo
-- ✅ Vista por tabla y calendario
-- ✅ Estados de cita (Agendada, En progreso, Completada, Cancelada)
-- ✅ Asignación de servicios múltiples
-- ✅ Filtros avanzados por estado, sucursal y tipo
+### Sistema de Citas
+- Calendario interactivo
+- Vista por tabla y calendario
+- Estados de cita (Agendada, En progreso, Completada, Cancelada)
+- Asignación de servicios múltiples
+- Filtros avanzados por estado, sucursal y tipo
 
-### 🔧 Gestión de Servicios
-- ✅ Catálogo completo de servicios
-- ✅ Precios dinámicos
-- ✅ Múltiples servicios por cita
-- ✅ Categorización por tipo
+### Gestión de Servicios
+- Catálogo completo de servicios
+- Precios dinámicos
+- Múltiples servicios por cita
+- Categorización por tipo
 
-### 🏢 Multi-sucursal
-- ✅ Gestión de múltiples ubicaciones
-- ✅ Control de inventario por sucursal
-- ✅ Reportes consolidados
+### Multi-sucursal
+- Gestión de múltiples ubicaciones
+- Control de inventario por sucursal
+- Reportes consolidados
 
-### 📊 Reportes y Estadísticas
-- ✅ Dashboard con métricas en tiempo real
-- ✅ Estadísticas de citas por estado
-- ✅ Reportes de facturación
-- ✅ Análisis de rendimiento
+### Reportes y Estadísticas
+- Dashboard con métricas en tiempo real
+- Estadísticas de citas por estado
+- Reportes de facturación
+- Análisis de rendimiento
 
-### 💰 Sistema de Facturación
-- ✅ Generación automática de facturas
-- ✅ Control de métodos de pago
-- ✅ Historial de transacciones
-- ✅ Estados de factura
+### Sistema de Facturación
+- Generación automática de facturas
+- Control de métodos de pago
+- Historial de transacciones
+- Estados de factura
 
-## 🏗️ Arquitectura del Sistema
+## Arquitectura del Sistema
 
 ```
 TecnoTaller/
-├── 🖥️ Backend (Node.js + Express)
-│   ├── 🗃️ Base de datos (Oracle)
-│   ├── 🔌 API RESTful
-│   └── 🔐 Autenticación JWT
-├── 🌐 Frontend (HTML5 + CSS3 + JavaScript)
-│   ├── 📱 Diseño responsivo
-│   ├── ⚡ SPA (Single Page Application)
-│   └── 🎨 UI/UX moderno
-└── 📁 Base de Datos
-    ├── 📋 Scripts SQL
-    ├── 💾 Backups automáticos
-    └── 📈 Datos de prueba
+├── Backend (Node.js + Express)
+│   ├── Base de datos (Oracle)
+│   ├── API RESTful
+│   └── Autenticación JWT
+├── Frontend (HTML5 + CSS3 + JavaScript)
+│   ├── Diseño responsivo
+│   ├── SPA (Single Page Application)
+│   └── UI/UX moderno
+└── Base de Datos
+    ├── Scripts SQL
+    ├── Backups automáticos
+    └── Datos de prueba
 ```
 
-## 🚀 Instalación
+## Instalación y Configuración
 
 ### Prerrequisitos
 
-- **Node.js** (v14.0.0 o superior)
-- **Oracle Database** (12c o superior)
+- **Node.js** (v18.0.0 o superior recomendado)
 - **Git**
+- **Oracle Database** (Opcional, solo si deseas conectarlo a una base de datos real. Por defecto, el sistema se ejecuta usando una base de datos en memoria para facilitar las pruebas locales).
 
-### 1. Clonar el repositorio
+---
 
+### Modo Rápido (Desarrollo / Base de datos en memoria)
+Este proyecto cuenta con una **Base de Datos en Memoria (Mock DB)** integrada. Permite levantar todo el sistema (login, clientes, citas, reportes, facturación, etc.) de forma instantánea sin necesidad de instalar o configurar Oracle.
+
+#### 1. Clonar el repositorio y entrar al proyecto
 ```bash
-git clone https://github.com/Cristobal18p/PROYECTO.git
-cd PROYECTO
+git clone https://github.com/Cristobal18p/SGTA.git
+cd SGTA
 ```
 
-### 2. Configurar el Backend
-
+#### 2. Instalar dependencias e iniciar el servidor (desde la raíz)
 ```bash
-cd backend
-npm install
-```
+# Instala las dependencias del backend automáticamente
+npm run install-all
 
-### 3. Configurar la Base de Datos
-
-1. Instalar Oracle Database
-2. Ejecutar los scripts SQL en `Database/`
-3. Configurar las credenciales en `backend/config/CR7.js`
-
-```javascript
-// backend/config/CR7.js
-module.exports = {
-  user: 'tu_usuario',
-  password: 'tu_password',
-  connectString: 'localhost:1521/XE'
-};
-```
-
-### 4. Iniciar el servidor
-
-```bash
-# Desarrollo
+# Inicia el proyecto en modo desarrollo
 npm run dev
-
-# Producción
-npm start
 ```
 
-### 5. Acceder al sistema
+#### 3. Acceder al sistema
+Abre en tu navegador: **[http://localhost:3000](http://localhost:3000)**
 
-Abrir en el navegador: `http://localhost:3000`
+* **Credenciales de prueba por defecto:**
+  * **Usuario / Email:** `admin@tecnotaller.com` (o el usuario `admin`)
+  * **Contraseña:** `admin123`
 
-## 📖 Uso
+---
+
+### Modo Producción / Base de Datos Real (Oracle)
+Si deseas conectar el sistema a tu base de datos Oracle:
+
+1. **Configurar esquema**: Ejecuta los scripts SQL contenidos en la carpeta `Database/` en tu servidor Oracle.
+2. **Crear archivo de entorno**: Copia el archivo de ejemplo en el backend:
+   ```bash
+   cd backend
+   cp .env.example .env
+   ```
+3. **Configurar credenciales**: Edita el archivo `backend/.env` estableciendo `USE_MOCK_DB=false` e ingresando tus credenciales de conexión Oracle:
+   ```env
+   USE_MOCK_DB=false
+   DB_USER=tu_usuario_oracle
+   DB_PASSWORD=tu_contraseña_oracle
+   DB_CONNECTION_STRING=localhost:1521/ORCLPDB
+   JWT_SECRET=tu_jwt_secret_seguro
+   ```
+4. **Ejecutar el servidor**:
+   ```bash
+   # En la raíz del proyecto
+   npm start
+   ```
+
+## Uso
 
 ### Dashboard Principal
 - **Estadísticas en tiempo real**: Citas del día, completadas, pendientes
@@ -150,16 +159,16 @@ Abrir en el navegador: `http://localhost:3000`
 1. **Crear cita**: Cliente → Vehículo → Servicios → Fecha/Hora
 2. **Vista calendario**: Navegación mensual con citas visuales
 3. **Cambio de estado**: Workflow completo de estados
-4. **Filtros**: Por estado, sucursal, cliente, fecha
+4. **Filtros** : Por estado, sucursal, cliente, fecha
 
 ### Módulos Principales
-- **👥 Clientes**: CRUD completo con validaciones
-- **🚗 Vehículos**: Gestión vinculada a clientes
-- **📅 Citas**: Sistema completo de agendamiento
-- **💰 Facturas**: Facturación automática
-- **📊 Reportes**: Analytics y métricas
+- **Clientes**: CRUD completo con validaciones
+- **Vehículos**: Gestión vinculada a clientes
+- **Citas**: Sistema completo de agendamiento
+- **Facturas**: Facturación automática
+- **Reportes**: Analytics y métricas
 
-## 🔌 API
+## API
 
 ### Endpoints Principales
 
@@ -212,7 +221,7 @@ DELETE /api/vehiculos/:id     # Eliminar vehículo
 }
 ```
 
-## 🛠️ Tecnologías Utilizadas
+## Tecnologías Utilizadas
 
 ### Backend
 - **Node.js**: Runtime de JavaScript
@@ -234,80 +243,45 @@ DELETE /api/vehiculos/:id     # Eliminar vehículo
 - **Postman**: Testing de API
 - **Oracle SQL Developer**: Gestión de BD
 
-## 📁 Estructura del Proyecto
+## Estructura del Proyecto
 
 ```
 PROYECTO/
-├── 📂 backend/
-│   ├── 📄 app.js                 # Punto de entrada
-│   ├── 📄 server.js              # Configuración del servidor
-│   ├── 📂 config/
-│   │   └── 📄 CR7.js             # Configuración de BD
-│   ├── 📂 controllers/           # Lógica de negocio
-│   ├── 📂 routes/                # Rutas de la API
-│   ├── 📂 middleware/            # Middlewares personalizados
-│   └── 📄 package.json           # Dependencias
-├── 📂 frontend/
-│   ├── 📂 sistema/               # Páginas principales
-│   ├── 📂 js/
-│   │   ├── 📂 modulos/           # Módulos JavaScript
-│   │   └── 📂 componentes/       # Componentes reutilizables
-│   ├── 📂 css/                   # Estilos personalizados
-│   └── 📄 config.js              # Configuración del frontend
-├── 📂 Database/                  # Scripts y datos SQL
-├── 📂 backup/                    # Respaldos de la BD
-└── 📄 README.md                  # Documentación
+├── backend/
+│   ├── app.js                 # Punto de entrada
+│   ├── server.js              # Configuración del servidor
+│   ├── config/
+│   │   └── CR7.js             # Configuración de BD
+│   ├── controllers/           # Lógica de negocio
+│   ├── routes/                # Rutas de la API
+│   ├── middleware/            # Middlewares personalizados
+│   └── package.json           # Dependencias
+├── frontend/
+│   ├── sistema/               # Páginas principales
+│   ├── js/
+│   │   ├── modulos/           # Módulos JavaScript
+│   │   └── componentes/       # Componentes reutilizables
+│   ├── css/                   # Estilos personalizados
+│   └── config.js              # Configuración del frontend
+├── Database/                  # Scripts y datos SQL
+├── backup/                    # Respaldos de la BD
+└── README.md                  # Documentación
 ```
 
-## 🤝 Contribuir
-
-### ¿Cómo contribuir?
-
-1. **Fork** el proyecto
-2. **Crear** una rama para tu feature (`git checkout -b feature/nueva-funcionalidad`)
-3. **Commit** tus cambios (`git commit -m 'Añadir nueva funcionalidad'`)
-4. **Push** a la rama (`git push origin feature/nueva-funcionalidad`)
-5. **Abrir** un Pull Request
-
-### Estándares de código
-
-- **ESLint**: Para JavaScript
-- **Prettier**: Formateo automático
-- **Comentarios**: Documentar funciones complejas
-- **Commits**: Mensajes descriptivos en español
-
-### Reportar bugs
-
-Usar el sistema de **Issues** de GitHub con:
-- Descripción detallada del problema
-- Pasos para reproducir
-- Capturas de pantalla si aplica
-- Entorno donde ocurre
-
-## 📝 Licencia
+## Licencia
 
 Este proyecto está bajo la licencia **MIT**. Ver `LICENSE` para más detalles.
 
-## 👥 Equipo
+## Contacto y Desarrolladores
 
-- **Desarrolladores Principal**: Cristobal Prados y Carlos Gonzalez
-- **Tipo**: Proyecto Universitario - Grupal
-- **Estado**: En desarrollo activo
+- **Cristobal Prados** - GitHub: [@Cristobal18p](https://github.com/Cristobal18p)
+- **Carlos Gonzalez** - GitHub: [@code-carlos12](https://github.com/code-carlos12)
 
-## 📞 Contacto
-
-- **GitHub**: [@Cristobal18p](https://github.com/Cristobal18p)
-- **Proyecto**: [TecnoTaller](https://github.com/Cristobal18p/PROYECTO)
 
 ---
 
 <div align="center">
 
-**⭐ Si te gusta este proyecto, no olvides darle una estrella ⭐**
-
-[![GitHub stars](https://img.shields.io/github/stars/Cristobal18p/PROYECTO?style=social)](https://github.com/Cristobal18p/PROYECTO/stargazers)
-[![GitHub forks](https://img.shields.io/github/forks/Cristobal18p/PROYECTO?style=social)](https://github.com/Cristobal18p/PROYECTO/network)
-
-**Desarrollado con ❤️ para optimizar la gestión de talleres automotrices**
+**Desarrollado para optimizar la gestión de talleres automotrices**
 
 </div>

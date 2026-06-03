@@ -1,32 +1,54 @@
 const express = require("express");
 const cors = require("cors");
 const app = express();
-const oracledb = require("oracledb");
 const path = require("path");
 require("dotenv").config();
 
-// Middleware
-app.use(cors());
+const { initialize } = require("./config/CR7.js");
+const { verifyToken } = require("./middleware/auth.middleware.js");
+
+// Auto-detectar si faltan las variables de entorno de Oracle y activar Mock DB por defecto
+const hasOracleConfig = process.env.DB_USER && process.env.DB_PASSWORD && process.env.DB_CONNECTION_STRING;
+if (!hasOracleConfig && process.env.USE_MOCK_DB !== "false") {
+  process.env.USE_MOCK_DB = "true";
+}
+
+// Clave JWT por defecto en desarrollo local para evitar caídas
+if (!process.env.JWT_SECRET) {
+  process.env.JWT_SECRET = "desarrollo_local_secreto_tecnotaller_2026_987654321";
+}
+
+// Validar variables de entorno si no estamos usando la base de datos en memoria
+if (process.env.USE_MOCK_DB !== "true") {
+  const requiredEnvVars = ["DB_USER", "DB_PASSWORD", "DB_CONNECTION_STRING", "JWT_SECRET"];
+  const missingVars = requiredEnvVars.filter((v) => !process.env[v]);
+  if (missingVars.length > 0) {
+    console.error(`❌ Variables de entorno faltantes para producción/Oracle: ${missingVars.join(", ")}`);
+    console.error("   Copia backend/.env.example como backend/.env y configura los valores.");
+    process.exit(1);
+  }
+}
+
+// Middleware - CORS con orígenes específicos
+const allowedOrigins = (process.env.CORS_ORIGINS || "http://localhost:3000")
+  .split(",")
+  .map((origin) => origin.trim());
+
+app.use(
+  cors({
+    origin: function (origin, callback) {
+      // Permitir requests sin origin (ej: mismo servidor, Postman)
+      if (!origin) return callback(null, true);
+      if (allowedOrigins.includes(origin)) {
+        return callback(null, true);
+      }
+      return callback(new Error("No permitido por CORS"));
+    },
+    credentials: true,
+  })
+);
+
 app.use(express.json()); // Para leer JSON en el body de las peticiones
-
-// Conexión de prueba a Oracle
-oracledb.outFormat = oracledb.OUT_FORMAT_OBJECT;
-
-oracledb
-  .createPool({
-    user: process.env.DB_USER || "db_taller",
-    password: process.env.DB_PASSWORD || "Taller2025",
-    connectString: process.env.DB_CONNECTION_STRING || "localhost:1521/ORCLPDB",
-    poolMin: 2,
-    poolMax: 10,
-    poolIncrement: 1,
-  })
-  .then(() => {
-    console.log("Conexión a Oracle establecida");
-  })
-  .catch((err) => {
-    console.error("Error al conectar a Oracle:", err);
-  });
 
 // Servir archivos estáticos desde la carpeta frontend
 app.use(express.static(path.join(__dirname, "../frontend")));
@@ -36,11 +58,14 @@ app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "../frontend/sistema/index.html"));
 });
 
-// Importar y usar rutas
-// RUTAS DE AUTENTICACIÓN
+// Rutas públicas (sin autenticación)
 const authRoutes = require("./routes/auth.routes.js");
 app.use("/api/auth", authRoutes);
 
+// Middleware de autenticación global para proteger las rutas /api/*
+app.use("/api", verifyToken);
+
+// Rutas protegidas (requieren autenticación)
 const clienteRoutes = require("./routes/clientes.routes.js");
 app.use("/api/clientes", clienteRoutes);
 
@@ -138,8 +163,20 @@ app.use("/api/estadistica-reporte", estadisticaReporteRoutes);
 const configuracionRoutes = require("./routes/configuracion.routes.js");
 app.use("/api/configuracion", configuracionRoutes);
 
-// Puerto
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`Servidor en http://localhost:${PORT}`);
-});
+// Inicialización del servidor
+async function iniciarServidor() {
+  try {
+    // Inicializar pool de Oracle (una sola fuente de verdad: CR7.js)
+    await initialize();
+
+    const PORT = process.env.PORT || 3000;
+    app.listen(PORT, () => {
+      console.log(`✅ Servidor TecnoTaller en http://localhost:${PORT}`);
+    });
+  } catch (error) {
+    console.error("❌ Error al iniciar el servidor:", error);
+    process.exit(1);
+  }
+}
+
+iniciarServidor();

@@ -44,7 +44,7 @@ const obtenerDireccionPorId = async (req, res) => {
       nombre_provincia: result.rows[0].NOMBRE_PROVINCIA,
     };
 
-    console.log("📍 Dirección completa obtenida:", direccionNormalizada);
+    console.log("Direccion completa obtenida:", direccionNormalizada);
 
     res.status(200).json({
       success: true,

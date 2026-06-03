@@ -1,6 +1,4 @@
-// ============================================
-// COMPONENT LOADER - TecnoTaller (Simplificado)
-// ============================================
+// Component Loader - carga componentes HTML compartidos
 
 class ComponentLoader {
   constructor() {
@@ -25,9 +23,9 @@ class ComponentLoader {
 
       container.innerHTML = html;
       this.loadedComponents.add(url);
-      console.log(`✅ Component loaded: ${url}`);
+      console.log(` Component loaded: ${url}`);
     } catch (error) {
-      console.error(`❌ Error loading component ${url}:`, error);
+      console.error(` Error loading component ${url}:`, error);
     }
   }
 
@@ -45,7 +43,7 @@ window.componentLoader = new ComponentLoader();
 
 // Función simplificada para cargar componentes comunes
 window.loadCommonComponents = async function () {
-  console.log("🔄 Cargando componentes compartidos...");
+  console.log(" Cargando componentes compartidos...");
 
   const components = [
     { url: "../components/navbar.html", containerId: "navbar-container" },
@@ -58,17 +56,17 @@ window.loadCommonComponents = async function () {
 
   try {
     await window.componentLoader.loadComponents(components);
-    console.log("✅ Todos los componentes cargados exitosamente");
+    console.log(" Todos los componentes cargados exitosamente");
 
     // Esperar un frame para que el DOM se actualice completamente
     await new Promise((resolve) => requestAnimationFrame(resolve));
   } catch (error) {
-    console.error("❌ Error cargando componentes:", error);
+    console.error(" Error cargando componentes:", error);
     return;
   }
 
   // Usar el ThemeManager centralizado
-  console.log("🎨 Aplicando tema a través del ThemeManager...");
+  console.log(" Aplicando tema a través del ThemeManager...");
 
   // Esperar a que ThemeManager esté disponible
   let retries = 0;
@@ -78,12 +76,12 @@ window.loadCommonComponents = async function () {
     if (window.themeManager && window.themeManager.initialized) {
       // Forzar actualización del tema actual
       window.themeManager.forceUpdate();
-      console.log("✅ Tema aplicado vía ThemeManager centralizado");
+      console.log(" Tema aplicado vía ThemeManager centralizado");
     } else if (retries < maxRetries) {
       retries++;
       setTimeout(waitForThemeManager, 100);
     } else {
-      console.error("❌ ThemeManager no encontrado después de esperar");
+      console.error(" ThemeManager no encontrado después de esperar");
     }
   };
 
@@ -113,7 +111,7 @@ window.loadCommonComponents = async function () {
         }
 
         console.log(
-          `✅ Componentes cargados con tema: ${window.themeManager?.getCurrentTheme()}`
+          `Componentes cargados con tema: ${window.themeManager?.getCurrentTheme()}`
         );
 
         resolve();

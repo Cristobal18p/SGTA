@@ -1,7 +1,4 @@
-// ============================================
-// NAVBAR MANAGER - TecnoTaller
-// Funcionalidad específica del navbar y control del sidebar
-// ============================================
+// Navbar Manager - control del navbar y sidebar
 
 class NavbarManager {
   constructor() {
@@ -40,7 +37,7 @@ class NavbarManager {
         return;
       } else {
         console.warn(
-          "⚠️ NavbarManager: Navbar/Sidebar elements not found after maximum retries. Some functionality may be limited."
+          "NavbarManager: Navbar/Sidebar elements not found after maximum retries. Some functionality may be limited."
         );
         // Continuar con inicialización parcial si algunos elementos están disponibles
       }
@@ -52,7 +49,7 @@ class NavbarManager {
     this.setupThemeListener();
     this.initialized = true;
     console.log(
-      "✅ NavbarManager initialized successfully with sidebar control"
+      "NavbarManager initialized successfully with sidebar control"
     );
   }
 
@@ -108,22 +105,22 @@ class NavbarManager {
     }
   }
 
-  // ============== FUNCIONALIDAD DEL SIDEBAR ==============
+  // Funcionalidad del sidebar
 
   // Toggle del sidebar
   toggleSidebar() {
-    console.log("🍔 Hamburger button clicked!");
+    console.log(" Hamburger button clicked!");
 
     if (!this.sidebar) {
-      console.error("❌ Sidebar element not found!");
+      console.error(" Sidebar element not found!");
       return;
     }
 
     if (this.isSidebarOpen()) {
-      console.log("🚪 Closing sidebar...");
+      console.log(" Closing sidebar...");
       this.closeSidebar();
     } else {
-      console.log("🚪 Opening sidebar...");
+      console.log(" Opening sidebar...");
       this.openSidebar();
     }
   }
@@ -192,7 +189,7 @@ class NavbarManager {
     }
   }
 
-  // ============== FUNCIONALIDAD DEL NAVBAR ==============
+  // Funcionalidad del navbar
 
   // Actualizar información del usuario en el navbar
   updateUserInfo() {
@@ -246,7 +243,7 @@ class NavbarManager {
           dropdownUserRole.textContent = rolMostrar;
         }
 
-        console.log("✅ Información de usuario actualizada en navbar");
+        console.log(" Información de usuario actualizada en navbar");
       })
       .catch(() => {
         this.setDefaultUserData();
@@ -297,7 +294,7 @@ class NavbarManager {
     const waitForThemeManager = () => {
       if (window.themeManager && window.themeManager.initialized) {
         window.themeManager.subscribe((newTheme, oldTheme) => {
-          console.log(`🎨 NavbarManager: Aplicando tema ${newTheme}`);
+          console.log(` NavbarManager: Aplicando tema ${newTheme}`);
 
           // Forzar actualización inmediata de los elementos
           setTimeout(() => {
@@ -319,7 +316,7 @@ class NavbarManager {
 
   // Método para recibir actualizaciones de tema
   updateTheme(newTheme) {
-    console.log(`🍔 NavbarManager: Actualizando a tema ${newTheme}`);
+    console.log(` NavbarManager: Actualizando a tema ${newTheme}`);
     // La actualización se maneja automáticamente por CSS
   }
 }
