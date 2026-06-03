@@ -272,9 +272,10 @@ PROYECTO/
 
 Este proyecto está bajo la licencia **MIT**. Ver `LICENSE` para más detalles.
 
-## Contacto
+## Contacto y Desarrolladores
 
-- **GitHub**: [@Cristobal18p](https://github.com/Cristobal18p)
+- **Cristobal Prados** - GitHub: [@Cristobal18p](https://github.com/Cristobal18p)
+- **Carlos Gonzalez** - GitHub: [@code-carlos12](https://github.com/code-carlos12)
 - **Proyecto**: [TecnoTaller (SGTA)](https://github.com/Cristobal18p/SGTA)
 
 ---
