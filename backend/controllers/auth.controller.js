@@ -3,7 +3,7 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const { simpleExecute } = require("../config/CR7.js");
 
-// Clave secreta para JWT (🔧 CAMBIAR POR UNA CLAVE SEGURA EN PRODUCCIÓN)
+// Clave secreta para JWT (cambiar por una clave segura en produccion)
 const JWT_SECRET = "tecnotaller_secret_key_2025";
 const JWT_EXPIRES_IN = "24h";
 

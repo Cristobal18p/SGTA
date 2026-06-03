@@ -1,7 +1,4 @@
-// ============================================
-// MÓDULO DE VEHÍCULOS - TecnoTaller
-// Gestión completa de vehículos del sistema
-// ============================================
+// Modulo de vehiculos - gestion completa de vehiculos del sistema
 
 class VehiculosModule {
   constructor() {
@@ -33,7 +30,7 @@ class VehiculosModule {
   }
 
   async init() {
-    console.log("🚗 Inicializando módulo de vehículos...");
+    console.log("Inicializando módulo de vehículos...");
 
     // Esperar a que el DOM esté listo
     if (document.readyState === "loading") {
@@ -44,18 +41,18 @@ class VehiculosModule {
   }
 
   setupElements() {
-    console.log("🔧 Configurando elementos del DOM...");
-    console.log("🌐 URL base:", this.baseUrl);
-    console.log("🌍 Location:", window.location.href);
+    console.log("Configurando elementos del DOM...");
+    console.log("URL base:", this.baseUrl);
+    console.log("Location:", window.location.href);
 
     // Referencias a elementos del DOM
     this.modal = document.getElementById("modalVehiculo");
     this.form = document.getElementById("formVehiculo");
     this.tabla = document.getElementById("tablaVehiculos");
 
-    console.log("🔧 Modal encontrado:", !!this.modal);
-    console.log("🔧 Formulario encontrado:", !!this.form);
-    console.log("🔧 Tabla encontrada:", !!this.tabla);
+    console.log("Modal encontrado:", !!this.modal);
+    console.log("Formulario encontrado:", !!this.form);
+    console.log("Tabla encontrada:", !!this.tabla);
 
     // Configurar event listeners
     this.setupEventListeners();
@@ -85,9 +82,9 @@ class VehiculosModule {
     // Formulario: submit
     if (this.form) {
       this.form.addEventListener("submit", (e) => this.handleSubmit(e));
-      console.log("✅ Event listener de submit agregado al formulario");
+      console.log("Event listener de submit agregado al formulario");
     } else {
-      console.error("❌ Formulario no encontrado para agregar event listener");
+      console.error("Formulario no encontrado para agregar event listener");
     }
 
     // Búsqueda y filtros
@@ -151,7 +148,7 @@ class VehiculosModule {
 
   async loadInitialData() {
     try {
-      console.log("📊 Cargando datos iniciales...");
+      console.log("Cargando datos iniciales...");
 
       // Verificar que el servidor esté disponible
       await this.checkServerHealth();
@@ -163,9 +160,9 @@ class VehiculosModule {
         this.loadSelectorsData(),
       ]);
 
-      console.log("✅ Datos iniciales cargados correctamente");
+      console.log("Datos iniciales cargados correctamente");
     } catch (error) {
-      console.error("❌ Error cargando datos iniciales:", error);
+      console.error("Error cargando datos iniciales:", error);
       this.showToast(
         "Error al cargar los datos iniciales. Verifique que el servidor esté corriendo.",
         "error"
@@ -175,15 +172,15 @@ class VehiculosModule {
 
   async checkServerHealth() {
     try {
-      console.log("🔍 Verificando estado del servidor...");
+      console.log("Verificando estado del servidor...");
       const response = await fetch(`${this.baseUrl}/api/vehiculos/total`);
       if (response.ok) {
-        console.log("✅ Servidor respondiendo correctamente");
+        console.log("Servidor respondiendo correctamente");
       } else {
         throw new Error(`Servidor respondió con estado: ${response.status}`);
       }
     } catch (error) {
-      console.error("❌ Error de conectividad del servidor:", error);
+      console.error("Error de conectividad del servidor:", error);
       throw new Error(
         "No se puede conectar al servidor. Verifique que esté corriendo en el puerto 3000."
       );
@@ -192,13 +189,13 @@ class VehiculosModule {
 
   async loadSelectorsData() {
     try {
-      console.log("📋 Cargando datos para selectores...");
+      console.log("Cargando datos para selectores...");
 
       // Cargar datos para los selectores de forma secuencial para mejor debugging
-      console.log("🔄 Cargando clientes...");
+      console.log("Cargando clientes...");
       try {
         const clientesResponse = await this.apiCall("/api/clientes/modulo");
-        console.log("📋 Respuesta de clientes:", clientesResponse);
+        console.log("Respuesta de clientes:", clientesResponse);
 
         // El backend retorna: { success: true, data: [...], pagination: {...} }
         if (
@@ -218,43 +215,43 @@ class VehiculosModule {
           this.clientes = clientesResponse.clientes;
         } else {
           console.warn(
-            "❌ Estructura de respuesta inesperada:",
+            " Estructura de respuesta inesperada:",
             clientesResponse
           );
           this.clientes = [];
         }
 
-        console.log(`✅ ${this.clientes.length} clientes cargados`);
-        console.log("📋 Primer cliente de ejemplo:", this.clientes[0]);
+        console.log(` ${this.clientes.length} clientes cargados`);
+        console.log("Primer cliente de ejemplo:", this.clientes[0]);
         console.log(
-          "📋 Tipo de this.clientes:",
+          " Tipo de this.clientes:",
           typeof this.clientes,
           Array.isArray(this.clientes)
         );
       } catch (error) {
-        console.error("❌ Error cargando clientes:", error);
+        console.error("Error cargando clientes:", error);
         this.clientes = [];
       }
 
-      console.log("🔄 Cargando marcas...");
+      console.log("Cargando marcas...");
       try {
         this.marcas = (await this.apiCall("/api/marcas_vehiculos")) || [];
-        console.log(`✅ ${this.marcas.length} marcas cargadas`);
-        console.log("📡 Respuesta de marcas:", this.marcas);
+        console.log(` ${this.marcas.length} marcas cargadas`);
+        console.log("Respuesta de marcas:", this.marcas);
       } catch (error) {
-        console.error("❌ Error cargando marcas:", error);
+        console.error("Error cargando marcas:", error);
         this.marcas = [];
       }
 
-      console.log("🔄 Cargando tipos de combustible...");
+      console.log("Cargando tipos de combustible...");
       try {
         this.tiposCombustible =
           (await this.apiCall("/api/tipos_combustible")) || [];
         console.log(
-          `✅ ${this.tiposCombustible.length} tipos de combustible cargados`
+          ` ${this.tiposCombustible.length} tipos de combustible cargados`
         );
       } catch (error) {
-        console.error("❌ Error cargando tipos de combustible:", error);
+        console.error("Error cargando tipos de combustible:", error);
         this.tiposCombustible = [];
       }
 
@@ -264,43 +261,43 @@ class VehiculosModule {
       this.populateTipoCombustibleSelector();
       this.populateFilterSelectors();
 
-      console.log("✅ Datos de selectores procesados");
+      console.log("Datos de selectores procesados");
     } catch (error) {
-      console.error("❌ Error general cargando datos de selectores:", error);
+      console.error("Error general cargando datos de selectores:", error);
     }
   }
 
   async loadModelosByMarca(marcaId) {
-    console.log("🔄 loadModelosByMarca llamado con marcaId:", marcaId);
+    console.log("loadModelosByMarca llamado con marcaId:", marcaId);
 
     const modeloSelector = document.getElementById("modeloId");
 
     if (!marcaId) {
-      console.log("🔄 marcaId está vacío, limpiando selector");
+      console.log("marcaId está vacío, limpiando selector");
       this.clearModeloSelector();
       return;
     }
 
     if (!modeloSelector) {
-      console.error("❌ Selector modeloId no encontrado");
+      console.error("Selector modeloId no encontrado");
       return;
     }
 
     try {
-      console.log(`🔄 Cargando modelos para marca ID: ${marcaId}`);
+      console.log(` Cargando modelos para marca ID: ${marcaId}`);
 
       // Mostrar estado de carga
       modeloSelector.innerHTML =
         '<option value="">Cargando modelos...</option>';
 
       const modelos = await this.apiCall("/api/modelos_vehiculos");
-      console.log("📋 Respuesta completa de modelos:", modelos);
-      console.log("📋 Tipo de respuesta:", typeof modelos);
-      console.log("📋 Es array:", Array.isArray(modelos));
+      console.log("Respuesta completa de modelos:", modelos);
+      console.log("Tipo de respuesta:", typeof modelos);
+      console.log("Es array:", Array.isArray(modelos));
 
       if (modelos && modelos.length > 0) {
-        console.log("📋 Primer modelo:", modelos[0]);
-        console.log("📋 Campos del primer modelo:", Object.keys(modelos[0]));
+        console.log("Primer modelo:", modelos[0]);
+        console.log("Campos del primer modelo:", Object.keys(modelos[0]));
       }
 
       // Filtrar modelos por marca (asumiendo que el modelo tiene marca_id)
@@ -308,7 +305,7 @@ class VehiculosModule {
         ? modelos.filter((modelo) => {
             const modeloMarcaId = modelo.MARCA_ID || modelo.marca_id;
             console.log(
-              `🔍 Comparando modelo ${
+              ` Comparando modelo ${
                 modelo.NOMBRE_MODELO || modelo.nombre_modelo
               }: marcaId=${modeloMarcaId} vs seleccionada=${marcaId}`
             );
@@ -317,13 +314,13 @@ class VehiculosModule {
         : [];
 
       console.log(
-        `✅ ${this.modelos.length} modelos encontrados para la marca ${marcaId}`
+        ` ${this.modelos.length} modelos encontrados para la marca ${marcaId}`
       );
-      console.log("📋 Modelos filtrados:", this.modelos);
+      console.log("Modelos filtrados:", this.modelos);
 
       this.populateModeloSelector();
     } catch (error) {
-      console.error("❌ Error cargando modelos:", error);
+      console.error("Error cargando modelos:", error);
       modeloSelector.innerHTML =
         '<option value="">Error cargando modelos</option>';
     }
@@ -332,29 +329,29 @@ class VehiculosModule {
   populateClienteSelector() {
     const selector = document.getElementById("clienteId");
     if (!selector) {
-      console.error("❌ Selector clienteId no encontrado en el DOM");
+      console.error("Selector clienteId no encontrado en el DOM");
       return;
     }
 
-    console.log("🔧 Poblando selector de clientes...");
-    console.log("🔧 Estado de this.clientes:", this.clientes);
-    console.log("🔧 Longitud de clientes:", this.clientes?.length);
+    console.log("Poblando selector de clientes...");
+    console.log("Estado de this.clientes:", this.clientes);
+    console.log("Longitud de clientes:", this.clientes?.length);
 
     selector.innerHTML = '<option value="">Seleccionar cliente</option>';
 
     // Validar que this.clientes sea un array
     if (!Array.isArray(this.clientes)) {
-      console.error("❌ this.clientes no es un array:", this.clientes);
+      console.error("this.clientes no es un array:", this.clientes);
       return;
     }
 
     if (this.clientes.length === 0) {
-      console.error("❌ No hay clientes disponibles para poblar el selector");
+      console.error("No hay clientes disponibles para poblar el selector");
       return;
     }
 
     console.log(
-      `📋 Poblando selector de clientes con ${this.clientes.length} opciones`
+      ` Poblando selector de clientes con ${this.clientes.length} opciones`
     );
 
     this.clientes.forEach((cliente, index) => {
@@ -370,12 +367,12 @@ class VehiculosModule {
       selector.appendChild(option);
 
       console.log(
-        `🔧 Cliente ${index + 1}: ID=${clienteId}, Texto=${option.textContent}`
+        ` Cliente ${index + 1}: ID=${clienteId}, Texto=${option.textContent}`
       );
     });
 
     console.log(
-      `✅ Selector de clientes poblado con ${
+      ` Selector de clientes poblado con ${
         selector.options.length - 1
       } opciones`
     );
@@ -384,21 +381,21 @@ class VehiculosModule {
   populateMarcaSelector() {
     const selector = document.getElementById("marcaId");
     if (!selector) {
-      console.error("❌ Selector marcaId no encontrado en el DOM");
+      console.error("Selector marcaId no encontrado en el DOM");
       return;
     }
 
     selector.innerHTML = '<option value="">Seleccionar marca</option>';
 
     if (!Array.isArray(this.marcas)) {
-      console.error("❌ this.marcas no es un array:", this.marcas);
+      console.error("this.marcas no es un array:", this.marcas);
       return;
     }
 
     console.log(
-      `📋 Poblando selector de marcas con ${this.marcas.length} opciones`
+      ` Poblando selector de marcas con ${this.marcas.length} opciones`
     );
-    console.log("📋 Datos de marcas:", this.marcas);
+    console.log("Datos de marcas:", this.marcas);
 
     this.marcas.forEach((marca, index) => {
       const option = document.createElement("option");
@@ -407,14 +404,14 @@ class VehiculosModule {
       selector.appendChild(option);
 
       console.log(
-        `🔧 Marca ${index + 1}: ID=${option.value}, Nombre=${
+        ` Marca ${index + 1}: ID=${option.value}, Nombre=${
           option.textContent
         }`
       );
     });
 
     console.log(
-      `✅ Selector de marcas poblado con ${
+      ` Selector de marcas poblado con ${
         selector.options.length - 1
       } opciones`
     );
@@ -423,14 +420,14 @@ class VehiculosModule {
   populateModeloSelector() {
     const selector = document.getElementById("modeloId");
     if (!selector) {
-      console.error("❌ Selector modeloId no encontrado en el DOM");
+      console.error("Selector modeloId no encontrado en el DOM");
       return;
     }
 
-    console.log("🔧 Poblando selector de modelos con:", this.modelos);
+    console.log("Poblando selector de modelos con:", this.modelos);
 
     if (!Array.isArray(this.modelos)) {
-      console.error("❌ this.modelos no es un array:", this.modelos);
+      console.error("this.modelos no es un array:", this.modelos);
       selector.innerHTML =
         '<option value="">Error en datos de modelos</option>';
       return;
@@ -439,14 +436,14 @@ class VehiculosModule {
     if (this.modelos.length === 0) {
       selector.innerHTML =
         '<option value="">No hay modelos disponibles para esta marca</option>';
-      console.log("⚠️ No hay modelos disponibles para la marca seleccionada");
+      console.log("No hay modelos disponibles para la marca seleccionada");
       return;
     }
 
     selector.innerHTML = '<option value="">Seleccionar modelo</option>';
 
     console.log(
-      `📋 Poblando selector de modelos con ${this.modelos.length} opciones`
+      ` Poblando selector de modelos con ${this.modelos.length} opciones`
     );
 
     this.modelos.forEach((modelo, index) => {
@@ -455,7 +452,7 @@ class VehiculosModule {
       const nombreModelo = modelo.NOMBRE_MODELO || modelo.nombre_modelo;
 
       console.log(
-        `🔧 Modelo ${index + 1}: ID=${modeloId}, Nombre=${nombreModelo}`
+        ` Modelo ${index + 1}: ID=${modeloId}, Nombre=${nombreModelo}`
       );
 
       option.value = modeloId;
@@ -464,7 +461,7 @@ class VehiculosModule {
     });
 
     console.log(
-      `✅ Selector de modelos poblado con ${
+      ` Selector de modelos poblado con ${
         selector.options.length - 1
       } opciones`
     );
@@ -475,16 +472,16 @@ class VehiculosModule {
     if (selector) {
       selector.innerHTML =
         '<option value="">Primero seleccione una marca</option>';
-      console.log("🔄 Selector de modelos limpiado");
+      console.log("Selector de modelos limpiado");
     } else {
-      console.error("❌ Selector modeloId no encontrado para limpiar");
+      console.error("Selector modeloId no encontrado para limpiar");
     }
   }
 
   populateTipoCombustibleSelector() {
     const selector = document.getElementById("tipoCombustibleId");
     if (!selector) {
-      console.error("❌ Selector tipoCombustibleId no encontrado en el DOM");
+      console.error("Selector tipoCombustibleId no encontrado en el DOM");
       return;
     }
 
@@ -492,14 +489,14 @@ class VehiculosModule {
 
     if (!Array.isArray(this.tiposCombustible)) {
       console.error(
-        "❌ this.tiposCombustible no es un array:",
+        " this.tiposCombustible no es un array:",
         this.tiposCombustible
       );
       return;
     }
 
     console.log(
-      `📋 Poblando selector de combustibles con ${this.tiposCombustible.length} opciones`
+      ` Poblando selector de combustibles con ${this.tiposCombustible.length} opciones`
     );
 
     this.tiposCombustible.forEach((tipo) => {
@@ -511,7 +508,7 @@ class VehiculosModule {
     });
 
     console.log(
-      `✅ Selector de combustibles poblado con ${
+      ` Selector de combustibles poblado con ${
         selector.options.length - 1
       } opciones`
     );
@@ -560,17 +557,17 @@ class VehiculosModule {
 
   async loadVehiculos() {
     try {
-      console.log("🔄 Cargando vehículos...");
+      console.log("Cargando vehículos...");
       const vehiculos = await this.apiCall("/api/vehiculos");
 
-      console.log("📋 Datos recibidos de la API:", vehiculos);
-      console.log("📋 Tipo de datos:", typeof vehiculos);
-      console.log("📋 Es array:", Array.isArray(vehiculos));
+      console.log("Datos recibidos de la API:", vehiculos);
+      console.log("Tipo de datos:", typeof vehiculos);
+      console.log("Es array:", Array.isArray(vehiculos));
 
       if (vehiculos && vehiculos.length > 0) {
-        console.log("📋 Primer vehículo:", vehiculos[0]);
+        console.log("Primer vehículo:", vehiculos[0]);
         console.log(
-          "📋 Campos del primer vehículo:",
+          " Campos del primer vehículo:",
           Object.keys(vehiculos[0])
         );
       }
@@ -587,16 +584,16 @@ class VehiculosModule {
       this.updateTable();
       this.updatePagination();
 
-      console.log(`✅ ${this.vehiculos.length} vehículos cargados`);
+      console.log(` ${this.vehiculos.length} vehículos cargados`);
     } catch (error) {
-      console.error("❌ Error cargando vehículos:", error);
+      console.error("Error cargando vehículos:", error);
       this.showToast("Error al cargar los vehículos", "error");
     }
   }
 
   async loadEstadisticas() {
     try {
-      console.log("📊 Cargando estadísticas...");
+      console.log("Cargando estadísticas...");
 
       const [total, enServicio, proximoMant, marcaPopular] = await Promise.all([
         this.apiCall("/api/vehiculos/total"),
@@ -618,9 +615,9 @@ class VehiculosModule {
         marcaElement.textContent = marcaPopular.marca_mas_popular || "-";
       }
 
-      console.log("✅ Estadísticas cargadas");
+      console.log("Estadísticas cargadas");
     } catch (error) {
-      console.error("❌ Error cargando estadísticas:", error);
+      console.error("Error cargando estadísticas:", error);
     }
   }
 
@@ -705,19 +702,19 @@ class VehiculosModule {
   }
 
   updateTable() {
-    console.log("🔄 Actualizando tabla...");
-    console.log("📊 Vehículos filtrados:", this.filteredVehiculos.length);
-    console.log("📊 Elemento tabla:", this.tabla);
+    console.log("Actualizando tabla...");
+    console.log("Vehículos filtrados:", this.filteredVehiculos.length);
+    console.log("Elemento tabla:", this.tabla);
 
     if (!this.tabla) {
-      console.error("❌ Elemento tabla no encontrado");
+      console.error("Elemento tabla no encontrado");
       return;
     }
 
     this.tabla.innerHTML = "";
 
     if (this.filteredVehiculos.length === 0) {
-      console.log("📊 No hay vehículos para mostrar");
+      console.log("No hay vehículos para mostrar");
       this.tabla.innerHTML = `
                 <tr>
                     <td colspan="7" class="px-6 py-8 text-center text-gray-500">
@@ -734,21 +731,21 @@ class VehiculosModule {
     const vehiculosPage = this.filteredVehiculos.slice(startIndex, endIndex);
 
     console.log(
-      `📊 Mostrando vehículos ${startIndex + 1} a ${Math.min(
+      ` Mostrando vehículos ${startIndex + 1} a ${Math.min(
         endIndex,
         this.filteredVehiculos.length
       )} de ${this.filteredVehiculos.length}`
     );
-    console.log("📊 Vehículos de la página:", vehiculosPage);
+    console.log("Vehículos de la página:", vehiculosPage);
 
     vehiculosPage.forEach((vehiculo, index) => {
-      console.log(`📊 Creando fila para vehículo ${index + 1}:`, vehiculo);
+      console.log(` Creando fila para vehículo ${index + 1}:`, vehiculo);
       const row = this.createVehiculoRow(vehiculo);
       this.tabla.appendChild(row);
     });
 
     this.updatePaginationInfo();
-    console.log("✅ Tabla actualizada correctamente");
+    console.log("Tabla actualizada correctamente");
   }
 
   createVehiculoRow(vehiculo) {
@@ -776,8 +773,8 @@ class VehiculosModule {
 
     // Debug para propietarios undefined
     if (!vehiculoData.propietario) {
-      console.log("⚠️ Propietario undefined para vehículo:", vehiculo);
-      console.log("⚠️ Campos disponibles:", Object.keys(vehiculo));
+      console.log("Propietario undefined para vehículo:", vehiculo);
+      console.log("Campos disponibles:", Object.keys(vehiculo));
     }
 
     row.innerHTML = `
@@ -944,7 +941,7 @@ class VehiculosModule {
   }
 
   showCreateModal() {
-    console.log("🔧 Abriendo modal para crear nuevo vehículo");
+    console.log("Abriendo modal para crear nuevo vehículo");
 
     this.editMode = false;
     this.currentVehiculoId = null;
@@ -957,11 +954,11 @@ class VehiculosModule {
     this.resetForm();
 
     // Re-poblar los selectores para asegurar que estén actualizados
-    console.log("🔄 Re-poblando selectores en modal...");
-    console.log("🔄 Datos disponibles para selectores:");
-    console.log("   - Clientes:", this.clientes.length);
-    console.log("   - Marcas:", this.marcas.length);
-    console.log("   - Tipos combustible:", this.tiposCombustible.length);
+    console.log("Re-poblando selectores en modal...");
+    console.log("Datos disponibles para selectores:");
+    console.log("- Clientes:", this.clientes.length);
+    console.log("- Marcas:", this.marcas.length);
+    console.log("- Tipos combustible:", this.tiposCombustible.length);
 
     this.populateClienteSelector();
     this.populateMarcaSelector();
@@ -981,16 +978,16 @@ class VehiculosModule {
   }
 
   setupMarcaEventListener() {
-    console.log("🔧 Configurando event listener para selector de marca...");
+    console.log("Configurando event listener para selector de marca...");
 
     const marcaSelect = document.getElementById("marcaId");
     if (!marcaSelect) {
-      console.error("❌ Selector marcaId no encontrado");
+      console.error("Selector marcaId no encontrado");
       return;
     }
 
     console.log(
-      "🔧 Selector de marca encontrado, opciones disponibles:",
+      " Selector de marca encontrado, opciones disponibles:",
       marcaSelect.options.length
     );
 
@@ -1001,9 +998,9 @@ class VehiculosModule {
 
     // Crear el handler como una función de flecha para mantener el contexto
     this.marcaChangeHandler = (e) => {
-      console.log("🔧 Marca seleccionada:", e.target.value);
+      console.log("Marca seleccionada:", e.target.value);
       console.log(
-        "🔧 Opciones del selector de marca:",
+        " Opciones del selector de marca:",
         e.target.options.length
       );
       this.loadModelosByMarca(e.target.value);
@@ -1012,7 +1009,7 @@ class VehiculosModule {
     // Agregar el event listener
     marcaSelect.addEventListener("change", this.marcaChangeHandler);
 
-    console.log("✅ Event listener de marca configurado");
+    console.log("Event listener de marca configurado");
   }
 
   async editVehiculo(vehiculoId) {
@@ -1034,13 +1031,13 @@ class VehiculosModule {
         return;
       }
 
-      console.log("🔧 Editando vehículo:", vehiculo);
+      console.log("Editando vehículo:", vehiculo);
 
       // Re-poblar selectores antes de llenar el formulario
-      console.log("🔄 Re-poblando selectores para edición...");
-      console.log("🔄 Estado de datos antes de re-poblar:");
-      console.log("   - this.clientes.length:", this.clientes.length);
-      console.log("   - this.marcas.length:", this.marcas.length);
+      console.log("Re-poblando selectores para edición...");
+      console.log("Estado de datos antes de re-poblar:");
+      console.log("- this.clientes.length:", this.clientes.length);
+      console.log("- this.marcas.length:", this.marcas.length);
       console.log(
         "   - this.tiposCombustible.length:",
         this.tiposCombustible.length
@@ -1058,26 +1055,26 @@ class VehiculosModule {
       this.setupMarcaEventListener();
       this.showModal();
     } catch (error) {
-      console.error("❌ Error preparando edición:", error);
+      console.error("Error preparando edición:", error);
       this.showToast("Error al cargar los datos del vehículo", "error");
     }
   }
 
   populateForm(vehiculo) {
-    console.log("🔧 === INICIANDO POBLACIÓN DEL FORMULARIO ===");
-    console.log("🔧 Vehículo recibido:", vehiculo);
+    console.log("=== INICIANDO POBLACIÓN DEL FORMULARIO ===");
+    console.log("Vehículo recibido:", vehiculo);
 
     // Debug específico para campos de cliente
-    console.log("🔍 === INFORMACIÓN DEL CLIENTE ===");
-    console.log("   CLIENTE_ID:", vehiculo.CLIENTE_ID);
-    console.log("   cliente_id:", vehiculo.cliente_id);
-    console.log("   NOMBRE_CLIENTE:", vehiculo.NOMBRE_CLIENTE);
-    console.log("   nombre_cliente:", vehiculo.nombre_cliente);
-    console.log("   PROPIETARIO:", vehiculo.PROPIETARIO);
-    console.log("   propietario:", vehiculo.propietario);
+    console.log("=== INFORMACIÓN DEL CLIENTE ===");
+    console.log("CLIENTE_ID:", vehiculo.CLIENTE_ID);
+    console.log("cliente_id:", vehiculo.cliente_id);
+    console.log("NOMBRE_CLIENTE:", vehiculo.NOMBRE_CLIENTE);
+    console.log("nombre_cliente:", vehiculo.nombre_cliente);
+    console.log("PROPIETARIO:", vehiculo.PROPIETARIO);
+    console.log("propietario:", vehiculo.propietario);
 
     // Listar todos los elementos de formulario para debugging
-    console.log("🔍 Elementos de formulario disponibles:");
+    console.log("Elementos de formulario disponibles:");
     const formElements = document.querySelectorAll(
       "#formVehiculo input, #formVehiculo select, #formVehiculo textarea"
     );
@@ -1097,67 +1094,67 @@ class VehiculosModule {
     const numeroMotorField = document.getElementById("numeroMotor");
     const numeroChasisField = document.getElementById("numeroChasis");
 
-    console.log("🔍 Verificando existencia de elementos DOM:");
-    console.log("   numeroPlaca:", !!numeroPlacaField, numeroPlacaField?.id);
-    console.log("   color:", !!colorField, colorField?.id);
+    console.log("Verificando existencia de elementos DOM:");
+    console.log("numeroPlaca:", !!numeroPlacaField, numeroPlacaField?.id);
+    console.log("color:", !!colorField, colorField?.id);
     console.log(
       "   anioFabricacion:",
       !!anioFabricacionField,
       anioFabricacionField?.id
     );
-    console.log("   kilometraje:", !!kilometrajeField, kilometrajeField?.id);
-    console.log("   numeroMotor:", !!numeroMotorField, numeroMotorField?.id);
-    console.log("   numeroChasis:", !!numeroChasisField, numeroChasisField?.id);
+    console.log("kilometraje:", !!kilometrajeField, kilometrajeField?.id);
+    console.log("numeroMotor:", !!numeroMotorField, numeroMotorField?.id);
+    console.log("numeroChasis:", !!numeroChasisField, numeroChasisField?.id);
 
     // También buscar con nombres alternativos
     if (!kilometrajeField) {
-      console.log("🔍 Buscando campo kilometraje con nombres alternativos:");
+      console.log("Buscando campo kilometraje con nombres alternativos:");
       const altKm1 = document.getElementById("kilometrajeActual");
       const altKm2 = document.getElementById("km");
       const altKm3 = document.getElementById("kilometraje_actual");
-      console.log("   kilometrajeActual:", !!altKm1);
-      console.log("   km:", !!altKm2);
-      console.log("   kilometraje_actual:", !!altKm3);
+      console.log("kilometrajeActual:", !!altKm1);
+      console.log("km:", !!altKm2);
+      console.log("kilometraje_actual:", !!altKm3);
     }
 
     if (!numeroMotorField) {
-      console.log("🔍 Buscando campo numeroMotor con nombres alternativos:");
+      console.log("Buscando campo numeroMotor con nombres alternativos:");
       const altMotor1 = document.getElementById("numero_motor");
       const altMotor2 = document.getElementById("motor");
-      console.log("   numero_motor:", !!altMotor1);
-      console.log("   motor:", !!altMotor2);
+      console.log("numero_motor:", !!altMotor1);
+      console.log("motor:", !!altMotor2);
     }
 
     if (!numeroChasisField) {
-      console.log("🔍 Buscando campo numeroChasis con nombres alternativos:");
+      console.log("Buscando campo numeroChasis con nombres alternativos:");
       const altChasis1 = document.getElementById("numero_chasis");
       const altChasis2 = document.getElementById("chasis");
-      console.log("   numero_chasis:", !!altChasis1);
-      console.log("   chasis:", !!altChasis2);
+      console.log("numero_chasis:", !!altChasis1);
+      console.log("chasis:", !!altChasis2);
     }
 
     if (numeroPlacaField) {
       numeroPlacaField.value =
         vehiculo.NUMERO_PLACA || vehiculo.numero_placa || "";
-      console.log("✅ Número de placa establecido:", numeroPlacaField.value);
+      console.log("Número de placa establecido:", numeroPlacaField.value);
     } else {
-      console.error("❌ Campo numeroPlaca no encontrado");
+      console.error("Campo numeroPlaca no encontrado");
     }
     if (colorField) {
       colorField.value = vehiculo.COLOR || vehiculo.color || "";
-      console.log("✅ Color establecido:", colorField.value);
+      console.log("Color establecido:", colorField.value);
     } else {
-      console.error("❌ Campo color no encontrado");
+      console.error("Campo color no encontrado");
     }
     if (anioFabricacionField) {
       anioFabricacionField.value =
         vehiculo.ANIO_FABRICACION || vehiculo.anio_fabricacion || "";
       console.log(
-        "✅ Año fabricación establecido:",
+        " Año fabricación establecido:",
         anioFabricacionField.value
       );
     } else {
-      console.error("❌ Campo anioFabricacion no encontrado");
+      console.error("Campo anioFabricacion no encontrado");
     }
     // Función auxiliar para encontrar campos con nombres alternativos
     const findField = (primaryId, alternativeIds = []) => {
@@ -1168,7 +1165,7 @@ class VehiculosModule {
         field = document.getElementById(altId);
         if (field) {
           console.log(
-            `🔧 Campo encontrado con ID alternativo: ${altId} (buscando: ${primaryId})`
+            ` Campo encontrado con ID alternativo: ${altId} (buscando: ${primaryId})`
           );
           return field;
         }
@@ -1195,46 +1192,46 @@ class VehiculosModule {
       const km = vehiculo.KILOMETRAJE || vehiculo.kilometraje || "";
       kilometrajeFieldFinal.value = km;
       console.log(
-        "✅ Kilometraje establecido:",
+        " Kilometraje establecido:",
         km,
         "en campo:",
         kilometrajeFieldFinal.id
       );
     } else {
       console.error(
-        "❌ Campo kilometraje no encontrado en DOM con ningún nombre"
+        " Campo kilometraje no encontrado en DOM con ningún nombre"
       );
     }
     if (numeroMotorFieldFinal) {
       const motor = vehiculo.NUMERO_MOTOR || vehiculo.numero_motor || "";
       numeroMotorFieldFinal.value = motor;
       console.log(
-        "✅ Número motor establecido:",
+        " Número motor establecido:",
         motor,
         "en campo:",
         numeroMotorFieldFinal.id
       );
     } else {
       console.error(
-        "❌ Campo numeroMotor no encontrado en DOM con ningún nombre"
+        " Campo numeroMotor no encontrado en DOM con ningún nombre"
       );
     }
     if (numeroChasisFieldFinal) {
       const chasis = vehiculo.NUMERO_CHASIS || vehiculo.numero_chasis || "";
       numeroChasisFieldFinal.value = chasis;
       console.log(
-        "✅ Número chasis establecido:",
+        " Número chasis establecido:",
         chasis,
         "en campo:",
         numeroChasisFieldFinal.id
       );
     } else {
       console.error(
-        "❌ Campo numeroChasis no encontrado en DOM con ningún nombre"
+        " Campo numeroChasis no encontrado en DOM con ningún nombre"
       );
     }
 
-    console.log("📋 Valores de campos específicos:");
+    console.log("Valores de campos específicos:");
     console.log(
       "   Número Motor:",
       vehiculo.NUMERO_MOTOR || vehiculo.numero_motor
@@ -1247,10 +1244,10 @@ class VehiculosModule {
       "   Kilometraje:",
       vehiculo.KILOMETRAJE || vehiculo.kilometraje
     );
-    console.log("📋 Elementos DOM encontrados:");
-    console.log("   numeroMotor field:", !!numeroMotorField);
-    console.log("   numeroChasis field:", !!numeroChasisField);
-    console.log("   kilometraje field:", !!kilometrajeField);
+    console.log("Elementos DOM encontrados:");
+    console.log("numeroMotor field:", !!numeroMotorField);
+    console.log("numeroChasis field:", !!numeroChasisField);
+    console.log("kilometraje field:", !!kilometrajeField);
 
     // Establecer selectores después de que estén poblados
     // Usar los nombres exactos que devuelve el backend
@@ -1260,15 +1257,15 @@ class VehiculosModule {
     const marcaId = vehiculo.MARCA_ID || vehiculo.marca_id;
     const modeloId = vehiculo.MODELO_ID || vehiculo.modelo_id;
 
-    console.log("📋 IDs a establecer:");
-    console.log("   Cliente ID:", clienteId);
-    console.log("   Marca ID:", marcaId);
-    console.log("   Modelo ID:", modeloId);
-    console.log("   Tipo Combustible ID:", tipoCombustibleId);
+    console.log("IDs a establecer:");
+    console.log("Cliente ID:", clienteId);
+    console.log("Marca ID:", marcaId);
+    console.log("Modelo ID:", modeloId);
+    console.log("Tipo Combustible ID:", tipoCombustibleId);
 
     // Usar setTimeout para asegurar que los selectores estén poblados
     setTimeout(() => {
-      console.log("🔧 === ESTABLECIENDO SELECTORES ===");
+      console.log("=== ESTABLECIENDO SELECTORES ===");
 
       // Para modo edición, mostrar el cliente como texto no editable
       if (this.editMode) {
@@ -1284,32 +1281,32 @@ class VehiculosModule {
       // Establecer el tipo de combustible seleccionado
       if (tipoCombustibleId) {
         document.getElementById("tipoCombustibleId").value = tipoCombustibleId;
-        console.log("✅ Tipo combustible seleccionado:", tipoCombustibleId);
+        console.log("Tipo combustible seleccionado:", tipoCombustibleId);
       }
 
       // Para marca y modelo, necesitamos cargar la marca primero y luego el modelo
       if (marcaId) {
         document.getElementById("marcaId").value = marcaId;
-        console.log("✅ Marca seleccionada:", marcaId);
+        console.log("Marca seleccionada:", marcaId);
         // Cargar modelos de esa marca y luego seleccionar el modelo
         this.loadModelosByMarca(marcaId).then(() => {
           if (modeloId) {
             document.getElementById("modeloId").value = modeloId;
-            console.log("✅ Modelo seleccionado:", modeloId);
+            console.log("Modelo seleccionado:", modeloId);
           }
         });
       }
     }, 200); // Aumentado el timeout a 200ms
 
-    console.log("✅ Formulario de edición poblado correctamente");
+    console.log("Formulario de edición poblado correctamente");
   }
 
   setClienteReadOnly(clienteId, vehiculo) {
-    console.log("🔧 === ESTABLECIENDO CLIENTE COMO SOLO LECTURA ===");
+    console.log("=== ESTABLECIENDO CLIENTE COMO SOLO LECTURA ===");
 
     const clienteSelector = document.getElementById("clienteId");
     if (!clienteSelector) {
-      console.error("❌ Selector clienteId no encontrado");
+      console.error("Selector clienteId no encontrado");
       return;
     }
 
@@ -1339,7 +1336,7 @@ class VehiculosModule {
       }
     }
 
-    console.log("🔧 Nombre del cliente a mostrar:", clienteNombre);
+    console.log("Nombre del cliente a mostrar:", clienteNombre);
 
     // Convertir el selector en un campo de solo lectura
     clienteSelector.style.display = "none";
@@ -1376,12 +1373,12 @@ class VehiculosModule {
 
     hiddenField.value = clienteId;
 
-    console.log("✅ Cliente establecido como solo lectura:", clienteNombre);
-    console.log("✅ Cliente ID guardado en campo oculto:", clienteId);
+    console.log("Cliente establecido como solo lectura:", clienteNombre);
+    console.log("Cliente ID guardado en campo oculto:", clienteId);
   }
 
   setClienteValue(clienteSelector, clienteId) {
-    console.log("🔧 === ESTABLECIENDO VALOR DEL CLIENTE ===");
+    console.log("=== ESTABLECIENDO VALOR DEL CLIENTE ===");
     console.log(
       "   Cliente ID a establecer:",
       clienteId,
@@ -1394,7 +1391,7 @@ class VehiculosModule {
     );
 
     // Mostrar todas las opciones disponibles para debugging
-    console.log("   📋 Opciones disponibles:");
+    console.log("Opciones disponibles:");
     for (let i = 0; i < clienteSelector.options.length; i++) {
       const option = clienteSelector.options[i];
       console.log(
@@ -1407,8 +1404,8 @@ class VehiculosModule {
     // Intentar establecer el valor directamente primero
     const clienteIdStr = String(clienteId);
     clienteSelector.value = clienteIdStr;
-    console.log("   Intentando valor como string:", clienteIdStr);
-    console.log("   Valor después de asignación:", clienteSelector.value);
+    console.log("Intentando valor como string:", clienteIdStr);
+    console.log("Valor después de asignación:", clienteSelector.value);
 
     // Verificar si se estableció correctamente
     if (
@@ -1416,7 +1413,7 @@ class VehiculosModule {
       clienteSelector.value == clienteId
     ) {
       console.log(
-        "✅ Cliente establecido correctamente con valor:",
+        " Cliente establecido correctamente con valor:",
         clienteSelector.value
       );
       return;
@@ -1424,7 +1421,7 @@ class VehiculosModule {
 
     // Si no funcionó, buscar manualmente
     console.log(
-      "⚠️ Valor no establecido automáticamente, buscando manualmente..."
+      " Valor no establecido automáticamente, buscando manualmente..."
     );
     let encontrado = false;
 
@@ -1439,7 +1436,7 @@ class VehiculosModule {
         Number(option.value) === Number(clienteId)
       ) {
         clienteSelector.selectedIndex = i;
-        console.log("✅ Cliente encontrado y establecido:");
+        console.log("Cliente encontrado y establecido:");
         console.log(`   Índice: ${i}`);
         console.log(`   Valor: "${option.value}"`);
         console.log(`   Texto: "${option.text}"`);
@@ -1451,7 +1448,7 @@ class VehiculosModule {
     }
 
     if (!encontrado) {
-      console.error("❌ No se pudo encontrar el cliente en las opciones:");
+      console.error("No se pudo encontrar el cliente en las opciones:");
       console.error(
         `   Cliente ID buscado: "${clienteId}" (tipo: ${typeof clienteId})`
       );
@@ -1509,21 +1506,21 @@ class VehiculosModule {
   async handleSubmit(e) {
     e.preventDefault();
 
-    console.log("🚀 === INICIANDO ENVÍO DEL FORMULARIO ===");
-    console.log("   Modo edición:", this.editMode);
-    console.log("   ID del vehículo actual:", this.currentVehiculoId);
+    console.log("=== INICIANDO ENVÍO DEL FORMULARIO ===");
+    console.log("Modo edición:", this.editMode);
+    console.log("ID del vehículo actual:", this.currentVehiculoId);
 
     try {
-      console.log("📋 Obteniendo datos del formulario...");
+      console.log("Obteniendo datos del formulario...");
       const formData = this.getFormData();
-      console.log("📋 Datos obtenidos:", formData);
+      console.log("Datos obtenidos:", formData);
 
-      console.log("✅ Validando formulario...");
+      console.log("Validando formulario...");
       if (!this.validateForm(formData)) {
-        console.log("❌ Validación falló, deteniendo envío");
+        console.log("Validación falló, deteniendo envío");
         return;
       }
-      console.log("✅ Validación exitosa");
+      console.log("Validación exitosa");
 
       const url = this.editMode
         ? `/api/vehiculos/${this.currentVehiculoId}`
@@ -1531,32 +1528,32 @@ class VehiculosModule {
 
       const method = this.editMode ? "PUT" : "POST";
 
-      console.log(`🌐 Enviando solicitud: ${method} ${url}`);
-      console.log("📤 Datos a enviar:", formData);
+      console.log(` Enviando solicitud: ${method} ${url}`);
+      console.log("Datos a enviar:", formData);
 
       const result = await this.apiCall(url, method, formData);
-      console.log("📥 Respuesta recibida:", result);
+      console.log("Respuesta recibida:", result);
 
       if (result) {
         const mensaje = this.editMode
           ? "Vehículo actualizado exitosamente"
           : "Vehículo creado exitosamente";
 
-        console.log("✅ Operación exitosa, mostrando toast:", mensaje);
+        console.log("Operación exitosa, mostrando toast:", mensaje);
         this.showToast(mensaje, "success");
 
-        console.log("🔄 Cerrando modal y recargando datos...");
+        console.log("Cerrando modal y recargando datos...");
         this.closeModal();
         await this.loadVehiculos();
         await this.loadEstadisticas();
-        console.log("✅ Proceso completado exitosamente");
+        console.log("Proceso completado exitosamente");
       } else {
-        console.log("⚠️ No se recibió resultado de la API");
+        console.log("No se recibió resultado de la API");
         this.showToast("No se recibió confirmación del servidor", "error");
       }
     } catch (error) {
-      console.error("❌ Error en handleSubmit:", error);
-      console.error("❌ Stack trace:", error.stack);
+      console.error("Error en handleSubmit:", error);
+      console.error("Stack trace:", error.stack);
       this.showToast(`Error al guardar el vehículo: ${error.message}`, "error");
     }
   }
@@ -1571,7 +1568,7 @@ class VehiculosModule {
         field = document.getElementById(altId);
         if (field) {
           console.log(
-            `🔧 Obteniendo valor de campo alternativo: ${altId} (buscando: ${primaryId})`
+            ` Obteniendo valor de campo alternativo: ${altId} (buscando: ${primaryId})`
           );
           return field.value?.trim();
         }
@@ -1587,12 +1584,12 @@ class VehiculosModule {
         ? hiddenField.value
         : document.getElementById("clienteId")?.value;
       console.log(
-        "🔧 Modo edición - Cliente ID desde campo oculto:",
+        " Modo edición - Cliente ID desde campo oculto:",
         clienteId
       );
     } else {
       clienteId = document.getElementById("clienteId")?.value;
-      console.log("🔧 Modo creación - Cliente ID desde selector:", clienteId);
+      console.log("Modo creación - Cliente ID desde selector:", clienteId);
     }
 
     const formData = {
@@ -1611,7 +1608,7 @@ class VehiculosModule {
       numero_chasis: getFieldValue("numeroChasis", ["numero_chasis", "chasis"]),
     };
 
-    console.log("📤 Datos del formulario obtenidos:", formData);
+    console.log("Datos del formulario obtenidos:", formData);
     return formData;
   }
 
@@ -1668,15 +1665,15 @@ class VehiculosModule {
   }
 
   async deleteVehiculo(vehiculoId) {
-    console.log("🗑️ === INICIANDO ELIMINACIÓN DE VEHÍCULO ===");
-    console.log("🗑️ ID del vehículo a eliminar:", vehiculoId);
+    console.log("=== INICIANDO ELIMINACIÓN DE VEHÍCULO ===");
+    console.log("ID del vehículo a eliminar:", vehiculoId);
 
     // Encontrar el vehículo para mostrar información en la confirmación
     const vehiculo = this.vehiculos.find(
       (v) => (v.VEHICULO_ID || v.vehiculo_id) == vehiculoId
     );
 
-    console.log("🗑️ Vehículo encontrado:", vehiculo);
+    console.log("Vehículo encontrado:", vehiculo);
 
     const placa = vehiculo
       ? vehiculo.NUMERO_PLACA || vehiculo.numero_placa
@@ -1692,20 +1689,20 @@ class VehiculosModule {
       marca && modelo ? `${marca} ${modelo}` : "este vehículo";
     const placaInfo = placa ? ` (${placa})` : "";
 
-    console.log("🗑️ Información del vehículo:", { vehiculoInfo, placaInfo });
+    console.log("Información del vehículo:", { vehiculoInfo, placaInfo });
 
     // Mostrar confirmación personalizada en pantalla
-    console.log("🗑️ Mostrando modal de confirmación...");
+    console.log("Mostrando modal de confirmación...");
     this.showConfirmModal({
       titulo: "Confirmar Eliminación",
       mensaje: `¿Está seguro de que desea eliminar ${vehiculoInfo}${placaInfo}?`,
       textoConfirmar: "Eliminar",
       textoCancelar: "Cancelar",
       onConfirm: async () => {
-        console.log("🗑️ Confirmación recibida, enviando al backend...");
+        console.log("Confirmación recibida, enviando al backend...");
         try {
           console.log(
-            "🗑️ URL de eliminación:",
+            " URL de eliminación:",
             `/api/vehiculos/${vehiculoId}/eliminar`
           );
 
@@ -1715,18 +1712,18 @@ class VehiculosModule {
             "PUT"
           );
 
-          console.log("🗑️ Respuesta del backend:", result);
+          console.log("Respuesta del backend:", result);
 
           // Mostrar notificación de éxito
           this.showToast("Vehículo eliminado exitosamente", "success");
 
           // Recargar datos
-          console.log("🗑️ Recargando datos...");
+          console.log("Recargando datos...");
           await this.loadVehiculos();
           await this.loadEstadisticas();
-          console.log("🗑️ Eliminación completada exitosamente");
+          console.log("Eliminación completada exitosamente");
         } catch (error) {
-          console.error("❌ Error eliminando vehículo:", error);
+          console.error("Error eliminando vehículo:", error);
           this.showToast(
             `Error al eliminar el vehículo: ${error.message}`,
             "error"
@@ -1833,7 +1830,7 @@ class VehiculosModule {
       // Construir URL completa
       const fullUrl = url.startsWith("http") ? url : `${this.baseUrl}${url}`;
 
-      console.log(`🌐 API Call: ${method} ${fullUrl}`);
+      console.log(` API Call: ${method} ${fullUrl}`);
 
       const config = {
         method,
@@ -1844,13 +1841,13 @@ class VehiculosModule {
 
       if (data && (method === "POST" || method === "PUT")) {
         config.body = JSON.stringify(data);
-        console.log(`📤 Request body:`, data);
+        console.log(` Request body:`, data);
       }
 
       const response = await fetch(fullUrl, config);
 
       console.log(
-        `📡 Response status: ${response.status} ${response.statusText}`
+        ` Response status: ${response.status} ${response.statusText}`
       );
 
       if (!response.ok) {
@@ -1858,10 +1855,10 @@ class VehiculosModule {
         try {
           const errorData = await response.json();
           errorMessage = errorData?.error || errorData?.message || errorMessage;
-          console.log(`❌ Error response:`, errorData);
+          console.log(` Error response:`, errorData);
         } catch (e) {
           // Si no se puede parsear el JSON, usar el mensaje por defecto
-          console.log(`❌ Non-JSON error response`);
+          console.log(` Non-JSON error response`);
         }
         throw new Error(errorMessage);
       }
@@ -1871,26 +1868,26 @@ class VehiculosModule {
       }
 
       const result = await response.json();
-      console.log(`✅ Response data:`, result);
+      console.log(` Response data:`, result);
       return result;
     } catch (error) {
-      console.error(`❌ API Error ${method} ${url}:`, error);
+      console.error(` API Error ${method} ${url}:`, error);
       throw error;
     }
   }
 
   // Utility: Toast Messages
   showToast(message, type = "info") {
-    console.log(`🔔 Mostrando toast: "${message}" tipo: ${type}`);
+    console.log(` Mostrando toast: "${message}" tipo: ${type}`);
 
     // Usar el toast manager global si está disponible
     if (window.toastManager) {
-      console.log("   Usando toast manager global");
+      console.log("Usando toast manager global");
       window.toastManager.show(message, type);
       return;
     }
 
-    console.log("   Toast manager no disponible, usando alert fallback");
+    console.log("Toast manager no disponible, usando alert fallback");
 
     // Fallback a alert si no hay toast manager
     // Para mensajes largos, usar confirm en lugar de alert para mejor legibilidad
@@ -1910,7 +1907,7 @@ class VehiculosModule {
       alert(message);
     }
 
-    console.log("   Toast mostrado exitosamente");
+    console.log("Toast mostrado exitosamente");
   }
 }
 
@@ -1918,4 +1915,4 @@ class VehiculosModule {
 const vehiculosModule = new VehiculosModule();
 window.vehiculosModule = vehiculosModule;
 
-console.log("✅ Módulo de vehículos cargado correctamente");
+console.log("Módulo de vehículos cargado correctamente");

@@ -14,9 +14,9 @@ oracledb.outFormat = oracledb.OUT_FORMAT_OBJECT;
 
 oracledb
   .createPool({
-    user: process.env.DB_USER || "db_taller",
-    password: process.env.DB_PASSWORD || "Taller2025",
-    connectString: process.env.DB_CONNECTION_STRING || "localhost:1521/ORCLPDB",
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    connectString: process.env.DB_CONNECTION_STRING,
     poolMin: 2,
     poolMax: 10,
     poolIncrement: 1,

@@ -82,7 +82,7 @@ const obtenerClientePorId = async (req, res) => {
       provincia_nombre: result.rows[0].NOMBRE_PROVINCIA,
     };
 
-    console.log("📍 Cliente con datos completos de dirección:", {
+    console.log("Cliente con datos completos de direccion:", {
       cliente_id: clienteNormalizado.cliente_id,
       direccion_completa: {
         provincia: clienteNormalizado.provincia_nombre,
@@ -243,12 +243,7 @@ const mostrarModuloCliente = async (req, res) => {
         .join(", "),
     }));
 
-    // DEBUG: Ver los datos que se envían
-    /*console.log("Datos enviados al frontend:", {
-      dataLength: datosNormalizados.length,
-      firstRow: datosNormalizados[0],
-      totalRecords,
-    });*/
+    // Depuracion: verificar datos enviados al frontend
 
     res.status(200).json({
       success: true,
@@ -419,8 +414,7 @@ const crearCliente = async (req, res) => {
 const actualizarCliente = async (req, res) => {
   const { cliente_id } = req.params;
 
-  // Debug: Mostrar qué se recibió
-  console.log("📥 Datos recibidos para actualizar cliente:", {
+  console.log("Datos recibidos para actualizar cliente:", {
     cliente_id,
     body: req.body,
     keys: Object.keys(req.body),
@@ -439,22 +433,22 @@ const actualizarCliente = async (req, res) => {
 
   // Solo permitimos actualizar datos editables (alineado con frontend)
   const camposPermitidos = [
-    "primer_nombre", // ✅ Editable en frontend
-    "segundo_nombre", // ✅ Editable en frontend
-    "primer_apellido", // ✅ Editable en frontend
-    "segundo_apellido", // ✅ Editable en frontend
-    "telefono", // ✅ Editable en frontend
-    "email", // ✅ Editable en frontend
-    "observaciones", // ✅ Editable en frontend (siempre incluido)
-    "estado", // ✅ Solo para operaciones específicas (cambiar estado)
-  ];
+      "primer_nombre",
+      "segundo_nombre",
+      "primer_apellido",
+      "segundo_apellido",
+      "telefono",
+      "email",
+      "observaciones",
+      "estado",
+    ];
 
-  // Campos que NO deben editarse (solo informativos para logs)
-  const camposNoEditables = [
-    "numero_cedula", // ❌ Deshabilitado en frontend
-    "sexo", // ❌ Deshabilitado en frontend
-    "tipo_cliente_id", // ❌ Deshabilitado en frontend
-    "nacionalidad_id", // ❌ Deshabilitado en frontend
+    // Campos que no deben editarse
+    const camposNoEditables = [
+      "numero_cedula",
+      "sexo",
+      "tipo_cliente_id",
+      "nacionalidad_id",
   ];
 
   // Log de campos no permitidos si se intentan enviar
@@ -464,7 +458,7 @@ const actualizarCliente = async (req, res) => {
 
   if (camposNoPermitidos.length > 0) {
     console.log(
-      "⚠️ Campos no editables enviados (se ignorarán):",
+      "Campos no editables enviados (se ignoraran):",
       camposNoPermitidos
     );
   }
@@ -546,7 +540,7 @@ const actualizarCliente = async (req, res) => {
   }
 
   console.log(
-    "📝 Campos a actualizar:",
+    "Campos a actualizar:",
     Object.keys(binds).filter((k) => k !== "cliente_id")
   );
 
@@ -599,7 +593,7 @@ const actualizarCliente = async (req, res) => {
       (k) => k !== "cliente_id"
     );
     console.log(
-      `✅ Cliente ${cliente_id} actualizado exitosamente. Campos modificados:`,
+      `Cliente ${cliente_id} actualizado exitosamente. Campos modificados:`,
       camposActualizados
     );
 

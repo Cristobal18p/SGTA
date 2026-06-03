@@ -1,7 +1,5 @@
 document.addEventListener("DOMContentLoaded", async () => {
   try {
-    console.log("🚀 Cargando datos de reportes...");
-
     // Mostrar indicador de carga
     mostrarIndicadorCarga(true);
 
@@ -14,9 +12,9 @@ document.addEventListener("DOMContentLoaded", async () => {
     // Cargar análisis detallado
     await cargarAnalisisDetallado();
 
-    console.log("✅ Datos de reportes cargados correctamente");
+    console.log("Datos de reportes cargados correctamente");
   } catch (error) {
-    console.error("❌ Error al cargar los datos de reportes:", error);
+    console.error("Error al cargar los datos de reportes:", error);
     mostrarError(
       "Error al cargar los datos de reportes. Por favor, intenta nuevamente."
     );
@@ -69,9 +67,9 @@ async function cargarMetricasPrincipales() {
     animarContador("serviciosRealizados", 0, servicios.total_servicios || 0);
     animarContador("nuevosClientes", 0, clientes.nuevos_clientes || 0);
 
-    console.log("✅ Métricas principales cargadas");
+    console.log("Métricas principales cargadas");
   } catch (error) {
-    console.error("❌ Error al cargar métricas principales:", error);
+    console.error("Error al cargar métricas principales:", error);
     throw error;
   }
 }
@@ -176,9 +174,9 @@ async function cargarGraficos() {
       });
     }
 
-    console.log("✅ Gráficos cargados");
+    console.log("Gráficos cargados");
   } catch (error) {
-    console.error("❌ Error al cargar gráficos:", error);
+    console.error("Error al cargar gráficos:", error);
     throw error;
   }
 }
@@ -296,7 +294,7 @@ async function cargarAnalisisDetallado() {
                               isLowStock ? "text-red-600" : "text-green-600"
                             }">
                                 ${cantidadActual}
-                                ${isLowStock ? " ⚠️" : ""}
+                                
                             </span>
                         </div>
                     `;
@@ -311,9 +309,9 @@ async function cargarAnalisisDetallado() {
       }
     }
 
-    console.log("✅ Análisis detallado cargado");
+    console.log("Análisis detallado cargado");
   } catch (error) {
-    console.error("❌ Error al cargar análisis detallado:", error);
+    console.error("Error al cargar análisis detallado:", error);
     throw error;
   }
 }
@@ -325,9 +323,9 @@ async function refrescarDatos() {
     await cargarMetricasPrincipales();
     await cargarGraficos();
     await cargarAnalisisDetallado();
-    console.log("✅ Datos refrescados correctamente");
+    console.log("Datos refrescados correctamente");
   } catch (error) {
-    console.error("❌ Error al refrescar datos:", error);
+    console.error("Error al refrescar datos:", error);
     mostrarError("Error al refrescar los datos.");
   } finally {
     mostrarIndicadorCarga(false);

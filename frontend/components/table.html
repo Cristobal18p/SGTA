@@ -350,9 +350,7 @@
 </style>
 
 <script>
-    // ============================================
-    // TABLE API
-    // ============================================
+    // Table API
     class TableAPI {
         constructor(containerId, config = {}) {
             this.container = document.getElementById(containerId) || document.querySelector('.table-container');
@@ -701,18 +699,18 @@
         // Métodos de acción (a implementar según necesidad)
         viewItem(id) {
             console.log('Ver item:', id);
-            // 🔧 CONECTAR CON TU API PARA VER DETALLES
+            // Conectar con API para ver detalles
         }
 
         editItem(id) {
             console.log('Editar item:', id);
-            // 🔧 CONECTAR CON TU API PARA EDITAR
+            // Conectar con API para editar
         }
 
         deleteItem(id) {
             if (confirm('¿Estás seguro de que quieres eliminar este elemento?')) {
                 console.log('Eliminar item:', id);
-                // 🔧 CONECTAR CON TU API PARA ELIMINAR
+                // Conectar con API para eliminar
             }
         }
 
@@ -720,7 +718,7 @@
         async reload() {
             this.showLoading();
             try {
-                // 🔧 CONECTAR CON TU API
+                // Conectar con API
                 // const response = await fetch('/api/clientes');
                 // const data = await response.json();
                 // this.loadData(data);

@@ -1,6 +1,4 @@
-/* ===========================================
-   PALETA DE COLORES ELEGANTE - TECNOTALLER
-   =========================================== */
+/* PALETA DE COLORES ELEGANTE - TECNOTALLER */
 
 /* Variables globales para sistema elegante y minimalista */
 :root {
@@ -83,9 +81,7 @@
     --info-dark: #3b82f6;
 }
 
-/* ===========================================
-   MODO CLARO ELEGANTE
-   =========================================== */
+/* MODO CLARO ELEGANTE */
 
 body {
     background-color: var(--light-bg-primary);
@@ -153,9 +149,7 @@ nav {
     background-color: var(--light-bg-tertiary);
 }
 
-/* ===========================================
-   MODO OSCURO GLOBAL
-   =========================================== */
+/* MODO OSCURO GLOBAL */
 
 .dark {
     background-color: var(--dark-bg-primary);
@@ -167,9 +161,7 @@ nav {
     color: var(--dark-text-primary);
 }
 
-/* ===========================================
-   FONDOS EN MODO OSCURO
-   =========================================== */
+/* FONDOS EN MODO OSCURO */
 
 .dark .bg-white {
     background-color: var(--dark-bg-secondary) !important;
@@ -192,9 +184,7 @@ nav {
     background-color: var(--dark-text-primary) !important;
 }
 
-/* ===========================================
-   TEXTOS EN MODO OSCURO
-   =========================================== */
+/* TEXTOS EN MODO OSCURO */
 
 .dark .text-gray-900 {
     color: var(--dark-text-primary) !important;
@@ -224,9 +214,7 @@ nav {
     color: var(--dark-border-secondary) !important;
 }
 
-/* ===========================================
-   HOVERS EN MODO OSCURO
-   =========================================== */
+/* HOVERS EN MODO OSCURO */
 
 .dark .hover\:bg-gray-50:hover {
     background-color: var(--dark-bg-terciary) !important;
@@ -248,9 +236,7 @@ nav {
     color: var(--dark-text-primary) !important;
 }
 
-/* ===========================================
-   NAVBAR EN MODO OSCURO
-   =========================================== */
+/* NAVBAR EN MODO OSCURO */
 
 .dark nav,
 .dark .tt-navbar {
@@ -259,9 +245,7 @@ nav {
     box-shadow: var(--dark-shadow-sm) !important;
 }
 
-/* ===========================================
-   SIDEBAR EN MODO OSCURO
-   =========================================== */
+/* SIDEBAR EN MODO OSCURO */
 
 .dark #sidebar {
     background-color: var(--dark-bg-secondary) !important;
@@ -314,17 +298,13 @@ nav {
     color: white !important;
 }
 
-/* ===========================================
-   OVERLAYS EN MODO OSCURO
-   =========================================== */
+/* OVERLAYS EN MODO OSCURO */
 
 .dark #sidebarOverlay {
     background-color: rgba(0, 0, 0, 0.7) !important;
 }
 
-/* ===========================================
-   BORDES EN MODO OSCURO
-   =========================================== */
+/* BORDES EN MODO OSCURO */
 
 .dark .border-gray-200 {
     border-color: var(--dark-border-primary) !important;
@@ -334,9 +314,7 @@ nav {
     border-color: var(--dark-border-secondary) !important;
 }
 
-/* ===========================================
-   SOMBRAS EN MODO OSCURO
-   =========================================== */
+/* SOMBRAS EN MODO OSCURO */
 
 .dark .shadow-sm {
     box-shadow: var(--dark-shadow-sm) !important;
@@ -350,9 +328,7 @@ nav {
     box-shadow: var(--dark-shadow-lg) !important;
 }
 
-/* ===========================================
-   CARDS DE COLORES EN MODO OSCURO
-   =========================================== */
+/* CARDS DE COLORES EN MODO OSCURO */
 
 .dark .bg-blue-100 {
     background-color: #1e3a8a !important;
@@ -470,9 +446,7 @@ nav {
     background-color: #7f1d1d !important;
 }
 
-/* ===========================================
-   MODALES EN MODO OSCURO
-   =========================================== */
+/* MODALES EN MODO OSCURO */
 
 .dark .tt-modal,
 .dark #profileModal .bg-white,
@@ -520,9 +494,7 @@ nav {
     background-color: var(--dark-border-secondary) !important;
 }
 
-/* ===========================================
-   TOGGLE SWITCH EN MODO OSCURO
-   =========================================== */
+/* TOGGLE SWITCH EN MODO OSCURO */
 
 .dark .slider {
     background-color: var(--dark-border-secondary) !important;
@@ -536,17 +508,13 @@ nav {
     background-color: var(--dark-text-secondary) !important;
 }
 
-/* ===========================================
-   BREADCRUMBS EN MODO OSCURO
-   =========================================== */
+/* BREADCRUMBS EN MODO OSCURO */
 
 .dark .text-blue-600 {
     color: #60a5fa !important;
 }
 
-/* ===========================================
-   BANNER DE BIENVENIDA - mantener colores originales
-   =========================================== */
+/* BANNER DE BIENVENIDA - mantener colores originales */
 
 .dark .bg-gradient-to-r.from-blue-600.to-indigo-600 {
     background: linear-gradient(to right, #2563eb, #4f46e5) !important;
@@ -560,9 +528,7 @@ nav {
     color: #bfdbfe !important;
 }
 
-/* ===========================================
-   BOTONES DEL NAVBAR EN MODO OSCURO
-   =========================================== */
+/* BOTONES DEL NAVBAR EN MODO OSCURO */
 
 .dark #sidebarToggle {
     color: var(--dark-text-subtle) !important;
@@ -573,9 +539,7 @@ nav {
     background-color: var(--dark-bg-terciary) !important;
 }
 
-/* ===========================================
-   COMPONENTES PERSONALIZADOS EN MODO OSCURO
-   =========================================== */
+/* COMPONENTES PERSONALIZADOS EN MODO OSCURO */
 
 .dark .tt-card {
     background: var(--dark-bg-card) !important;
@@ -600,9 +564,7 @@ nav {
     color: var(--dark-text-muted) !important;
 }
 
-/* ===========================================
-   BOTONES EN MODO OSCURO
-   =========================================== */
+/* BOTONES EN MODO OSCURO */
 
 .dark .tt-btn-secondary {
     background-color: var(--dark-bg-terciary) !important;
@@ -613,9 +575,7 @@ nav {
     background-color: var(--dark-border-secondary) !important;
 }
 
-/* ===========================================
-   MEJORAS ADICIONALES
-   =========================================== */
+/* MEJORAS ADICIONALES */
 
 .dark button:hover {
     opacity: 0.9;
@@ -631,15 +591,12 @@ nav {
     outline-offset: 2px;
 }
 
-/* ===========================================
-   NOTIFICACIONES EN MODO OSCURO
-   =========================================== */
+/* NOTIFICACIONES EN MODO OSCURO */
 
 .dark .bg-red-500 {
     background-color: #dc2626 !important;
 
 }
-
 
 .dark .tt-card:hover {
     box-shadow: var(--dark-shadow-md);
@@ -654,9 +611,7 @@ nav {
     border-color: var(--dark-border-primary);
 }
 
-/* ===========================================
-   TARJETAS DE ESTADÍSTICAS CON COLORES
-   =========================================== */
+/* TARJETAS DE ESTADÍSTICAS CON COLORES */
 
 /* Tarjetas base con colores elegantes */
 .tt-stat-card-blue {
@@ -846,9 +801,7 @@ nav {
     color: #be185d;
 }
 
-/* ===========================================
-   MODO OSCURO - TARJETAS DE ESTADÍSTICAS
-   =========================================== */
+/* MODO OSCURO - TARJETAS DE ESTADÍSTICAS */
 
 /* Tarjetas en modo oscuro */
 .dark .tt-stat-card-blue {
@@ -1107,9 +1060,7 @@ nav {
     color: #fb923c;
 }
 
-/* ===========================================
-   BOTONES EN MODO OSCURO
-   =========================================== */
+/* BOTONES EN MODO OSCURO */
 
 /* Botones secundarios */
 .dark .tt-btn.btn-secondary {
@@ -1172,9 +1123,7 @@ nav {
     color: var(--dark-text-muted);
 }
 
-/* ===========================================
-   TABLAS EN MODO OSCURO
-   =========================================== */
+/* TABLAS EN MODO OSCURO */
 
 .dark .tt-table-container {
     background: var(--dark-bg-card);
@@ -1243,9 +1192,7 @@ nav {
     color: #f87171;
 }
 
-/* ===========================================
-   BADGES EN MODO OSCURO
-   =========================================== */
+/* BADGES EN MODO OSCURO */
 
 .dark .tt-badge.badge-success {
     background: rgba(74, 222, 128, 0.2);
@@ -1277,9 +1224,7 @@ nav {
     color: var(--dark-text-muted);
 }
 
-/* ===========================================
-   FORMULARIOS EN MODO OSCURO
-   =========================================== */
+/* FORMULARIOS EN MODO OSCURO */
 
 .dark .tt-form-label {
     color: var(--dark-text-secondary);
@@ -1339,9 +1284,7 @@ nav {
     border-color: #60a5fa;
 }
 
-/* ===========================================
-   ALERTAS EN MODO OSCURO
-   =========================================== */
+/* ALERTAS EN MODO OSCURO */
 
 .dark .tt-alert.alert-success {
     background: rgba(74, 222, 128, 0.1);
@@ -1376,9 +1319,7 @@ nav {
     opacity: 0.9;
 }
 
-/* ===========================================
-   MODALES EN MODO OSCURO
-   =========================================== */
+/* MODALES EN MODO OSCURO */
 
 .dark .tt-modal-overlay {
     background: rgba(0, 0, 0, 0.7);
@@ -1410,9 +1351,7 @@ nav {
     border-color: var(--dark-border-primary);
 }
 
-/* ===========================================
-   MODALES ESPECÍFICOS DEL DASHBOARD
-   =========================================== */
+/* MODALES ESPECÍFICOS DEL DASHBOARD */
 
 /* Modal de Perfil */
 .dark #profileModal .bg-white {
@@ -1466,9 +1405,7 @@ nav {
     color: var(--dark-text-muted) !important;
 }
 
-/* ===========================================
-   TOGGLE SWITCH EN MODO OSCURO
-   =========================================== */
+/* TOGGLE SWITCH EN MODO OSCURO */
 
 .dark .tt-toggle-slider {
     background: var(--dark-border-secondary);
@@ -1482,9 +1419,7 @@ nav {
     background: #60a5fa;
 }
 
-/* ===========================================
-   BREADCRUMBS EN MODO OSCURO
-   =========================================== */
+/* BREADCRUMBS EN MODO OSCURO */
 
 .dark .tt-breadcrumb-item:not(:last-child)::after {
     color: var(--dark-text-muted);
@@ -1502,9 +1437,7 @@ nav {
     color: var(--dark-text-muted);
 }
 
-/* ===========================================
-   BARRAS DE PROGRESO EN MODO OSCURO
-   =========================================== */
+/* BARRAS DE PROGRESO EN MODO OSCURO */
 
 .dark .tt-progress {
     background: var(--dark-bg-secondary);
@@ -1534,9 +1467,7 @@ nav {
     color: var(--dark-text-muted);
 }
 
-/* ===========================================
-   ELEMENTOS ESPECÍFICOS EN MODO OSCURO
-   =========================================== */
+/* ELEMENTOS ESPECÍFICOS EN MODO OSCURO */
 
 /* Loading spinner */
 .dark .tt-loading {
@@ -1549,9 +1480,7 @@ nav {
     background: linear-gradient(90deg, var(--dark-bg-secondary) 25%, var(--dark-bg-hover) 50%, var(--dark-bg-secondary) 75%);
 }
 
-/* ===========================================
-   LAYOUT EN MODO OSCURO
-   =========================================== */
+/* LAYOUT EN MODO OSCURO */
 
 /* Sidebar */
 .dark #sidebar {
@@ -1610,9 +1539,7 @@ nav {
     background: rgba(0, 0, 0, 0.7);
 }
 
-/* ===========================================
-   CLASES ESPECÍFICAS DE TAILWIND EN MODO OSCURO
-   =========================================== */
+/* CLASES ESPECÍFICAS DE TAILWIND EN MODO OSCURO */
 
 /* Fondos */
 .dark .bg-white {
@@ -1700,9 +1627,7 @@ nav {
     box-shadow: var(--dark-shadow-lg);
 }
 
-/* ===========================================
-   MEJORAS DE CONTRASTE Y ACCESIBILIDAD
-   =========================================== */
+/* MEJORAS DE CONTRASTE Y ACCESIBILIDAD */
 
 .dark button:focus,
 .dark a:focus {
@@ -1739,9 +1664,7 @@ nav {
     color: #bfdbfe;
 }
 
-/* ===========================================
-   TOGGLE SWITCH PARA MODO OSCURO
-   =========================================== */
+/* TOGGLE SWITCH PARA MODO OSCURO */
 
 .toggle-switch {
     position: relative;
@@ -1802,9 +1725,7 @@ input:checked+.slider:before {
     background-color: #f8fafc;
 }
 
-/* ===========================================
-   RESPONSIVE EN MODO OSCURO
-   =========================================== */
+/* RESPONSIVE EN MODO OSCURO */
 
 @media (max-width: 1023px) {
     .dark .sidebar-open {
@@ -1812,9 +1733,7 @@ input:checked+.slider:before {
     }
 }
 
-/* ===========================================
-   BOTONES ESPECÍFICOS DEL MÓDULO CLIENTES
-   =========================================== */
+/* BOTONES ESPECÍFICOS DEL MÓDULO CLIENTES */
 
 /* Botón limpiar filtros específico de clientes */
 .dark #btnLimpiarFiltros {
@@ -1846,9 +1765,7 @@ input:checked+.slider:before {
     color: var(--accent-gold) !important;
 }
 
-/* ===========================================
-   MÓDULO VEHÍCULOS - INPUTS Y SELECTS
-   =========================================== */
+/* MÓDULO VEHÍCULOS - INPUTS Y SELECTS */
 
 /* Inputs específicos del módulo vehículos */
 .dark #searchVehiculo,
@@ -1880,9 +1797,7 @@ input:checked+.slider:before {
     color: var(--dark-text-primary) !important;
 }
 
-/* ===========================================
-   MÓDULO CITAS - INPUTS, SELECTS Y BOTONES
-   =========================================== */
+/* MÓDULO CITAS - INPUTS, SELECTS Y BOTONES */
 
 /* Inputs y selects específicos del módulo citas */
 .dark #searchCita,
@@ -1932,9 +1847,7 @@ input:checked+.slider:before {
     color: white !important;
 }
 
-/* ===========================================
-   MÓDULOS ADICIONALES - INPUTS Y BOTONES
-   =========================================== */
+/* MÓDULOS ADICIONALES - INPUTS Y BOTONES */
 
 /* SERVICIOS */
 .dark #searchServicio,
@@ -1967,8 +1880,6 @@ input:checked+.slider:before {
 .dark #searchProducto::placeholder {
     color: var(--dark-text-muted) !important;
 }
-
-
 
 /* FACTURAS */
 .dark #searchFactura,
@@ -2095,9 +2006,7 @@ input:checked+.slider:before {
     color: var(--dark-text-muted) !important;
 }
 
-/* ===========================================
-   BOTONES DE REPORTES Y GENERACIÓN
-   =========================================== */
+/* BOTONES DE REPORTES Y GENERACIÓN */
 
 /* Botones de reportes con gradientes únicos */
 .dark #btnReporteVentas,

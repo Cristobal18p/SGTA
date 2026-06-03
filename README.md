@@ -1,4 +1,4 @@
-# 🔧 TecnoTaller - Sistema de Gestión de Taller Automotriz
+# TecnoTaller - Sistema de Gestión de Taller Automotriz
 
 <div align="center">
 
@@ -12,83 +12,83 @@
 
 **Sistema integral para la gestión completa de talleres automotrices**
 
-[Características](#-características) • [Instalación](#-instalación) • [Uso](#-uso) • [API](#-api) • [Contribuir](#-contribuir)
+[Características](#caracteristicas) • [Instalación](#instalacion) • [Uso](#uso) • [API](#api) • [Contribuir](#contribuir)
 
 </div>
 
 ---
 
-## 📋 Descripción
+## Descripción
 
-**TecnoTaller** es un sistema web completo diseñado para la gestión integral de talleres automotrices. Permite administrar clientes, vehículos, citas, servicios, inventario y facturación de manera eficiente y profesional.
+**TecnoTaller**es un sistema web completo diseñado para la gestión integral de talleres automotrices. Permite administrar clientes, vehículos, citas, servicios, inventario y facturación de manera eficiente y profesional.
 
-### 🎯 Objetivo
+### Objetivo
 
 Digitalizar y optimizar todos los procesos de un taller automotriz, desde la recepción del cliente hasta la entrega del vehículo reparado, mejorando la eficiencia operativa y la experiencia del cliente.
 
-## ✨ Características
+## Características
 
-### 👥 Gestión de Clientes
-- ✅ Registro completo de información personal
-- ✅ Historial de servicios por cliente
-- ✅ Gestión de múltiples vehículos por cliente
-- ✅ Sistema de búsqueda avanzada
+### Gestión de Clientes
+- Registro completo de información personal
+- Historial de servicios por cliente
+- Gestión de múltiples vehículos por cliente
+- Sistema de búsqueda avanzada
 
-### 🚗 Gestión de Vehículos
-- ✅ Registro detallado (marca, modelo, año, placa)
-- ✅ Historial de mantenimientos y reparaciones
-- ✅ Vinculación automática con propietarios
-- ✅ Control de estado del vehículo
+### Gestión de Vehículos
+- Registro detallado (marca, modelo, año, placa)
+- Historial de mantenimientos y reparaciones
+- Vinculación automática con propietarios
+- Control de estado del vehículo
 
-### 📅 Sistema de Citas
-- ✅ Calendario interactivo
-- ✅ Vista por tabla y calendario
-- ✅ Estados de cita (Agendada, En progreso, Completada, Cancelada)
-- ✅ Asignación de servicios múltiples
-- ✅ Filtros avanzados por estado, sucursal y tipo
+### Sistema de Citas
+- Calendario interactivo
+- Vista por tabla y calendario
+- Estados de cita (Agendada, En progreso, Completada, Cancelada)
+- Asignación de servicios múltiples
+- Filtros avanzados por estado, sucursal y tipo
 
-### 🔧 Gestión de Servicios
-- ✅ Catálogo completo de servicios
-- ✅ Precios dinámicos
-- ✅ Múltiples servicios por cita
-- ✅ Categorización por tipo
+### Gestión de Servicios
+- Catálogo completo de servicios
+- Precios dinámicos
+- Múltiples servicios por cita
+- Categorización por tipo
 
-### 🏢 Multi-sucursal
-- ✅ Gestión de múltiples ubicaciones
-- ✅ Control de inventario por sucursal
-- ✅ Reportes consolidados
+### Multi-sucursal
+- Gestión de múltiples ubicaciones
+- Control de inventario por sucursal
+- Reportes consolidados
 
-### 📊 Reportes y Estadísticas
-- ✅ Dashboard con métricas en tiempo real
-- ✅ Estadísticas de citas por estado
-- ✅ Reportes de facturación
-- ✅ Análisis de rendimiento
+### Reportes y Estadísticas
+- Dashboard con métricas en tiempo real
+- Estadísticas de citas por estado
+- Reportes de facturación
+- Análisis de rendimiento
 
-### 💰 Sistema de Facturación
-- ✅ Generación automática de facturas
-- ✅ Control de métodos de pago
-- ✅ Historial de transacciones
-- ✅ Estados de factura
+### Sistema de Facturación
+- Generación automática de facturas
+- Control de métodos de pago
+- Historial de transacciones
+- Estados de factura
 
-## 🏗️ Arquitectura del Sistema
+## Arquitectura del Sistema
 
 ```
 TecnoTaller/
-├── 🖥️ Backend (Node.js + Express)
-│   ├── 🗃️ Base de datos (Oracle)
-│   ├── 🔌 API RESTful
-│   └── 🔐 Autenticación JWT
-├── 🌐 Frontend (HTML5 + CSS3 + JavaScript)
-│   ├── 📱 Diseño responsivo
-│   ├── ⚡ SPA (Single Page Application)
-│   └── 🎨 UI/UX moderno
-└── 📁 Base de Datos
-    ├── 📋 Scripts SQL
-    ├── 💾 Backups automáticos
-    └── 📈 Datos de prueba
+├── Backend (Node.js + Express)
+│   ├── Base de datos (Oracle)
+│   ├── API RESTful
+│   └── Autenticación JWT
+├── Frontend (HTML5 + CSS3 + JavaScript)
+│   ├── Diseño responsivo
+│   ├── SPA (Single Page Application)
+│   └── UI/UX moderno
+└── Base de Datos
+    ├── Scripts SQL
+    ├── Backups automáticos
+    └── Datos de prueba
 ```
 
-## 🚀 Instalación
+## Instalación
 
 ### Prerrequisitos
 
@@ -139,7 +139,7 @@ npm start
 
 Abrir en el navegador: `http://localhost:3000`
 
-## 📖 Uso
+## Uso
 
 ### Dashboard Principal
 - **Estadísticas en tiempo real**: Citas del día, completadas, pendientes
@@ -150,16 +150,16 @@ Abrir en el navegador: `http://localhost:3000`
 1. **Crear cita**: Cliente → Vehículo → Servicios → Fecha/Hora
 2. **Vista calendario**: Navegación mensual con citas visuales
 3. **Cambio de estado**: Workflow completo de estados
-4. **Filtros**: Por estado, sucursal, cliente, fecha
+4. **Filtros** : Por estado, sucursal, cliente, fecha
 
 ### Módulos Principales
-- **👥 Clientes**: CRUD completo con validaciones
-- **🚗 Vehículos**: Gestión vinculada a clientes
-- **📅 Citas**: Sistema completo de agendamiento
-- **💰 Facturas**: Facturación automática
-- **📊 Reportes**: Analytics y métricas
+- **Clientes**: CRUD completo con validaciones
+- **Vehículos**: Gestión vinculada a clientes
+- **Citas**: Sistema completo de agendamiento
+- **Facturas**: Facturación automática
+- **Reportes**: Analytics y métricas
 
-## 🔌 API
+## API
 
 ### Endpoints Principales
 
@@ -212,7 +212,7 @@ DELETE /api/vehiculos/:id     # Eliminar vehículo
 }
 ```
 
-## 🛠️ Tecnologías Utilizadas
+## Tecnologías Utilizadas
 
 ### Backend
 - **Node.js**: Runtime de JavaScript
@@ -234,32 +234,32 @@ DELETE /api/vehiculos/:id     # Eliminar vehículo
 - **Postman**: Testing de API
 - **Oracle SQL Developer**: Gestión de BD
 
-## 📁 Estructura del Proyecto
+## Estructura del Proyecto
 
 ```
 PROYECTO/
-├── 📂 backend/
-│   ├── 📄 app.js                 # Punto de entrada
-│   ├── 📄 server.js              # Configuración del servidor
-│   ├── 📂 config/
-│   │   └── 📄 CR7.js             # Configuración de BD
-│   ├── 📂 controllers/           # Lógica de negocio
-│   ├── 📂 routes/                # Rutas de la API
-│   ├── 📂 middleware/            # Middlewares personalizados
-│   └── 📄 package.json           # Dependencias
-├── 📂 frontend/
-│   ├── 📂 sistema/               # Páginas principales
-│   ├── 📂 js/
-│   │   ├── 📂 modulos/           # Módulos JavaScript
-│   │   └── 📂 componentes/       # Componentes reutilizables
-│   ├── 📂 css/                   # Estilos personalizados
-│   └── 📄 config.js              # Configuración del frontend
-├── 📂 Database/                  # Scripts y datos SQL
-├── 📂 backup/                    # Respaldos de la BD
-└── 📄 README.md                  # Documentación
+├── backend/
+│   ├── app.js                 # Punto de entrada
+│   ├── server.js              # Configuración del servidor
+│   ├── config/
+│   │   └── CR7.js             # Configuración de BD
+│   ├── controllers/           # Lógica de negocio
+│   ├── routes/                # Rutas de la API
+│   ├── middleware/            # Middlewares personalizados
+│   └── package.json           # Dependencias
+├── frontend/
+│   ├── sistema/               # Páginas principales
+│   ├── js/
+│   │   ├── modulos/           # Módulos JavaScript
+│   │   └── componentes/       # Componentes reutilizables
+│   ├── css/                   # Estilos personalizados
+│   └── config.js              # Configuración del frontend
+├── Database/                  # Scripts y datos SQL
+├── backup/                    # Respaldos de la BD
+└── README.md                  # Documentación
 ```
 
-## 🤝 Contribuir
+## Contribuir
 
 ### ¿Cómo contribuir?
 
@@ -284,17 +284,17 @@ Usar el sistema de **Issues** de GitHub con:
 - Capturas de pantalla si aplica
 - Entorno donde ocurre
 
-## 📝 Licencia
+## Licencia
 
 Este proyecto está bajo la licencia **MIT**. Ver `LICENSE` para más detalles.
 
-## 👥 Equipo
+## Equipo
 
 - **Desarrolladores Principal**: Cristobal Prados y Carlos Gonzalez
 - **Tipo**: Proyecto Universitario - Grupal
 - **Estado**: En desarrollo activo
 
-## 📞 Contacto
+## Contacto
 
 - **GitHub**: [@Cristobal18p](https://github.com/Cristobal18p)
 - **Proyecto**: [TecnoTaller](https://github.com/Cristobal18p/PROYECTO)
@@ -303,11 +303,11 @@ Este proyecto está bajo la licencia **MIT**. Ver `LICENSE` para más detalles.
 
 <div align="center">
 
-**⭐ Si te gusta este proyecto, no olvides darle una estrella ⭐**
+**Si te gusta este proyecto, no olvides darle una estrella**
 
 [![GitHub stars](https://img.shields.io/github/stars/Cristobal18p/PROYECTO?style=social)](https://github.com/Cristobal18p/PROYECTO/stargazers)
 [![GitHub forks](https://img.shields.io/github/forks/Cristobal18p/PROYECTO?style=social)](https://github.com/Cristobal18p/PROYECTO/network)
 
-**Desarrollado con ❤️ para optimizar la gestión de talleres automotrices**
+**Desarrollado para optimizar la gestión de talleres automotrices**
 
 </div>

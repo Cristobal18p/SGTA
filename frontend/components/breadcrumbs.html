@@ -367,9 +367,7 @@
 </nav>
 
 <style>
-    /* ============================================ */
     /* BASE BREADCRUMBS STYLES */
-    /* ============================================ */
 
     .breadcrumbs-basic,
     .breadcrumbs-dropdown,
@@ -415,9 +413,7 @@
         font-weight: 500;
     }
 
-    /* ============================================ */
     /* DROPDOWN BREADCRUMBS */
-    /* ============================================ */
 
     .breadcrumb-dropdown {
         position: relative;
@@ -462,9 +458,7 @@
         color: rgb(245, 158, 11);
     }
 
-    /* ============================================ */
     /* RESPONSIVE BREADCRUMBS */
-    /* ============================================ */
 
     .breadcrumbs-mobile {
         background-color: rgb(249, 250, 251);
@@ -491,9 +485,7 @@
         max-width: 200px;
     }
 
-    /* ============================================ */
     /* BREADCRUMBS WITH ICONS */
-    /* ============================================ */
 
     .breadcrumbs-icons .breadcrumb-link,
     .breadcrumbs-icons .breadcrumb-current span {
@@ -505,9 +497,7 @@
         flex-shrink: 0;
     }
 
-    /* ============================================ */
     /* BREADCRUMBS WITH BADGES */
-    /* ============================================ */
 
     .breadcrumbs-badges .breadcrumb-link,
     .breadcrumbs-badges .breadcrumb-current span {
@@ -520,9 +510,7 @@
         flex-shrink: 0;
     }
 
-    /* ============================================ */
     /* COMPACT BREADCRUMBS */
-    /* ============================================ */
 
     .breadcrumbs-compact {
         background-color: rgb(249, 250, 251);
@@ -544,9 +532,7 @@
         max-width: 300px;
     }
 
-    /* ============================================ */
     /* STEPS BREADCRUMBS */
-    /* ============================================ */
 
     .breadcrumbs-steps {
         padding: 2rem 0;
@@ -634,9 +620,7 @@
         color: rgb(107, 114, 128);
     }
 
-    /* ============================================ */
     /* BREADCRUMBS WITH SEARCH */
-    /* ============================================ */
 
     .breadcrumb-quick-search input {
         transition: all 0.2s ease;
@@ -647,9 +631,7 @@
         box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.1);
     }
 
-    /* ============================================ */
     /* BREADCRUMBS WITH ACTIONS */
-    /* ============================================ */
 
     .breadcrumb-actions {
         gap: 0.5rem;
@@ -672,9 +654,7 @@
         color: rgb(245, 158, 11);
     }
 
-    /* ============================================ */
     /* ANIMATIONS */
-    /* ============================================ */
 
     .breadcrumb-item {
         animation: fadeInUp 0.3s ease-out;
@@ -708,9 +688,7 @@
         }
     }
 
-    /* ============================================ */
     /* RESPONSIVE DESIGN */
-    /* ============================================ */
 
     @media (max-width: 768px) {
         .breadcrumbs-list {
@@ -778,9 +756,7 @@
         }
     }
 
-    /* ============================================ */
     /* DARK MODE SUPPORT */
-    /* ============================================ */
 
     @media (prefers-color-scheme: dark) {
         .breadcrumb-link {
@@ -830,9 +806,7 @@
         }
     }
 
-    /* ============================================ */
     /* ACCESSIBILITY */
-    /* ============================================ */
 
     .breadcrumbs-basic[aria-label],
     .breadcrumbs-dropdown[aria-label],
@@ -855,9 +829,7 @@
         outline-offset: 2px;
     }
 
-    /* ============================================ */
     /* PRINT STYLES */
-    /* ============================================ */
 
     @media print {
 
@@ -887,9 +859,7 @@
 </style>
 
 <script>
-    // ============================================
     // BREADCRUMBS API
-    // ============================================
     class BreadcrumbsAPI {
         constructor(container, config = {}) {
             this.container = typeof container === 'string' ? document.querySelector(container) : container;

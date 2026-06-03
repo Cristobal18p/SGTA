@@ -450,7 +450,7 @@ const actualizarEstadoFactura = async (req, res) => {
 // OBTENER DATOS PARA FORMULARIO DE FACTURAS
 const obtenerDatosFormulario = async (req, res) => {
   try {
-    console.log("📋 Obteniendo datos para formulario de facturas...");
+    console.log("Obteniendo datos para formulario de facturas...");
 
     // Consulta para clientes
     const clientesSql = `
@@ -512,9 +512,9 @@ const obtenerDatosFormulario = async (req, res) => {
         simpleExecute(serviciosSql, {}),
       ]);
 
-    console.log("✅ Consultas ejecutadas exitosamente");
+    console.log("Consultas ejecutadas exitosamente");
     console.log(
-      `📊 Resultados: ${clientesResult.rows.length} clientes, ${citasResult.rows.length} citas, ${productosResult.rows.length} productos, ${serviciosResult.rows.length} servicios`
+      `Resultados: ${clientesResult.rows.length} clientes, ${citasResult.rows.length} citas, ${productosResult.rows.length} productos, ${serviciosResult.rows.length} servicios`
     );
 
     res.status(200).json({
@@ -527,7 +527,7 @@ const obtenerDatosFormulario = async (req, res) => {
       },
     });
   } catch (error) {
-    console.error("❌ Error al obtener datos de formulario:", error);
+    console.error("Error al obtener datos de formulario:", error);
     res.status(500).json({
       success: false,
       error: "Error al obtener datos para el formulario",

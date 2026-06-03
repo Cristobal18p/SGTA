@@ -1,7 +1,4 @@
-// ============================================
-// MODALS MANAGER - TecnoTaller
-// Funcionalidad específica de modales compartidos
-// ============================================
+// Modals Manager - gestion de modales compartidos
 
 class ModalsManager {
   constructor() {
@@ -33,7 +30,7 @@ class ModalsManager {
         return;
       } else {
         console.warn(
-          "⚠️ ModalsManager: Modal elements not found after maximum retries. Some functionality may be limited."
+          "ModalsManager: Modal elements not found after maximum retries. Some functionality may be limited."
         );
         // Continuar con inicialización parcial
       }
@@ -42,7 +39,7 @@ class ModalsManager {
     this.setupEventListeners();
     this.syncInitialTheme();
     this.initialized = true;
-    console.log("✅ ModalsManager initialized successfully");
+    console.log(" ModalsManager initialized successfully");
   }
 
   setupEventListeners() {
@@ -294,7 +291,7 @@ class ModalsManager {
     if (window.themeManager) {
       window.themeManager.setTheme(isDark ? "dark" : "light");
     } else {
-      console.error("❌ ThemeManager no encontrado");
+      console.error(" ThemeManager no encontrado");
     }
   }
 
@@ -315,7 +312,7 @@ class ModalsManager {
         }
 
         console.log(
-          `🎨 ModalsManager sincronizado - Modo ${
+          `ModalsManager sincronizado - Modo ${
             window.themeManager.isDark() ? "oscuro" : "claro"
           }`
         );
@@ -342,7 +339,7 @@ class ModalsManager {
 
   // Método para recibir actualizaciones de tema
   updateTheme(newTheme) {
-    console.log(`🎭 ModalsManager: Actualizando a tema ${newTheme}`);
+    console.log(` ModalsManager: Actualizando a tema ${newTheme}`);
     this.syncInitialTheme();
   }
 

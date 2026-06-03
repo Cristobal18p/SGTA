@@ -588,9 +588,7 @@
 </style>
 
 <script>
-    // ============================================
     // SEARCH API
-    // ============================================
     class SearchAPI {
         constructor(config = {}) {
             this.config = {
@@ -787,7 +785,6 @@
             this.showResultsLoading();
 
             try {
-                // 🔧 CONECTAR CON TU API
                 const results = await this.searchAPI(query, this.currentFilters);
                 this.displayResults(results, query);
             } catch (error) {
@@ -1054,7 +1051,7 @@
         // Evento personalizable
         onResultClick(result) {
             console.log('Resultado seleccionado:', result);
-            // 🔧 CONECTAR CON TU LÓGICA DE SELECCIÓN
+            // Conectar con logica de seleccion
         }
     }
 

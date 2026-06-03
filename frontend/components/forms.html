@@ -612,9 +612,7 @@
 </style>
 
 <script>
-    // ============================================
     // FORMS API
-    // ============================================
     class FormAPI {
         constructor(formId, config = {}) {
             this.form = document.getElementById(formId) || document.querySelector('form');
@@ -878,7 +876,6 @@
             try {
                 const data = this.getData();
 
-                // 🔧 CONECTAR CON TU API
                 console.log('Guardando datos:', data);
 
                 // Simular llamada API
@@ -919,13 +916,13 @@
         // Mostrar mensaje de éxito
         showSuccessMessage(message) {
             // Implementar notificación de éxito
-            alert('✅ ' + message);
+            alert(message);
         }
 
         // Mostrar mensaje de error
         showErrorMessage(message) {
             // Implementar notificación de error
-            alert('❌ ' + message);
+            alert(message);
         }
 
         // Configurar auto-guardado
@@ -947,25 +944,23 @@
         async autoSave() {
             if (this.isValid) {
                 console.log('Auto-guardando...', this.getData());
-                // 🔧 IMPLEMENTAR AUTO-GUARDADO
+                // Implementar auto-guardado
             }
         }
 
         // Eventos personalizables
         onCancel() {
             console.log('Formulario cancelado');
-            // 🔧 CONECTAR CON TU LÓGICA DE CANCELACIÓN
+            // Conectar con logica de cancelacion
         }
 
         onSave(data) {
             console.log('Formulario guardado:', data);
-            // 🔧 CONECTAR CON TU LÓGICA DE GUARDADO
+            // Conectar con logica de guardado
         }
     }
 
-    // ============================================
     // MODAL FORM API
-    // ============================================
     class ModalFormAPI {
         constructor(modalId) {
             this.modal = document.getElementById(modalId);

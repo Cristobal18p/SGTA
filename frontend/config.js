@@ -1,15 +1,13 @@
-// ========================================
-// CONFIGURACIÓN GLOBAL - TALLERPRO
-// ========================================
+// Configuracion global del sistema
 
 /**
  * Configuración principal del sistema
- * 🔧 IMPORTANTE: Actualiza estas configuraciones según tu entorno
+ * IMPORTANTE: Actualiza estas configuraciones segun tu entorno
  */
 const CONFIG = {
   // Configuración de la API del Backend
   API: {
-    // 🔧 CAMBIAR POR LA URL DE TU BACKEND
+    //  CAMBIAR POR LA URL DE TU BACKEND
     BASE_URL: "http://localhost:3000/api",
 
     // Endpoints principales
@@ -150,9 +148,7 @@ const CONFIG = {
   },
 };
 
-// ========================================
-// FUNCIONES DE UTILIDAD GLOBALES
-// ========================================
+// Funciones de utilidad globales
 
 /**
  * Clase para manejar peticiones a la API
@@ -367,9 +363,7 @@ const Utils = {
   },
 };
 
-// ========================================
-// EXPORTAR CONFIGURACIÓN GLOBAL
-// ========================================
+// Exportar configuracion global
 
 // Hacer disponible globalmente
 window.CONFIG = CONFIG;
@@ -378,6 +372,6 @@ window.Utils = Utils;
 
 // Log inicial
 if (CONFIG.DEVELOPMENT.DEBUG) {
-  console.log("🔧 TecnoTaller inicializado correctamente");
-  console.log("📋 Configuración:", CONFIG);
+  console.log(" TecnoTaller inicializado correctamente");
+  console.log(" Configuración:", CONFIG);
 }
