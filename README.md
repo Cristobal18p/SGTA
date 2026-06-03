@@ -12,7 +12,7 @@
 
 **Sistema integral para la gestión completa de talleres automotrices**
 
-[Características](#caracteristicas) • [Instalación](#instalacion) • [Uso](#uso) • [API](#api) • [Contribuir](#contribuir)
+[Características](#caracteristicas) • [Instalación](#instalacion) • [Uso](#uso) • [API](#api)
 
 </div>
 
@@ -268,54 +268,18 @@ PROYECTO/
 └── README.md                  # Documentación
 ```
 
-## Contribuir
-
-### ¿Cómo contribuir?
-
-1. **Fork** el proyecto
-2. **Crear** una rama para tu feature (`git checkout -b feature/nueva-funcionalidad`)
-3. **Commit** tus cambios (`git commit -m 'Añadir nueva funcionalidad'`)
-4. **Push** a la rama (`git push origin feature/nueva-funcionalidad`)
-5. **Abrir** un Pull Request
-
-### Estándares de código
-
-- **ESLint**: Para JavaScript
-- **Prettier**: Formateo automático
-- **Comentarios**: Documentar funciones complejas
-- **Commits**: Mensajes descriptivos en español
-
-### Reportar bugs
-
-Usar el sistema de **Issues** de GitHub con:
-- Descripción detallada del problema
-- Pasos para reproducir
-- Capturas de pantalla si aplica
-- Entorno donde ocurre
-
 ## Licencia
 
 Este proyecto está bajo la licencia **MIT**. Ver `LICENSE` para más detalles.
 
-## Equipo
-
-- **Desarrolladores Principal**: Cristobal Prados y Carlos Gonzalez
-- **Tipo**: Proyecto Universitario - Grupal
-- **Estado**: En desarrollo activo
-
 ## Contacto
 
 - **GitHub**: [@Cristobal18p](https://github.com/Cristobal18p)
-- **Proyecto**: [TecnoTaller](https://github.com/Cristobal18p/PROYECTO)
+- **Proyecto**: [TecnoTaller (SGTA)](https://github.com/Cristobal18p/SGTA)
 
 ---
 
 <div align="center">
-
-**Si te gusta este proyecto, no olvides darle una estrella**
-
-[![GitHub stars](https://img.shields.io/github/stars/Cristobal18p/PROYECTO?style=social)](https://github.com/Cristobal18p/PROYECTO/stargazers)
-[![GitHub forks](https://img.shields.io/github/forks/Cristobal18p/PROYECTO?style=social)](https://github.com/Cristobal18p/PROYECTO/network)
 
 **Desarrollado para optimizar la gestión de talleres automotrices**
 
