@@ -4,9 +4,6 @@ node_modules/
 # Ignorar logs
 *.log
 
-# Ignorar archivos de entorno
-.env
-
 # Ignorar directorios de backup y base de datos
 backup/
 Database/

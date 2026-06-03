@@ -58,21 +58,14 @@ app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "../frontend/sistema/index.html"));
 });
 
-// ============================================
-// RUTAS PÚBLICAS (sin autenticación)
-// ============================================
+// Rutas públicas (sin autenticación)
 const authRoutes = require("./routes/auth.routes.js");
 app.use("/api/auth", authRoutes);
 
-// ============================================
-// MIDDLEWARE DE AUTENTICACIÓN GLOBAL
-// Todas las rutas /api/* a partir de aquí requieren token JWT
-// ============================================
+// Middleware de autenticación global para proteger las rutas /api/*
 app.use("/api", verifyToken);
 
-// ============================================
-// RUTAS PROTEGIDAS (requieren autenticación)
-// ============================================
+// Rutas protegidas (requieren autenticación)
 const clienteRoutes = require("./routes/clientes.routes.js");
 app.use("/api/clientes", clienteRoutes);
 
@@ -170,9 +163,7 @@ app.use("/api/estadistica-reporte", estadisticaReporteRoutes);
 const configuracionRoutes = require("./routes/configuracion.routes.js");
 app.use("/api/configuracion", configuracionRoutes);
 
-// ============================================
-// INICIALIZACIÓN DEL SERVIDOR
-// ============================================
+// Inicialización del servidor
 async function iniciarServidor() {
   try {
     // Inicializar pool de Oracle (una sola fuente de verdad: CR7.js)
