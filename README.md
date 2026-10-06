@@ -272,16 +272,3 @@ PROYECTO/
 
 Este proyecto está bajo la licencia **MIT**. Ver `LICENSE` para más detalles.
 
-## Contacto y Desarrolladores
-
-- **Cristobal Prados** - GitHub: [@Cristobal18p](https://github.com/Cristobal18p)
-- **Carlos Gonzalez** - GitHub: [@code-carlos12](https://github.com/code-carlos12)
-
-
----
-
-<div align="center">
-
-**Desarrollado para optimizar la gestión de talleres automotrices**
-
-</div>
